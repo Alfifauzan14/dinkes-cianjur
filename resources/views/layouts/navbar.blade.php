@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('css/layouts/navbar.css') }}?v={{ time() }}">
 
 <div class="dinkes-navbar-wrapper">
-    <nav class="dinkes-navbar">
+    <nav class="dinkes-navbar {{ Request::is('/') ? '' : 'navbar-white' }}">
         <div class="dinkes-navbar-container">
             <div class="navbar-brand">
                 <img src="{{ asset('Assets/layouts/Nav/logo_pemkab_cropped.png') }}" alt="Logo Pemerintah Kabupaten Cianjur" class="logo-pemkab">
@@ -9,17 +9,17 @@
             </div>
 
             <ul class="navbar-menu">
-                <li><a href="#" class="menu-item active">Beranda</a></li>
+                <li><a href="/" class="menu-item {{ Request::is('/') ? 'active' : '' }}">Beranda</a></li>
                 
                 <li class="dropdown">
-                    <a href="#" class="menu-item">
+                    <a href="#" class="menu-item {{ Request::is('profil/*') ? 'active' : '' }}">
                         Profil
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Tentang Dinkes</a></li>
+                        <li><a href="{{ route('profil.tentang') }}" class="dropdown-item">Tentang Dinkes</a></li>
                         <li><a href="#" class="dropdown-item">Struktur Organisasi & Pejabat</a></li>
                     </ul>
                 </li>
