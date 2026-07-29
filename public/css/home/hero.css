@@ -3,7 +3,7 @@
     width: 100%;
     height: 100vh;
     min-height: 800px;
-    background-image: url('../Assets/hero/Hero section.png');
+    background-image: url('../../Assets/home/hero/Hero section.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
