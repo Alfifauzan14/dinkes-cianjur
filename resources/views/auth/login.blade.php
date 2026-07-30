@@ -15,41 +15,8 @@
 </head>
 <body>
 
-    <!-- Lapis 1: Gatekeeper Modal -->
-    <div id="gatekeeper-overlay" class="gate-overlay {{ $errors->any() || old('email') ? 'hidden' : '' }}">
-        <div class="gate-card">
-            <div class="gate-header">
-                <span class="material-icons gate-lock-icon">security</span>
-                <h2 class="gate-title">Akses Terbatas</h2>
-                <p class="gate-subtitle">Masukkan kredensial gerbang untuk melanjutkan</p>
-            </div>
-            
-            <div class="gate-form">
-                <div class="input-group">
-                    <label for="gate-username">Username Gerbang</label>
-                    <div class="input-wrapper">
-                        <span class="material-icons input-icon">person</span>
-                        <input type="text" id="gate-username" placeholder="Masukkan username...">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="gate-password">Password Gerbang</label>
-                    <div class="input-wrapper">
-                        <span class="material-icons input-icon">lock</span>
-                        <input type="password" id="gate-password" placeholder="Masukkan password...">
-                    </div>
-                </div>
-
-                <div id="gate-error-msg" class="error-msg">Username atau Password Gerbang salah!</div>
-
-                <button type="button" id="gate-submit-btn" class="submit-btn">Buka Gerbang</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Lapis 2: Main Database Login Form -->
-    <div id="login-container" class="login-container {{ $errors->any() || old('email') ? 'visible' : '' }}">
+    <div id="login-container" class="login-container visible">
         <div class="login-card">
             <div class="login-header">
                 <img src="{{ asset('Assets/layouts/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinkes Cianjur" class="login-logo">
@@ -84,65 +51,5 @@
         </div>
     </div>
 
-    <!-- JavaScript logic -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const overlay = document.getElementById('gatekeeper-overlay');
-            const loginContainer = document.getElementById('login-container');
-            const submitBtn = document.getElementById('gate-submit-btn');
-            const userField = document.getElementById('gate-username');
-            const passField = document.getElementById('gate-password');
-            const errorMsg = document.getElementById('gate-error-msg');
-            const gateCard = document.querySelector('.gate-card');
-
-            let attempts = 0;
-
-            const verifyGate = () => {
-                const username = userField.value;
-                const password = passField.value;
-
-                // Kredensial gerbang Lapis 1
-                if (username === 'admin' && password === 'dinkes2026') {
-                    // Berhasil, sembunyikan modal dengan transisi
-                    overlay.classList.add('fade-out');
-                    setTimeout(() => {
-                        overlay.style.display = 'none';
-                        loginContainer.classList.add('visible');
-                    }, 400);
-                } else {
-                    // Salah, beri efek shake & tampilkan error
-                    attempts++;
-                    errorMsg.style.display = 'block';
-                    gateCard.classList.add('shake');
-                    
-                    // Reset input
-                    userField.value = '';
-                    passField.value = '';
-                    
-                    setTimeout(() => {
-                        gateCard.classList.remove('shake');
-                    }, 500);
-
-                    // Redirect ke home jika salah 3x
-                    if (attempts >= 3) {
-                        alert('Terlalu banyak percobaan salah. Mengalihkan ke Beranda...');
-                        window.location.href = '/';
-                    }
-                }
-            };
-
-            // Event Listeners
-            submitBtn.addEventListener('click', verifyGate);
-
-            // Press enter to submit
-            const handleEnter = (e) => {
-                if (e.key === 'Enter') {
-                    verifyGate();
-                }
-            };
-            userField.addEventListener('keydown', handleEnter);
-            passField.addEventListener('keydown', handleEnter);
-        });
-    </script>
 </body>
 </html>

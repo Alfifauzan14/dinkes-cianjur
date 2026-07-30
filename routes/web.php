@@ -18,14 +18,36 @@ Route::get('/ppid', function () {
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/dinkes-login', function () {
-    if (Auth::check()) {
-        return redirect()->route('admin.dashboard');
+Route::get('/dinkes-login', function (Request $request) {
+    // Jika sudah lolos gerbang lapis 1 (session gatekeeper_passed ada)
+    if ($request->session()->get('gatekeeper_passed')) {
+        if (Auth::check()) {
+            return redirect()->route('admin.dashboard');
+        }
+        return view('auth.login');
     }
-    return view('auth.login');
+
+    // Gunakan HTTP Basic Authentication bawaan browser untuk Lapis 1
+    $username = $request->getUser();
+    $password = $request->getPassword();
+
+    if ($username === 'admin' && $password === 'dinkes2026') {
+        $request->session()->put('gatekeeper_passed', true);
+        return redirect('/dinkes-login');
+    }
+
+    // Jika belum login / menekan cancel, kirim header WWW-Authenticate untuk memicu pop-up asli
+    return response('<html><script>alert("Akses Ditolak! Kredensial Gerbang Salah."); window.location.href="/";</script></html>', 401, [
+        'WWW-Authenticate' => 'Basic realm="Akses Terbatas Dinkes"'
+    ]);
 })->name('login');
 
 Route::post('/dinkes-login', function (Request $request) {
+    // Pastikan user sudah melewati gerbang lapis 1
+    if (!$request->session()->get('gatekeeper_passed')) {
+        return abort(403, 'Akses Terlarang.');
+    }
+
     $credentials = $request->validate([
         'email' => ['required', 'email'],
         'password' => ['required'],

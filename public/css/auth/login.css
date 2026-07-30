@@ -1,7 +1,7 @@
 /* ================================================================
    LOGIN SECTION CSS (Double-Gatekeeper)
    Font      : Plus Jakarta Sans
-   Warna     : Hijau #00BC7D (Hover: #009A66), Lock #065F46
+   Warna     : Hijau #00BC7D (Hover: #009A66)
    Radius    : 1px (Umum/Input), 3px (Card/Btn)
    Shadow    : 0 0 35px rgba(0, 0, 0, 0.07)
    ================================================================ */
@@ -24,39 +24,7 @@ body {
     position: relative;
 }
 
-/* ── Lapis 1: Gatekeeper Overlay ─────────────────────────────── */
-.gate-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.85); /* Overlay blur putih */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-    opacity: 1;
-    visibility: visible;
-}
-
-.gate-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.gate-overlay.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-/* ── Cards (Gate and Login) ──────────────────────────────────── */
-.gate-card,
+/* ── Login Card ──────────────────────────────────────────────── */
 .login-card {
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
@@ -67,17 +35,8 @@ body {
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
     box-sizing: border-box;
     text-align: center;
-    transition: transform 0.3s ease;
 }
 
-/* Gatekeeper Header styling */
-.gate-lock-icon {
-    font-size: 48px !important;
-    color: #065F46; /* Hijau tua */
-    margin-bottom: 16px;
-}
-
-.gate-title,
 .login-title {
     font-size: 24px;
     font-weight: 800;
@@ -86,7 +45,6 @@ body {
     letter-spacing: -0.5px;
 }
 
-.gate-subtitle,
 .login-subtitle {
     font-size: 14px;
     font-weight: 500;
@@ -95,22 +53,11 @@ body {
     line-height: 1.5;
 }
 
-/* ── Lapis 2: Main Login Container ───────────────────────────── */
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    opacity: 0;
-    transform: scale(0.95);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
-}
-
-.login-container.visible {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
 }
 
 .login-logo {
@@ -122,7 +69,6 @@ body {
 }
 
 /* ── Forms and Input Groups ──────────────────────────────────── */
-.gate-form,
 .login-form {
     display: flex;
     flex-direction: column;
@@ -185,16 +131,6 @@ body {
     border-color: #EF4444 !important;
 }
 
-/* Errors */
-.error-msg {
-    display: none;
-    font-size: 13px;
-    font-weight: 600;
-    color: #EF4444;
-    text-align: center;
-    margin-top: -8px;
-}
-
 .field-error {
     font-size: 12px;
     font-weight: 600;
@@ -224,15 +160,4 @@ body {
 
 .submit-btn:active {
     transform: scale(0.98);
-}
-
-/* ── Animations ──────────────────────────────────────────────── */
-.shake {
-    animation: shake-anim 0.5s ease;
-}
-
-@keyframes shake-anim {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-8px); }
-    40%, 80% { transform: translateX(8px); }
 }
