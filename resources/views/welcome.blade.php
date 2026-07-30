@@ -43,10 +43,10 @@
         @include('components.home.hero')
 
         {{-- Info Cards --}}
-        @include('layouts.cards')
+        @include('components.home.cards')
 
         {{-- Section Sambutan Pimpinan Component --}}
-        @include('layouts.sambutan')
+        @include('components.home.sambutan')
 
         {{-- Layanan Component --}}
         @include('components.home.layanan')
