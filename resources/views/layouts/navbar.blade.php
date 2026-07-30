@@ -10,12 +10,12 @@
 
             <ul class="navbar-menu">
                 <li><a href="/" class="menu-item {{ Request::is('/') ? 'active' : '' }}">Beranda</a></li>
-                
+
                 <li class="dropdown">
                     <a href="#" class="menu-item {{ Request::is('profil/*') ? 'active' : '' }}">
                         Profil
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
@@ -28,7 +28,7 @@
                     <a href="#" class="menu-item">
                         Program Kesehatan
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
@@ -41,7 +41,7 @@
                     <a href="#" class="menu-item">
                         program Terpadu
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
@@ -54,12 +54,11 @@
                     <a href="#" class="menu-item">
                         Fasilitas Kesehatan
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Peta & Daftar Puskesmas</a></li>
-                        <li><a href="#" class="dropdown-item">Rumah Sakit Rujukan</a></li>
+                        <li><a href="#" class="dropdown-item">Info Puskesmas & Rumah Sakit</a></li>
                         <li><a href="#" class="dropdown-item">Laboratorium Kesehatan Daerah (Labkesda)</a></li>
                     </ul>
                 </li>
@@ -68,7 +67,7 @@
                     <a href="#" class="menu-item">
                         Satu Data
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                     <ul class="dropdown-menu">

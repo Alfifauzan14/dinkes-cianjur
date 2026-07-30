@@ -1,0 +1,419 @@
+/* =============================================
+   Fasilitas Kesehatan - Puskesmas & Rumah Sakit
+   ============================================= */
+
+/* ---- Header Section ---- */
+.faskes-header {
+    background-color: #065F46;
+    padding: 60px 40px;
+}
+
+.faskes-header-container {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.faskes-header-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+}
+
+.faskes-header-subtitle {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 700px;
+}
+
+/* ---- Main Content Section ---- */
+.faskes-content {
+    padding: 40px 0 80px;
+}
+
+.faskes-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* ---- Title Section ---- */
+.faskes-title-section {
+    margin-bottom: 32px;
+}
+
+.faskes-main-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+}
+
+.faskes-main-subtitle {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* ---- Search & Filter Section ---- */
+.faskes-filter-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.faskes-search-wrap {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+}
+
+.faskes-search-input {
+    flex: 1;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid #e5e7eb;
+    border-right: none;
+    border-radius: 3px 0 0 3px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: #374151;
+    outline: none;
+    background: #FFFFFF;
+}
+
+.faskes-search-input::placeholder {
+    color: #9ca3af;
+}
+
+.faskes-search-input:focus {
+    border-color: #009966;
+}
+
+.faskes-search-btn {
+    height: 44px;
+    padding: 0 24px;
+    background-color: #009966;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 0 3px 3px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.faskes-search-btn:hover {
+    background-color: #00875a;
+}
+
+.faskes-filter-wrap {
+    position: relative;
+}
+
+.faskes-filter-select {
+    height: 44px;
+    padding: 0 36px 0 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 3px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: #374151;
+    background: #FFFFFF;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    min-width: 180px;
+}
+
+.faskes-filter-select:focus {
+    border-color: #009966;
+}
+
+.faskes-filter-wrap::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #6b7280;
+    pointer-events: none;
+}
+
+/* ---- Map & List Layout ---- */
+.faskes-main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* ---- Map Section ---- */
+.faskes-map-container {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    background: #f3f4f6;
+}
+
+.faskes-map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ---- Facility List ---- */
+.faskes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.faskes-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.faskes-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.faskes-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.faskes-list::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* ---- Facility Card ---- */
+.faskes-card {
+    background: #FFFFFF;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.faskes-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Card Header: Name + Badges */
+.faskes-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.faskes-card-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.faskes-card-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.faskes-badge {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.faskes-badge-green {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.faskes-badge-blue {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+/* Card Info: Address, Phone, Hours */
+.faskes-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.faskes-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.faskes-info-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #9ca3af;
+}
+
+.faskes-info-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Card Actions */
+.faskes-card-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.faskes-btn {
+    flex: 1;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.faskes-btn-peta {
+    background: transparent;
+    border: 1px solid #009966;
+    color: #009966;
+}
+
+.faskes-btn-peta:hover {
+    background-color: #f0fdf4;
+}
+
+.faskes-btn-wa {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    color: #374151;
+}
+
+.faskes-btn-wa:hover {
+    background-color: #f9fafb;
+}
+
+.faskes-btn-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.faskes-btn-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ---- Responsive Design ---- */
+@media (max-width: 1024px) {
+    .faskes-header-title {
+        font-size: 36px;
+    }
+
+    .faskes-main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .faskes-map-container {
+        height: 350px;
+    }
+
+    .faskes-list {
+        max-height: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .faskes-header {
+        padding: 40px 20px;
+    }
+
+    .faskes-header-title {
+        font-size: 28px;
+    }
+
+    .faskes-header-subtitle {
+        font-size: 14px;
+    }
+
+    .faskes-container {
+        padding: 0 20px;
+    }
+
+    .faskes-main-title {
+        font-size: 24px;
+    }
+
+    .faskes-filter-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .faskes-search-wrap {
+        max-width: none;
+    }
+
+    .faskes-filter-select {
+        width: 100%;
+    }
+
+    .faskes-card-header {
+        flex-direction: column;
+    }
+
+    .faskes-card-actions {
+        flex-direction: column;
+    }
+
+    .faskes-btn {
+        width: 100%;
+    }
+}

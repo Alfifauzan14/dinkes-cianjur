@@ -25,3 +25,7 @@ Route::get('/agenda', function () {
 Route::get('/media', function () {
     return view('media');
 })->name('media');
+
+Route::get('/faskes', function () {
+    return view('faskes');
+})->name('faskes');
