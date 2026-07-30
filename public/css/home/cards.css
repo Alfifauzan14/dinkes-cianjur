@@ -12,19 +12,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    position: relative;
-}
-
-/* Green connector line */
-.info-cards-container::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 5%;
-    right: 5%;
-    height: 3px;
-    background: linear-gradient(90deg, #009966 0%, #00c853 50%, #009966 100%);
-    border-radius: 2px;
 }
 
 .info-card {
@@ -105,7 +92,4 @@
         flex-shrink: 0;
     }
 
-    .info-cards-container::after {
-        display: none;
-    }
 }
