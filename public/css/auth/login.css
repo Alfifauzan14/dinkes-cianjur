@@ -1,7 +1,7 @@
 /* ================================================================
-   LOGIN SECTION CSS (Double-Gatekeeper)
+   LOGIN SECTION CSS (Double-Gatekeeper - Split Screen)
    Font      : Plus Jakarta Sans
-   Warna     : Hijau #00BC7D (Hover: #009A66)
+   Warna     : Hijau #00BC7D (Hover: #009A66), Accent #065F46
    Radius    : 1px (Umum/Input), 3px (Card/Btn)
    Shadow    : 0 0 35px rgba(0, 0, 0, 0.07)
    ================================================================ */
@@ -14,31 +14,174 @@
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #FFFFFF; /* Semua background warna putih */
+    background-color: #FFFFFF; /* Semua background warna ffffff */
     color: #1A1A1A;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
+    overflow-x: hidden;
 }
 
-/* ── Login Card ──────────────────────────────────────────────── */
+.login-page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* ── Panel Kiri: Tagline & Ombak 5 Layer ──────────────────────── */
+.login-left-panel {
+    width: 50%;
+    background-color: #FFFFFF; /* Background warna ffffff */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+}
+
+.left-panel-content {
+    max-width: 520px;
+    position: relative;
+    z-index: 10; /* Berada di atas lapisan ombak */
+    text-align: left;
+}
+
+.left-dinkes {
+    font-size: 16px;
+    font-weight: 700;
+    color: #A3A3A3;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.left-title {
+    font-size: 48px; /* Portal Admin: 48px */
+    font-weight: 800;
+    color: #065F46; /* Warna utama dinkes */
+    margin-bottom: 16px;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+}
+
+.left-desc {
+    font-size: 16px; /* Sisa nya: 16px */
+    font-weight: 500;
+    color: #A3A3A3;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.left-quote {
+    display: flex;
+    gap: 12px;
+    background: #FFFFFF;
+    border-left: 4px solid #00BC7D;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    border-radius: 0 3px 3px 0;
+    align-items: flex-start;
+}
+
+.quote-icon {
+    color: #00BC7D;
+    font-size: 24px !important;
+}
+
+.quote-text {
+    font-size: 16px; /* Sisa nya: 16px */
+    font-style: italic;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.5;
+}
+
+/* 🌊 5-Layer Waves (Ombak) Originating from Bottom-Left */
+.wave-layer {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    transform: rotate(-15deg);
+    transition: all 0.3s ease;
+}
+
+.wave-layer-1 {
+    width: 300px;
+    height: 300px;
+    bottom: -80px;
+    left: -80px;
+    background: rgba(0, 188, 125, 0.02); /* Opacity sangat halus */
+}
+
+.wave-layer-2 {
+    width: 440px;
+    height: 440px;
+    bottom: -120px;
+    left: -120px;
+    background: rgba(0, 188, 125, 0.04);
+}
+
+.wave-layer-3 {
+    width: 580px;
+    height: 580px;
+    bottom: -160px;
+    left: -160px;
+    background: rgba(0, 188, 125, 0.06);
+}
+
+.wave-layer-4 {
+    width: 720px;
+    height: 720px;
+    bottom: -200px;
+    left: -200px;
+    background: rgba(0, 188, 125, 0.08);
+}
+
+.wave-layer-5 {
+    width: 860px;
+    height: 860px;
+    bottom: -240px;
+    left: -240px;
+    background: rgba(0, 188, 125, 0.10);
+}
+
+
+/* ── Panel Kanan: Form Login ─────────────────────────────────── */
+.login-right-panel {
+    width: 50%;
+    background-color: #FFFFFF; /* Background warna ffffff */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-left: 1px solid #EAEAEA;
+    position: relative;
+    z-index: 2;
+}
+
 .login-card {
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 3px; /* Card: 3px */
     width: 100%;
-    max-width: 420px;
+    max-width: 400px;
     padding: 40px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow 35px */
     box-sizing: border-box;
     text-align: center;
 }
 
+.login-logo {
+    height: 54px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
 .login-title {
-    font-size: 24px;
+    font-size: 24px; /* Jika terlalu besar, 24px */
     font-weight: 800;
     color: #1A1A1A;
     margin-bottom: 8px;
@@ -48,24 +191,9 @@ body {
 .login-subtitle {
     font-size: 14px;
     font-weight: 500;
-    color: #A3A3A3; /* warna abu A3A3A3 */
+    color: #A3A3A3;
     margin-bottom: 32px;
     line-height: 1.5;
-}
-
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.login-logo {
-    height: 60px;
-    width: auto;
-    object-fit: contain;
-    margin-bottom: 20px;
-    display: inline-block;
 }
 
 /* ── Forms and Input Groups ──────────────────────────────────── */
@@ -100,7 +228,7 @@ body {
 .input-icon {
     position: absolute;
     left: 14px;
-    color: #A3A3A3; /* warna abu A3A3A3 */
+    color: #A3A3A3;
     font-size: 18px !important;
 }
 
@@ -123,7 +251,7 @@ body {
 }
 
 .input-wrapper input:focus {
-    border-color: #00BC7D; /* warna btn/accent */
+    border-color: #00BC7D;
     box-shadow: 0 0 0 3px rgba(0, 188, 125, 0.08);
 }
 
@@ -140,7 +268,7 @@ body {
 
 /* ── Buttons ─────────────────────────────────────────────────── */
 .submit-btn {
-    background-color: #00BC7D; /* warna btn */
+    background-color: #00BC7D;
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 700;
@@ -160,4 +288,39 @@ body {
 
 .submit-btn:active {
     transform: scale(0.98);
+}
+
+/* ── Responsive breakpoints ───────────────────────────────────── */
+@media (max-width: 1024px) {
+    .left-title {
+        font-size: 36px; /* Resize title slightly on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .login-page-wrapper {
+        flex-direction: column;
+    }
+    
+    .login-left-panel {
+        width: 100%;
+        min-height: 40vh;
+        padding: 40px 20px;
+    }
+    
+    .left-title {
+        font-size: 24px; /* Jika terlalu besar, 24px saja di layar kecil */
+    }
+    
+    .left-desc {
+        margin-bottom: 24px;
+    }
+    
+    .login-right-panel {
+        width: 100%;
+        min-height: 60vh;
+        padding: 40px 20px;
+        border-left: none;
+        border-top: 1px solid #EAEAEA;
+    }
 }
