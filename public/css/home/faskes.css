@@ -107,7 +107,7 @@
     flex: 1;
     height: 44px;
     padding: 0 16px;
-    border: 1px solid #E0E0E0;
+    border: 3px solid #E0E0E0;
     border-right: none;
     border-radius: 1px;
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -151,7 +151,8 @@
     flex-shrink: 0;
 }
 
-.faskes-filter-select {
+.faskes-select-wilayah,
+.faskes-select-layanan {
     height: 44px;
     padding: 0 36px 0 16px;
     border: 1px solid #E0E0E0;
@@ -168,7 +169,8 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.faskes-filter-select:focus {
+.faskes-select-wilayah:focus,
+.faskes-select-layanan:focus {
     border-color: #00BC7D;
 }
 
@@ -437,7 +439,8 @@
         width: 100%;
     }
 
-    .faskes-filter-select {
+    .faskes-select-wilayah,
+    .faskes-select-layanan {
         width: 100%;
     }
 

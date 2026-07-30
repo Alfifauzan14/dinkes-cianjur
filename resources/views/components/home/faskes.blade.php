@@ -27,7 +27,7 @@
                         <button class="faskes-search-btn">Cari</button>
                     </div>
                     <div class="faskes-filter-wrap">
-                        <select class="faskes-filter-select">
+                        <select class="faskes-select-wilayah">
                             <option value="">Semua Wilayah...</option>
                             <option value="cianjur">Cianjur</option>
                             <option value="cianjur-kota">Cianjur Kota</option>
@@ -38,7 +38,7 @@
                         </select>
                     </div>
                     <div class="faskes-filter-wrap">
-                        <select class="faskes-filter-select">
+                        <select class="faskes-select-layanan">
                             <option value="">Semua Layanan...</option>
                             <option value="rawat-inap">Rawat Inap</option>
                             <option value="igd">IGD</option>
