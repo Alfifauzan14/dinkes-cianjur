@@ -58,7 +58,7 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Info Puskesmas & Rumah Sakit</a></li>
+                        <li><a href="{{ route('faskes') }}" class="dropdown-item">Info Puskesmas & Rumah Sakit</a></li>
                         <li><a href="#" class="dropdown-item">Laboratorium Kesehatan Daerah (Labkesda)</a></li>
                     </ul>
                 </li>
