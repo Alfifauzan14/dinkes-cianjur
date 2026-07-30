@@ -19,33 +19,35 @@
                 <p class="faskes-main-subtitle">Penilaian Anda sangat berharga untuk meningkatkan mutu pelayanan kesehatan di Kabupaten Cianjur.</p>
             </div>
 
-            <!-- Search & Filter -->
-            <div class="faskes-filter-section">
-                <div class="faskes-search-wrap">
-                    <input type="text" class="faskes-search-input" placeholder="Cari nama Puskesmas...">
-                    <button class="faskes-search-btn">Cari</button>
-                </div>
-                <div class="faskes-filter-wrap">
-                    <select class="faskes-filter-select">
-                        <option value="">Semua Wilayah...</option>
-                        <option value="cianjur">Cianjur</option>
-                        <option value="cianjur-kota">Cianjur Kota</option>
-                        <option value="sukabumi">Sukabumi</option>
-                        <option value="karangtengah">Karangtengah</option>
-                        <option value="cikalongkulon">Cikalongkulon</option>
-                        <option value="warungkondang">Warungkondang</option>
-                    </select>
-                </div>
-                <div class="faskes-filter-wrap">
-                    <select class="faskes-filter-select">
-                        <option value="">Semua Layanan...</option>
-                        <option value="rawat-inap">Rawat Inap</option>
-                        <option value="igd">IGD</option>
-                        <option value="laboratorium">Laboratorium</option>
-                        <option value="poli-umum">Poli Umum</option>
-                        <option value="poli-gigi">Poli Gigi</option>
-                        <option value="kb">Kesehatan Ibu & Anak</option>
-                    </select>
+            <!-- Search & Filter Card -->
+            <div class="faskes-filter-card">
+                <div class="faskes-filter-section">
+                    <div class="faskes-search-wrap">
+                        <input type="text" class="faskes-search-input" placeholder="Cari nama Puskesmas...">
+                        <button class="faskes-search-btn">Cari</button>
+                    </div>
+                    <div class="faskes-filter-wrap">
+                        <select class="faskes-filter-select">
+                            <option value="">Semua Wilayah...</option>
+                            <option value="cianjur">Cianjur</option>
+                            <option value="cianjur-kota">Cianjur Kota</option>
+                            <option value="sukabumi">Sukabumi</option>
+                            <option value="karangtengah">Karangtengah</option>
+                            <option value="cikalongkulon">Cikalongkulon</option>
+                            <option value="warungkondang">Warungkondang</option>
+                        </select>
+                    </div>
+                    <div class="faskes-filter-wrap">
+                        <select class="faskes-filter-select">
+                            <option value="">Semua Layanan...</option>
+                            <option value="rawat-inap">Rawat Inap</option>
+                            <option value="igd">IGD</option>
+                            <option value="laboratorium">Laboratorium</option>
+                            <option value="poli-umum">Poli Umum</option>
+                            <option value="poli-gigi">Poli Gigi</option>
+                            <option value="kb">Kesehatan Ibu & Anak</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 

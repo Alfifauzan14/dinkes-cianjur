@@ -4,7 +4,7 @@
 
 /* ---- Header Section ---- */
 .faskes-header {
-    background-color: #065F46;
+    background: linear-gradient(135deg, #059669 0%, #065F46 100%);
     padding: 60px 40px;
 }
 
@@ -26,7 +26,7 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
     margin: 0;
     max-width: 700px;
@@ -45,7 +45,7 @@
 
 /* ---- Title Section ---- */
 .faskes-title-section {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .faskes-main-title {
@@ -64,12 +64,20 @@
     margin: 0;
 }
 
-/* ---- Search & Filter Section ---- */
+/* ---- Search & Filter Card ---- */
+.faskes-filter-card {
+    background: #FFFFFF;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 24px;
+}
+
 .faskes-filter-section {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 32px;
     flex-wrap: wrap;
 }
 
@@ -83,11 +91,11 @@
 
 .faskes-search-input {
     flex: 1;
-    height: 44px;
+    height: 42px;
     padding: 0 16px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #d1d5db;
     border-right: none;
-    border-radius: 3px 0 0 3px;
+    border-radius: 8px 0 0 8px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: #374151;
@@ -104,12 +112,12 @@
 }
 
 .faskes-search-btn {
-    height: 44px;
+    height: 42px;
     padding: 0 24px;
     background-color: #009966;
     color: #FFFFFF;
     border: none;
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 8px 8px 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -127,10 +135,10 @@
 }
 
 .faskes-filter-select {
-    height: 44px;
+    height: 42px;
     padding: 0 36px 0 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 3px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: #374151;
@@ -170,8 +178,8 @@
 /* ---- Map Section ---- */
 .faskes-map-container {
     width: 100%;
-    height: 500px;
-    border-radius: 8px;
+    height: 520px;
+    border-radius: 12px;
     overflow: hidden;
     border: 1px solid #e5e7eb;
     background: #f3f4f6;
@@ -188,7 +196,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-height: 500px;
+    max-height: 520px;
     overflow-y: auto;
     padding-right: 8px;
 }
@@ -215,29 +223,29 @@
 .faskes-card {
     background: #FFFFFF;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .faskes-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
 }
 
 /* Card Header: Name + Badges */
 .faskes-card-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .faskes-card-name {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: #1a1a1a;
     margin: 0;
@@ -245,17 +253,17 @@
 
 .faskes-card-badges {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
     flex-shrink: 0;
 }
 
 .faskes-badge {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 3px;
+    padding: 3px 10px;
+    border-radius: 20px;
     white-space: nowrap;
 }
 
@@ -273,14 +281,14 @@
 .faskes-card-info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 6px;
+    margin-bottom: 14px;
 }
 
 .faskes-info-item {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     color: #6b7280;
@@ -288,8 +296,8 @@
 }
 
 .faskes-info-icon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     flex-shrink: 0;
     margin-top: 2px;
     color: #9ca3af;
@@ -303,20 +311,20 @@
 /* Card Actions */
 .faskes-card-actions {
     display: flex;
-    gap: 12px;
+    gap: 10px;
 }
 
 .faskes-btn {
     flex: 1;
-    height: 38px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    border-radius: 3px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
     text-decoration: none;
@@ -324,7 +332,7 @@
 
 .faskes-btn-peta {
     background: transparent;
-    border: 1px solid #009966;
+    border: 1.5px solid #009966;
     color: #009966;
 }
 
@@ -334,17 +342,18 @@
 
 .faskes-btn-wa {
     background: transparent;
-    border: 1px solid #d1d5db;
+    border: 1.5px solid #d1d5db;
     color: #374151;
 }
 
 .faskes-btn-wa:hover {
     background-color: #f9fafb;
+    border-color: #9ca3af;
 }
 
 .faskes-btn-icon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
 }
 
 .faskes-btn-icon svg {
@@ -407,6 +416,7 @@
 
     .faskes-card-header {
         flex-direction: column;
+        align-items: flex-start;
     }
 
     .faskes-card-actions {
