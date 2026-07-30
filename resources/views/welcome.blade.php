@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Dinas Kesehatan Kabupaten Cianjur - Mewujudkan masyarakat Cianjur yang sehat, mandiri, dan berkeadilan.">
     <title>Dinas Kesehatan Kabupaten Cianjur</title>
 
@@ -20,43 +20,31 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f5f5f5;
+            background-color: #FFFFFF;
+            color: #111827;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            padding-top: 120px;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .page-placeholder {
+        main {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, #1e6b3c 0%, #2d8a50 100%);
-            color: #fff;
-            text-align: center;
-        }
-
-        .page-placeholder h1 {
-            font-size: 2rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .page-placeholder p {
-            font-size: 1rem;
-            opacity: 0.85;
         }
     </style>
 </head>
 <body>
 
-    {{-- Konten Halaman Utama (placeholder) --}}
-    <main class="page-placeholder">
-        <div>
-            <h1>Dinas Kesehatan Kabupaten Cianjur</h1>
-            <p>Selamat datang di portal resmi Dinas Kesehatan Kabupaten Cianjur.</p>
-        </div>
+    {{-- Navbar Component --}}
+    @include('layouts.navbar')
+
+    <main>
+        {{-- Hero Component --}}
+        @include('layouts.hero')
+
+        {{-- Section Sambutan Pimpinan Component --}}
+        @include('layouts.sambutan')
     </main>
 
     {{-- Footer Layout --}}
