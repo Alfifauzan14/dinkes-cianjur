@@ -17,3 +17,11 @@ Route::get('/profil/tentang-dinkes', function () {
 Route::get('/ppid', function () {
     return view('ppid');
 })->name('ppid');
+
+Route::get('/agenda', function () {
+    return view('agenda');
+})->name('agenda');
+
+Route::get('/media', function () {
+    return view('media');
+})->name('media');
