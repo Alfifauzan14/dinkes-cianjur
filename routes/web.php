@@ -71,7 +71,7 @@ Route::post('/dinkes-logout', function (Request $request) {
 })->name('logout');
 
 Route::get('/admin/dashboard', function () {
-    return view('welcome'); // sementara redirect ke welcome atau render teks info
+    return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
 
 
