@@ -26,10 +26,14 @@
                     "Kesehatan masyarakat adalah prioritas utama kita."
                 </div>
 
-                <!-- 1-Layer Wave decoration -->
+                <!-- 2-Layer Wave decoration -->
                 <div class="waves-decor">
-                    <!-- Layer 1 (Opacity 20%) -->
+                    <!-- Layer 1 -->
                     <svg class="wave-svg wave-1" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                        <path fill="#ffffff" fill-opacity="0.2" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,149.3C672,160,768,224,864,224C960,224,1056,160,1152,144C1248,128,1344,160,1392,176L1440,192L1440,320L0,320Z"></path>
+                    </svg>
+                    <!-- Layer 2 (Lebih tinggi) -->
+                    <svg class="wave-svg wave-2" viewBox="0 0 1440 320" preserveAspectRatio="none">
                         <path fill="#ffffff" fill-opacity="0.2" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,149.3C672,160,768,224,864,224C960,224,1056,160,1152,144C1248,128,1344,160,1392,176L1440,192L1440,320L0,320Z"></path>
                     </svg>
                 </div>
