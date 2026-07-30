@@ -3,8 +3,15 @@
 .layanan-section {
     width: 100%;
     background-color: #D0FAE5;
-    padding: 80px 40px;
+    padding: 80px 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+.layanan-inner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
     box-sizing: border-box;
 }
 
@@ -36,8 +43,10 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
 }
 
 /* ── Card ────────────────────────────────────────────────────── */

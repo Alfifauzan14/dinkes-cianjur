@@ -2,9 +2,11 @@
 
 <section class="layanan-section">
     <!-- Header -->
-    <div class="layanan-header">
-        <h2 class="layanan-title">PAGODA SEHAT</h2>
-        <p class="layanan-subtitle">Portal Akses Gawat Darurat &amp; Layanan Sehat Cianjur</p>
+    <div class="layanan-inner-container">
+        <div class="layanan-header">
+            <h2 class="layanan-title">PAGODA SEHAT</h2>
+            <p class="layanan-subtitle">Portal Akses Gawat Darurat &amp; Layanan Sehat Cianjur</p>
+        </div>
     </div>
 
     <!-- Grid Kartu -->
