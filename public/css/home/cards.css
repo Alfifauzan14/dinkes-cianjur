@@ -34,14 +34,15 @@
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: none;
+    border-radius: 3px;
 }
 
 .info-card:first-child {
-    border-radius: 12px 0 0 12px;
+    border-radius: 3px 0 0 3px;
 }
 
 .info-card:last-child {
-    border-radius: 0 12px 12px 0;
+    border-radius: 0 3px 3px 0;
 }
 
 .info-card:hover {
@@ -52,7 +53,7 @@
 .info-card-icon {
     width: 44px;
     height: 44px;
-    border-radius: 10px;
+    border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,15 +74,15 @@
 
 .info-card-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #332C2B;
     margin-bottom: 8px;
 }
 
 .info-card-desc {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
     color: #6b7280;
     line-height: 1.6;
@@ -98,6 +99,10 @@
     .info-card {
         padding: 20px 18px;
     }
+
+    .info-card-title {
+        font-size: 16px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -112,11 +117,11 @@
     }
 
     .info-card:first-child {
-        border-radius: 12px 12px 0 0;
+        border-radius: 3px 3px 0 0;
     }
 
     .info-card:last-child {
-        border-radius: 0 0 12px 12px;
+        border-radius: 0 0 3px 3px;
     }
 
     .info-card {
