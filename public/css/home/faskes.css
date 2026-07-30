@@ -91,7 +91,7 @@
 .faskes-filter-section {
     display: flex;
     align-items: flex-end;
-    gap: 16px;
+    gap: 24px;
     flex-wrap: nowrap;
 }
 
@@ -286,12 +286,10 @@
 }
 
 .faskes-badge-green {
-    background-color: #d1fae5;
     color: #065f46;
 }
 
 .faskes-badge-blue {
-    background-color: #dbeafe;
     color: #1e40af;
 }
 
