@@ -11,7 +11,7 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
+    gap: 24px;
     position: relative;
 }
 
@@ -29,47 +29,24 @@
 
 .info-card {
     background: #FFFFFF;
-    padding: 28px 24px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
-    border-radius: 3px;
-}
-
-.info-card:first-child {
-    border-radius: 3px 0 0 3px;
-}
-
-.info-card:last-child {
-    border-radius: 0 3px 3px 0;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
 }
 
 .info-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .info-card-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 3px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-}
-
-.icon-green {
-    background-color: #009966;
-}
-
-.icon-red {
-    background-color: #EF4444;
-}
-
-.icon-blue {
-    background-color: #3B82F6;
+    justify-content: flex-start;
 }
 
 .info-card-title {
@@ -92,8 +69,7 @@
 /* ---- Responsive ---- */
 @media (max-width: 1024px) {
     .info-cards-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0;
+        gap: 16px;
     }
 
     .info-card {
@@ -114,14 +90,6 @@
     .info-cards-container {
         grid-template-columns: 1fr;
         gap: 12px;
-    }
-
-    .info-card:first-child {
-        border-radius: 3px 3px 0 0;
-    }
-
-    .info-card:last-child {
-        border-radius: 0 0 3px 3px;
     }
 
     .info-card {
