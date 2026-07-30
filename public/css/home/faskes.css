@@ -5,7 +5,8 @@
 /* ---- Header Section ---- */
 .faskes-header {
     background: linear-gradient(135deg, #059669 0%, #065F46 100%);
-    padding: 60px 40px;
+    padding: 60px 40px 60px;
+    margin-top: 103px;
 }
 
 .faskes-header-container {
