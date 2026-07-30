@@ -23,6 +23,13 @@
     transition: all 0.3s ease;
 }
 
+.dinkes-navbar.navbar-white {
+    background: #FFFFFF;
+    border-bottom: 1px solid #EAEAEA;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+
 .dinkes-navbar-container {
     width: 100%;
     max-width: 1524px;
