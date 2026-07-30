@@ -350,24 +350,24 @@
 }
 
 .faskes-btn-peta {
-    background: transparent;
+    background: #00BC7D;
+    border: 1px solid #00BC7D;
+    color: #FFFFFF;
+}
+
+.faskes-btn-peta:hover {
+    background-color: #009A66;
+    border-color: #009A66;
+}
+
+.faskes-btn-wa {
+    background: #FFFFFF;
     border: 1px solid #00BC7D;
     color: #00BC7D;
 }
 
-.faskes-btn-peta:hover {
-    background-color: #f0fdf4;
-}
-
-.faskes-btn-wa {
-    background: transparent;
-    border: 1px solid #EAEAEA;
-    color: #00BC7D;
-}
-
 .faskes-btn-wa:hover {
-    background-color: #FAFAFA;
-    border-color: #00BC7D;
+    background-color: #f0fdf4;
 }
 
 .faskes-btn-icon {
