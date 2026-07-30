@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/hero.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('css/home/hero.css') }}?v={{ time() }}">
 
 <section class="hero-section">
     <div class="hero-overlay"></div>
@@ -63,9 +63,9 @@
 
     <!-- Dekorasi bawah: ellipse image assets -->
     <div class="decorative-bottom-rings">
-        <img src="{{ asset('Assets/hero/Ellipse 9.png') }}" alt="" class="dec-ellipse dec-ellipse-1">
-        <img src="{{ asset('Assets/hero/Ellipse 10.png') }}" alt="" class="dec-ellipse dec-ellipse-2">
-        <img src="{{ asset('Assets/hero/Ellipse 11.png') }}" alt="" class="dec-ellipse dec-ellipse-3">
+        <img src="{{ asset('Assets/home/hero/Ellipse 9.png') }}" alt="" class="dec-ellipse dec-ellipse-1">
+        <img src="{{ asset('Assets/home/hero/Ellipse 10.png') }}" alt="" class="dec-ellipse dec-ellipse-2">
+        <img src="{{ asset('Assets/home/hero/Ellipse 11.png') }}" alt="" class="dec-ellipse dec-ellipse-3">
     </div>
 
 </section>

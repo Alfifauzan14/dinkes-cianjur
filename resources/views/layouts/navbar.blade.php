@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="{{ asset('css/navbar.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('css/layouts/navbar.css') }}?v={{ time() }}">
 
 <div class="dinkes-navbar-wrapper">
     <nav class="dinkes-navbar">
         <div class="dinkes-navbar-container">
             <div class="navbar-brand">
-                <img src="{{ asset('Assets/Nav/logo_pemkab_cropped.png') }}" alt="Logo Pemerintah Kabupaten Cianjur" class="logo-pemkab">
-                <img src="{{ asset('Assets/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinas Kesehatan Kabupaten Cianjur" class="logo-dinkes">
+                <img src="{{ asset('Assets/layouts/Nav/logo_pemkab_cropped.png') }}" alt="Logo Pemerintah Kabupaten Cianjur" class="logo-pemkab">
+                <img src="{{ asset('Assets/layouts/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinas Kesehatan Kabupaten Cianjur" class="logo-dinkes">
             </div>
 
             <ul class="navbar-menu">
