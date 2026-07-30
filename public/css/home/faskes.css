@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* =============================================
-   Fasilitas Kesehatan - Puskesmas & Rumah Sakit
-   (Matching PPID styling)
-   ============================================= */
 
 .faskes-page-wrapper {
     width: 100%;
@@ -14,22 +10,22 @@
     padding-top: 103px; /* Offset navbar */
 }
 
-/* ---- Header Section ---- */
-.faskes-header {
+/* ── Header Section ──────────────────────────────────────────── */
+.profile-header {
     background-color: #065F46;
-    padding: 60px 0 140px;
+    padding: 60px 0;
     text-align: left;
     box-sizing: border-box;
 }
 
-.faskes-header-container {
+.profile-header-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;
 }
 
-.faskes-header-title {
+.profile-header-title {
     font-size: 48px;
     font-weight: 800;
     color: #FFFFFF;
@@ -38,7 +34,7 @@
     letter-spacing: -0.5px;
 }
 
-.faskes-header-subtitle {
+.profile-header-subtitle {
     font-size: 16px;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.85);
@@ -46,6 +42,20 @@
     line-height: 1.6;
     max-width: 800px;
 }
+
+/* ── Main Content Section ────────────────────────────────────── */
+.profile-content {
+    padding: 60px 0;
+    box-sizing: border-box;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
 
 /* ---- Main Content Section ---- */
 .faskes-content {
@@ -408,15 +418,15 @@
         padding-top: 80px;
     }
 
-    .faskes-header {
+    .profile-header {
         padding: 40px 0 100px;
     }
 
-    .faskes-header-title {
+    .profile-header-title {
         font-size: 32px;
     }
 
-    .faskes-header-subtitle {
+    .profile-header-subtitle {
         font-size: 14px;
     }
 
