@@ -37,6 +37,17 @@
                             <option value="warungkondang">Warungkondang</option>
                         </select>
                     </div>
+                    <div class="faskes-filter-wrap">
+                        <select class="faskes-filter-select">
+                            <option value="">Semua Layanan...</option>
+                            <option value="rawat-inap">Rawat Inap</option>
+                            <option value="igd">IGD</option>
+                            <option value="laboratorium">Laboratorium</option>
+                            <option value="poli-umum">Poli Umum</option>
+                            <option value="poli-gigi">Poli Gigi</option>
+                            <option value="kb">Kesehatan Ibu & Anak</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
