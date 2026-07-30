@@ -43,20 +43,6 @@
     max-width: 800px;
 }
 
-/* ── Main Content Section ────────────────────────────────────── */
-.profile-content {
-    padding: 60px 0;
-    box-sizing: border-box;
-}
-
-.profile-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
-    box-sizing: border-box;
-}
-
-
 /* ---- Main Content Section ---- */
 .faskes-content {
     padding: 60px 0;
@@ -72,11 +58,11 @@
 
 /* ---- Title Section ---- */
 .faskes-title-section {
-    margin-bottom: 32px;
+    margin-bottom: 45px;
 }
 
 .faskes-main-title {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 800;
     color: #1A1A1A;
     margin: 0 0 8px 0;
