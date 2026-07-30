@@ -14,9 +14,7 @@
                 <li class="dropdown">
                     <a href="#" class="menu-item {{ Request::is('profil/*') ? 'active' : '' }}">
                         Profil
-                        <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="material-icons chevron-icon">expand_more</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('profil.tentang') }}" class="dropdown-item">Tentang Dinkes</a></li>
@@ -27,9 +25,7 @@
                 <li class="dropdown">
                     <a href="#" class="menu-item">
                         Program Kesehatan
-                        <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="material-icons chevron-icon">expand_more</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#" class="dropdown-item">Cianjur Bebas Stunting</a></li>
@@ -40,9 +36,7 @@
                 <li class="dropdown">
                     <a href="#" class="menu-item">
                         program Terpadu
-                        <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="material-icons chevron-icon">expand_more</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#" class="dropdown-item">Untuk Warga</a></li>
@@ -53,9 +47,7 @@
                 <li class="dropdown">
                     <a href="#" class="menu-item">
                         Fasilitas Kesehatan
-                        <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="material-icons chevron-icon">expand_more</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#" class="dropdown-item">Peta & Daftar Puskesmas</a></li>
@@ -67,9 +59,7 @@
                 <li class="dropdown">
                     <a href="#" class="menu-item">
                         Satu Data
-                        <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="material-icons chevron-icon">expand_more</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#" class="dropdown-item">Dashboard Statistik</a></li>
@@ -82,11 +72,7 @@
             </ul>
 
             <button class="mobile-toggle" aria-label="Toggle navigation">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
+                <span class="material-icons">menu</span>
             </button>
         </div>
     </nav>

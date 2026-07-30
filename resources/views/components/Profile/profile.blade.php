@@ -32,17 +32,12 @@
                 <!-- Bottom Stats Cards -->
                 <div class="stats-cards-grid">
                     <div class="stat-btn-card">
-                        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
+                        <span class="material-icons stat-icon" style="color: #009966;">favorite</span>
                         <span class="stat-btn-text">47 Puskesmas Rujukan</span>
                     </div>
 
                     <div class="stat-btn-card">
-                        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
+                        <span class="material-icons stat-icon" style="color: #009966;">place</span>
                         <span class="stat-btn-text">32 Kecamatan Terjangkau</span>
                     </div>
                 </div>

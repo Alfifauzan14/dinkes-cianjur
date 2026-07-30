@@ -45,10 +45,7 @@
                     <form class="filter-form" onsubmit="event.preventDefault();">
                         <!-- Search input wrapper -->
                         <div class="search-input-wrap">
-                            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A3A3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
+                            <span class="material-icons search-icon">search</span>
                             <input type="text" class="search-input-field" placeholder="Cari Informasi....">
                         </div>
 
@@ -73,9 +70,7 @@
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
                             <span class="header-text">Info Kepuasan Masyarakat</span>
-                            <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <span class="material-icons chevron-icon">expand_more</span>
                         </button>
                         <div class="accordion-content">
                             <div class="accordion-content-inner">
@@ -88,13 +83,11 @@
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
                             <span class="header-text">Permohonan Informasi</span>
-                            <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <span class="material-icons chevron-icon">expand_more</span>
                         </button>
                         <div class="accordion-content">
                             <div class="accordion-content-inner">
-                                <p class="placeholder-text">Alur permohonan informasi publik secara online dan offline. Anda dapat mengunduh formulir pengajuan informasi resmi di sini.</p>
+                                <p class="placeholder-text">Alur permohonan informasi publik secara online and offline. Anda dapat mengunduh formulir pengajuan informasi resmi di sini.</p>
                             </div>
                         </div>
                     </div>
@@ -103,9 +96,7 @@
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
                             <span class="header-text">Tracking Permohonan Informasi</span>
-                            <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <span class="material-icons chevron-icon">expand_more</span>
                         </button>
                         <div class="accordion-content">
                             <div class="accordion-content-inner">
@@ -118,9 +109,7 @@
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
                             <span class="header-text">Standar dan Pelaporan</span>
-                            <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <span class="material-icons chevron-icon">expand_more</span>
                         </button>
                         <div class="accordion-content">
                             <div class="accordion-content-inner">
@@ -133,9 +122,7 @@
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
                             <span class="header-text">Regulasi PPID Pembantu</span>
-                            <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <span class="material-icons chevron-icon">expand_more</span>
                         </button>
                         <div class="accordion-content">
                             <div class="accordion-content-inner">
@@ -148,9 +135,7 @@
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
                             <span class="header-text">Tracking Pengaduan Masyarakat</span>
-                            <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <span class="material-icons chevron-icon">expand_more</span>
                         </button>
                         <div class="accordion-content">
                             <div class="accordion-content-inner">

@@ -86,11 +86,8 @@
 }
 
 .chevron-icon {
-    width: 10px;
-    height: 6px;
-    stroke: currentColor;
-    stroke-width: 2.5px;
-    fill: none;
+    font-size: 18px !important;
+    display: inline-block;
     transition: transform 0.3s ease;
 }
 

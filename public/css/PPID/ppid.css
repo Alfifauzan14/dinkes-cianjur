@@ -159,9 +159,7 @@
 }
 
 .chevron-icon {
-    width: 12px;
-    height: 8px;
-    fill: none;
+    font-size: 20px;
     color: #1A1A1A;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -228,6 +226,8 @@
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
+    font-size: 18px;
+    color: #A3A3A3;
 }
 
 .search-input-field {
