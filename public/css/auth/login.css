@@ -79,35 +79,32 @@ body {
     color: rgba(255, 255, 255, 0.95);
     z-index: 10;
     margin-top: auto;
-    margin-bottom: 100px; /* Naik sedikit agar tulisan aman di atas gelombang */
+    margin-bottom: 60px; /* Diturunkan karena hanya ada 1 gelombang */
     font-weight: 500;
 }
 
-/* 5-Layer Wave styles */
+/* 1-Layer Wave styles */
 .waves-decor {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 240px;
+    height: 160px;
     pointer-events: none;
-    z-index: 1; /* z-index lebih rendah dari teks agar teks di atas gelombang */
-    overflow: visible;
+    z-index: 1;
 }
 
 .wave-svg {
     position: absolute;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 120px; /* tinggi seragam */
+    height: 100%;
 }
 
-/* Penataan layer wave dengan tinggi dasar (bottom) bertingkat ke atas */
-.wave-1 { bottom: 0px; }
-.wave-2 { bottom: 15px; }
-.wave-3 { bottom: 30px; }
-.wave-4 { bottom: 45px; }
-.wave-5 { bottom: 60px; }
+.wave-1 {
+    opacity: 1;
+}
 
 /* ── Right Side: Form Panel (White Background) ────────────── */
 .login-form-panel {
