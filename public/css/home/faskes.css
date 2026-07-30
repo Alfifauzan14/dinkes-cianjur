@@ -90,17 +90,16 @@
 
 .faskes-filter-section {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 16px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .faskes-search-wrap {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     flex: 1;
-    min-width: 280px;
-    max-width: 400px;
+    min-width: 0;
 }
 
 .faskes-search-input {
@@ -148,6 +147,7 @@
 
 .faskes-filter-wrap {
     position: relative;
+    flex-shrink: 0;
 }
 
 .faskes-filter-select {
@@ -425,12 +425,16 @@
     }
 
     .faskes-filter-section {
-        flex-direction: column;
+        flex-wrap: wrap;
         align-items: stretch;
     }
 
     .faskes-search-wrap {
-        max-width: none;
+        width: 100%;
+    }
+
+    .faskes-filter-wrap {
+        width: 100%;
     }
 
     .faskes-filter-select {
