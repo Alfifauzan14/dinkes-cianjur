@@ -78,7 +78,7 @@
                     </ul>
                 </li>
 
-                <li><a href="#" class="menu-item">PPID</a></li>
+                <li><a href="{{ route('ppid') }}" class="menu-item {{ Request::is('ppid') ? 'active' : '' }}">PPID</a></li>
             </ul>
 
             <button class="mobile-toggle" aria-label="Toggle navigation">

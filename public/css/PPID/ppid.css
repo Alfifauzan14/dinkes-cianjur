@@ -1,0 +1,647 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.ppid-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #FFFFFF;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+    padding-top: 103px; /* Offset navbar */
+}
+
+/* ── Header Section ──────────────────────────────────────────── */
+.ppid-header {
+    background-color: #065F46;
+    padding: 60px 0 140px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.ppid-header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.ppid-header-title {
+    font-size: 48px; /* judul 48 */
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.ppid-header-subtitle {
+    font-size: 16px; /* teks 16 */
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+/* ── Stats Section (Overlapping) ─────────────────────────────── */
+.ppid-stats-section {
+    margin-top: -80px; /* Overlap ke header */
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.ppid-stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.ppid-stat-card {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 3px; /* Card: 3px */
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ppid-stat-number {
+    font-size: 40px; /* Angka statistik menonjol */
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 12px 0;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.ppid-stat-desc {
+    font-size: 12px; /* Teks deskripsi stats kecil agar proporsional */
+    font-weight: 500;
+    color: #A3A3A3; /* warna abu A3A3A3 */
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ── Main Content Section ────────────────────────────────────── */
+.ppid-content {
+    padding: 60px 0;
+    box-sizing: border-box;
+}
+
+.ppid-main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.ppid-card-wrapper {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 1px; /* Elemen umum: 1px */
+    padding: 48px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
+    box-sizing: border-box;
+}
+
+.ppid-section-title {
+    font-size: 24px; /* sub judul 24 */
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 32px 0;
+    letter-spacing: -0.5px;
+}
+
+/* ── Accordion ───────────────────────────────────────────────── */
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.accordion-item {
+    border: 1px solid #EAEAEA;
+    border-radius: 1px; /* Elemen umum: 1px */
+    overflow: hidden;
+    background: #FFFFFF;
+}
+
+.accordion-header {
+    width: 100%;
+    background: #FFFFFF;
+    border: none;
+    padding: 20px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+    transition: background-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.accordion-header:hover {
+    background-color: #FAFAFA;
+}
+
+.header-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1A1A1A;
+}
+
+.chevron-icon {
+    width: 12px;
+    height: 8px;
+    fill: none;
+    color: #1A1A1A;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-item.active .chevron-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.accordion-content-inner {
+    padding: 0 28px 28px;
+    box-sizing: border-box;
+}
+
+.placeholder-text {
+    font-size: 16px; /* teks biasa 16 */
+    font-weight: 400;
+    color: #555555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── Filter Form inside Accordion ────────────────────────────── */
+.filter-box-card {
+    border: 1px solid #EAEAEA;
+    border-radius: 1px; /* Elemen umum: 1px */
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.filter-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 6px 0;
+}
+
+.filter-desc {
+    font-size: 13px;
+    color: #A3A3A3; /* warna abu A3A3A3 */
+    margin: 0 0 20px 0;
+}
+
+.filter-form {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.search-input-wrap {
+    flex: 1;
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search-input-field {
+    width: 100%;
+    border: 1px solid #E0E0E0;
+    border-radius: 1px; /* Elemen umum: 1px */
+    padding: 12px 16px 12px 42px;
+    font-size: 16px; /* teks biasa 16 */
+    font-family: inherit;
+    outline: none;
+    background: #FFFFFF;
+    color: #332C2B;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-input-field:focus {
+    border-color: #00BC7D;
+}
+
+.category-select-wrap {
+    width: 220px;
+}
+
+.category-select-field {
+    width: 100%;
+    border: 1px solid #E0E0E0;
+    border-radius: 1px; /* Elemen umum: 1px */
+    padding: 12px 16px;
+    font-size: 16px; /* teks biasa 16 */
+    font-family: inherit;
+    outline: none;
+    background: #FFFFFF;
+    color: #332C2B;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.category-select-field:focus {
+    border-color: #00BC7D;
+}
+
+.filter-submit-btn {
+    background-color: #00BC7D; /* warna btn sama seperti btn di search */
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 3px; /* btn: 3px */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-sizing: border-box;
+}
+
+.filter-submit-btn:hover {
+    background-color: #009A66;
+}
+
+.filter-submit-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* ── Tautan Section (Pelayanan Publik) ─────────────────────────── */
+.tautan-section {
+    margin-top: 64px;
+    box-sizing: border-box;
+}
+
+.tautan-badge-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #009966; /* Hijau badge */
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.tautan-title {
+    font-size: 32px; /* judul 32 */
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 8px 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+.tautan-subtitle {
+    font-size: 16px; /* teks 16 */
+    color: #A3A3A3; /* warna abu A3A3A3 */
+    margin: 0 0 36px 0;
+    line-height: 1.6;
+}
+
+.tautan-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.tautan-card {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 3px; /* Card: 3px */
+    padding: 32px 20px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tautan-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 153, 102, 0.2);
+}
+
+.tautan-icon-wrap {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tautan-icon-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.tautan-card-text {
+    font-size: 16px; /* teks biasa 16 */
+    font-weight: 700;
+    color: #1A1A1A;
+    line-height: 1.4;
+}
+
+/* ── Tata Cara Permohonan Section ────────────────────────────── */
+.tata-cara-outer {
+    width: 100%;
+    background-color: #FFFFFF;
+    margin-top: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.tata-cara-section {
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    gap: 0;
+    align-items: center;
+    width: 100%;
+    padding: 0 40px;
+    min-height: 460px;
+    box-sizing: border-box;
+}
+
+.tata-cara-image-wrapper {
+    flex-shrink: 0;
+    width: 380px;
+    margin: 40px 32px 40px 0; /* kanan saja agar content menempel */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tata-cara-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.tata-cara-content-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 40px 40px 48px;
+    box-sizing: border-box;
+}
+
+.tata-cara-badge {
+    font-size: 14px;
+    font-weight: 700;
+    color: #009966; /* Hijau */
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+.tata-cara-heading {
+    font-size: 40px;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 24px 0;
+    letter-spacing: -1px;
+    line-height: 1.15;
+}
+
+.tata-cara-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+.tata-cara-card {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 3px; /* Card: 3px */
+    padding: 20px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
+    box-sizing: border-box;
+}
+
+.tata-cara-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 10px 0;
+}
+
+.tata-cara-card-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555555;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.inline-green-link {
+    color: #009966;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.inline-blue-link {
+    color: #0066cc;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.tata-cara-actions {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    margin-top: 28px;
+    box-sizing: border-box;
+}
+
+.action-btn-green {
+    flex: 1;
+    background-color: #00BC7D; /* warna btn sama dengan search */
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px;
+    text-align: center;
+    border-radius: 3px; /* btn: 3px */
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.action-btn-green:hover {
+    background-color: #009A66;
+}
+
+.action-btn-outline {
+    flex: 1;
+    background-color: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    color: #00BC7D;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px;
+    text-align: center;
+    border-radius: 3px; /* btn: 3px */
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.action-btn-outline:hover {
+    background-color: #FAFAFA;
+    border-color: #00BC7D;
+}
+
+/* ── Responsive Layout ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .ppid-stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .ppid-card-wrapper {
+        padding: 32px;
+    }
+
+    .tautan-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tata-cara-section {
+        flex-direction: column;
+        gap: 32px;
+        align-items: center;
+    }
+
+    .tata-cara-image-wrapper {
+        width: 100%;
+        max-width: 360px;
+        margin: 24px auto 0;
+    }
+
+    .tata-cara-content-box {
+        width: 100%;
+        padding: 0 20px 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ppid-page-wrapper {
+        padding-top: 80px;
+    }
+    
+    .ppid-header {
+        padding: 40px 0 100px;
+    }
+    
+    .ppid-header-title {
+        font-size: 32px;
+    }
+    
+    .ppid-stats-section {
+        margin-top: -60px;
+        padding: 0 20px;
+    }
+    
+    .ppid-stats-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .ppid-stat-card {
+        padding: 24px 20px;
+    }
+    
+    .ppid-stat-number {
+        font-size: 32px;
+    }
+    
+    .ppid-content {
+        padding: 40px 20px;
+    }
+    
+    .ppid-card-wrapper {
+        padding: 24px 16px;
+    }
+    
+    .filter-form {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .category-select-wrap {
+        width: 100%;
+    }
+    
+    .filter-submit-btn {
+        width: 100%;
+    }
+
+    .tautan-title {
+        font-size: 24px;
+    }
+
+    .tautan-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .tautan-card {
+        padding: 24px 16px;
+        gap: 12px;
+    }
+
+    .tautan-icon-wrap {
+        width: 60px;
+        height: 60px;
+    }
+
+    .tata-cara-heading {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .tata-cara-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tata-cara-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
