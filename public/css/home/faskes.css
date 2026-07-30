@@ -91,7 +91,7 @@
 .faskes-filter-section {
     display: flex;
     align-items: flex-end;
-    gap: 24px;
+    gap: 30px;
     flex-wrap: nowrap;
 }
 
@@ -100,7 +100,7 @@
     align-items: stretch;
     flex: 1;
     min-width: 0;
-    max-width: 360px;
+    max-width: 525px;
 }
 
 .faskes-search-input {
@@ -155,7 +155,7 @@
     height: 44px;
     padding: 0 36px 0 16px;
     border: 1px solid #E0E0E0;
-    border-radius: 1px;
+    border-radius: 3px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     color: #332C2B;
@@ -165,6 +165,7 @@
     cursor: pointer;
     min-width: 200px;
     box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .faskes-filter-select:focus {
