@@ -42,6 +42,9 @@
         {{-- Hero Component --}}
         @include('components.home.hero')
 
+        {{-- Info Cards --}}
+        @include('layouts.cards')
+
         {{-- Section Sambutan Pimpinan Component --}}
         @include('layouts.sambutan')
 

@@ -1,0 +1,138 @@
+.info-cards-section {
+    position: relative;
+    width: 100%;
+    margin-top: -70px;
+    z-index: 10;
+    padding: 0 40px;
+}
+
+.info-cards-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+}
+
+/* Green connector line */
+.info-cards-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    right: 5%;
+    height: 3px;
+    background: linear-gradient(90deg, #009966 0%, #00c853 50%, #009966 100%);
+    border-radius: 2px;
+}
+
+.info-card {
+    background: #FFFFFF;
+    padding: 28px 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.info-card:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.info-card:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+.info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+}
+
+.info-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.icon-green {
+    background-color: #009966;
+}
+
+.icon-red {
+    background-color: #EF4444;
+}
+
+.icon-blue {
+    background-color: #3B82F6;
+}
+
+.info-card-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.info-card-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+    .info-cards-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+    }
+
+    .info-card {
+        padding: 20px 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .info-cards-section {
+        margin-top: -40px;
+        padding: 0 20px;
+    }
+
+    .info-cards-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .info-card:first-child {
+        border-radius: 12px 12px 0 0;
+    }
+
+    .info-card:last-child {
+        border-radius: 0 0 12px 12px;
+    }
+
+    .info-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+    }
+
+    .info-card-icon {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .info-cards-container::after {
+        display: none;
+    }
+}
