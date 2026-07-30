@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="{{ asset('css/home/faskes.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('css/Faskes/faskes.css') }}?v={{ time() }}">
 
 <div class="faskes-page-wrapper">
     <!-- Header Section -->
-    <header class="profile-header">
-        <div class="profile-header-container">
-            <h1 class="profile-header-title">Fasilitas Kesehatan Kabupaten Cianjur</h1>
-            <p class="profile-header-subtitle">Pusat data terpadu, indikator kinerja kesehatan, angka kecukupan faskes/nakes, publikasi profil tahunan, dan produk hukum daerah.</p>
+    <header class="faskes-header">
+        <div class="faskes-header-container">
+            <h1 class="faskes-header-title">Fasilitas Kesehatan Kabupaten Cianjur</h1>
+            <p class="faskes-header-subtitle">Pusat data terpadu, indikator kinerja kesehatan, angka kecukupan faskes/nakes, publikasi profil tahunan, dan produk hukum daerah.</p>
         </div>
     </header>
 
