@@ -1,0 +1,199 @@
+{{-- ============================================================
+     Sambutan Pimpinan Component - Dinas Kesehatan Kabupaten Cianjur
+     Lokasi  : resources/views/layouts/sambutan.blade.php
+     Dipakai : @include('layouts.sambutan') di welcome.blade.php
+     ============================================================ --}}
+
+<section class="sambutan-section" aria-labelledby="sambutan-heading">
+    <div class="sambutan-container">
+        
+        {{-- Kolom Kiri: Teks & Informasi --}}
+        <div class="sambutan-content">
+            <span class="sambutan-badge">Sambutan Pimpinan</span>
+            <h2 id="sambutan-heading" class="sambutan-title">
+                Selamat Datang di Portal Resmi<br>Dinkes Cianjur
+            </h2>
+            
+            <p class="sambutan-quote">
+                "Kesehatan masyarakat adalah fondasi utama pembangunan daerah. Kami berkomitmen memberikan keterbukaan data dan kemudahan akses medis bagi seluruh warga Cianjur."
+            </p>
+            
+            <p class="sambutan-desc">
+                Melalui portal ini, kami berupaya mendekatkan pelayanan kesehatan kepada masyarakat secara digital. Mulai dari pendaftaran pasien, pencarian klinik, hingga publikasi status sebaran gizi dan stunting untuk mewujudkan Cianjur sehat.
+            </p>
+            
+            <p class="sambutan-desc">
+                Mari kita bersama-sama menerapkan Pola Hidup Bersih dan Sehat (PHBS) demi masa depan keluarga kita yang lebih baik.
+            </p>
+
+            <div class="sambutan-author">
+                <h3 class="sambutan-author-name">Dr. I Made Setiawan</h3>
+                <p class="sambutan-author-role">Kepala Dinas Kesehatan Kabupaten Cianjur</p>
+            </div>
+        </div>
+
+        {{-- Kolom Kanan: Foto Pimpinan --}}
+        <div class="sambutan-visual">
+            <img 
+                src="{{ asset('images/Group 83.png') }}" 
+                alt="Dr. I Made Setiawan - Kepala Dinas Kesehatan Kabupaten Cianjur" 
+                class="sambutan-photo"
+                loading="lazy"
+                decoding="async"
+            />
+        </div>
+
+    </div>
+</section>
+
+{{-- ============================================================
+     Sambutan Pimpinan Styles
+     ============================================================ --}}
+<style>
+.sambutan-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.sambutan-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 60px;
+    align-items: center;
+}
+
+/* ---- Left Column: Content ---- */
+.sambutan-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.sambutan-badge {
+    font-size: 18px;
+    font-weight: 700;
+    color: #00a859;
+    margin-bottom: 12px;
+    letter-spacing: -0.2px;
+}
+
+.sambutan-title {
+    font-size: 38px;
+    font-weight: 800;
+    color: #0d2818;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
+
+.sambutan-quote {
+    font-size: 16.5px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.55;
+    margin-bottom: 20px;
+}
+
+.sambutan-desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: #555555;
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.sambutan-author {
+    margin-top: 28px;
+}
+
+.sambutan-author-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #00a859;
+    margin-bottom: 4px;
+}
+
+.sambutan-author-role {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #888888;
+}
+
+/* ---- Right Column: Visual Graphic & Photo ---- */
+.sambutan-visual {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 500px;
+    padding-right: 0;
+}
+
+/* Foto Pimpinan */
+.sambutan-photo {
+    position: relative;
+    z-index: 2;
+    max-height: 520px;
+    width: auto;
+    object-fit: contain;
+    object-position: bottom;
+}
+
+/* ---- Responsive Design ---- */
+@media (max-width: 1024px) {
+    .sambutan-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .sambutan-title {
+        font-size: 32px;
+    }
+
+    .sambutan-visual {
+        min-height: 400px;
+        justify-content: center;
+    }
+
+    .sambutan-photo {
+        max-height: 420px;
+    }
+}
+
+@media (max-width: 640px) {
+    .sambutan-section {
+        padding: 50px 0;
+    }
+
+    .sambutan-container {
+        padding: 0 20px;
+    }
+
+    .sambutan-badge {
+        font-size: 16px;
+    }
+
+    .sambutan-title {
+        font-size: 26px;
+    }
+
+    .sambutan-quote {
+        font-size: 15px;
+    }
+
+    .sambutan-desc {
+        font-size: 13.5px;
+    }
+
+    .sambutan-visual {
+        min-height: 350px;
+    }
+
+    .sambutan-photo {
+        max-height: 360px;
+    }
+}
+</style>

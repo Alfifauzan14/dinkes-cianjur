@@ -3,12 +3,54 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dinkes Cianjur</title>
+    <meta name="description" content="Dinas Kesehatan Kabupaten Cianjur - Mewujudkan masyarakat Cianjur yang sehat, mandiri, dan berkeadilan.">
+    <title>Dinas Kesehatan Kabupaten Cianjur</title>
+
+    {{-- Google Fonts: Plus Jakarta Sans --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFFFF;
+            color: #111827;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        main {
+            flex: 1;
+        }
+    </style>
 </head>
-<body style="background-color: #FFFFFF; margin: 0; padding: 0; min-height: 100vh;">
+<body>
+
+    {{-- Navbar Component --}}
     @include('layouts.navbar')
-    @include('components.home.hero')
-    {{-- @include('components.home.sambutan') --}} {{-- sedang dikerjakan --}}
-    @include('components.home.layanan')
+
+    <main>
+        {{-- Hero Component --}}
+        @include('components.home.hero')
+
+        {{-- Section Sambutan Pimpinan Component --}}
+        @include('layouts.sambutan')
+
+        {{-- Layanan Component --}}
+        @include('components.home.layanan')
+    </main>
+
+    {{-- Footer Layout --}}
+    @include('layouts.footer')
+
 </body>
 </html>
