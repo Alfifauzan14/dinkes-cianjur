@@ -83,14 +83,14 @@
 .berita-row-landscape {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    gap: 24px;
 }
 
 /* Row 2: Square Cards (4 Columns) */
 .berita-row-square {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: 24px;
 }
 
 /* ---- Card Style ---- */
