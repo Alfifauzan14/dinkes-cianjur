@@ -13,8 +13,9 @@
         <!-- Content Area: Left (Illustration) & Right (Form Card) -->
         <div class="ikm-content-grid">
             
-            <!-- Left Side: Illustration Image -->
+            <!-- Left Side: Illustration Image with background shape -->
             <div class="ikm-left">
+                <img src="{{ asset('Assets/home/ikm/Union.png') }}" alt="Background Shape" class="ikm-bg-shape">
                 <img src="{{ asset('Assets/home/ikm/feedback_illustration.png') }}" alt="Feedback Illustration" class="ikm-illustration">
             </div>
 
