@@ -62,6 +62,9 @@
 
         {{-- Media & Agenda Component --}}
         @include('components.home.mediaagenda')
+
+        {{-- Indeks Kepuasan Masyarakat (IKM) Component --}}
+        @include('components.home.ikm')
     </main>
 
     {{-- Footer Layout --}}
