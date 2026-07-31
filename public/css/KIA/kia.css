@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =============================================
+   Kesehatan Ibu & Anak (KIA)
+   ============================================= */
+
+/* ── Page Wrapper ─────────────────────────────────────────────── */
+.kia-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #FFFFFF;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+    padding-top: 103px;
+}
+
+/* ── Header Section ──────────────────────────────────────────── */
+.kia-header {
+    background-color: #065F46;
+    padding: 60px 0;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.kia-header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.kia-header-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.kia-header-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+/* ── Main Content Section ────────────────────────────────────── */
+.kia-content {
+    padding: 60px 0;
+    box-sizing: border-box;
+}
+
+.kia-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* ── Title Section ───────────────────────────────────────────── */
+.kia-title-section {
+    margin-bottom: 40px;
+}
+
+.kia-main-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+/* ── Category Section ────────────────────────────────────────── */
+.kia-category-section {
+    margin-bottom: 60px;
+}
+
+/* ── Program Grid ───────────────────────────────────────────── */
+.kia-program-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+/* ── Program Item ────────────────────────────────────────────── */
+.kia-program-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.kia-program-item:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.kia-program-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F0FAF6;
+    border-radius: 3px;
+    color: #009966;
+}
+
+.kia-program-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.kia-program-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    line-height: 1.4;
+}
+
+/* ── Content Card ───────────────────────────────────────────── */
+.kia-content-card {
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.kia-content-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #004F3B;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.3px;
+}
+
+.kia-content-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: #374151;
+    line-height: 1.8;
+    margin: 0 0 16px 0;
+}
+
+.kia-content-text:last-child {
+    margin-bottom: 0;
+}
+
+/* ── Responsive Design ───────────────────────────────────────── */
+@media (max-width: 768px) {
+    .kia-page-wrapper {
+        padding-top: 80px;
+    }
+
+    .kia-header {
+        padding: 40px 0;
+    }
+
+    .kia-header-title {
+        font-size: 28px;
+    }
+
+    .kia-header-subtitle {
+        font-size: 14px;
+    }
+
+    .kia-content {
+        padding: 40px 20px;
+    }
+
+    .kia-main-title {
+        font-size: 24px;
+    }
+
+    .kia-program-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kia-content-card {
+        padding: 24px;
+    }
+}
