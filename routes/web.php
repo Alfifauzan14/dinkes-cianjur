@@ -33,3 +33,7 @@ Route::get('/faskes', function () {
 Route::get('/labkesda', function () {
     return view('labkesda');
 })->name('labkesda');
+
+Route::get('/layanan-terpadu', function () {
+    return view('layanan-terpadu');
+})->name('layanan-terpadu');
