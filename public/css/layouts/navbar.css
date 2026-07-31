@@ -86,9 +86,15 @@
 }
 
 .chevron-icon {
-    font-size: 18px !important;
+    width: 10px;
+    height: 6px;
     display: inline-block;
     transition: transform 0.3s ease;
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 1.5px !important;
+    margin-left: 6px;
+    vertical-align: middle;
 }
 
 .dropdown {
