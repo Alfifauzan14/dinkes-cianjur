@@ -17,24 +17,43 @@
         <div class="login-split-card">
             <!-- Left Side: Green Info Panel with Waves -->
             <div class="login-visual-panel">
+
+                <!-- Dekorasi CSS-only: dot grid + orb blur -->
+                <div class="vp-orb vp-orb-1"></div>
+                <div class="vp-orb vp-orb-2"></div>
+                <div class="vp-dot-grid"></div>
+
                 <div class="visual-header">
-                    <h1 class="visual-title">Portal Admin<br>Dinas Kesehatan</h1>
-                    <p class="visual-desc">Sistem pendataan terpadu untuk pelayanan kesehatan masyarakat yang lebih baik.</p>
+                    <div class="vp-eyebrow">Dinas Kesehatan Kabupaten Cianjur</div>
+                    <h1 class="visual-title">Satu Portal,<br>Satu Layanan.</h1>
+                    <p class="visual-desc">Platform manajemen kesehatan terpadu yang menghubungkan data, pelayanan, dan masyarakat dalam satu sistem yang andal.</p>
                 </div>
 
                 <div class="visual-quote">
-                    "Kesehatan masyarakat adalah prioritas utama kita."
+                    "Kesehatan bukan sekadar program — ia adalah janji kami kepada masyarakat."
                 </div>
 
-                <!-- 2-Layer Wave decoration -->
+                <!-- 5-Layer Wave decoration -->
                 <div class="waves-decor">
-                    <!-- Layer 1 -->
-                    <svg class="wave-svg wave-1" viewBox="0 0 1440 320" preserveAspectRatio="none">
-                        <path fill="#ffffff" fill-opacity="0.2" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,149.3C672,160,768,224,864,224C960,224,1056,160,1152,144C1248,128,1344,160,1392,176L1440,192L1440,320L0,320Z"></path>
+                    <!-- Layer 1: Ombak pendek, puncak di kiri -->
+                    <svg class="wave-svg wave-1" viewBox="0 0 1440 200" preserveAspectRatio="none">
+                        <path fill="#ffffff" fill-opacity="0.2" d="M0,80 C180,20 360,160 540,80 C720,0 900,140 1080,80 C1260,20 1350,60 1440,80 L1440,200 L0,200 Z"></path>
                     </svg>
-                    <!-- Layer 2 (Lebih tinggi) -->
-                    <svg class="wave-svg wave-2" viewBox="0 0 1440 320" preserveAspectRatio="none">
-                        <path fill="#ffffff" fill-opacity="0.2" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,149.3C672,160,768,224,864,224C960,224,1056,160,1152,144C1248,128,1344,160,1392,176L1440,192L1440,320L0,320Z"></path>
+                    <!-- Layer 2: Ombak fase berbeda, puncak di tengah -->
+                    <svg class="wave-svg wave-2" viewBox="0 0 1440 200" preserveAspectRatio="none">
+                        <path fill="#ffffff" fill-opacity="0.2" d="M0,100 C120,160 300,20 480,100 C660,180 840,20 1020,100 C1200,180 1320,140 1440,120 L1440,200 L0,200 Z"></path>
+                    </svg>
+                    <!-- Layer 3: Ombak lebih lebar & dalam -->
+                    <svg class="wave-svg wave-3" viewBox="0 0 1440 200" preserveAspectRatio="none">
+                        <path fill="#ffffff" fill-opacity="0.2" d="M0,60 C240,160 480,0 720,80 C960,160 1200,40 1440,100 L1440,200 L0,200 Z"></path>
+                    </svg>
+                    <!-- Layer 4: Ombak pelan & panjang -->
+                    <svg class="wave-svg wave-4" viewBox="0 0 1440 200" preserveAspectRatio="none">
+                        <path fill="#ffffff" fill-opacity="0.2" d="M0,120 C160,60 320,160 480,120 C640,80 800,160 960,100 C1120,40 1280,120 1440,80 L1440,200 L0,200 Z"></path>
+                    </svg>
+                    <!-- Layer 5: Ombak sangat halus -->
+                    <svg class="wave-svg wave-5" viewBox="0 0 1440 200" preserveAspectRatio="none">
+                        <path fill="#ffffff" fill-opacity="0.2" d="M0,140 C200,80 400,160 600,130 C800,100 1000,160 1200,130 C1300,115 1380,120 1440,110 L1440,200 L0,200 Z"></path>
                     </svg>
                 </div>
             </div>

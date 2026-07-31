@@ -57,13 +57,13 @@
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="menu-item">
+                    <a href="#" class="menu-item {{ Request::is('satu-data*') ? 'active' : '' }}">
                         Satu Data
                         <span class="material-icons chevron-icon">expand_more</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Dashboard Statistik</a></li>
-                        <li><a href="#" class="dropdown-item">Unduh Profil Kesehatan PDF</a></li>
+                        <li><a href="{{ route('satudata.statistik') }}" class="dropdown-item">Dashboard Statistik</a></li>
+                        <li><a href="{{ route('satudata.laporan') }}" class="dropdown-item">Unduh Profil Kesehatan PDF</a></li>
                         <li><a href="#" class="dropdown-item">Regulasi & Hukum</a></li>
                     </ul>
                 </li>

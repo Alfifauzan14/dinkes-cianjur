@@ -44,7 +44,7 @@ body {
 /* ── Left Side: Visual Panel (Green Background) ─────────────── */
 .login-visual-panel {
     width: 45%;
-    background-color: #00BC7D; /* Warna Hijau Utama */
+    background: linear-gradient(145deg, #00BC7D 0%, #009A66 60%, #007A52 100%);
     padding: 48px;
     display: flex;
     flex-direction: column;
@@ -54,42 +54,100 @@ body {
     color: #FFFFFF;
 }
 
+/* ── CSS-Only Decorative Elements ── */
+
+/* Orb blur di kiri atas */
+.vp-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+.vp-orb-1 {
+    width: 280px;
+    height: 280px;
+    top: -80px;
+    right: -80px;
+    background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 70%);
+}
+.vp-orb-2 {
+    width: 200px;
+    height: 200px;
+    bottom: 220px;
+    left: -60px;
+    background: radial-gradient(circle, rgba(0,90,60,0.4) 0%, rgba(0,90,60,0) 70%);
+}
+
+/* Dot grid pattern (CSS background) */
+.vp-dot-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.6) 70%, transparent 100%);
+}
+
+/* ── Header Block ── */
 .visual-header {
     z-index: 10;
+    position: relative;
+}
+
+/* Eyebrow — label kecil di atas judul */
+.vp-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 14px;
 }
 
 .visual-title {
-    font-size: 38px; /* Teks Portal Admin Dinas Kesehatan */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 48px;
     font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 24px;
-    letter-spacing: -1px;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
+    color: #ffffff;
 }
 
 .visual-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
-    font-weight: 500;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 300px;
 }
 
+/* ── Quote Block ── */
 .visual-quote {
-    font-size: 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
     font-style: italic;
-    color: rgba(255, 255, 255, 0.95);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
     z-index: 10;
-    margin-top: auto;
-    margin-bottom: 80px; /* Dinaikkan sedikit agar aman di atas gelombang layer 2 */
-    font-weight: 500;
+    position: relative;
+    margin-bottom: 310px;
+    line-height: 1.7;
+    max-width: 290px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* 2-Layer Wave styles */
+/* 5-Layer Wave styles */
 .waves-decor {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 180px;
+    height: 340px;
     pointer-events: none;
     z-index: 1;
 }
@@ -102,13 +160,28 @@ body {
 }
 
 .wave-1 {
-    height: 110px; /* Lebih pendek */
-    opacity: 0.15;
+    height: 100px;
+    opacity: 1; /* Menggunakan fill-opacity="0.2" bawaan HTML */
 }
 
 .wave-2 {
-    height: 140px; /* Lebih tinggi */
-    opacity: 0.3;
+    height: 160px; /* Selisih 50px dari wave-1 (tidak berdekatan) */
+    opacity: 1;
+}
+
+.wave-3 {
+    height: 220px; /* Selisih 50px dari wave-2 */
+    opacity: 1;
+}
+
+.wave-4 {
+    height: 280px; /* Selisih 50px dari wave-3 */
+    opacity: 1;
+}
+
+.wave-5 {
+    height: 340px; /* Selisih 50px dari wave-4 (Sangat tinggi) */
+    opacity: 1;
 }
 
 /* ── Right Side: Form Panel (White Background) ────────────── */

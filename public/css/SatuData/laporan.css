@@ -1,0 +1,230 @@
+/* ================================================================
+   LAPORAN & UNDUH PROFIL KESEHATAN STYLESHEET
+   Font: Plus Jakarta Sans
+   Primary Accent: #00BC7D
+   ================================================================ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.laporan-wrapper {
+    width: 100%;
+    background-color: #F8FAFC;
+    color: #1E293B;
+    min-height: 100vh;
+    padding-top: 103px; /* Offset the sticky/fixed navbar */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.laporan-main {
+    padding: 60px 40px;
+    width: 100%;
+}
+
+.laporan-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ── Page Title ──────────────────────────────────────────────── */
+.laporan-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 48px; /* Judul 48 */
+    font-weight: 800;
+    color: #065F46; /* Menggunakan Hijau Tua Pekat khas Dinkes */
+    margin-bottom: 24px;
+    letter-spacing: -1.5px;
+}
+
+/* ── Filter Tabs ─────────────────────────────────────────────── */
+.laporan-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.tab-btn {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px; /* Teks biasa 16 */
+    font-weight: 700;
+    padding: 8px 20px;
+    cursor: pointer;
+    border-radius: 3px !important; /* Button di dalam card/page 3px */
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.tab-btn.active {
+    background-color: #00BC7D;
+    color: #FFFFFF;
+    border: 1px solid #00BC7D;
+}
+
+.tab-btn:not(.active) {
+    background-color: #FFFFFF;
+    color: #00BC7D;
+    border: 1px solid #00BC7D;
+}
+
+.tab-btn:not(.active):hover {
+    background-color: #F0FDF4;
+}
+
+/* ── Laporan Grid List ───────────────────────────────────────── */
+.laporan-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.laporan-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 1px !important; /* Seluruh card radius 1px */
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.01);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.laporan-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.card-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.doc-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0FDF4;
+    color: #00BC7D;
+    border-radius: 3px !important; /* Di dalam card radius 3px */
+    flex-shrink: 0;
+}
+
+.doc-svg {
+    stroke-width: 2px;
+}
+
+.doc-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-category {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px; /* Teks biasa 16 */
+    font-weight: 700;
+    color: #64748B;
+    margin-bottom: 4px;
+    text-transform: capitalize;
+}
+
+.doc-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24px; /* Sub judul 24 */
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
+
+.doc-meta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px; /* Teks biasa 16 */
+    font-weight: 500;
+    color: #94A3B8;
+}
+
+.card-right {
+    flex-shrink: 0;
+    margin-left: 16px;
+}
+
+.download-btn {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F1F5F9;
+    color: #475569;
+    border-radius: 3px !important; /* Di dalam card radius 3px */
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.download-btn:hover {
+    background-color: #00BC7D;
+    color: #FFFFFF;
+    transform: scale(1.05);
+}
+
+/* ── Footer Action ───────────────────────────────────────────── */
+.laporan-footer-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px; /* Teks biasa 16 */
+    font-weight: 700;
+    color: #00BC7D;
+    border: 1.5px solid #00BC7D;
+    background: #FFFFFF;
+    padding: 10px 24px;
+    text-decoration: none;
+    border-radius: 3px !important; /* Di dalam card/page button 3px */
+    transition: all 0.2s ease;
+}
+
+.view-all-btn:hover {
+    background-color: #00BC7D;
+    color: #FFFFFF;
+}
+
+/* ── Responsive Layout Breakpoints ───────────────────────────── */
+@media (max-width: 1024px) {
+    .laporan-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .laporan-main {
+        padding: 40px 20px;
+    }
+    
+    .laporan-title {
+        font-size: 36px;
+    }
+    
+    .laporan-card {
+        padding: 16px;
+    }
+    
+    .doc-title {
+        font-size: 20px;
+    }
+}

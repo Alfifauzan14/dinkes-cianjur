@@ -14,6 +14,14 @@ Route::get('/ppid', function () {
     return view('ppid');
 })->name('ppid');
 
+Route::get('/satu-data/statistik', function () {
+    return view('statistik');
+})->name('satudata.statistik');
+
+Route::get('/satu-data/laporan', function () {
+    return view('laporan');
+})->name('satudata.laporan');
+
 // Admin Login Routes (Double-Gatekeeper)
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
