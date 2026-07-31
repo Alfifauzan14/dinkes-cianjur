@@ -171,33 +171,28 @@
                 <div class="lt-logos-grid">
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            <img src="{{ asset('Assets/layanan terpadu/Image-24.png') }}" alt="Kemenkes RI">
                         </div>
-                        <span class="lt-logo-text">KEMENKES RI</span>
                     </div>
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                            <img src="{{ asset('Assets/layanan terpadu/Image-25.png') }}" alt="BPJS">
                         </div>
-                        <span class="lt-logo-text">BPJS</span>
                     </div>
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="1.5"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+                            <img src="{{ asset('Assets/layanan terpadu/Image-26.png') }}" alt="Pemkab Cianjur">
                         </div>
-                        <span class="lt-logo-text">PEMKAB CIANJUR</span>
                     </div>
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <img src="{{ asset('Assets/layanan terpadu/Image-27.png') }}" alt="Dinkes">
                         </div>
-                        <span class="lt-logo-text">DINKES</span>
                     </div>
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+                            <img src="{{ asset('Assets/layanan terpadu/Image-28.png') }}" alt="Logo">
                         </div>
-                        <span class="lt-logo-text">LAINNYA</span>
                     </div>
                 </div>
             </div>
