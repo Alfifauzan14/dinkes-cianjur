@@ -9,7 +9,7 @@
 }
 
 .layanan-inner-container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;
@@ -43,9 +43,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
     box-sizing: border-box;
 }
 
