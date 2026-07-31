@@ -16,5 +16,6 @@
 <body style="background-color: #F8FAFC; margin: 0; padding: 0; min-height: 100vh; font-family: 'Plus Jakarta Sans', sans-serif;">
     @include('layouts.navbar')
     @include('components.SatuData.laporan')
+    @include('layouts.footer')
 </body>
 </html>

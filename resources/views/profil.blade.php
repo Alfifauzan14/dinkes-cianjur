@@ -12,5 +12,6 @@
 <body style="background-color: #FFFFFF; margin: 0; padding: 0; min-height: 100vh;">
     @include('layouts.navbar')
     @include('components.Profile.profile')
+    @include('layouts.footer')
 </body>
 </html>

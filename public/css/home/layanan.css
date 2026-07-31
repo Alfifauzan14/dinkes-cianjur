@@ -68,31 +68,30 @@
 
 /* ── Ikon ────────────────────────────────────────────────────── */
 .card-icon-wrap {
-    width: 80px;
-    height: 80px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .card-icon-wrap img {
-    width: 80px;
-    height: 80px;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
 }
 
-/* Khusus gambar yang secara visual lebih kecil dari yang lain */
+/* Khusus gambar dinkes agar proporsional tanpa zoom berlebihan */
 .card-icon-wrap img.card-icon-lg {
-    width: 100px;
-    height: 100px;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    transform: scale(1.5);
 }
 
 /* ── Teks card ───────────────────────────────────────────────── */
 .card-title {
-    font-size: 24px;
+    font-size: 20px; /* Judul card: 20px */
     font-weight: 700;
     color: #332C2B;
     margin: 0 0 10px 0;
