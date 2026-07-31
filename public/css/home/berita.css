@@ -17,7 +17,7 @@
 /* ---- Header ---- */
 .berita-header {
     width: 100%;
-    margin-bottom: 32px;
+    margin-bottom: 48px;
 }
 
 .berita-category {
@@ -75,8 +75,8 @@
 .berita-container {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    margin-top: 30px;
+    gap: 24px;
+    margin-top: 0;
 }
 
 /* Row 1: Landscape Cards (2 Columns) */
