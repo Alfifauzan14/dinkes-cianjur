@@ -29,3 +29,7 @@ Route::get('/media', function () {
 Route::get('/faskes', function () {
     return view('faskes');
 })->name('faskes');
+
+Route::get('/labkesda', function () {
+    return view('labkesda');
+})->name('labkesda');
