@@ -315,20 +315,6 @@
     .history-card-container {
         padding: 40px 20px;
     }
-
-    .history-title {
-        font-size: 24px;
-        margin-bottom: 24px;
-    }
-
-    .milestone-title {
-        font-size: 18px;
-    }
-
-    .history-text,
-    .milestone-list li {
-        font-size: 14px;
-    }
 }
 
 /* ── History Section ──────────────────────────────────────────── */
@@ -378,51 +364,6 @@
 
 .history-text:last-child {
     margin-bottom: 0;
-}
-
-.history-milestone {
-    margin: 32px 0;
-    padding: 32px;
-    background: #F9FAFB;
-    border-radius: 1px;
-    border: 1px solid #E5E7EB;
-}
-
-.milestone-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #004F3B;
-    margin: 0 0 20px 0;
-    text-align: center;
-}
-
-.milestone-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.milestone-list li {
-    font-size: 16px;
-    font-weight: 400;
-    color: #374151;
-    line-height: 1.8;
-    margin-bottom: 12px;
-    padding-left: 24px;
-    position: relative;
-}
-
-.milestone-list li:last-child {
-    margin-bottom: 0;
-}
-
-.milestone-list li::before {
-    content: "•";
-    color: #009966;
-    font-weight: 700;
-    position: absolute;
-    left: 0;
-    font-size: 20px;
 }
 
 

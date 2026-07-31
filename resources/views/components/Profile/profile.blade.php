@@ -21,29 +21,11 @@
                 
                 <div class="history-content">
                     <p class="history-text">
-                        Dinas Kesehatan Kabupaten Cianjur merupakan unsur pelaksana otonomi daerah di bidang kesehatan yang dibentuk berdasarkan Peraturan Daerah Kabupaten Cianjur. Sejak awal berdirinya, Dinas Kesehatan telah menjadi garda terdepan dalam upaya meningkatkan derajat kesehatan masyarakat Cianjur.
+                        Dinas Kesehatan Kabupaten Cianjur merupakan unsur pelaksana otonomi daerah di bidang kesehatan yang menjadi garda terdepan dalam upaya meningkatkan derajat kesehatan masyarakat. Kabupaten Cianjur dengan luas wilayah ±3.501,48 km² dan jumlah penduduk lebih dari 2,3 juta jiwa, memiliki tantangan geografis unik yang menuntut strategi pelayanan kesehatan adaptif dan merata.
                     </p>
                     
                     <p class="history-text">
-                        Kabupaten Cianjur dengan luas wilayah ±3.501,48 km² dan jumlah penduduk lebih dari 2,3 juta jiwa, memiliki tantangan geografis yang unik. Wilayah yang membentang dari dataran rendah hingga pegunungan menuntut strategi pelayanan kesehatan yang adaptif dan merata.
-                    </p>
-
-                    <div class="history-milestone">
-                        <h3 class="milestone-title">Tonggak Sejarah Penting</h3>
-                        <ul class="milestone-list">
-                            <li><strong>Era Awal:</strong> Pembentukan Dinas Kesehatan sebagai bagian dari reorganisasi pemerintahan daerah pasca otonomi daerah.</li>
-                            <li><strong>2000-an:</strong> Pengembangan jaringan Puskesmas dan Pustu untuk menjangkau seluruh kecamatan di Kabupaten Cianjur.</li>
-                            <li><strong>2010-an:</strong> Implementasi program JKN-KIS dan digitalisasi sistem pelayanan kesehatan.</li>
-                            <li><strong>2020-an:</strong> Penguatan sistem kesehatan melalui program pencegahan stunting, peningkatan fasilitas kesehatan, dan transformasi digital pelayanan.</li>
-                        </ul>
-                    </div>
-
-                    <p class="history-text">
-                        Kini, Dinas Kesehatan Kabupaten Cianjur mengelola 47 Puskesmas yang tersebar di 32 kecamatan, dilengkapi dengan berbagai fasilitas pendukung seperti Laboratorium Kesehatan Daerah (Labkesda), program kesehatan ibu dan anak, serta berbagai program pencegahan dan pengendalian penyakit.
-                    </p>
-
-                    <p class="history-text">
-                        Dengan semangat "Cianjur Sehat, Cianjur Maju", kami terus berkomitmen untuk mewujudkan pelayanan kesehatan yang berkualitas, merata, dan terjangkau bagi seluruh masyarakat Kabupaten Cianjur.
+                        Kini, Dinas Kesehatan Kabupaten Cianjur mengelola 47 Puskesmas di 32 kecamatan, dilengkapi dengan berbagai fasilitas pendukung seperti Labkesda dan program kesehatan lainnya. Dengan semangat "Cianjur Sehat, Cianjur Maju", kami terus berkomitmen mewujudkan pelayanan kesehatan yang berkualitas, merata, dan terjangkau bagi seluruh masyarakat.
                     </p>
                 </div>
             </div>
