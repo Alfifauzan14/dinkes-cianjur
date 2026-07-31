@@ -95,7 +95,8 @@
 }
 
 .st-info-card {
-    background: linear-gradient(135deg, #065F46 0%, #009966 100%);
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
     border-radius: 1px;
     padding: 32px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -111,7 +112,7 @@
 .st-info-number {
     font-size: 48px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: #009966;
     margin: 0 0 8px 0;
     line-height: 1;
 }
@@ -119,7 +120,7 @@
 .st-info-label {
     font-size: 16px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: #374151;
     margin: 0;
     line-height: 1.4;
 }
@@ -128,57 +129,60 @@
 .st-program-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 24px;
     margin-bottom: 20px;
 }
 
 /* ── Program Item ────────────────────────────────────────────── */
 .st-program-item {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
     background: #FFFFFF;
     border: 1px solid #E5E7EB;
     border-radius: 1px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     cursor: pointer;
 }
 
 .st-program-item:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    border-color: #009966;
 }
 
 .st-program-icon {
-    width: 36px;
-    height: 36px;
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #F0FAF6;
+    background: linear-gradient(135deg, #065F46 0%, #009966 100%);
     border-radius: 3px;
-    color: #009966;
+    color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0, 153, 102, 0.2);
 }
 
 .st-program-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
 }
 
 .st-program-text {
-    font-size: 14px;
-    font-weight: 500;
-    color: #374151;
-    line-height: 1.4;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.5;
+    flex: 1;
 }
 
 /* ── Content Card ───────────────────────────────────────────── */
 .st-content-card {
-    background: #F9FAFB;
+    background: #FFFFFF;
     border: 1px solid #E5E7EB;
     border-radius: 1px;
     padding: 40px;
