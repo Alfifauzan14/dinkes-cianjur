@@ -92,14 +92,14 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     background-color: #004F3B;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .media-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
 .card-image {
@@ -166,7 +166,7 @@
 .badge-date {
     background-color: #009966;
     color: #FFFFFF;
-    border-radius: 30px;
+    border-radius: 3px !important;
 }
 
 .card-content {
@@ -233,7 +233,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
 }
 
 .date-nav-btn {
@@ -306,7 +306,7 @@
     background-color: #FFFFFF;
     border-radius: 3px; /* Card dalam: 3px */
     padding: 16px 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -315,7 +315,7 @@
 
 .timeline-content-card:hover {
     transform: translateX(4px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
 .agenda-item-title {

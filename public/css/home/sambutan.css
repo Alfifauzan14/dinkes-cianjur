@@ -21,24 +21,24 @@
 }
 
 .sambutan-badge {
-    font-size: 18px;
+    font-size: 16px; /* Aksen / Teks biasa 16 */
     font-weight: 700;
-    color: #00a859;
+    color: #009966; /* Aksen hijau */
     margin-bottom: 12px;
     letter-spacing: -0.2px;
 }
 
 .sambutan-title {
-    font-size: 38px;
+    font-size: 48px; /* Judul 48 */
     font-weight: 800;
-    color: #0d2818;
+    color: #004F3B; /* Judul hijau pekat */
     line-height: 1.25;
     margin-bottom: 24px;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
 }
 
 .sambutan-quote {
-    font-size: 16.5px;
+    font-size: 16px; /* Teks body 16 */
     font-weight: 700;
     color: #1a1a1a;
     line-height: 1.55;
@@ -46,7 +46,7 @@
 }
 
 .sambutan-desc {
-    font-size: 14px;
+    font-size: 16px; /* Teks body 16 */
     font-weight: 400;
     color: #555555;
     line-height: 1.7;
@@ -58,14 +58,14 @@
 }
 
 .sambutan-author-name {
-    font-size: 18px;
+    font-size: 20px; /* Judul card 20 */
     font-weight: 700;
-    color: #00a859;
+    color: #009966;
     margin-bottom: 4px;
 }
 
 .sambutan-author-role {
-    font-size: 13.5px;
+    font-size: 16px; /* Teks body 16 */
     font-weight: 500;
     color: #888888;
 }

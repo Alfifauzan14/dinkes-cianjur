@@ -62,10 +62,10 @@
 .ppid-stat-card {
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
-    border-radius: 3px; /* Card: 3px */
+    border-radius: 1px !important; /* Card: 1px */
     padding: 36px 28px;
     text-align: center;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -107,7 +107,7 @@
     border: 1px solid #EAEAEA;
     border-radius: 1px; /* Elemen umum: 1px */
     padding: 48px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
     box-sizing: border-box;
 }
 
@@ -255,7 +255,7 @@
 .category-select-field {
     width: 100%;
     border: 1px solid #E0E0E0;
-    border-radius: 1px; /* Elemen umum: 1px */
+    border-radius: 3px !important; /* Di dalam card radius 3px */
     padding: 12px 16px;
     font-size: 16px; /* teks biasa 16 */
     font-family: inherit;
@@ -332,11 +332,11 @@
 .tautan-card {
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
-    border-radius: 3px; /* Card: 3px */
+    border-radius: 1px !important; /* Card luar: 1px */
     padding: 32px 20px;
     text-align: center;
     text-decoration: none;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -348,7 +348,7 @@
 
 .tautan-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
     border-color: rgba(0, 153, 102, 0.2);
 }
 
@@ -446,7 +446,7 @@
 .tata-cara-card {
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
-    border-radius: 3px; /* Card: 3px */
+    border-radius: 1px !important; /* Card luar: 1px */
     padding: 20px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
     box-sizing: border-box;

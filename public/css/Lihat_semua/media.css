@@ -71,7 +71,7 @@
     border-radius: 1px;
     padding: 24px 24px;
     margin-bottom: 32px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
 }
 
 .media-filter-label {
@@ -89,7 +89,7 @@
     display: flex;
     align-items: center;
     border: 1px solid #D1D5DB;
-    border-radius: 1px;
+    border-radius: 3px !important; /* Di dalam card/filter radius 3px */
     overflow: hidden;
     background-color: #FFFFFF;
 }
@@ -148,7 +148,7 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     color: #9CA3AF;
     border: 1px solid #D1D5DB;
-    border-radius: 1px;
+    border-radius: 3px !important; /* Di dalam card/filter radius 3px */
     background-color: #FFFFFF;
     appearance: none;
     -webkit-appearance: none;
@@ -182,13 +182,13 @@
     aspect-ratio: 4 / 3;
     display: block;
     text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .media-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
 .media-card-image {

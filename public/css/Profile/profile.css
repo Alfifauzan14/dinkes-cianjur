@@ -68,7 +68,7 @@
     border: 1px solid #EAEAEA;
     border-radius: 1px; /* Elemen umum: 1px */
     padding: 60px 80px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     text-align: center;
     box-sizing: border-box;
     display: flex;
@@ -176,7 +176,7 @@
     border: 1px solid #EAEAEA;
     border-radius: 1px; /* Elemen umum: 1px */
     padding: 60px 80px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07); /* shadow x0 y0 blur 35 */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
     text-align: center;
     box-sizing: border-box;
     display: flex;
@@ -208,7 +208,7 @@
     border-radius: 3px; /* Card/Btn: 3px */
     padding: 28px;
     text-align: left;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -218,7 +218,7 @@
 
 .misi-item-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
     border-color: rgba(0, 153, 102, 0.2);
 }
 

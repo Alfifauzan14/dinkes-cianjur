@@ -73,7 +73,7 @@
     background: #FFFFFF;
     border: 1px solid #E5E7EB;
     border-radius: 1px; /* Card luar: 1px */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     overflow: hidden;
     box-sizing: border-box;
 }
@@ -288,7 +288,7 @@
     background-color: #FFFFFF;
     border-radius: 3px;
     padding: 16px 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -299,7 +299,7 @@
 
 .timeline-content-card:hover {
     transform: translateX(4px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
 .card-left {

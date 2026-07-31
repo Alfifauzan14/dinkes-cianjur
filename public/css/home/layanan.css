@@ -24,10 +24,10 @@
 .layanan-title {
     font-size: 48px;
     font-weight: 800;           /* ExtraBold */
-    color: #F5AE44;
+    color: #004F3B;
     margin: 0 0 12px 0;
     line-height: 1.1;
-    letter-spacing: 1px;
+    letter-spacing: -1px;
 }
 
 .layanan-subtitle {
@@ -61,12 +61,12 @@
     text-decoration: none;
     color: inherit;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
 }
 
 .layanan-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
 /* ── Ikon ────────────────────────────────────────────────────── */
