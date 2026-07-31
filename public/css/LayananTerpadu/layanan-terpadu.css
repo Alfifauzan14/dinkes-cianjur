@@ -73,12 +73,17 @@
     letter-spacing: -0.5px;
 }
 
+/* ── Category Section ────────────────────────────────────────── */
+.lt-category-section {
+    margin-bottom: 60px;
+}
+
 /* ── Services Grid ───────────────────────────────────────────── */
 .lt-services-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
 }
 
 /* ── Service Item ────────────────────────────────────────────── */
@@ -89,15 +94,15 @@
     padding: 16px 20px;
     background: #FFFFFF;
     border: 1px solid #E5E7EB;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border-radius: 1px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
     cursor: pointer;
 }
 
 .lt-service-item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
 }
 
@@ -109,7 +114,7 @@
     align-items: center;
     justify-content: center;
     background: #F0FAF6;
-    border-radius: 8px;
+    border-radius: 3px;
     color: #009966;
 }
 
@@ -127,10 +132,11 @@
 
 /* ── Logos Section ───────────────────────────────────────────── */
 .lt-logos-section {
-    background: #F9FAFB;
+    background: #FFFFFF;
     border: 1px solid #E5E7EB;
-    border-radius: 8px;
+    border-radius: 1px;
     padding: 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .lt-logos-grid {
