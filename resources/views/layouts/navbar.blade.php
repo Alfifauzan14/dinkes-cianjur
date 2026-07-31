@@ -64,7 +64,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('satudata.statistik') }}" class="dropdown-item">Dashboard Statistik</a></li>
                         <li><a href="{{ route('satudata.laporan') }}" class="dropdown-item">Unduh Profil Kesehatan PDF</a></li>
-                        <li><a href="#" class="dropdown-item">Regulasi & Hukum</a></li>
+                        <li><a href="{{ route('satudata.regulasi') }}" class="dropdown-item">Regulasi & Hukum</a></li>
                     </ul>
                 </li>
 

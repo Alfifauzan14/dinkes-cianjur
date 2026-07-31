@@ -22,6 +22,10 @@ Route::get('/satu-data/laporan', function () {
     return view('laporan');
 })->name('satudata.laporan');
 
+Route::get('/satu-data/regulasi', function () {
+    return view('regulasi');
+})->name('satudata.regulasi');
+
 // Admin Login Routes (Double-Gatekeeper)
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
