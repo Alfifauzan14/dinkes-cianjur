@@ -48,11 +48,20 @@
         {{-- Hero Component --}}
         @include('components.home.hero')
 
+        {{-- Info Cards --}}
+        @include('components.home.cards')
+
         {{-- Section Sambutan Pimpinan Component --}}
-        @include('layouts.sambutan')
+        @include('components.home.sambutan')
 
         {{-- Layanan Component --}}
         @include('components.home.layanan')
+
+        {{-- Berita Component --}}
+        @include('components.home.berita')
+
+        {{-- Media & Agenda Component --}}
+        @include('components.home.mediaagenda')
     </main>
 
     {{-- Footer Layout --}}

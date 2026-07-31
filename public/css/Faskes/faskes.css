@@ -1,0 +1,465 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =============================================
+   Fasilitas Kesehatan - Puskesmas & Rumah Sakit
+   ============================================= */
+
+/* ── Page Wrapper ─────────────────────────────────────────────── */
+.faskes-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #FFFFFF;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+    padding-top: 103px;
+}
+
+/* ── Header Section ──────────────────────────────────────────── */
+.faskes-header {
+    background-color: #065F46;
+    padding: 60px 0;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.faskes-header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.faskes-header-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.faskes-header-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+/* ── Main Content Section ────────────────────────────────────── */
+.faskes-content {
+    padding: 60px 0;
+    box-sizing: border-box;
+}
+
+.faskes-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* ── Title Section ───────────────────────────────────────────── */
+.faskes-title-section {
+    margin-bottom: 45px;
+}
+
+.faskes-main-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.faskes-main-subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: #A3A3A3;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ── Filter Card ─────────────────────────────────────────────── */
+.faskes-filter-card {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 1px;
+    padding: 24px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
+    box-sizing: border-box;
+    margin-bottom: 32px;
+}
+
+.faskes-filter-section {
+    display: flex;
+    align-items: flex-end;
+    gap: 30px;
+    flex-wrap: nowrap;
+}
+
+/* ── Search Wrap ─────────────────────────────────────────────── */
+.faskes-search-wrap {
+    display: flex;
+    align-items: stretch;
+    flex: 1;
+    min-width: 0;
+    max-width: 525px;
+}
+
+.faskes-search-input {
+    flex: 1;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid #E0E0E0;
+    border-right: none;
+    border-radius: 3px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    color: #332C2B;
+    outline: none;
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.faskes-search-input::placeholder {
+    color: #A3A3A3;
+}
+
+.faskes-search-input:focus {
+    border-color: #00BC7D;
+}
+
+.faskes-search-btn {
+    height: 44px;
+    padding: 0 32px;
+    background-color: #00BC7D;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.faskes-search-btn:hover {
+    background-color: #009A66;
+}
+
+/* ── Filter Wrap (Dropdowns) ─────────────────────────────────── */
+.faskes-filter-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.faskes-filter-wrap::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #A3A3A3;
+    pointer-events: none;
+}
+
+.faskes-select-wilayah,
+.faskes-select-layanan {
+    height: 44px;
+    padding: 0 36px 0 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    color: #332C2B;
+    background: #FFFFFF;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    min-width: 235px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.faskes-select-wilayah:focus,
+.faskes-select-layanan:focus {
+    border-color: #00BC7D;
+}
+
+/* ── Map & List Layout ───────────────────────────────────────── */
+.faskes-main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* ── Map Section ─────────────────────────────────────────────── */
+.faskes-map-container {
+    width: 100%;
+    height: 520px;
+    border-radius: 1px;
+    overflow: hidden;
+    border: 1px solid #EAEAEA;
+    background: #f3f4f6;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
+}
+
+.faskes-map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ── Facility List ───────────────────────────────────────────── */
+.faskes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 520px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.faskes-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.faskes-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.faskes-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.faskes-list::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* ── Facility Card ───────────────────────────────────────────── */
+.faskes-card {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 3px;
+    padding: 20px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
+    box-sizing: border-box;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.faskes-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ── Card Header ─────────────────────────────────────────────── */
+.faskes-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.faskes-card-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+.faskes-card-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.faskes-badge {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.faskes-badge-green {
+    color: #065f46;
+}
+
+.faskes-badge-blue {
+    color: #1e40af;
+}
+
+/* ── Card Info ───────────────────────────────────────────────── */
+.faskes-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.faskes-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    color: #555555;
+    line-height: 1.5;
+}
+
+.faskes-info-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #A3A3A3;
+}
+
+.faskes-info-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Card Actions ────────────────────────────────────────────── */
+.faskes-card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.faskes-btn {
+    flex: 1;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.faskes-btn-peta {
+    background: #00BC7D;
+    border: 1px solid #00BC7D;
+    color: #FFFFFF;
+}
+
+.faskes-btn-peta:hover {
+    background-color: #009A66;
+    border-color: #009A66;
+}
+
+.faskes-btn-wa {
+    background: #FFFFFF;
+    border: 1px solid #00BC7D;
+    color: #00BC7D;
+}
+
+.faskes-btn-wa:hover {
+    background-color: #f0fdf4;
+}
+
+.faskes-btn-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.faskes-btn-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Responsive Design ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .faskes-main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .faskes-map-container {
+        height: 350px;
+    }
+
+    .faskes-list {
+        max-height: none;
+    }
+
+    .faskes-filter-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .faskes-page-wrapper {
+        padding-top: 80px;
+    }
+
+    .faskes-header {
+        padding: 40px 0 100px;
+    }
+
+    .faskes-header-title {
+        font-size: 32px;
+    }
+
+    .faskes-header-subtitle {
+        font-size: 14px;
+    }
+
+    .faskes-content {
+        padding: 40px 20px;
+    }
+
+    .faskes-main-title {
+        font-size: 20px;
+    }
+
+    .faskes-filter-section {
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+
+    .faskes-search-wrap {
+        width: 100%;
+    }
+
+    .faskes-filter-wrap {
+        width: 100%;
+    }
+
+    .faskes-select-wilayah,
+    .faskes-select-layanan {
+        width: 100%;
+    }
+
+    .faskes-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .faskes-card-actions {
+        flex-direction: column;
+    }
+
+    .faskes-btn {
+        width: 100%;
+    }
+}

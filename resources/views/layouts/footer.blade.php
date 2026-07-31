@@ -1,9 +1,4 @@
-{{-- ============================================================
-     Footer Layout Component - Dinas Kesehatan Kabupaten Cianjur
-     Lokasi  : resources/views/layouts/footer.blade.php
-     Warna   : Dark Theme (#212121) dengan aksen Hijau & Merah Gawat Darurat
-     Font    : Plus Jakarta Sans
-     ============================================================ --}}
+<link rel="stylesheet" href="{{ asset('css/layouts/footer.css') }}?v={{ time() }}">
 
 <footer class="dinkes-footer" role="contentinfo">
     <div class="footer-main">

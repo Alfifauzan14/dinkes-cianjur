@@ -1,9 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/berita', function () {
+    return view('berita');
 });
 
 Route::get('/profil/tentang-dinkes', function () {
@@ -14,6 +20,11 @@ Route::get('/ppid', function () {
     return view('ppid');
 })->name('ppid');
 
+Route::get('/agenda', function () {
+    return view('agenda');
+})->name('agenda');
+
+/* --- Satu Data Kesehatan Routes --- */
 Route::get('/satu-data/statistik', function () {
     return view('statistik');
 })->name('satudata.statistik');
@@ -26,10 +37,20 @@ Route::get('/satu-data/regulasi', function () {
     return view('regulasi');
 })->name('satudata.regulasi');
 
-// Admin Login Routes (Double-Gatekeeper)
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+/* --- Labkesda & Faskes Routes --- */
+Route::get('/media', function () {
+    return view('media');
+})->name('media');
 
+Route::get('/faskes', function () {
+    return view('faskes');
+})->name('faskes');
+
+Route::get('/labkesda', function () {
+    return view('labkesda');
+})->name('labkesda');
+
+/* --- Admin Login Routes (Double-Gatekeeper) --- */
 Route::get('/dinkes-login', function (Request $request) {
     // Jika sudah lolos gerbang lapis 1 (session gatekeeper_passed ada)
     if ($request->session()->get('gatekeeper_passed')) {
@@ -85,5 +106,3 @@ Route::post('/dinkes-logout', function (Request $request) {
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
-
-
