@@ -55,13 +55,12 @@
 
             <div class="kia-content-card">
                 <h3 class="kia-content-title">Layanan KIA yang Tersedia</h3>
-                <p class="kia-content-text">Dinas Kesehatan Kabupaten Cianjur menyediakan berbagai layanan KIA di fasilitas kesehatan:</p>
-                <ul class="st-content-list" style="margin-top: 16px; margin-bottom: 16px;">
-                    <li>Consultasi dan pemeriksaan kehamilan rutin</li>
-                    <li>Persalinan di fasilitas kesehatan</li>
-                    <li>Pemeriksaan neonatal dan imunisasi</li>
-                    <li>Pemantauan tumbuh kembang anak</li>
-                    <li>Pemberian vitamin A dan supplement gizi</li>
+                <ul class="kia-content-list">
+                    <li><strong>Consultasi dan pemeriksaan kehamilan rutin</strong> - Pemantauan kesehatan ibu dan janin secara berkala.</li>
+                    <li><strong>Persalinan di fasilitas kesehatan</strong> - Layanan persalinan aman dan profesional di puskesmas atau rumah sakit.</li>
+                    <li><strong>Pemeriksaan neonatal dan imunisasi</strong> - Screening bayi baru lahir dan vaksinasi lengkap.</li>
+                    <li><strong>Pemantauan tumbuh kembang anak</strong> - Pengukuran rutin tinggi badan, berat badan, dan lingkar kepala.</li>
+                    <li><strong>Pemberian vitamin A dan supplement gizi</strong> - Suplementasi untuk mencegah defisiensi gizi.</li>
                 </ul>
                 <p class="kia-content-text">Semua layanan KIA tersedia secara gratis di Puskesmas dan Fasilitas Kesehatan Primer di seluruh Kabupaten Cianjur.</p>
             </div>
