@@ -1,0 +1,472 @@
+/* ================================================================
+   BERITA LIHAT SEMUA SECTION CSS
+   Font      : Plus Jakarta Sans
+   BG Header : #004F3B
+   Primary   : #004F3B
+   Accent    : #009966
+   Radius    : Card Luar 1px, Card Dalam 3px
+ ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.berita-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F9FAFB;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+    padding-top: 103px; /* Avoid overlapping fixed navbar */
+}
+
+/* ── Header Banner ──────────────────────────────────────────── */
+.berita-header {
+    background-color: #004F3B;
+    padding: 64px 0;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.berita-header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.berita-header-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.berita-header-subtitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+/* ── Main Content Section ────────────────────────────────────── */
+.berita-content {
+    padding: 48px 0 64px;
+    box-sizing: border-box;
+}
+
+.berita-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* ── Filter Bar ─────────────────────────────────────────────── */
+.berita-filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px;
+    padding: 24px;
+    margin-bottom: 32px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+}
+
+.berita-filter-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #004F3B;
+    margin: 0 0 10px 0;
+}
+
+.berita-search-section {
+    width: 49%;
+}
+
+.berita-search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px !important;
+    overflow: hidden;
+    background-color: #FFFFFF;
+}
+
+.berita-search-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 14px;
+    color: #9CA3AF;
+    flex-shrink: 0;
+}
+
+.berita-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #1F2937;
+    background: transparent;
+}
+
+.berita-search-input::placeholder {
+    color: #9CA3AF;
+}
+
+.berita-search-btn {
+    background-color: #009966;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.berita-search-btn:hover {
+    background-color: #007D53;
+}
+
+.berita-filter-section {
+    width: 49%;
+}
+
+.berita-filter-dropdown {
+    position: relative;
+}
+
+.berita-select {
+    width: 100%;
+    padding: 12px 40px 12px 14px;
+    font-size: 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #4B5563;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px !important;
+    background-color: #FFFFFF;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    outline: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+}
+
+.berita-select option {
+    color: #1F2937;
+}
+
+.berita-select:focus {
+    border-color: #009966;
+}
+
+/* ── Featured Section (Row 1) ────────────────────────────────── */
+.berita-featured-section {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.berita-featured-left {
+    height: 100%;
+}
+
+.featured-large-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: 100%;
+    transition: all 0.25s ease;
+}
+
+.featured-large-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 153, 102, 0.25);
+}
+
+.card-image-wrap {
+    position: relative;
+    width: 100%;
+    height: 290px;
+    overflow: hidden;
+}
+
+.featured-large-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.berita-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background-color: #009966;
+    color: #FFFFFF;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.featured-large-content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.featured-large-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #004F3B;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Featured Right Column */
+.berita-featured-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100%;
+}
+
+.featured-small-card {
+    display: flex;
+    text-decoration: none;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    padding: 16px;
+    gap: 16px;
+    flex: 1;
+    transition: all 0.25s ease;
+}
+
+.featured-small-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 153, 102, 0.25);
+}
+
+.small-card-image-wrap {
+    width: 140px;
+    height: 100%;
+    min-height: 100px;
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.small-card-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.small-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.small-card-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: #009966;
+    margin-bottom: 8px;
+}
+
+.small-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1F2937;
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── News Grid Section ───────────────────────────────────────── */
+.berita-grid-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.berita-grid-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.berita-grid-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 153, 102, 0.2);
+}
+
+.grid-card-image-wrap {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.grid-card-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.berita-grid-card:hover .grid-card-image-wrap img {
+    transform: scale(1.03);
+}
+
+.grid-card-content {
+    padding: 20px;
+}
+
+.grid-card-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: #009966;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.grid-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1F2937;
+    margin: 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── Pagination ─────────────────────────────────────────────── */
+.berita-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.berita-page-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #E5E7EB;
+    border-radius: 3px !important;
+    background-color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4B5563;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.berita-page-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.berita-page-btn:hover {
+    background-color: #F3F4F6;
+    border-color: #D1D5DB;
+    color: #1F2937;
+}
+
+.berita-page-btn.active {
+    background-color: #009966;
+    border-color: #009966;
+    color: #FFFFFF;
+}
+
+.berita-page-dots {
+    font-size: 14px;
+    color: #9CA3AF;
+    padding: 0 4px;
+}
+
+/* ── Responsive Design ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .berita-featured-section {
+        grid-template-columns: 1fr;
+    }
+    .berita-grid-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .berita-page-wrapper {
+        padding-top: 80px;
+    }
+    .berita-header {
+        padding: 40px 20px;
+    }
+    .berita-header-title {
+        font-size: 32px;
+    }
+    .berita-content {
+        padding: 32px 20px;
+    }
+    .berita-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 16px;
+    }
+    .berita-search-section,
+    .berita-filter-section {
+        width: 100%;
+    }
+    .featured-small-card {
+        flex-direction: column;
+    }
+    .small-card-image-wrap {
+        width: 100%;
+        height: 180px;
+    }
+    .berita-grid-section {
+        grid-template-columns: 1fr;
+    }
+}

@@ -63,7 +63,7 @@
     padding: 0 40px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1.35fr 1.65fr;
     gap: 48px;
     align-items: start;
 }
@@ -152,9 +152,9 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    height: 48px;
+    height: 56px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     color: #1F2937;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -172,8 +172,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 3px; /* Card dalam: 3px */
     transition: all 0.2s ease;
 }
