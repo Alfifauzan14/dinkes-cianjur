@@ -39,15 +39,8 @@
                 <h2 class="visi-title">"Mewujudkan Masyarakat Kabupaten Cianjur yang Sehat, Mandiri, Berkeadilan, dan Berdaya Saing."</h2>
                 
                 <p class="visi-desc">
-                    Dinas Kesehatan Kabupaten Cianjur berkomitmen secara penuh untuk menjadi garda terdepan dalam mendorong transformasi sistem kesehatan daerah dan nasional. Kami hadir untuk memastikan bahwa setiap warga—mulai dari wilayah perkotaan hingga pelosok pedesaan—memiliki akses yang setara, cepat, dan terjangkau terhadap layanan medis berkelanjutan serta berkualitas tinggi.
+                    Dinas Kesehatan Kabupaten Cianjur berkomitmen penuh mendorong transformasi pelayanan kesehatan agar seluruh warga memiliki akses yang setara, cepat, dan terjangkau terhadap layanan medis berkualitas.
                 </p>
-
-                <!-- Highlight Box -->
-                <div class="highlight-quote-box">
-                    <p class="highlight-quote-text">
-                        "Kesehatan bukan sekadar ketiadaan penyakit atau kelemahan, melainkan wujud kesejahteraan fisik, mental, dan sosial yang utuh bagi seluruh lapisan masyarakat tanpa terkecuali."
-                    </p>
-                </div>
 
                 <!-- Bottom Stats Cards -->
                 <div class="stats-cards-grid">
@@ -70,39 +63,38 @@
                 <div class="misi-two-col-grid">
                     <!-- Row 1: Misi 1 & Misi 5 -->
                     <div class="misi-item-card">
-                        <h3 class="misi-item-title">1. Meningkatkan Pemerataan Pelayanan Kesehatan</h3>
+                        <h3 class="misi-item-title">1. Pemerataan Pelayanan</h3>
                         <p class="misi-item-desc">Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.</p>
                     </div>
                     
                     <div class="misi-item-card">
-                        <h3 class="misi-item-title">5. Memperkuat Tata Kelola Kesehatan yang Adil</h3>
-                        <p class="misi-item-desc">Membangun sistem manajemen dan tata kelola pelayanan kesehatan yang efisien, adil, serta berbasis teknologi informasi.</p>
+                        <h3 class="misi-item-title">2. Tata Kelola Adil</h3>
+                        <p class="misi-item-desc">Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.</p>
                     </div>
 
                     <!-- Row 2: Misi 3 & Misi 4 -->
                     <div class="misi-item-card">
-                        <h3 class="misi-item-title">3. Mengembangkan SDM Kesehatan Profesional</h3>
-                        <p class="misi-item-desc">Meningkatkan kompetensi, jumlah, dan distribusi tenaga kesehatan serta sarana dan prasarana kesehatan yang memadai.</p>
+                        <h3 class="misi-item-title">3. SDM Profesional</h3>
+                        <p class="misi-item-desc">Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.</p>
                     </div>
 
                     <div class="misi-item-card">
-                        <h3 class="misi-item-title">4. Mewujudkan Masyarakat Sehat yang Mandiri</h3>
-                        <p class="misi-item-desc">Mendorong promosi kesehatan dan pemberdayaan masyarakat agar mampu mengenali, mencegah, dan mengatasi masalah kesehatan secara mandiri.</p>
+                        <h3 class="misi-item-title">4. Kemandirian Masyarakat</h3>
+                        <p class="misi-item-desc">Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.</p>
                     </div>
 
                     <!-- Row 3: Misi 2 & Misi 6 -->
                     <div class="misi-item-card">
-                        <h3 class="misi-item-title">2. Meningkatkan Mutu dan Kualitas Kesehatan</h3>
-                        <p class="misi-item-desc">Mendorong standar pelayanan kesehatan yang berkualitas dan berorientasi pada kepuasan pasien di seluruh fasilitas kesehatan.</p>
+                        <h3 class="misi-item-title">5. Mutu Pelayanan</h3>
+                        <p class="misi-item-desc">Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.</p>
                     </div>
 
                     <div class="misi-item-card">
-                        <h3 class="misi-item-title">6. Meningkatkan Ketahanan dan Kesiapsiagaan Kesehatan</h3>
-                        <p class="misi-item-desc">Memperkuat sistem surveilans, pencegahan, dan penanggulangan penyakit menular maupun tidak menular secara berkelanjutan.</p>
+                        <h3 class="misi-item-title">6. Ketahanan Kesehatan</h3>
+                        <p class="misi-item-desc">Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.</p>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 </div>
-

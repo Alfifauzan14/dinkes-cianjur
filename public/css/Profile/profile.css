@@ -67,13 +67,13 @@
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 1px; /* Elemen umum: 1px */
-    padding: 48px;
+    padding: 60px 80px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
-    text-align: left;
+    text-align: center;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .visi-badge {
@@ -101,7 +101,7 @@
     color: #555555;
     line-height: 1.8;
     max-width: 830px;
-    margin: 0 0 36px 0;
+    margin: 0 auto 36px auto;
 }
 
 /* ── Highlight Quote Box ─────────────────────────────────────── */
@@ -127,7 +127,7 @@
 /* ── Stats/Buttons Grid ───────────────────────────────────────── */
 .stats-cards-grid {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 20px;
     width: 100%;
     max-width: 830px;
@@ -175,13 +175,13 @@
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 1px; /* Elemen umum: 1px */
-    padding: 48px;
+    padding: 60px 80px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
-    text-align: left;
+    text-align: center;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 48px;
 }
 
