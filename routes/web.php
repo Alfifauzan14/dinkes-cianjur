@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 Route::get('/berita', function () {
     return view('berita');
-});
+})->name('berita');
 
 Route::get('/profil/tentang-dinkes', function () {
     return view('profil');
