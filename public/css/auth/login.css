@@ -356,3 +356,87 @@ body {
         padding: 40px 32px;
     }
 }
+
+/* ── Lapis 1: Gatekeeper Overlay ────────────────────────────── */
+.gate-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 24, 39, 0.85); /* Sleek dark glass overlay */
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.4s ease;
+}
+
+.gate-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.gate-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px; /* Card terluar: 1px */
+    width: 100%;
+    max-width: 440px;
+    padding: 40px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.gate-header {
+    text-align: center;
+}
+
+.gate-lock-icon {
+    font-size: 48px !important;
+    color: #EF4444;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.gate-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 6px 0;
+}
+
+.gate-subtitle {
+    font-size: 14px;
+    color: #6B7280;
+    margin: 0;
+}
+
+.gate-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.error-msg {
+    display: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #EF4444;
+    text-align: center;
+}
+
+/* Animations */
+.shake {
+    animation: shake-anim 0.5s ease;
+}
+
+@keyframes shake-anim {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}

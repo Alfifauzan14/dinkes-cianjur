@@ -8,10 +8,49 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    {{-- Material Icons --}}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {{-- Custom Stylesheet --}}
     <link rel="stylesheet" href="{{ asset('css/auth/login.css') }}?v={{ time() }}">
 </head>
 <body>
+
+    <!-- Gerbang Lapis 1: Gatekeeper Overlay -->
+    @if(!session()->get('gatekeeper_passed'))
+    <div id="gatekeeper-overlay" class="gate-overlay">
+        <div class="gate-card">
+            <div class="gate-header">
+                <span class="material-icons gate-lock-icon">security</span>
+                <h2 class="gate-title">Akses Terbatas</h2>
+                <p class="gate-subtitle">Masukkan kredensial gerbang untuk melanjutkan</p>
+            </div>
+            
+            <form id="gatekeeper-form" class="gate-form">
+                @csrf
+                <div class="input-group">
+                    <label for="gate-username">Username Gerbang</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="gate-username" placeholder="Masukkan username..." required style="width: 100%; border: 1px solid #D1D5DB; border-radius: 6px; padding: 14px 16px; font-size: 15px; outline: none; box-sizing: border-box;">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="gate-password">Password Gerbang</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="gate-password" placeholder="Masukkan password..." required style="width: 100%; border: 1px solid #D1D5DB; border-radius: 6px; padding: 14px 16px; font-size: 15px; outline: none; box-sizing: border-box;">
+                    </div>
+                </div>
+
+                <div id="gate-error-msg" class="error-msg">Username atau Password Gerbang salah!</div>
+
+                <div style="display: flex; gap: 12px; width: 100%;">
+                    <button type="submit" id="gate-submit-btn" class="submit-btn" style="flex: 1;">Buka Gerbang</button>
+                    <button type="button" id="gate-cancel-btn" class="submit-btn" style="flex: 1; background-color: #6B7280; box-shadow: 0 4px 12px rgba(107, 114, 128, 0.1);">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
 
     <div class="login-page-wrapper">
         <div class="login-split-card">
@@ -65,7 +104,7 @@
                     <p class="form-subtitle">Masukkan kredensial akun database Anda</p>
                 </div>
 
-                <form action="{{ route('login') }}" method="POST" class="main-login-form">
+                <form action="{{ route('login') }}" method="POST" id="db-login-form" class="main-login-form">
                     @csrf
 
                     <div class="input-group">
@@ -102,6 +141,131 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript Double-Gatekeeper & AJAX Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('gatekeeper-overlay');
+            const gateForm = document.getElementById('gatekeeper-form');
+            const gateCard = document.querySelector('.gate-card');
+            const gateErrorMsg = document.getElementById('gate-error-msg');
+            const gateCancelBtn = document.getElementById('gate-cancel-btn');
+            
+            const dbLoginForm = document.getElementById('db-login-form');
+            
+            let failedAttempts = 0;
+
+            // Handle Gatekeeper Batal (Cancel) button
+            if (gateCancelBtn) {
+                gateCancelBtn.addEventListener('click', () => {
+                    alert("Akses Ditolak! Kembali ke Beranda.");
+                    window.location.href = "/";
+                });
+            }
+
+            // AJAX Lapis 1: Gatekeeper Verification
+            if (gateForm) {
+                gateForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('gate-username').value;
+                    const password = document.getElementById('gate-password').value;
+                    const token = gateForm.querySelector('input[name="_token"]').value;
+
+                    try {
+                        const response = await fetch("{{ route('gatekeeper.verify') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": token,
+                                "Accept": "application/json"
+                            },
+                            body: JSON.stringify({ username, password })
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok && result.success) {
+                            // Gerbang terbuka: sembunyikan overlay dengan animasi fade-out
+                            overlay.classList.add('fade-out');
+                            setTimeout(() => {
+                                overlay.remove();
+                            }, 400);
+                        } else {
+                            throw new Error(result.message || "Gagal membuka gerbang.");
+                        }
+                    } catch (error) {
+                        failedAttempts++;
+                        gateErrorMsg.textContent = error.message;
+                        gateErrorMsg.style.display = 'block';
+                        
+                        // Shake effect
+                        gateCard.classList.add('shake');
+                        setTimeout(() => {
+                            gateCard.classList.remove('shake');
+                        }, 500);
+
+                        // Batas percobaan salah
+                        if (failedAttempts >= 3) {
+                            alert("Terlalu banyak percobaan salah! Akses ditolak.");
+                            window.location.href = "/";
+                        }
+                    }
+                });
+            }
+
+            // AJAX Lapis 2: Database Login Form Submission
+            if (dbLoginForm) {
+                dbLoginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    const remember = document.getElementById('remember').checked;
+                    const token = dbLoginForm.querySelector('input[name="_token"]').value;
+
+                    // Bersihkan error lama
+                    const existingErrors = dbLoginForm.querySelectorAll('.field-error');
+                    existingErrors.forEach(el => el.remove());
+                    const inputWrappers = dbLoginForm.querySelectorAll('.input-wrapper');
+                    inputWrappers.forEach(el => el.classList.remove('error-border'));
+
+                    try {
+                        const response = await fetch("{{ route('login.post') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": token,
+                                "Accept": "application/json"
+                            },
+                            body: JSON.stringify({ email, password, remember })
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok && result.success) {
+                            // Login berhasil: Arahkan ke Dashboard Admin
+                            window.location.href = "{{ route('admin.dashboard') }}";
+                        } else {
+                            throw new Error(result.message || "Kredensial database salah!");
+                        }
+                    } catch (error) {
+                        alert("Gagal masuk: " + error.message);
+                        
+                        // Tampilkan error di bawah input email
+                        const emailInputGroup = document.getElementById('email').closest('.input-group');
+                        const inputWrapper = emailInputGroup.querySelector('.input-wrapper');
+                        inputWrapper.classList.add('error-border');
+
+                        const errorSpan = document.createElement('span');
+                        errorSpan.className = 'field-error';
+                        errorSpan.textContent = error.message;
+                        emailInputGroup.appendChild(errorSpan);
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
