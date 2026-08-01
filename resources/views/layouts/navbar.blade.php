@@ -32,8 +32,8 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Cianjur Bebas Stunting</a></li>
-                        <li><a href="#" class="dropdown-item">Kesehatan Ibu & Anak (KIA)</a></li>
+                        <li><a href="{{ route('stunting') }}" class="dropdown-item">Cianjur Bebas Stunting</a></li>
+                        <li><a href="{{ route('kia') }}" class="dropdown-item">Kesehatan Ibu & Anak (KIA)</a></li>
                     </ul>
                 </li>
 

@@ -110,3 +110,11 @@ Route::get('/admin/dashboard', function () {
 Route::get('/layanan-terpadu', function () {
     return view('layanan-terpadu');
 })->name('layanan-terpadu');
+
+Route::get('/cianjur-bebas-stunting', function () {
+    return view('stunting');
+})->name('stunting');
+
+Route::get('/kesehatan-ibu-anak', function () {
+    return view('kia');
+})->name('kia');
