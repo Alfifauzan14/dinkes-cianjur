@@ -45,8 +45,7 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Untuk Warga</a></li>
-                        <li><a href="#" class="dropdown-item">Untuk Faskes & Nakes</a></li>
+                        <li><a href="{{ url('/layanan-terpadu') }}" class="dropdown-item">Layanan Terpadu</a></li>
                     </ul>
                 </li>
 

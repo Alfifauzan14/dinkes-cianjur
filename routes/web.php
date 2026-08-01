@@ -106,3 +106,7 @@ Route::post('/dinkes-logout', function (Request $request) {
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
+
+Route::get('/layanan-terpadu', function () {
+    return view('layanan-terpadu');
+})->name('layanan-terpadu');
