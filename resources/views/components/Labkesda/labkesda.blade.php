@@ -98,14 +98,14 @@
                         </span>
                         <span class="labkesda-card-tag">Sertifikat COA</span>
                     </div>
-                    <h3 class="labkesda-card-title">Uji Kualitas Air & Lingkungan</h3>
-                    <p class="labkesda-card-desc">Pengujian sampel kualitas air, limbah, dan mikrobiologi air minum (DAHU).</p>
+                    <h3 class="labkesda-card-title">Uji Keamanan Pangan &amp; Toksikologi</h3>
+                    <p class="labkesda-card-desc">Pengujian kandungan bahan makanan, cemaran mikroba, serta pemeriksaan narkotik/toksikologi.</p>
                     <ul class="labkesda-card-features">
-                        <li>Mikrobiologi Air Minum & Sumur</li>
-                        <li>Pengujian Kualitas Air Minum</li>
-                        <li>Uji Sampel Limbah Cair Rumah Sakit</li>
+                        <li>Pemeriksaan Bahan Tambahan Pangan</li>
+                        <li>Uji Cemaran Mikroba &amp; Logam Berat</li>
+                        <li>Uji Toksikologi &amp; Narkotika Dasar</li>
                     </ul>
-                    <a href="#" class="labkesda-card-btn">Pengajuan Uji-MUT Online &rarr;</a>
+                    <a href="#" class="labkesda-card-btn">Pengajuan Uji Pangan Online &rarr;</a>
                 </div>
             </div>
 

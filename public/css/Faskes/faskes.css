@@ -114,7 +114,10 @@
     padding: 0 16px;
     border: 1px solid #E0E0E0;
     border-right: none;
-    border-radius: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     color: #332C2B;
@@ -137,7 +140,10 @@
     background-color: #00BC7D;
     color: #FFFFFF;
     border: none;
-    border-radius: 3px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     font-weight: 700;
