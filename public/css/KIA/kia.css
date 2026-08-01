@@ -23,7 +23,7 @@
 }
 
 .kia-header-container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;
@@ -49,12 +49,12 @@
 
 /* ── Main Content Section ────────────────────────────────────── */
 .kia-content {
-    padding: 60px 0;
+    padding: 80px 0;
     box-sizing: border-box;
 }
 
 .kia-container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;
