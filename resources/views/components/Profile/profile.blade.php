@@ -15,18 +15,20 @@
             
             <!-- Sejarah dan Latar Belakang Section -->
             <div class="history-card-container">
-                <span class="history-badge">Sejarah & Latar Belakang</span>
-                
-                <h2 class="history-title">Perjalanan Dinas Kesehatan Kabupaten Cianjur</h2>
-                
-                <div class="history-content">
-                    <p class="history-text">
-                        Dinas Kesehatan Kabupaten Cianjur merupakan unsur pelaksana otonomi daerah di bidang kesehatan yang menjadi garda terdepan dalam upaya meningkatkan derajat kesehatan masyarakat. Kabupaten Cianjur dengan luas wilayah ±3.501,48 km² dan jumlah penduduk lebih dari 2,3 juta jiwa, memiliki tantangan geografis unik yang menuntut strategi pelayanan kesehatan adaptif dan merata.
-                    </p>
-                    
-                    <p class="history-text">
-                        Kini, Dinas Kesehatan Kabupaten Cianjur mengelola 47 Puskesmas di 32 kecamatan, dilengkapi dengan berbagai fasilitas pendukung seperti Labkesda dan program kesehatan lainnya. Dengan semangat "Cianjur Sehat, Cianjur Maju", kami terus berkomitmen mewujudkan pelayanan kesehatan yang berkualitas, merata, dan terjangkau bagi seluruh masyarakat.
-                    </p>
+                <div class="history-logo-wrap">
+                    <img src="{{ asset('Assets/layouts/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinkes Cianjur">
+                </div>
+                <div class="history-body">
+                    <span class="history-badge">Sejarah & Latar Belakang</span>
+                    <h2 class="history-title">Perjalanan Dinas Kesehatan Kabupaten Cianjur</h2>
+                    <div class="history-content">
+                        <p class="history-text">
+                            Dinas Kesehatan Kabupaten Cianjur adalah unsur pelaksana otonomi daerah yang menjadi garda terdepan dalam meningkatkan derajat kesehatan masyarakat di wilayah seluas ±3.501,48 km² dengan 2,3 juta jiwa penduduk.
+                        </p>
+                        <p class="history-text">
+                            Mengelola 47 Puskesmas di 32 kecamatan beserta Labkesda, kami berkomitmen penuh menyelenggarakan pelayanan kesehatan yang profesional, merata, dan terintegrasi demi mewujudkan masyarakat Cianjur yang sehat dan mandiri.
+                        </p>
+                    </div>
                 </div>
             </div>
 

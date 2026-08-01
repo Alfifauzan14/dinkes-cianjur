@@ -67,13 +67,13 @@
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 1px; /* Elemen umum: 1px */
-    padding: 60px 80px;
+    padding: 48px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
-    text-align: center;
+    text-align: left;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .visi-badge {
@@ -127,7 +127,7 @@
 /* ── Stats/Buttons Grid ───────────────────────────────────────── */
 .stats-cards-grid {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
     width: 100%;
     max-width: 830px;
@@ -175,13 +175,13 @@
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 1px; /* Elemen umum: 1px */
-    padding: 60px 80px;
+    padding: 48px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
-    text-align: center;
+    text-align: left;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 48px;
 }
 
@@ -316,6 +316,9 @@
 
     .history-card-container {
         padding: 40px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
     }
 }
 
@@ -324,14 +327,36 @@
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 1px;
-    padding: 60px 80px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
-    text-align: center;
+    padding: 48px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
     margin-bottom: 48px;
+    text-align: left;
+}
+
+.history-logo-wrap {
+    flex-shrink: 0;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+}
+
+.history-logo-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.history-body {
+    flex: 1;
+    text-align: left;
 }
 
 .history-badge {
@@ -339,7 +364,7 @@
     font-weight: 700;
     color: #009966;
     letter-spacing: 0.5px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     display: inline-block;
 }
 
@@ -347,8 +372,9 @@
     font-size: 32px;
     font-weight: 800;
     color: #1A1A1A;
-    margin: 0 0 32px 0;
+    margin: 0 0 20px 0;
     letter-spacing: -0.5px;
+    text-align: left;
 }
 
 .history-content {
