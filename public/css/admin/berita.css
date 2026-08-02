@@ -1,9 +1,9 @@
 /* ================================================================
-   ADMIN NEWS MANAGEMENT CSS
+   ADMIN NEWS MANAGEMENT CSS - PREMIUM DINKES CIANJUR EDITION
    Font      : Plus Jakarta Sans
-   Colors    : Primary #00BC7D, Dark #1A1A1A, Muted #9CA3AF
-   Border Radius: Card terluar = 1px, Input & Button = 3px
-   Shadow    : 0 0 35px rgba(0, 0, 0, 0.05)
+   Warna     : Primary #004F3B, Accent #009966, Muted #6B7280
+   Radius    : Card Luar 1px, Item/Card Dalam 3px
+   Shadow    : 0px 0px 35px rgba(0, 0, 0, 0.05)
    ================================================================ */
 
 .berita-admin-wrapper {
@@ -17,7 +17,7 @@
 .admin-card {
     background: #FFFFFF;
     border: 1px solid #E5E7EB;
-    border-radius: 1px; /* Card terluar: 1px */
+    border-radius: 1px; /* Card luar: 1px */
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     padding: 32px;
 }
@@ -43,17 +43,18 @@
     height: 40px;
     padding: 0 12px;
     border: 1px solid #D1D5DB;
-    border-radius: 3px; /* Input: 3px */
+    border-radius: 3px; /* Input/Select: 3px */
     font-family: inherit;
     font-size: 14px;
     outline: none;
-    color: #1A1A1A;
+    color: #111827;
     background-color: #FFFFFF;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-control-input:focus, .form-control-select:focus {
-    border-color: #00BC7D;
+    border-color: #009966;
+    box-shadow: 0 0 0 3px rgba(0, 153, 102, 0.1);
 }
 
 .form-textarea {
@@ -61,16 +62,18 @@
     min-height: 200px;
     padding: 12px;
     border: 1px solid #D1D5DB;
-    border-radius: 3px;
+    border-radius: 3px; /* Textarea: 3px */
     font-family: inherit;
     font-size: 14px;
     outline: none;
     resize: vertical;
-    transition: border-color 0.2s ease;
+    color: #111827;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-textarea:focus {
-    border-color: #00BC7D;
+    border-color: #009966;
+    box-shadow: 0 0 0 3px rgba(0, 153, 102, 0.1);
 }
 
 /* ── Buttons ─────────────────────────────────────────────────── */
@@ -92,12 +95,12 @@
 }
 
 .btn-admin-primary {
-    background-color: #00BC7D;
+    background-color: #009966; /* Accent Green */
     color: #FFFFFF;
 }
 
 .btn-admin-primary:hover {
-    background-color: #009A66;
+    background-color: #004F3B; /* Primary Green */
 }
 
 .btn-admin-secondary {
@@ -135,7 +138,7 @@
 
 .admin-table th {
     background-color: #F9FAFB;
-    color: #374151;
+    color: #004F3B; /* Primary Green Header */
     font-weight: 700;
     padding: 16px;
     border-bottom: 2px solid #E5E7EB;
@@ -144,7 +147,7 @@
 .admin-table td {
     padding: 16px;
     border-bottom: 1px solid #E5E7EB;
-    color: #4B5563;
+    color: #374151;
     vertical-align: middle;
 }
 
@@ -156,7 +159,7 @@
     width: 60px;
     height: 40px;
     object-fit: cover;
-    border-radius: 3px;
+    border-radius: 3px; /* Thumbnail: 3px */
     background-color: #F3F4F6;
     border: 1px solid #E5E7EB;
 }
@@ -164,7 +167,7 @@
 .news-badge {
     display: inline-block;
     padding: 4px 8px;
-    border-radius: 3px;
+    border-radius: 3px; /* Badge: 3px */
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
@@ -177,9 +180,9 @@
 .status-badge {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .status-dot {
@@ -188,8 +191,8 @@
     border-radius: 50%;
 }
 
-.status-published { color: #10B981; }
-.status-published .status-dot { background-color: #10B981; }
+.status-published { color: #009966; }
+.status-published .status-dot { background-color: #009966; }
 .status-draft { color: #9CA3AF; }
 .status-draft .status-dot { background-color: #9CA3AF; }
 
@@ -199,7 +202,7 @@
 }
 
 .btn-action-edit {
-    color: #00BC7D;
+    color: #009966;
     background: none;
     border: none;
     cursor: pointer;
@@ -209,7 +212,7 @@
 }
 
 .btn-action-edit:hover {
-    color: #009A66;
+    color: #004F3B;
 }
 
 .btn-action-delete {
@@ -250,7 +253,7 @@
 .form-group label {
     font-size: 14px;
     font-weight: 700;
-    color: #374151;
+    color: #004F3B; /* Primary Green label */
 }
 
 .image-preview-wrapper {
@@ -275,7 +278,7 @@
     border-radius: 3px;
     margin-bottom: 24px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     display: flex;
     align-items: center;
     gap: 12px;

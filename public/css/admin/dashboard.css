@@ -1,9 +1,9 @@
 /* ================================================================
-   ADMIN DASHBOARD CSS
+   ADMIN DASHBOARD CSS - PREMIUM DINKES CIANJUR EDITION
    Font      : Plus Jakarta Sans
-   Warna     : Hijau #00BC7D (Hover: #009A66), Sidebar #065F46
-   Radius    : 1px (Umum/Icon), 3px (Card/Btn)
-   Shadow    : 0 0 35px rgba(0, 0, 0, 0.07)
+   Warna     : Primary #004F3B, Accent #009966, Muted #6B7280
+   Radius    : Card Luar 1px, Item/Card Dalam 3px
+   Shadow    : 0px 0px 35px rgba(0, 0, 0, 0.05)
    ================================================================ */
 
 *, *::before, *::after {
@@ -14,10 +14,11 @@
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #FFFFFF;
+    background-color: #F9FAFB;
     color: #1A1A1A;
     min-height: 100vh;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ── Dashboard Layout ────────────────────────────────────────── */
@@ -29,13 +30,13 @@ body {
 
 /* ── Sidebar ─────────────────────────────────────────────────── */
 .dashboard-sidebar {
-    width: 260px;
-    background-color: #065F46; /* Hijau tua khas Dinkes */
+    width: 280px;
+    background-color: #004F3B; /* Hijau Utama */
     color: #FFFFFF;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .sidebar-brand {
@@ -43,7 +44,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .brand-logo {
@@ -52,13 +53,14 @@ body {
     object-fit: contain;
     background: #FFFFFF;
     padding: 4px;
-    border-radius: 3px;
+    border-radius: 3px; /* Card Dalam: 3px */
 }
 
 .brand-name {
     font-size: 16px;
     font-weight: 800;
     letter-spacing: -0.3px;
+    color: #FFFFFF;
 }
 
 .sidebar-menu {
@@ -74,11 +76,11 @@ body {
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
     font-size: 14px;
-    font-weight: 600;
-    border-radius: 3px; /* menu link: 3px */
+    font-weight: 700;
+    border-radius: 3px; /* Card Dalam / Item: 3px */
     transition: all 0.2s ease;
     border: none;
     background: none;
@@ -88,12 +90,12 @@ body {
 }
 
 .menu-link:hover, .logout-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
     color: #FFFFFF;
 }
 
 .menu-link.active {
-    background-color: #00BC7D; /* warna accent */
+    background-color: #009966; /* Hijau Aksen */
     color: #FFFFFF;
 }
 
@@ -121,14 +123,14 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    min-width: 0; /* cegah overflow flex */
-    background: #FFFFFF;
+    min-width: 0;
+    background: #F9FAFB;
 }
 
 /* Header */
 .dashboard-header {
-    height: 70px;
-    border-bottom: 1px solid #EAEAEA;
+    height: 76px;
+    border-bottom: 1px solid #E5E7EB;
     padding: 0 40px;
     display: flex;
     justify-content: space-between;
@@ -139,7 +141,7 @@ body {
 .header-title {
     font-size: 20px;
     font-weight: 800;
-    color: #1A1A1A;
+    color: #004F3B;
     letter-spacing: -0.5px;
 }
 
@@ -151,7 +153,7 @@ body {
 
 .user-avatar {
     font-size: 32px !important;
-    color: #A3A3A3;
+    color: #9CA3AF;
 }
 
 .user-info {
@@ -162,13 +164,13 @@ body {
 .user-name {
     font-size: 14px;
     font-weight: 700;
-    color: #1A1A1A;
+    color: #111827;
 }
 
 .user-role {
     font-size: 12px;
-    font-weight: 500;
-    color: #A3A3A3;
+    font-weight: 600;
+    color: #9CA3AF;
 }
 
 /* Content Body */
@@ -177,31 +179,31 @@ body {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    max-width: 1200px;
+    max-width: 1280px;
     width: 100%;
-    margin: 0 auto;
 }
 
 /* Welcome Banner */
 .welcome-banner {
     background: #FFFFFF;
-    border: 1px solid #EAEAEA;
-    border-radius: 3px;
+    border: 1px solid #E5E7EB;
+    border-left: 4px solid #009966; /* Accent border */
+    border-radius: 1px; /* Card luar: 1px */
     padding: 32px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.05);
 }
 
 .welcome-title {
     font-size: 24px;
     font-weight: 800;
-    color: #1A1A1A;
+    color: #004F3B;
     margin-bottom: 8px;
     letter-spacing: -0.5px;
 }
 
 .welcome-desc {
     font-size: 15px;
-    color: #A3A3A3;
+    color: #4B5563;
     line-height: 1.6;
 }
 
@@ -214,29 +216,30 @@ body {
 
 .stat-card {
     background: #FFFFFF;
-    border: 1px solid #EAEAEA;
-    border-radius: 3px;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px; /* Card luar: 1px */
     padding: 24px;
     display: flex;
     align-items: center;
     gap: 20px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
-    transition: transform 0.2s ease;
+    box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .stat-card:hover {
     transform: translateY(-2px);
+    box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.08);
 }
 
 .stat-icon-wrapper {
     width: 48px;
     height: 48px;
-    background-color: rgba(0, 188, 125, 0.1);
-    color: #00BC7D;
+    background-color: rgba(0, 153, 102, 0.1); /* Translusen hijau aksen */
+    color: #009966;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 1px; /* stats icon: 1px */
+    border-radius: 3px; /* Item dalam: 3px */
 }
 
 .stat-icon {
@@ -250,16 +253,16 @@ body {
 }
 
 .stat-number {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
-    color: #1A1A1A;
+    color: #004F3B;
     letter-spacing: -0.5px;
 }
 
 .stat-label {
     font-size: 13px;
-    font-weight: 600;
-    color: #A3A3A3;
+    font-weight: 700;
+    color: #6B7280;
 }
 
 /* ── Responsive breakpoints ───────────────────────────────────── */
@@ -269,6 +272,8 @@ body {
     }
     .dashboard-sidebar {
         width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     .dashboard-header {
         padding: 0 20px;
