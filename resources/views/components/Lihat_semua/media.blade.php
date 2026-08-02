@@ -40,145 +40,70 @@
 
             <!-- Gallery Grid -->
             <div class="media-gallery-grid">
-                <!-- Card 1 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
+                @forelse ($galeris as $galeri)
+                    <div class="media-card">
+                        @if(file_exists(public_path('uploads/galeri/' . $galeri->image)))
+                            <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image" loading="lazy">
+                        @else
+                            <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image" loading="lazy">
+                        @endif
+                        <div class="media-card-overlay"></div>
+                        <span class="media-card-badge">{{ $galeri->category }}</span>
+                        <div class="media-card-content">
+                            <h4 class="media-card-title">{{ $galeri->title }}</h4>
+                        </div>
                     </div>
-                </a>
-
-                <!-- Card 2 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
+                @empty
+                    <div style="grid-column: span 3; text-align: center; padding: 48px; color: #9CA3AF; background: #F9FAFB; border-radius: 6px; width: 100%;">
+                        <span class="material-icons" style="font-size: 48px; margin-bottom: 8px;">collections</span>
+                        <p style="font-weight: 600;">Belum ada dokumentasi galeri kegiatan.</p>
                     </div>
-                </a>
-
-                <!-- Card 3 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 4 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 5 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 6 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 7 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 8 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 9 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 10 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 11 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
-
-                <!-- Card 12 -->
-                <a href="#" class="media-card">
-                    <img src="{{ asset('images/dumy1.png') }}" alt="Layanan PSC 119" class="media-card-image" loading="lazy">
-                    <div class="media-card-overlay"></div>
-                    <span class="media-card-badge">PROGRAM</span>
-                    <div class="media-card-content">
-                        <h4 class="media-card-title">layanan PSC 119</h4>
-                    </div>
-                </a>
+                @endforelse
             </div>
 
             <!-- Pagination -->
-            <div class="media-pagination">
-                <button class="media-page-btn" aria-label="Previous">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                </button>
-                <button class="media-page-btn active">1</button>
-                <button class="media-page-btn">2</button>
-                <button class="media-page-btn">3</button>
-                <span class="media-page-dots">...</span>
-                <button class="media-page-btn">12</button>
-                <button class="media-page-btn" aria-label="Next">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18l6-6-6-6" />
-                    </svg>
-                </button>
-            </div>
+            @if ($galeris->hasPages())
+                <div class="media-pagination">
+                    {{-- Previous Page Link --}}
+                    @if ($galeris->onFirstPage())
+                        <span class="media-page-btn disabled" style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; justify-content: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </span>
+                    @else
+                        <a href="{{ $galeris->previousPageUrl() }}" class="media-page-btn" aria-label="Previous" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; justify-content: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </a>
+                    @endif
+
+                    {{-- Pagination Elements --}}
+                    @foreach ($galeris->getUrlRange(1, $galeris->lastPage()) as $page => $url)
+                        @if ($page == $galeris->currentPage())
+                            <span class="media-page-btn active">{{ $page }}</span>
+                        @else
+                            <a href="{{ $url }}" class="media-page-btn" style="text-decoration: none; color: inherit;">{{ $page }}</a>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($galeris->hasMorePages())
+                        <a href="{{ $galeris->nextPageUrl() }}" class="media-page-btn" aria-label="Next" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; justify-content: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </a>
+                    @else
+                        <span class="media-page-btn disabled" style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; justify-content: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </span>
+                    @endif
+                </div>
+            @endif
         </div>
     </main>
 </div>

@@ -14,18 +14,24 @@
         <div class="agenda-container">
             <!-- Left Column: Calendar Card -->
             <div class="calendar-card">
+                @php
+                    $prevMonthVal = $month == 1 ? 12 : $month - 1;
+                    $prevYearVal = $month == 1 ? $year - 1 : $year;
+                    $nextMonthVal = $month == 12 ? 1 : $month + 1;
+                    $nextYearVal = $month == 12 ? $year + 1 : $year;
+                @endphp
                 <div class="calendar-header">
-                    <button class="calendar-nav-btn" aria-label="Previous Month">
+                    <a href="?month={{ $prevMonthVal }}&year={{ $prevYearVal }}" class="calendar-nav-btn" aria-label="Previous Month" style="text-decoration: none;">
                         <svg viewBox="0 0 24 24">
                             <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </button>
-                    <h3 class="calendar-month-title">Juli 2026</h3>
-                    <button class="calendar-nav-btn" aria-label="Next Month">
+                    </a>
+                    <h3 class="calendar-month-title">{{ $monthName }} {{ $year }}</h3>
+                    <a href="?month={{ $nextMonthVal }}&year={{ $nextYearVal }}" class="calendar-nav-btn" aria-label="Next Month" style="text-decoration: none;">
                         <svg viewBox="0 0 24 24">
                             <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </button>
+                    </a>
                 </div>
 
                 <div class="calendar-body">
@@ -42,120 +48,26 @@
 
                     <!-- Days Grid -->
                     <div class="calendar-days-grid">
-                        <!-- Row 1: June 28 - July 4 -->
-                        <div class="calendar-day-cell other-month">
-                            <span class="calendar-day-number">28</span>
-                        </div>
-                        <div class="calendar-day-cell other-month">
-                            <span class="calendar-day-number">29</span>
-                        </div>
-                        <div class="calendar-day-cell other-month">
-                            <span class="calendar-day-number">30</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">1</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">2</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">3</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">4</span>
-                        </div>
+                        @foreach($days as $day)
+                            @php
+                                $isTodayClass = $day['is_today'] ? 'today' : '';
+                                $isCurrentMonthClass = $day['is_current_month'] ? '' : 'other-month';
+                                $hasEventClass = $day['has_events'] ? 'has-event' : '';
+                                $isSelectedClass = ($day['date_string'] === $selectedDateString) ? 'active' : '';
+                            @endphp
 
-                        <!-- Row 2: July 5 - 11 -->
-                        <div class="calendar-day-cell sunday">
-                            <span class="calendar-day-number">5</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">6</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">7</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">8</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">9</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">10</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">11</span>
-                        </div>
-
-                        <!-- Row 3: July 12 - 18 -->
-                        <div class="calendar-day-cell sunday">
-                            <span class="calendar-day-number">12</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">13</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">14</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">15</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">16</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">17</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">18</span>
-                        </div>
-
-                        <!-- Row 4: July 19 - 25 -->
-                        <div class="calendar-day-cell sunday">
-                            <span class="calendar-day-number">19</span>
-                        </div>
-                        <div class="calendar-day-cell has-event">
-                            <span class="calendar-day-number">20</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">21</span>
-                        </div>
-                        <div class="calendar-day-cell active">
-                            <span class="calendar-day-number">22</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">23</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">24</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">25</span>
-                        </div>
-
-                        <!-- Row 5: July 26 - Aug 1 -->
-                        <div class="calendar-day-cell sunday">
-                            <span class="calendar-day-number">26</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">27</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">28</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">29</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">30</span>
-                        </div>
-                        <div class="calendar-day-cell">
-                            <span class="calendar-day-number">31</span>
-                        </div>
-                        <div class="calendar-day-cell other-month">
-                            <span class="calendar-day-number">1</span>
-                        </div>
+                            @if($day['is_current_month'])
+                                <a href="?month={{ $month }}&year={{ $year }}&date={{ $day['date_string'] }}" 
+                                   class="calendar-day-cell {{ $isTodayClass }} {{ $hasEventClass }} {{ $isSelectedClass }}" 
+                                   style="text-decoration: none;">
+                                    <span class="calendar-day-number">{{ $day['day'] }}</span>
+                                </a>
+                            @else
+                                <div class="calendar-day-cell other-month">
+                                    <span class="calendar-day-number">{{ $day['day'] }}</span>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
 
@@ -168,168 +80,51 @@
             <!-- Right Column: Timeline & Events List -->
             <div class="timeline-column">
                 <div class="timeline-section-header">
-                    <h2 class="timeline-section-title">Jumat, 22 Juli 2026</h2>
+                    <h2 class="timeline-section-title">{{ $timelineTitle }}</h2>
                     <p class="timeline-section-subtitle">Daftar kegiatan pada tanggal yang dipilih</p>
                 </div>
 
                 <div class="agenda-timeline-wrapper">
                     <div class="timeline-line"></div>
 
-                    <!-- Event Item 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-time-badge">07.30</div>
-                        <div class="timeline-content-card">
-                            <div class="card-left">
-                                <h5 class="agenda-item-title">Apel Pagi &amp; Evaluasi Kinerja Mingguan</h5>
-                                <div class="agenda-item-location">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <span>Kantor Dinkes</span>
+                    @forelse($timelineAgendas as $agenda)
+                        <!-- Event Item -->
+                        <div class="timeline-item">
+                            <div class="timeline-time-badge">{{ $agenda->time_start }}</div>
+                            <div class="timeline-content-card">
+                                <div class="card-left">
+                                    <h5 class="agenda-item-title">{{ $agenda->title }}</h5>
+                                    <div class="agenda-item-location" style="margin-top: 4px;">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                            <circle cx="12" cy="10" r="3" />
+                                        </svg>
+                                        <span>{{ $agenda->location }}</span>
+                                    </div>
+                                    @if($agenda->description)
+                                        <p style="font-size: 13px; color: #6B7280; margin-top: 6px; line-height: 1.4;">{{ $agenda->description }}</p>
+                                    @endif
                                 </div>
-                            </div>
-                            <div class="card-right">
-                                <div class="agenda-item-duration">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <polyline points="12 6 12 12 16 14" />
-                                    </svg>
-                                    <span>07.30 - 09.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Event Item 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-time-badge">09.00</div>
-                        <div class="timeline-content-card">
-                            <div class="card-left">
-                                <h5 class="agenda-item-title">Rapat Koordinasi Program Kesehatan</h5>
-                                <div class="agenda-item-location">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <span>Ruang Rapat Dinkes</span>
-                                </div>
-                            </div>
-                            <div class="card-right">
-                                <div class="agenda-item-duration">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <polyline points="12 6 12 12 16 14" />
-                                    </svg>
-                                    <span>09.00 - 11.00</span>
+                                <div class="card-right">
+                                    <div class="agenda-item-duration">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline points="12 6 12 12 16 14" />
+                                        </svg>
+                                        <span>{{ $agenda->time_start }} - {{ $agenda->time_end }}</span>
+                                    </div>
+                                    <div style="font-size: 11px; color: #9CA3AF; font-weight: 500; margin-top: 6px; text-align: right;">
+                                        {{ $agenda->date->format('d M Y') }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Event Item 3 -->
-                    <div class="timeline-item">
-                        <div class="timeline-time-badge">11.00</div>
-                        <div class="timeline-content-card">
-                            <div class="card-left">
-                                <h5 class="agenda-item-title">Sosialisasi Kesehatan Masyarakat</h5>
-                                <div class="agenda-item-location">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <span>Aula Dinkes</span>
-                                </div>
-                            </div>
-                            <div class="card-right">
-                                <div class="agenda-item-duration">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <polyline points="12 6 12 12 16 14" />
-                                    </svg>
-                                    <span>11.00 - 12.00</span>
-                                </div>
-                            </div>
+                    @empty
+                        <div style="text-align: center; padding: 48px; color: #9CA3AF; width: 100%;">
+                            <span class="material-icons" style="font-size: 48px; margin-bottom: 8px; display: block;">event_busy</span>
+                            <p style="font-weight: 600;">Tidak ada agenda kegiatan pada periode/hari ini.</p>
                         </div>
-                    </div>
-
-                    <!-- Event Item 4 -->
-                    <div class="timeline-item">
-                        <div class="timeline-time-badge">13.00</div>
-                        <div class="timeline-content-card">
-                            <div class="card-left">
-                                <h5 class="agenda-item-title">Penyusunan Laporan Kegiatan</h5>
-                                <div class="agenda-item-location">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <span>Puskesmas</span>
-                                </div>
-                            </div>
-                            <div class="card-right">
-                                <div class="agenda-item-duration">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <polyline points="12 6 12 12 16 14" />
-                                    </svg>
-                                    <span>13.00 - 15.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Event Item 5 -->
-                    <div class="timeline-item">
-                        <div class="timeline-time-badge">15.00</div>
-                        <div class="timeline-content-card">
-                            <div class="card-left">
-                                <h5 class="agenda-item-title">Apel Pagi &amp; Evaluasi Kinerja Mingguan</h5>
-                                <div class="agenda-item-location">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <span>Kantor Dinkes</span>
-                                </div>
-                            </div>
-                            <div class="card-right">
-                                <div class="agenda-item-duration">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <polyline points="12 6 12 12 16 14" />
-                                    </svg>
-                                    <span>15.00 - 16.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Event Item 6 -->
-                    <div class="timeline-item">
-                        <div class="timeline-time-badge">16.00</div>
-                        <div class="timeline-content-card">
-                            <div class="card-left">
-                                <h5 class="agenda-item-title">Diskusi &amp; Perencanaan Program</h5>
-                                <div class="agenda-item-location">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <span>Ruang Rapat Dinkes</span>
-                                </div>
-                            </div>
-                            <div class="card-right">
-                                <div class="agenda-item-duration">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <polyline points="12 6 12 12 16 14" />
-                                    </svg>
-                                    <span>16.00 - 17.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>

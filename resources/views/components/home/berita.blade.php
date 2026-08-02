@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('css/home/berita.css') }}?v={{ time() }}">
 
-<section class="berita-section">
+<section id="berita" class="berita-section">
     <div class="berita-inner">
     <div class="berita-header">
         <p class="berita-category">Kabar Sehat</p>

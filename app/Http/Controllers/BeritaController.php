@@ -17,9 +17,9 @@ class BeritaController extends Controller
         // Pencarian publik
         if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('content', 'like', "%{$search}%");
+                    ->orWhere('content', 'like', "%{$search}%");
             });
         }
 
@@ -30,35 +30,17 @@ class BeritaController extends Controller
 
         // Ambil berita utama (terbaru) untuk ditampilkan di bagian featured jika ada
         $featuredBerita = null;
-        if (!$request->filled('search') && (!$request->filled('category') || $request->input('category') === 'Semua')) {
+        if (! $request->filled('search') && (! $request->filled('category') || $request->input('category') === 'Semua')) {
             $featuredBerita = Berita::where('status', 'published')
                 ->orderBy('created_at', 'desc')
                 ->first();
         }
 
-        // Paginasi berita reguler (kecuali yang dijadikan featured jika sedang tidak memfilter/mencari)
-        $excludeId = $featuredBerita ? $featuredBerita->id : null;
-        
-        $beritasQuery = Berita::where('status', 'published')
-            ->orderBy('created_at', 'desc');
-
-        if ($excludeId) {
-            $beritasQuery->where('id', '!=', $excludeId);
+        // Paginasi berita reguler (kecuali yang dijadikan featured & recent jika sedang tidak memfilter/mencari)
+        $excludeIds = [];
+        if ($featuredBerita) {
+            $excludeIds[] = $featuredBerita->id;
         }
-
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $beritasQuery->where(function($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('content', 'like', "%{$search}%");
-            });
-        }
-
-        if ($request->filled('category') && $request->input('category') !== 'Semua') {
-            $beritasQuery->where('category', $request->input('category'));
-        }
-
-        $beritas = $beritasQuery->paginate(6)->withQueryString();
 
         // 2 rilis berita horizontal pendamping featured
         $recentBeritas = [];
@@ -68,7 +50,32 @@ class BeritaController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->take(2)
                 ->get();
+
+            foreach ($recentBeritas as $recent) {
+                $excludeIds[] = $recent->id;
+            }
         }
+
+        $beritasQuery = Berita::where('status', 'published')
+            ->orderBy('created_at', 'desc');
+
+        if (!empty($excludeIds)) {
+            $beritasQuery->whereNotIn('id', $excludeIds);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $beritasQuery->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('category') && $request->input('category') !== 'Semua') {
+            $beritasQuery->where('category', $request->input('category'));
+        }
+
+        $beritas = $beritasQuery->paginate(6)->withQueryString();
 
         return view('berita', compact('featuredBerita', 'beritas', 'recentBeritas'));
     }

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
@@ -20,9 +20,9 @@ class BeritaController extends Controller
         // Pencarian berdasarkan judul atau isi
         if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('content', 'like', "%{$search}%");
+                    ->orWhere('content', 'like', "%{$search}%");
             });
         }
 
@@ -63,11 +63,11 @@ class BeritaController extends Controller
         // Upload Gambar jika ada
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-            
+            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
+
             // Buat folder public/uploads/berita jika belum ada
             $destinationPath = public_path('uploads/berita');
-            if (!File::isDirectory($destinationPath)) {
+            if (! File::isDirectory($destinationPath)) {
                 File::makeDirectory($destinationPath, 0755, true, true);
             }
 
@@ -107,16 +107,16 @@ class BeritaController extends Controller
         // Upload Gambar Baru jika ada
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
 
             $destinationPath = public_path('uploads/berita');
-            if (!File::isDirectory($destinationPath)) {
+            if (! File::isDirectory($destinationPath)) {
                 File::makeDirectory($destinationPath, 0755, true, true);
             }
 
             // Hapus gambar lama jika ada
             if ($berita->image) {
-                $oldImagePath = public_path('uploads/berita/' . $berita->image);
+                $oldImagePath = public_path('uploads/berita/'.$berita->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -138,7 +138,7 @@ class BeritaController extends Controller
     {
         // Hapus file gambar jika ada
         if ($berita->image) {
-            $imagePath = public_path('uploads/berita/' . $berita->image);
+            $imagePath = public_path('uploads/berita/'.$berita->image);
             if (File::exists($imagePath)) {
                 File::delete($imagePath);
             }

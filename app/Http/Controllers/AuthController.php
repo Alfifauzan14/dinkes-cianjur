@@ -32,12 +32,13 @@ class AuthController extends Controller
 
         if ($request->username === 'admin' && $request->password === 'dinkes2026') {
             $request->session()->put('gatekeeper_passed', true);
+
             return response()->json(['success' => true]);
         }
 
         return response()->json([
             'success' => false,
-            'message' => 'Username atau Password Gerbang salah!'
+            'message' => 'Username atau Password Gerbang salah!',
         ], 401);
     }
 
@@ -47,10 +48,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         // Pastikan user sudah melewati gerbang lapis 1
-        if (!$request->session()->get('gatekeeper_passed')) {
+        if (! $request->session()->get('gatekeeper_passed')) {
             return response()->json([
                 'success' => false,
-                'message' => 'Akses Terlarang. Lewati Gerbang Lapis 1 terlebih dahulu.'
+                'message' => 'Akses Terlarang. Lewati Gerbang Lapis 1 terlebih dahulu.',
             ], 403);
         }
 
@@ -63,12 +64,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
             return response()->json(['success' => true]);
         }
 
         return response()->json([
             'success' => false,
-            'message' => 'Kredensial yang dimasukkan tidak cocok dengan data kami.'
+            'message' => 'Kredensial yang dimasukkan tidak cocok dengan data kami.',
         ], 401);
     }
 
@@ -80,10 +82,10 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         // Hapus status gatekeeper agar harus mengisi dari awal kembali
         $request->session()->forget('gatekeeper_passed');
-        
+
         return redirect('/');
     }
 }

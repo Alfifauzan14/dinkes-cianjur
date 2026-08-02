@@ -394,4 +394,10 @@
     margin-bottom: 0;
 }
 
+@media (min-width: 769px) {
+    .misi-two-col-grid .misi-item-card:last-child:nth-child(odd) {
+        grid-column: span 2;
+    }
+}
+
 

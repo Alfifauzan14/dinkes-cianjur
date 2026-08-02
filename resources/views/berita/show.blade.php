@@ -48,10 +48,10 @@
     <div class="detail-page-wrapper">
         <div class="detail-container">
             
-            <!-- Kembali ke Rilis Berita -->
-            <a href="{{ route('berita') }}" class="btn-back-archive">
+            <!-- Kembali ke Berita -->
+            <a href="{{ url('/#berita') }}" class="btn-back-archive">
                 <span class="material-icons">arrow_back</span>
-                <span>Kembali ke Rilis Berita</span>
+                <span>Kembali ke Berita</span>
             </a>
 
             <div class="detail-layout">
