@@ -1,0 +1,225 @@
+/* ================================================================
+   PUBLIC DETAIL BERITA CSS
+   Font      : Plus Jakarta Sans
+   Warna     : Primary #004F3B, Accent #009966, Muted #6B7280
+   Radius    : Card Luar 1px, Card Dalam 3px
+   Shadow    : 0 0 35px rgba(0, 0, 0, 0.05)
+   ================================================================ */
+
+.detail-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F9FAFB;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding-top: 103px; /* Avoid fixed navbar */
+    box-sizing: border-box;
+}
+
+.detail-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+    box-sizing: border-box;
+}
+
+/* ── Back Navigation ────────────────────────────────────────── */
+.btn-back-archive {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #009966;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.btn-back-archive:hover {
+    color: #004F3B;
+    transform: translateX(-4px);
+}
+
+/* ── Layout Grid ─────────────────────────────────────────────── */
+.detail-layout {
+    display: grid;
+    grid-template-columns: 2.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* ── Main Article (Left) ──────────────────────────────────────── */
+.article-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px; /* Card terluar: 1px */
+    padding: 40px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+}
+
+.article-header {
+    margin-bottom: 28px;
+}
+
+.article-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.article-badge {
+    background-color: #E6F4EA;
+    color: #009966;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 3px; /* Badge rounded 3px */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.article-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #6B7280;
+    font-weight: 500;
+}
+
+.article-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #004F3B;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+}
+
+.article-image-wrap {
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    border-radius: 3px;
+    margin-bottom: 32px;
+    border: 1px solid #E5E7EB;
+    background-color: #F3F4F6;
+}
+
+.article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.article-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #374151;
+    font-weight: 400;
+}
+
+.article-body p {
+    margin-bottom: 20px;
+}
+
+/* ── Sidebar Popular (Right) ─────────────────────────────────── */
+.sidebar-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px; /* Card terluar: 1px */
+    padding: 32px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 135px; /* Stick under navbar */
+}
+
+.sidebar-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #004F3B;
+    margin: 0 0 24px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #E6F4EA;
+}
+
+.popular-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popular-item {
+    display: flex;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    align-items: flex-start;
+}
+
+.popular-item:hover .popular-item-title {
+    color: #009966;
+}
+
+.popular-thumbnail {
+    width: 80px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 3px;
+    background-color: #F3F4F6;
+    border: 1px solid #E5E7EB;
+    flex-shrink: 0;
+}
+
+.popular-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.popular-item-date {
+    font-size: 12px;
+    color: #9CA3AF;
+    font-weight: 500;
+}
+
+.popular-item-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #374151;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── Responsive Viewports ───────────────────────────────────── */
+@media (max-width: 992px) {
+    .detail-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .sidebar-card {
+        position: static;
+    }
+}
+
+@media (max-width: 640px) {
+    .detail-container {
+        padding: 32px 20px 64px;
+    }
+    
+    .article-card {
+        padding: 24px;
+    }
+    
+    .article-title {
+        font-size: 26px;
+    }
+}

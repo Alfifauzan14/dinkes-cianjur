@@ -19,69 +19,50 @@
     <div class="berita-container">
         <!-- Row 1: Landscape Cards -->
         <div class="berita-row-landscape">
-            <!-- Card 1 -->
-            <a href="#" class="berita-card landscape">
-                <img src="{{ asset('images/dumy1.png') }}" alt="Gerakan Aktifkan Posyandu" class="berita-card-image" loading="lazy">
-                <div class="berita-card-overlay"></div>
-                <div class="berita-card-content">
-                    <span class="berita-card-date">15 Juli 2026</span>
-                    <h3 class="berita-card-title">Gerakan Aktifkan Posyandu dalam kegiatan Rembug Warga</h3>
+            @forelse($homeBeritas->take(2) as $berita)
+                <a href="{{ route('berita.show', $berita->slug) }}" class="berita-card landscape">
+                    @if($berita->image)
+                        <img src="{{ asset('uploads/berita/' . $berita->image) }}" alt="{{ $berita->title }}" class="berita-card-image" loading="lazy">
+                    @else
+                        <div class="berita-card-image" style="background-color: #065F46; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); width: 100%; height: 100%;">
+                            <span class="material-icons" style="font-size: 48px;">image</span>
+                        </div>
+                    @endif
+                    <div class="berita-card-overlay"></div>
+                    <div class="berita-card-content">
+                        <span class="berita-card-date">{{ $berita->created_at->format('d M Y') }}</span>
+                        <h3 class="berita-card-title">{{ $berita->title }}</h3>
+                    </div>
+                </a>
+            @empty
+                <div style="grid-column: span 2; text-align: center; padding: 48px; color: #9CA3AF; width: 100%;">
+                    <span class="material-icons" style="font-size: 48px; margin-bottom: 12px; display: block;">newspaper</span>
+                    <p style="font-size: 15px; font-weight: 600;">Belum ada rilis berita terbaru.</p>
                 </div>
-            </a>
-
-            <!-- Card 2 -->
-            <a href="#" class="berita-card landscape">
-                <img src="{{ asset('images/dumy1.png') }}" alt="Prosedur menghubungi Ambulans PSC 119" class="berita-card-image" loading="lazy">
-                <div class="berita-card-overlay"></div>
-                <div class="berita-card-content">
-                    <span class="berita-card-date">15 Juli 2026</span>
-                    <h3 class="berita-card-title">Prosedur menghubungi Ambulans PSC 119 di Wilayah Kabupaten Cianjur</h3>
-                </div>
-            </a>
+            @endforelse
         </div>
 
         <!-- Row 2: Square Cards -->
-        <div class="berita-row-square">
-            <!-- Card 3 -->
-            <a href="#" class="berita-card square">
-                <img src="{{ asset('images/dumy2.png') }}" alt="Komitmen layanan kesehatan" class="berita-card-image" loading="lazy">
-                <div class="berita-card-overlay"></div>
-                <div class="berita-card-content">
-                    <span class="berita-card-date">15 Juli 2026</span>
-                    <h3 class="berita-card-title">Cianjur berkomitmen dalam menghadirkan layanan Kesehatan</h3>
-                </div>
-            </a>
-
-            <!-- Card 4 -->
-            <a href="#" class="berita-card square">
-                <img src="{{ asset('images/dumy2.png') }}" alt="Puncak Acara HKN" class="berita-card-image" loading="lazy">
-                <div class="berita-card-overlay"></div>
-                <div class="berita-card-content">
-                    <span class="berita-card-date">15 Juli 2026</span>
-                    <h3 class="berita-card-title">Dinkes Cianjur Puncak Acara HKN dan Rembug Warga</h3>
-                </div>
-            </a>
-
-            <!-- Card 5 -->
-            <a href="#" class="berita-card square">
-                <img src="{{ asset('images/dumy2.png') }}" alt="Gerakan AKSI BERGIZI NASIONAL" class="berita-card-image" loading="lazy">
-                <div class="berita-card-overlay"></div>
-                <div class="berita-card-content">
-                    <span class="berita-card-date">15 Juli 2026</span>
-                    <h3 class="berita-card-title">Gerakan AKSI BERGIZI NASIONAL di SMKN 1 Cianjur</h3>
-                </div>
-            </a>
-
-            <!-- Card 6 -->
-            <a href="#" class="berita-card square">
-                <img src="{{ asset('images/dumy2.png') }}" alt="Peringatan Hari Kesehatan Jiwa" class="berita-card-image" loading="lazy">
-                <div class="berita-card-overlay"></div>
-                <div class="berita-card-content">
-                    <span class="berita-card-date">15 Juli 2026</span>
-                    <h3 class="berita-card-title">Peringatan Hari Kesehatan Jiwa Sedunia 2025</h3>
-                </div>
-            </a>
-        </div>
+        @if($homeBeritas->count() > 2)
+            <div class="berita-row-square">
+                @foreach($homeBeritas->skip(2)->take(4) as $berita)
+                    <a href="{{ route('berita.show', $berita->slug) }}" class="berita-card square">
+                        @if($berita->image)
+                            <img src="{{ asset('uploads/berita/' . $berita->image) }}" alt="{{ $berita->title }}" class="berita-card-image" loading="lazy">
+                        @else
+                            <div class="berita-card-image" style="background-color: #065F46; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); width: 100%; height: 100%;">
+                                <span class="material-icons" style="font-size: 36px;">image</span>
+                            </div>
+                        @endif
+                        <div class="berita-card-overlay"></div>
+                        <div class="berita-card-content">
+                            <span class="berita-card-date">{{ $berita->created_at->format('d M Y') }}</span>
+                            <h3 class="berita-card-title">{{ $berita->title }}</h3>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        @endif
     </div>
     </div>
 </section>

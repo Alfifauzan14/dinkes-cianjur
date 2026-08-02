@@ -13,111 +13,124 @@
     <main class="berita-content">
         <div class="berita-container">
             <!-- Search & Filter Bar -->
-            <div class="berita-filter-bar">
+            <form action="{{ route('berita') }}" method="GET" class="berita-filter-bar">
                 <div class="berita-search-section">
-                    <h3 class="berita-filter-label">Cari Album Kegiatan</h3>
+                    <h3 class="berita-filter-label">Cari Artikel Berita</h3>
                     <div class="berita-search-box">
                         <svg class="berita-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8" />
                             <path d="M21 21l-4.35-4.35" />
                         </svg>
-                        <input type="text" class="berita-search-input" placeholder="Cari nama Puskesmas...">
-                        <button class="berita-search-btn">Cari</button>
+                        <input type="text" name="search" class="berita-search-input" value="{{ request('search') }}" placeholder="Cari rilis berita...">
+                        <button type="submit" class="berita-search-btn">Cari</button>
                     </div>
                 </div>
                 <div class="berita-filter-section">
                     <h3 class="berita-filter-label">Filter Kategori</h3>
                     <div class="berita-filter-dropdown">
-                        <select class="berita-select">
-                            <option>Semua Wilayah...</option>
-                            <option>Kota Cianjur</option>
-                            <option>Cianjur Selatan</option>
-                            <option>Cianjur Utara</option>
+                        <select name="category" class="berita-select" onchange="this.form.submit()">
+                            <option value="Semua" {{ request('category') == 'Semua' ? 'selected' : '' }}>Semua Kategori</option>
+                            <option value="Kesehatan" {{ request('category') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
+                            <option value="Kegiatan" {{ request('category') == 'Kegiatan' ? 'selected' : '' }}>Kegiatan</option>
+                            <option value="Pengumuman" {{ request('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
                         </select>
                     </div>
                 </div>
-            </div>
+            </form>
 
-            <!-- Featured Section (Row 1) -->
-            <div class="berita-featured-section">
-                <!-- Large Featured Card (Left) -->
-                <div class="berita-featured-left">
-                    <a href="#" class="featured-large-card">
-                        <div class="card-image-wrap">
-                            <img src="{{ asset('images/dumy1.png') }}" alt="Featured News Image" class="featured-large-image">
-                            <span class="berita-badge">15 Juli 2026</span>
-                        </div>
-                        <div class="featured-large-content">
-                            <h2 class="featured-large-title">Gerakan Aktifkan Posyandu dalam kegiatan Rembug Warga</h2>
-                        </div>
-                    </a>
+            @if($featuredBerita)
+                <!-- Featured Section (Row 1) -->
+                <div class="berita-featured-section">
+                    <!-- Large Featured Card (Left) -->
+                    <div class="berita-featured-left">
+                        <a href="{{ route('berita.show', $featuredBerita->slug) }}" class="featured-large-card">
+                            <div class="card-image-wrap">
+                                @if($featuredBerita->image)
+                                    <img src="{{ asset('uploads/berita/' . $featuredBerita->image) }}" alt="{{ $featuredBerita->title }}" class="featured-large-image">
+                                @else
+                                    <div class="featured-large-image" style="background-color: #004F3B; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.2);">
+                                        <span class="material-icons" style="font-size: 72px;">image</span>
+                                    </div>
+                                @endif
+                                <span class="berita-badge">{{ $featuredBerita->created_at->format('d M Y') }}</span>
+                            </div>
+                            <div class="featured-large-content">
+                                <h2 class="featured-large-title">{{ $featuredBerita->title }}</h2>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Two Small Featured Cards (Right) -->
+                    <div class="berita-featured-right">
+                        @foreach($recentBeritas as $recent)
+                            <a href="{{ route('berita.show', $recent->slug) }}" class="featured-small-card">
+                                <div class="small-card-image-wrap">
+                                    @if($recent->image)
+                                        <img src="{{ asset('uploads/berita/' . $recent->image) }}" alt="{{ $recent->title }}">
+                                    @else
+                                        <div style="background-color: #004F3B; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.2); width: 100%; height: 100%;">
+                                            <span class="material-icons" style="font-size: 32px;">image</span>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="small-card-content">
+                                    <span class="small-card-date">{{ $recent->created_at->format('d M Y') }}</span>
+                                    <h3 class="small-card-title">{{ $recent->title }}</h3>
+                                </div>
+                            </a>
+                        @endforeach
+                        
+                        @if($recentBeritas->count() === 0)
+                            <div style="display:flex; align-items:center; justify-content:center; height:100%; color:#9CA3AF; border:1px dashed #E5E7EB; border-radius:3px;">
+                                <p style="font-size:14px; font-weight:600; text-align:center;">Belum ada berita pendamping rilis.</p>
+                            </div>
+                        @endif
+                    </div>
                 </div>
-
-                <!-- Two Small Featured Cards (Right) -->
-                <div class="berita-featured-right">
-                    <a href="#" class="featured-small-card">
-                        <div class="small-card-image-wrap">
-                            <img src="{{ asset('images/dumy1.png') }}" alt="News Image">
-                        </div>
-                        <div class="small-card-content">
-                            <span class="small-card-date">15 Juli 2026</span>
-                            <h3 class="small-card-title">Gerakan Aktifkan Posyandu dalam kegiatan Rembug Warga</h3>
-                        </div>
-                    </a>
-
-                    <a href="#" class="featured-small-card">
-                        <div class="small-card-image-wrap">
-                            <img src="{{ asset('images/dumy1.png') }}" alt="News Image">
-                        </div>
-                        <div class="small-card-content">
-                            <span class="small-card-date">15 Juli 2026</span>
-                            <h3 class="small-card-title">Gerakan Aktifkan Posyandu dalam kegiatan Rembug Warga</h3>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            @endif
 
             <!-- News Grid Section (Row 2 onwards) -->
             <div class="berita-grid-section">
-                @for ($i = 0; $i < 9; $i++)
-                <div class="berita-grid-card">
-                    <div class="grid-card-image-wrap">
-                        <img src="{{ asset('images/dumy2.png') }}" alt="News Image">
-                    </div>
-                    <div class="grid-card-content">
-                        <span class="grid-card-date">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; display: inline-block; vertical-align: middle;">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                                <line x1="16" y1="2" x2="16" y2="6" />
-                                <line x1="8" y1="2" x2="8" y2="6" />
-                                <line x1="3" y1="10" x2="21" y2="10" />
-                            </svg>
-                            24 Juni 2024
-                        </span>
-                        <h4 class="grid-card-title">Workshop Penguatan performance improvement plan (PIP)</h4>
-                    </div>
-                </div>
-                @endfor
+                @forelse ($beritas as $berita)
+                    <a href="{{ route('berita.show', $berita->slug) }}" class="berita-grid-card" style="text-decoration: none; color: inherit;">
+                        <div class="grid-card-image-wrap">
+                            @if($berita->image)
+                                <img src="{{ asset('uploads/berita/' . $berita->image) }}" alt="{{ $berita->title }}">
+                            @else
+                                <div style="background-color: #004F3B; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.2); width: 100%; height: 100%;">
+                                    <span class="material-icons" style="font-size: 48px;">image</span>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="grid-card-content">
+                            <span class="grid-card-date">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; display: inline-block; vertical-align: middle;">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                </svg>
+                                {{ $berita->created_at->format('d M Y') }}
+                            </span>
+                            <h4 class="grid-card-title">{{ $berita->title }}</h4>
+                        </div>
+                    </a>
+                @empty
+                    @if(!$featuredBerita)
+                        <div style="grid-column: span 3; text-align: center; padding: 64px 0; color: #9CA3AF; width: 100%;">
+                            <span class="material-icons" style="font-size: 64px; margin-bottom: 12px; display: block;">newspaper</span>
+                            <p style="font-size: 16px; font-weight: 600;">Belum ada berita yang ditemukan.</p>
+                        </div>
+                    @endif
+                @endforelse
             </div>
 
             <!-- Pagination -->
-            <div class="berita-pagination">
-                <button class="berita-page-btn" aria-label="Previous">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                </button>
-                <button class="berita-page-btn active">1</button>
-                <button class="berita-page-btn">2</button>
-                <button class="berita-page-btn">3</button>
-                <span class="berita-page-dots">...</span>
-                <button class="berita-page-btn">12</button>
-                <button class="berita-page-btn" aria-label="Next">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18l6-6-6-6" />
-                    </svg>
-                </button>
-            </div>
+            @if($beritas->hasPages())
+                <div class="berita-pagination" style="display: flex; justify-content: center; margin-top: 48px;">
+                    {{ $beritas->links() }}
+                </div>
+            @endif
         </div>
     </main>
 </div>

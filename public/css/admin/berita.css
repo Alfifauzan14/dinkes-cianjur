@@ -1,0 +1,288 @@
+/* ================================================================
+   ADMIN NEWS MANAGEMENT CSS
+   Font      : Plus Jakarta Sans
+   Colors    : Primary #00BC7D, Dark #1A1A1A, Muted #9CA3AF
+   Border Radius: Card terluar = 1px, Input & Button = 3px
+   Shadow    : 0 0 35px rgba(0, 0, 0, 0.05)
+   ================================================================ */
+
+.berita-admin-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ── Content Card ────────────────────────────────────────────── */
+.admin-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px; /* Card terluar: 1px */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+}
+
+.card-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.search-filter-form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* ── Form Controls ───────────────────────────────────────────── */
+.form-control-input, .form-control-select {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px; /* Input: 3px */
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    color: #1A1A1A;
+    background-color: #FFFFFF;
+    transition: border-color 0.2s ease;
+}
+
+.form-control-input:focus, .form-control-select:focus {
+    border-color: #00BC7D;
+}
+
+.form-textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 12px;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+}
+
+.form-textarea:focus {
+    border-color: #00BC7D;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn-admin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 20px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 3px; /* Button: 3px */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn-admin-primary {
+    background-color: #00BC7D;
+    color: #FFFFFF;
+}
+
+.btn-admin-primary:hover {
+    background-color: #009A66;
+}
+
+.btn-admin-secondary {
+    background-color: #F3F4F6;
+    color: #374151;
+    border: 1px solid #D1D5DB;
+}
+
+.btn-admin-secondary:hover {
+    background-color: #E5E7EB;
+}
+
+.btn-admin-danger {
+    background-color: #EF4444;
+    color: #FFFFFF;
+}
+
+.btn-admin-danger:hover {
+    background-color: #DC2626;
+}
+
+/* ── Data Table ──────────────────────────────────────────────── */
+.admin-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 8px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.admin-table th {
+    background-color: #F9FAFB;
+    color: #374151;
+    font-weight: 700;
+    padding: 16px;
+    border-bottom: 2px solid #E5E7EB;
+}
+
+.admin-table td {
+    padding: 16px;
+    border-bottom: 1px solid #E5E7EB;
+    color: #4B5563;
+    vertical-align: middle;
+}
+
+.admin-table tr:hover {
+    background-color: #F9FAFB;
+}
+
+.news-thumbnail {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 3px;
+    background-color: #F3F4F6;
+    border: 1px solid #E5E7EB;
+}
+
+.news-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.news-badge-kegiatan { background-color: #E0F2FE; color: #0369A1; }
+.news-badge-kesehatan { background-color: #DCFCE7; color: #15803D; }
+.news-badge-pengumuman { background-color: #FEF3C7; color: #B45309; }
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-published { color: #10B981; }
+.status-published .status-dot { background-color: #10B981; }
+.status-draft { color: #9CA3AF; }
+.status-draft .status-dot { background-color: #9CA3AF; }
+
+.actions-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-action-edit {
+    color: #00BC7D;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.btn-action-edit:hover {
+    color: #009A66;
+}
+
+.btn-action-delete {
+    color: #EF4444;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.btn-action-delete:hover {
+    color: #DC2626;
+}
+
+/* ── Pagination ──────────────────────────────────────────────── */
+.pagination-wrapper {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+/* ── Form Layout ─────────────────────────────────────────────── */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 800px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #374151;
+}
+
+.image-preview-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.image-preview {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid #D1D5DB;
+    background-color: #F9FAFB;
+}
+
+/* ── Alert Notification ──────────────────────────────────────── */
+.admin-alert {
+    padding: 14px 20px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-alert-success {
+    background-color: #D1FAE5;
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+}

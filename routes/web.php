@@ -5,12 +5,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    $homeBeritas = \App\Models\Berita::where('status', 'published')
+        ->orderBy('created_at', 'desc')
+        ->take(6)
+        ->get();
+    return view('welcome', compact('homeBeritas'));
 });
 
-Route::get('/berita', function () {
-    return view('berita');
-})->name('berita');
+Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index'])->name('berita');
+Route::get('/berita/{slug}', [App\Http\Controllers\BeritaController::class, 'show'])->name('berita.show');
 
 Route::get('/profil/tentang-dinkes', function () {
     return view('profil');
@@ -61,6 +64,17 @@ Route::post('/dinkes-logout', [AuthController::class, 'logout'])->name('logout')
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
+
+Route::resource('/admin/berita', App\Http\Controllers\Admin\BeritaController::class, [
+    'names' => [
+        'index' => 'admin.berita.index',
+        'create' => 'admin.berita.create',
+        'store' => 'admin.berita.store',
+        'edit' => 'admin.berita.edit',
+        'update' => 'admin.berita.update',
+        'destroy' => 'admin.berita.destroy',
+    ]
+])->middleware('auth');
 
 Route::get('/layanan-terpadu', function () {
     return view('layanan-terpadu');
