@@ -113,6 +113,7 @@ class ProfileController extends Controller
             'sejarah_text_1' => 'required|string',
             'sejarah_text_2' => 'required|string',
             'sejarah_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'struktur_organisasi_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,pdf|max:5120',
             'visi_title' => 'required|string',
             'visi_desc' => 'required|string',
             'stat_1_text' => 'required|string|max:255',
@@ -126,7 +127,7 @@ class ProfileController extends Controller
 
         $profile = Profile::firstOrCreate(['id' => 1]);
 
-        $data = $request->except(['kepala_dinas_image', 'sejarah_image', '_token', '_method']);
+        $data = $request->except(['kepala_dinas_image', 'sejarah_image', 'struktur_organisasi_image', '_token', '_method']);
 
         // Handle Kepala Dinas Image
         if ($request->hasFile('kepala_dinas_image')) {
@@ -169,6 +170,27 @@ class ProfileController extends Controller
 
             $image->move($destinationPath, $imageName);
             $data['sejarah_image'] = $imageName;
+        }
+
+        // Handle Struktur Organisasi Image
+        if ($request->hasFile('struktur_organisasi_image')) {
+            $image = $request->file('struktur_organisasi_image');
+            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+
+            $destinationPath = public_path('uploads/profile');
+            if (!File::isDirectory($destinationPath)) {
+                File::makeDirectory($destinationPath, 0755, true, true);
+            }
+
+            if ($profile->struktur_organisasi_image) {
+                $oldImagePath = public_path('uploads/profile/' . $profile->struktur_organisasi_image);
+                if (File::exists($oldImagePath)) {
+                    File::delete($oldImagePath);
+                }
+            }
+
+            $image->move($destinationPath, $imageName);
+            $data['struktur_organisasi_image'] = $imageName;
         }
 
         $profile->update($data);

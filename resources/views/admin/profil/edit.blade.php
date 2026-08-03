@@ -46,6 +46,10 @@
                 <span class="material-icons">history_edu</span>
                 <span>Sejarah & Latar Belakang</span>
             </button>
+            <button type="button" class="tab-nav-btn" data-target="tab-struktur">
+                <span class="material-icons">account_tree</span>
+                <span>Struktur Organisasi</span>
+            </button>
         </div>
 
         <form action="{{ route('admin.profil.update') }}" method="POST" enctype="multipart/form-data" class="admin-form">
@@ -259,6 +263,43 @@
                         style="padding: 8px 12px; border: 1px solid #D1D5DB; border-radius: 3px; width: 100%; max-width: 450px;" 
                     >
                     <small style="display: block; color: #6B7280; margin-top: 6px; font-size: 12px;">Format yang didukung: JPEG, PNG, JPG, WebP, SVG. Maksimal: 2MB.</small>
+                </div>
+            </div>
+
+            <!-- PANEL 4: STRUKTUR ORGANISASI -->
+            <div id="tab-struktur" class="profile-tab-panel">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="font-weight: 700; display: block; margin-bottom: 8px;">Struktur Organisasi Saat Ini</label>
+                    <div class="image-preview-wrapper" style="margin-bottom: 12px; max-width: 100%; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 3px; padding: 20px; text-align: center;">
+                        @if($profile->struktur_organisasi_image && file_exists(public_path('uploads/profile/' . $profile->struktur_organisasi_image)))
+                            <img src="{{ asset('uploads/profile/' . $profile->struktur_organisasi_image) }}" alt="Struktur Organisasi" style="max-width: 100%; max-height: 500px; object-fit: contain;">
+                        @else
+                            <div style="padding: 40px 20px; color: #9CA3AF;">
+                                <span class="material-icons" style="font-size: 48px; display: block; margin-bottom: 12px;">account_tree</span>
+                                <p style="margin: 0; font-size: 14px; font-weight: 600;">Belum ada gambar struktur organisasi</p>
+                                <p style="margin: 8px 0 0 0; font-size: 12px;">Unggah gambar atau PDF struktur organisasi di bawah ini.</p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px; border-top: 1px solid #E5E7EB; padding-top: 20px;">
+                    <label for="struktur_organisasi_image" style="font-weight: 700; display: block; margin-bottom: 8px;">Unggah Struktur Organisasi Baru (Opsional)</label>
+                    <input 
+                        type="file" 
+                        name="struktur_organisasi_image" 
+                        id="struktur_organisasi_image" 
+                        accept="image/*,.pdf"
+                        class="form-control-input" 
+                        style="padding: 8px 12px; border: 1px solid #D1D5DB; border-radius: 3px; width: 100%; max-width: 450px;" 
+                    >
+                    <small style="display: block; color: #6B7280; margin-top: 6px; font-size: 12px;">Format yang didukung: JPEG, PNG, JPG, WebP, PDF. Maksimal: 5MB.</small>
+                    @if($profile->struktur_organisasi_image)
+                        <div style="margin-top: 12px; padding: 10px; background: #F0FDF4; border: 1px solid #A7F3D0; border-radius: 3px; display: flex; align-items: center; gap: 8px;">
+                            <span class="material-icons" style="color: #059669; font-size: 18px;">check_circle</span>
+                            <span style="font-size: 13px; color: #047857;">File saat ini: {{ $profile->struktur_organisasi_image }}</span>
+                        </div>
+                    @endif
                 </div>
             </div>
 
