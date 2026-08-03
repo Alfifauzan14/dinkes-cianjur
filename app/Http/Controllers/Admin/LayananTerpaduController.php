@@ -11,12 +11,14 @@ class LayananTerpaduController extends Controller
     public function index()
     {
         $layanans = LayananTerpadu::orderBy('type')->orderBy('name')->get();
+
         return view('admin.layanan.index', compact('layanans'));
     }
 
     public function create()
     {
         $icons = ['users', 'smile', 'chat', 'desktop', 'bag', 'globe', 'file'];
+
         return view('admin.layanan.create', compact('icons'));
     }
 
@@ -37,9 +39,10 @@ class LayananTerpaduController extends Controller
     public function edit(LayananTerpadu $layananTerpadu)
     {
         $icons = ['users', 'smile', 'chat', 'desktop', 'bag', 'globe', 'file'];
+
         return view('admin.layanan.edit', [
             'layanan' => $layananTerpadu,
-            'icons' => $icons
+            'icons' => $icons,
         ]);
     }
 
@@ -60,6 +63,7 @@ class LayananTerpaduController extends Controller
     public function destroy(LayananTerpadu $layananTerpadu)
     {
         $layananTerpadu->delete();
+
         return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil dihapus!');
     }
 }

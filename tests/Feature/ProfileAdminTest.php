@@ -109,7 +109,7 @@ class ProfileAdminTest extends TestCase
             'stat_1_text' => 'Stat Awal 1',
             'stat_2_text' => 'Stat Awal 2',
             'misi' => [
-                ['title' => 'Misi Awal', 'desc' => 'Desc Awal']
+                ['title' => 'Misi Awal', 'desc' => 'Desc Awal'],
             ],
         ]);
 
@@ -131,7 +131,7 @@ class ProfileAdminTest extends TestCase
                 'misi' => [
                     ['title' => 'Misi Baru 1', 'desc' => 'Desc Baru 1'],
                     ['title' => 'Misi Baru 2', 'desc' => 'Desc Baru 2'],
-                ]
+                ],
             ]);
 
         $response->assertRedirect(route('admin.profil.edit'));

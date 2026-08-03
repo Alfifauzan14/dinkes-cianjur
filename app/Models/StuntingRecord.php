@@ -35,6 +35,7 @@ class StuntingRecord extends Model
         if ($totalBalita === 0) {
             return 0.0;
         }
+
         return round(($balitaStunting / $totalBalita) * 100, 1);
     }
 }

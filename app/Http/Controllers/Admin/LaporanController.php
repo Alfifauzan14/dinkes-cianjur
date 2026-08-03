@@ -12,6 +12,7 @@ class LaporanController extends Controller
     public function index()
     {
         $laporans = Laporan::orderBy('release_date', 'desc')->get();
+
         return view('admin.laporan.index', compact('laporans'));
     }
 
@@ -23,9 +24,9 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'        => 'required|string|max:255',
-            'category'     => 'required|string|in:Laporan Kinerja,Laporan Keuangan,Informasi Publik',
-            'file_document'=> 'required|file|mimes:pdf|max:10240', // max 10MB
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|in:Laporan Kinerja,Laporan Keuangan,Informasi Publik',
+            'file_document' => 'required|file|mimes:pdf|max:10240', // max 10MB
             'release_date' => 'required|date',
         ]);
 
@@ -35,18 +36,18 @@ class LaporanController extends Controller
         // Calculate human readable file size
         $bytes = $file->getSize();
         if ($bytes >= 1048576) {
-            $size = number_format($bytes / 1048576, 1) . ' MB';
+            $size = number_format($bytes / 1048576, 1).' MB';
         } elseif ($bytes >= 1024) {
-            $size = number_format($bytes / 1024, 0) . ' KB';
+            $size = number_format($bytes / 1024, 0).' KB';
         } else {
-            $size = $bytes . ' B';
+            $size = $bytes.' B';
         }
 
         Laporan::create([
-            'title'        => $request->title,
-            'category'     => $request->category,
-            'file_path'    => $path,
-            'file_size'    => $size,
+            'title' => $request->title,
+            'category' => $request->category,
+            'file_path' => $path,
+            'file_size' => $size,
             'release_date' => $request->release_date,
         ]);
 
@@ -61,15 +62,15 @@ class LaporanController extends Controller
     public function update(Request $request, Laporan $laporan)
     {
         $request->validate([
-            'title'        => 'required|string|max:255',
-            'category'     => 'required|string|in:Laporan Kinerja,Laporan Keuangan,Informasi Publik',
-            'file_document'=> 'nullable|file|mimes:pdf|max:10240',
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|in:Laporan Kinerja,Laporan Keuangan,Informasi Publik',
+            'file_document' => 'nullable|file|mimes:pdf|max:10240',
             'release_date' => 'required|date',
         ]);
 
         $data = [
-            'title'        => $request->title,
-            'category'     => $request->category,
+            'title' => $request->title,
+            'category' => $request->category,
             'release_date' => $request->release_date,
         ];
 
@@ -83,11 +84,11 @@ class LaporanController extends Controller
             $path = $file->store('laporan', 'public');
             $bytes = $file->getSize();
             if ($bytes >= 1048576) {
-                $size = number_format($bytes / 1048576, 1) . ' MB';
+                $size = number_format($bytes / 1048576, 1).' MB';
             } elseif ($bytes >= 1024) {
-                $size = number_format($bytes / 1024, 0) . ' KB';
+                $size = number_format($bytes / 1024, 0).' KB';
             } else {
-                $size = $bytes . ' B';
+                $size = $bytes.' B';
             }
 
             $data['file_path'] = $path;

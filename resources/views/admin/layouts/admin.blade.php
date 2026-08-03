@@ -45,6 +45,10 @@
                     <span class="material-icons menu-icon">medical_services</span>
                     <span>Edit Layanan</span>
                 </a>
+                <a href="{{ route('admin.program-kesehatan.index') }}" class="menu-link {{ request()->routeIs('admin.program-kesehatan.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">assignment</span>
+                    <span>Kelola Program</span>
+                </a>
                 <a href="#" class="menu-link">
                     <span class="material-icons menu-icon">description</span>
                     <span>Edit PPID</span>

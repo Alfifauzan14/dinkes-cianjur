@@ -25,15 +25,16 @@
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="menu-item">
+                    <a href="#" class="menu-item {{ Request::is('program/*') ? 'active' : '' }}">
                         Program Kesehatan
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('stunting') }}" class="dropdown-item">Cianjur Bebas Stunting</a></li>
-                        <li><a href="{{ route('kia') }}" class="dropdown-item">Kesehatan Ibu & Anak (KIA)</a></li>
+                        @foreach(\App\Models\ProgramKesehatan::where('status', 'published')->get() as $prog)
+                            <li><a href="{{ route('program.show', $prog->slug) }}" class="dropdown-item">{{ $prog->title }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
 
