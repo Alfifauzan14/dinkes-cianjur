@@ -26,26 +26,72 @@ class ProfileController extends Controller
             'sambutan_desc_2' => 'Mari kita bersama-sama menerapkan Pola Hidup Bersih dan Sehat (PHBS) demi masa depan keluarga kita yang lebih baik.',
             'kepala_dinas_image' => 'Group 83.png',
             'sejarah_title' => 'Perjalanan Dinas Kesehatan Kabupaten Cianjur',
-            'sejarah_text_1' => 'Dinas Kesehatan Kabupaten Cianjur adalah unsur pelaksana otonomi daerah yang menjadi garda terdepan dalam meningkatkan derajat kesehatan masyarakat di wilayah seluas ±3.501,48 km² dengan 2,3 juta jiwa penduduk.',
+            'sejarah_text_1' => 'Dinas Kesehatan Kabupaten Cianjur adalah unsur pelaksana otonomi daerah yang menjadi garda terdepan dalam meningkatkan derajat kesehatan masyarakat di wilayah seluas ±3.501,48 km² dengan 2,3 jiwa penduduk.',
             'sejarah_text_2' => 'Mengelola 47 Puskesmas di 32 kecamatan beserta Labkesda, kami berkomitmen penuh menyelenggarakan pelayanan kesehatan yang profesional, merata, dan terintegrasi demi mewujudkan masyarakat Cianjur yang sehat dan mandiri.',
+            'sejarah_image' => null,
             'visi_title' => 'Mewujudkan Masyarakat Kabupaten Cianjur yang Sehat, Mandiri, Berkeadilan, dan Berdaya Saing.',
             'visi_desc' => 'Dinas Kesehatan Kabupaten Cianjur berkomitmen penuh mendorong transformasi pelayanan kesehatan agar seluruh warga memiliki akses yang setara, cepat, dan terjangkau terhadap layanan medis berkualitas.',
             'stat_1_text' => '47 Puskesmas Rujukan',
             'stat_2_text' => '32 Kecamatan Terjangkau',
-            
-            'misi_1_title' => '1. Pemerataan Pelayanan',
-            'misi_1_desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.',
-            'misi_2_title' => '2. Tata Kelola Adil',
-            'misi_2_desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.',
-            'misi_3_title' => '3. SDM Profesional',
-            'misi_3_desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.',
-            'misi_4_title' => '4. Kemandirian Masyarakat',
-            'misi_4_desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.',
-            'misi_5_title' => '5. Mutu Pelayanan',
-            'misi_5_desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.',
-            'misi_6_title' => '6. Ketahanan Kesehatan',
-            'misi_6_desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.',
+            'misi' => [
+                [
+                    'title' => '1. Pemerataan Pelayanan',
+                    'desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.'
+                ],
+                [
+                    'title' => '2. Tata Kelola Adil',
+                    'desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.'
+                ],
+                [
+                    'title' => '3. SDM Profesional',
+                    'desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.'
+                ],
+                [
+                    'title' => '4. Kemandirian Masyarakat',
+                    'desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.'
+                ],
+                [
+                    'title' => '5. Mutu Pelayanan',
+                    'desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.'
+                ],
+                [
+                    'title' => '6. Ketahanan Kesehatan',
+                    'desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.'
+                ],
+            ]
         ]);
+
+        if (empty($profile->misi)) {
+            $profile->update([
+                'misi' => [
+                    [
+                        'title' => '1. Pemerataan Pelayanan',
+                        'desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.'
+                    ],
+                    [
+                        'title' => '2. Tata Kelola Adil',
+                        'desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.'
+                    ],
+                    [
+                        'title' => '3. SDM Profesional',
+                        'desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.'
+                    ],
+                    [
+                        'title' => '4. Kemandirian Masyarakat',
+                        'desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.'
+                    ],
+                    [
+                        'title' => '5. Mutu Pelayanan',
+                        'desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.'
+                    ],
+                    [
+                        'title' => '6. Ketahanan Kesehatan',
+                        'desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.'
+                    ],
+                ]
+            ]);
+            $profile->refresh();
+        }
 
         return view('admin.profil.edit', compact('profile'));
     }
