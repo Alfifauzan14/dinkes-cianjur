@@ -129,13 +129,20 @@
                     <!-- Left Column: Visual Chart -->
                     <div class="stunting-chart-column">
                         <div class="chart-flex-container" style="display: flex; position: relative; align-items: flex-start; gap: 12px; margin-top: 12px;">
-                            <!-- Y-Axis Static Labels (Left) -->
-                            <div class="chart-y-axis-labels" style="display: flex; flex-direction: column; justify-content: space-between; height: 275px; margin-top: 10px; width: 32px; font-size: 11px; color: #94A3B8; font-weight: 700; text-align: right; flex-shrink: 0; position: relative; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1;">
-                                <span>20%</span>
-                                <span>15%</span>
-                                <span>10%</span>
-                                <span>5%</span>
-                                <span>0%</span>
+                             <!-- Y-Axis Static Labels (Left) -->
+                            @php
+                                $maxRateValue = $stuntingRecords->max('rate') ?: 1;
+                                $yMax = ceil($maxRateValue / 5) * 5;
+                                if ($yMax < 10) {
+                                    $yMax = 10;
+                                }
+                            @endphp
+                            <div class="chart-y-axis-labels" style="display: flex; flex-direction: column; justify-content: space-between; height: 275px; margin-top: 10px; width: 32px; font-size: 11px; color: #94A3B8; font-weight: 700; text-align: right; flex-shrink: 0; position: relative; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif;">
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.75 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.5 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.25 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>0%</span></div>
                             </div>
                             
                             <!-- Scrollable Chart Area (Right) -->
@@ -152,7 +159,7 @@
                                 <div class="chart-bars-wrapper" style="position: relative; z-index: 2; height: 320px; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px; margin-bottom: 0;">
                                     @foreach($stuntingRecords as $record)
                                         @php
-                                            $heightPercent = $maxRate > 0 ? ($record->rate / $maxRate) * 100 : 0;
+                                            $heightPercent = $yMax > 0 ? ($record->rate / $yMax) * 100 : 0;
                                         @endphp
                                         <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
                                              role="button"
