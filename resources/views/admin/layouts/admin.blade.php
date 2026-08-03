@@ -53,9 +53,13 @@
                     <span class="material-icons menu-icon">account_circle</span>
                     <span>Edit Profil</span>
                 </a>
-                <a href="{{ route('admin.satudata.statistik.edit') }}" class="menu-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.satudata.statistik.edit') }}" class="menu-link {{ request()->routeIs('admin.satudata.statistik.edit') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">bar_chart</span>
                     <span>Edit Statistik</span>
+                </a>
+                <a href="{{ route('admin.satudata.statistik.import') }}" class="menu-link {{ request()->routeIs('admin.satudata.statistik.import') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">upload_file</span>
+                    <span>Import Stunting CSV</span>
                 </a>
                 
                 <!-- Logout Form -->

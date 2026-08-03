@@ -193,6 +193,9 @@ Route::put('/admin/profil', [App\Http\Controllers\Admin\ProfileController::class
 
 Route::get('/admin/satu-data/statistik', [App\Http\Controllers\Admin\StatistikController::class, 'edit'])->middleware('auth')->name('admin.satudata.statistik.edit');
 Route::put('/admin/satu-data/statistik', [App\Http\Controllers\Admin\StatistikController::class, 'update'])->middleware('auth')->name('admin.satudata.statistik.update');
+Route::get('/admin/satu-data/statistik/import', [App\Http\Controllers\Admin\StatistikController::class, 'importForm'])->middleware('auth')->name('admin.satudata.statistik.import');
+Route::post('/admin/satu-data/statistik/import', [App\Http\Controllers\Admin\StatistikController::class, 'importCsv'])->middleware('auth')->name('admin.satudata.statistik.import.post');
+Route::get('/admin/satu-data/statistik/template', [App\Http\Controllers\Admin\StatistikController::class, 'downloadTemplate'])->middleware('auth')->name('admin.satudata.statistik.template');
 
 Route::get('/layanan-terpadu', function () {
     return view('layanan-terpadu');

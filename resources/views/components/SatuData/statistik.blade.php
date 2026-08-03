@@ -111,10 +111,22 @@
                             @php
                                 $heightPercent = $maxRate > 0 ? ($record->rate / $maxRate) * 100 : 0;
                             @endphp
-                            <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}">
+                            <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
+                                 role="button"
+                                 tabindex="0"
+                                 aria-label="Detail stunting tahun {{ $record->year }}"
+                                 data-year="{{ $record->year }}"
+                                 data-rate="{{ $record->rate }}"
+                                 data-total="{{ $record->total_balita ?? '' }}"
+                                 data-stunting="{{ $record->balita_stunting ?? '' }}"
+                                 data-terendah="{{ $record->wilayah_terendah ?? '' }}"
+                                 data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
+                                 data-catatan="{{ $record->catatan ?? '' }}"
+                                 onclick="openStuntingModal(this)"
+                                 onkeydown="if(event.key==='Enter')openStuntingModal(this)">
                                 <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ $record->rate }}%</span>
                                 <div class="bar-track">
-                                    <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" style="height: {{ $heightPercent }}%;"></div>
+                                    <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" style="height: {{ $heightPercent }};"></div>
                                 </div>
                                 <span class="bar-year {{ $record->is_highlighted ? 'bar-year-active' : '' }}">
                                     {{ $record->year }}
@@ -131,7 +143,124 @@
                 <div class="chart-footer-note">
                     {!! $setting->stunting_footer_note !!}
                 </div>
+
+                <!-- Click-to-Detail Hint -->
+                <div class="chart-click-hint">
+                    <span class="material-icons" style="font-size: 14px; vertical-align: middle;">touch_app</span>
+                    Klik batang grafik untuk melihat detail data
+                </div>
             </div>
+
+            <!-- ── Stunting Detail Modal ─────────────────────────────────────── -->
+            <div id="stunting-modal-backdrop" class="stunting-modal-backdrop" onclick="closeStuntingModal()" aria-hidden="true"></div>
+            <div id="stunting-modal" class="stunting-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+                <div class="stunting-modal-header">
+                    <div>
+                        <span class="stunting-modal-year-badge" id="modal-year-badge">2026</span>
+                        <h3 class="stunting-modal-title" id="modal-title">Data Prevalensi Stunting</h3>
+                    </div>
+                    <button class="stunting-modal-close" onclick="closeStuntingModal()" aria-label="Tutup modal">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+
+                <div class="stunting-modal-body">
+                    <!-- Rate Highlight -->
+                    <div class="modal-rate-card">
+                        <span class="modal-rate-label">Prevalensi Stunting</span>
+                        <span class="modal-rate-value" id="modal-rate">—</span>
+                    </div>
+
+                    <!-- Detail Grid -->
+                    <div class="modal-detail-grid">
+                        <div class="modal-detail-item" id="modal-total-wrap">
+                            <span class="modal-detail-icon material-icons">people</span>
+                            <div>
+                                <span class="modal-detail-label">Total Balita Diukur</span>
+                                <span class="modal-detail-value" id="modal-total">—</span>
+                            </div>
+                        </div>
+                        <div class="modal-detail-item" id="modal-stunting-wrap">
+                            <span class="modal-detail-icon material-icons" style="color: #DC2626;">child_care</span>
+                            <div>
+                                <span class="modal-detail-label">Balita Stunting</span>
+                                <span class="modal-detail-value" id="modal-stunting" style="color: #DC2626;">—</span>
+                            </div>
+                        </div>
+                        <div class="modal-detail-item" id="modal-terendah-wrap">
+                            <span class="modal-detail-icon material-icons" style="color: #009966;">trending_down</span>
+                            <div>
+                                <span class="modal-detail-label">Wilayah Terendah</span>
+                                <span class="modal-detail-value" id="modal-terendah" style="color: #009966;">—</span>
+                            </div>
+                        </div>
+                        <div class="modal-detail-item" id="modal-tertinggi-wrap">
+                            <span class="modal-detail-icon material-icons" style="color: #D97706;">trending_up</span>
+                            <div>
+                                <span class="modal-detail-label">Wilayah Tertinggi</span>
+                                <span class="modal-detail-value" id="modal-tertinggi" style="color: #D97706;">—</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Catatan -->
+                    <div class="modal-catatan" id="modal-catatan-wrap">
+                        <span class="material-icons" style="font-size: 16px; vertical-align: middle; color: #64748B;">info</span>
+                        <span id="modal-catatan">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+            function openStuntingModal(el) {
+                const year     = el.dataset.year;
+                const rate     = el.dataset.rate;
+                const total    = el.dataset.total;
+                const stunting = el.dataset.stunting;
+                const terendah = el.dataset.terendah;
+                const tertinggi= el.dataset.tertinggi;
+                const catatan  = el.dataset.catatan;
+
+                document.getElementById('modal-year-badge').textContent = year;
+                document.getElementById('modal-title').textContent      = 'Data Prevalensi Stunting ' + year;
+                document.getElementById('modal-rate').textContent       = rate + '%';
+
+                const setItem = (wrapId, valId, val, fallback) => {
+                    const wrap = document.getElementById(wrapId);
+                    const valEl = document.getElementById(valId);
+                    if (val) {
+                        valEl.textContent = val;
+                        wrap.style.display = '';
+                    } else {
+                        wrap.style.display = fallback ? '' : 'none';
+                        valEl.textContent = '—';
+                    }
+                };
+
+                setItem('modal-total-wrap',    'modal-total',    total    ? Number(total).toLocaleString('id-ID') : '', false);
+                setItem('modal-stunting-wrap', 'modal-stunting', stunting ? Number(stunting).toLocaleString('id-ID') + ' anak' : '', false);
+                setItem('modal-terendah-wrap', 'modal-terendah', terendah, false);
+                setItem('modal-tertinggi-wrap','modal-tertinggi',tertinggi, false);
+
+                const catatanWrap = document.getElementById('modal-catatan-wrap');
+                document.getElementById('modal-catatan').textContent = catatan || '—';
+                catatanWrap.style.display = catatan ? '' : 'none';
+
+                document.getElementById('stunting-modal').classList.add('active');
+                document.getElementById('stunting-modal-backdrop').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeStuntingModal() {
+                document.getElementById('stunting-modal').classList.remove('active');
+                document.getElementById('stunting-modal-backdrop').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeStuntingModal();
+            });
+            </script>
 
             <!-- Two Side-by-Side Progress Cards -->
             <div class="progress-cards-grid">
