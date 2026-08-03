@@ -97,6 +97,15 @@
 
                 <!-- Bar Chart Canvas Container -->
                 <div class="stunting-chart-container">
+                    <!-- Y-Axis Grid Lines -->
+                    <div class="chart-y-axis-grid">
+                        <div class="grid-line"><span class="grid-line-label">20%</span></div>
+                        <div class="grid-line"><span class="grid-line-label">15%</span></div>
+                        <div class="grid-line"><span class="grid-line-label">10%</span></div>
+                        <div class="grid-line"><span class="grid-line-label">5%</span></div>
+                        <div class="grid-line" style="border-top-style: solid; border-top-color: #CBD5E1;"><span class="grid-line-label">0%</span></div>
+                    </div>
+
                     <div class="chart-bars-wrapper">
                         @foreach($stuntingRecords as $record)
                             @php
