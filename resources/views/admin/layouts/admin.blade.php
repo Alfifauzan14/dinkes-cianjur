@@ -53,6 +53,10 @@
                     <span class="material-icons menu-icon">account_circle</span>
                     <span>Edit Profil</span>
                 </a>
+                <a href="{{ route('admin.satudata.statistik.edit') }}" class="menu-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">bar_chart</span>
+                    <span>Edit Statistik</span>
+                </a>
                 
                 <!-- Logout Form -->
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">
