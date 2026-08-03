@@ -289,7 +289,7 @@
     top: 10px;
     left: 45px;
     right: 10px;
-    height: 165px;
+    height: 255px; /* Increased from 165px */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -316,7 +316,7 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    height: 230px;
+    height: 320px; /* Increased from 230px */
     padding: 10px 10px 14px;
     border-bottom: 1px solid #E2E8F0;
     gap: 12px;
@@ -343,7 +343,7 @@
     color: #64748B;
     background-color: #FFFFFF;
     padding: 2px 6px;
-    border-radius: 10px;
+    border-radius: 3px; /* Changed to 3px */
     border: 1px solid #E2E8F0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     z-index: 3;
@@ -585,183 +585,188 @@
     gap: 4px;
 }
 
-/* ── Stunting Detail Modal ──────────────────────────────────── */
-.stunting-modal-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(2px);
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+/* ── Split Dashboard Grid Layout ──────────────────────────────── */
+.stunting-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 32px;
+    margin-top: 24px;
 }
 
-.stunting-modal-backdrop.active {
-    display: block;
-    opacity: 1;
+.stunting-chart-column {
+    min-width: 0;
 }
 
-.stunting-modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -48%);
-    width: 90%;
-    max-width: 480px;
-    background: #FFFFFF;
+.stunting-detail-column {
+    min-width: 0;
+}
+
+.stunting-detail-card {
+    background-color: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 3px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    z-index: 1001;
-    opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
 }
 
-.stunting-modal.active {
-    display: block;
-    opacity: 1;
-    transform: translate(-50%, -50%);
-}
-
-.stunting-modal-header {
+.detail-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px 24px 16px;
-    border-bottom: 1px solid #F1F5F9;
+    align-items: center;
+    border-bottom: 1px solid #E2E8F0;
+    padding-bottom: 12px;
 }
 
-.stunting-modal-year-badge {
-    display: inline-block;
-    background: #FFFFFF;
-    color: #009966;
-    border: 1px solid #009966;
+.detail-card-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 10px;
-    border-radius: 3px;
-    margin-bottom: 6px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.stunting-modal-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: #0F172A;
     margin: 0;
 }
 
-.stunting-modal-close {
-    background: none;
-    border: none;
-    color: #94A3B8;
-    cursor: pointer;
-    padding: 4px;
-    display: flex;
-    align-items: center;
+.detail-year-badge {
+    background-color: #009966;
+    color: #FFFFFF;
+    padding: 3px 10px;
     border-radius: 3px;
-    transition: color 0.15s, background 0.15s;
-    flex-shrink: 0;
-    margin-left: 12px;
+    font-size: 13px;
+    font-weight: 700;
 }
 
-.stunting-modal-close:hover {
-    color: #0F172A;
-    background: #F1F5F9;
-}
-
-.stunting-modal-body {
-    padding: 20px 24px 24px;
-}
-
-.modal-rate-card {
-    background: #FFFFFF;
+.detail-rate-box {
+    background-color: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 3px;
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
 }
 
-.modal-rate-label {
+.detail-rate-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     color: #64748B;
-    text-transform: uppercase;
     letter-spacing: 0.05em;
+    display: block;
     margin-bottom: 4px;
 }
 
-.modal-rate-value {
+.detail-rate-val {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 800;
-    color: #004F3B;
+    color: #009966;
     letter-spacing: -1px;
     line-height: 1;
 }
 
-.modal-detail-grid {
+.detail-stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-    margin-bottom: 16px;
 }
 
-.modal-detail-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px;
-    background: #FFFFFF;
+.detail-stat-item {
+    background-color: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 3px;
+    padding: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
 }
 
-.modal-detail-icon {
-    font-size: 20px;
-    color: #64748B;
-    flex-shrink: 0;
-    margin-top: 2px;
-}
-
-.modal-detail-label {
-    display: block;
+.detail-stat-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     color: #94A3B8;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    margin-bottom: 3px;
+    display: block;
+    margin-bottom: 4px;
 }
 
-.modal-detail-value {
-    display: block;
+.detail-stat-val {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     font-weight: 700;
     color: #0F172A;
 }
 
-.modal-catatan {
-    background: #FFFFFF;
+.detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 3px;
-    padding: 10px 14px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
-    color: #475569;
+    padding: 12px 16px;
+}
+
+.detail-list-row {
     display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.detail-list-row:not(:last-child) {
+    border-bottom: 1px dashed #E2E8F0;
+}
+
+.detail-list-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748B;
+}
+
+.detail-list-val {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.detail-note-box {
+    background-color: #FFFFFF;
+    border-left: 3px solid #009966;
+    border-radius: 3px;
+    padding: 12px 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    color: #475569;
     line-height: 1.5;
+    font-style: italic;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+}
+
+/* Selected Bar Styling */
+.chart-bar-item:hover .bar-fill,
+.chart-bar-item.bar-active-selected .bar-fill {
+    background-color: #009966 !important;
+}
+
+.chart-bar-item.bar-active-selected .bar-val {
+    color: #009966;
+    border-color: #009966;
+    font-weight: 800;
+}
+
+.chart-bar-item.bar-active-selected .bar-year {
+    color: #009966;
+    font-weight: 700;
+}
+
+@media (max-width: 992px) {
+    .stunting-dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
 }
 
