@@ -634,12 +634,13 @@
 
 .stunting-modal-year-badge {
     display: inline-block;
-    background: #E6F7F0;
+    background: #FFFFFF;
     color: #009966;
+    border: 1px solid #009966;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    padding: 3px 10px;
+    padding: 2px 10px;
     border-radius: 3px;
     margin-bottom: 6px;
     letter-spacing: 0.05em;
@@ -678,7 +679,8 @@
 }
 
 .modal-rate-card {
-    background: linear-gradient(135deg, #004F3B 0%, #009966 100%);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 3px;
     padding: 16px 20px;
     display: flex;
@@ -691,7 +693,7 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
+    color: #64748B;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 4px;
@@ -701,7 +703,7 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 40px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: #004F3B;
     letter-spacing: -1px;
     line-height: 1;
 }
@@ -718,8 +720,8 @@
     align-items: flex-start;
     gap: 10px;
     padding: 12px;
-    background: #F8FAFC;
-    border: 1px solid #F1F5F9;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 3px;
 }
 
@@ -750,13 +752,13 @@
 }
 
 .modal-catatan {
-    background: #FFFBEB;
-    border: 1px solid #FDE68A;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 3px;
     padding: 10px 14px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
-    color: #92400E;
+    color: #475569;
     display: flex;
     align-items: flex-start;
     gap: 8px;

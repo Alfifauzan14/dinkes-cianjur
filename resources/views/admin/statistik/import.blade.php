@@ -186,8 +186,13 @@
                 </thead>
                 <tbody>
                     @foreach($stuntingRecords as $rec)
-                    <tr style="{{ $rec->is_highlighted ? 'background: #ECFDF5;' : '' }}">
-                        <td style="padding: 10px 14px; border-bottom: 1px solid #F1F5F9; font-weight: 700; color: {{ $rec->is_highlighted ? '#004F3B' : '#0F172A' }};">
+                    @if($rec->is_highlighted)
+                    <tr style="background: #ECFDF5;">
+                        <td style="padding: 10px 14px; border-bottom: 1px solid #F1F5F9; font-weight: 700; color: #004F3B;">
+                    @else
+                    <tr>
+                        <td style="padding: 10px 14px; border-bottom: 1px solid #F1F5F9; font-weight: 700; color: #0F172A;">
+                    @endif
                             {{ $rec->year }}
                             @if($rec->is_highlighted)
                                 <span style="font-size: 10px; background: #009966; color: #fff; padding: 2px 6px; border-radius: 3px; margin-left: 4px; font-weight: 600;">AKTIF</span>

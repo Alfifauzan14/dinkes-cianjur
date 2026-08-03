@@ -118,11 +118,13 @@ Route::get('/satu-data/statistik', function () {
 })->name('satudata.statistik');
 
 Route::get('/satu-data/laporan', function () {
-    return view('laporan');
+    $laporans = \App\Models\Laporan::orderBy('release_date', 'desc')->get();
+    return view('laporan', compact('laporans'));
 })->name('satudata.laporan');
 
 Route::get('/satu-data/regulasi', function () {
-    return view('regulasi');
+    $regulasis = \App\Models\Regulasi::orderBy('year', 'desc')->orderBy('created_at', 'desc')->paginate(6);
+    return view('regulasi', compact('regulasis'));
 })->name('satudata.regulasi');
 
 /* --- Labkesda & Faskes Routes --- */
@@ -196,6 +198,28 @@ Route::put('/admin/satu-data/statistik', [App\Http\Controllers\Admin\StatistikCo
 Route::get('/admin/satu-data/statistik/import', [App\Http\Controllers\Admin\StatistikController::class, 'importForm'])->middleware('auth')->name('admin.satudata.statistik.import');
 Route::post('/admin/satu-data/statistik/import', [App\Http\Controllers\Admin\StatistikController::class, 'importCsv'])->middleware('auth')->name('admin.satudata.statistik.import.post');
 Route::get('/admin/satu-data/statistik/template', [App\Http\Controllers\Admin\StatistikController::class, 'downloadTemplate'])->middleware('auth')->name('admin.satudata.statistik.template');
+
+Route::resource('/admin/satu-data/laporan', App\Http\Controllers\Admin\LaporanController::class, [
+    'names' => [
+        'index'   => 'admin.laporan.index',
+        'create'  => 'admin.laporan.create',
+        'store'   => 'admin.laporan.store',
+        'edit'    => 'admin.laporan.edit',
+        'update'  => 'admin.laporan.update',
+        'destroy' => 'admin.laporan.destroy',
+    ]
+])->middleware('auth');
+
+Route::resource('/admin/satu-data/regulasi', App\Http\Controllers\Admin\RegulasiController::class, [
+    'names' => [
+        'index'   => 'admin.regulasi.index',
+        'create'  => 'admin.regulasi.create',
+        'store'   => 'admin.regulasi.store',
+        'edit'    => 'admin.regulasi.edit',
+        'update'  => 'admin.regulasi.update',
+        'destroy' => 'admin.regulasi.destroy',
+    ]
+])->middleware('auth');
 
 Route::get('/layanan-terpadu', function () {
     return view('layanan-terpadu');

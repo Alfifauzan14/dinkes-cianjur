@@ -126,7 +126,7 @@
                                  onkeydown="if(event.key==='Enter')openStuntingModal(this)">
                                 <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ $record->rate }}%</span>
                                 <div class="bar-track">
-                                    <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" style="height: {{ $heightPercent }};"></div>
+                                    <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%'])></div>
                                 </div>
                                 <span class="bar-year {{ $record->is_highlighted ? 'bar-year-active' : '' }}">
                                     {{ $record->year }}
@@ -284,7 +284,7 @@
                                         <span class="progress-item-value">{{ $nakes['value'] }}</span>
                                     </div>
                                     <div class="progress-track-wrapper">
-                                        <div class="progress-bar-fill" style="width: {{ $nakes['width'] }}%;"></div>
+                                        <div class="progress-bar-fill" @style(['width: ' . $nakes['width'] . '%'])></div>
                                     </div>
                                 </div>
                             @endforeach
@@ -311,7 +311,7 @@
                                         <span class="progress-item-value">{{ $sebaran['value'] }}</span>
                                     </div>
                                     <div class="progress-track-wrapper">
-                                        <div class="progress-bar-fill" style="width: {{ $sebaran['width'] }}%;"></div>
+                                        <div class="progress-bar-fill" @style(['width: ' . $sebaran['width'] . '%'])></div>
                                     </div>
                                 </div>
                             @endforeach
