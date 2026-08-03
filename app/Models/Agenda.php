@@ -31,8 +31,7 @@ class Agenda extends Model
      */
     public function scopePublished($query)
     {
-        return $query->where('status', 'published')
-            ->where('date', '<=', now()->toDateString());
+        return $query->where('status', 'published');
     }
 
     /**

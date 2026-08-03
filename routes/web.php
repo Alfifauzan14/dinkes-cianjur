@@ -21,9 +21,6 @@ Route::get('/', function () {
     if ($selectedDateStr) {
         try {
             $selectedDate = Carbon::parse($selectedDateStr)->startOfDay();
-            if ($selectedDate->isFuture()) {
-                $selectedDate = $today;
-            }
         } catch (\Exception $e) {
             $selectedDate = $today;
         }
@@ -47,7 +44,7 @@ Route::get('/', function () {
 
     $prevDate = $selectedDate->copy()->subDay()->format('Y-m-d');
     $nextDate = $selectedDate->copy()->addDay()->format('Y-m-d');
-    $canNavigateNext = $selectedDate->lt($today);
+    $canNavigateNext = true;
 
     $homeGaleris = App\Models\Galeri::orderBy('created_at', 'desc')->take(5)->get();
     $profile = App\Models\Profile::first();
@@ -116,6 +113,9 @@ Route::get('/admin/dashboard', function () {
 })->middleware('auth')->name('admin.dashboard');
 
 Route::resource('/admin/berita', App\Http\Controllers\Admin\BeritaController::class, [
+    'parameters' => [
+        'berita' => 'berita',
+    ],
     'names' => [
         'index' => 'admin.berita.index',
         'create' => 'admin.berita.create',

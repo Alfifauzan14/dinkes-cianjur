@@ -149,42 +149,39 @@ class AgendaTest extends TestCase
     }
 
     /**
-     * Test future agendas (scheduled after today) are hidden from public views.
+     * Test draft agendas are hidden from public views.
      */
-    public function test_future_agendas_are_hidden_from_public_views(): void
+    public function test_draft_agendas_are_hidden_from_public_views(): void
     {
-        // Past agenda
-        $pastAgenda = Agenda::create([
-            'title' => 'Agenda Masa Lalu',
-            'date' => now()->subDay()->format('Y-m-d'),
+        // Published future agenda
+        $publishedAgenda = Agenda::create([
+            'title' => 'Agenda Publik Masa Depan',
+            'date' => now()->addDay()->format('Y-m-d'),
             'time_start' => '08:00',
             'time_end' => '10:00',
             'location' => 'Aula',
             'status' => 'published',
         ]);
 
-        // Future agenda
-        $futureAgenda = Agenda::create([
-            'title' => 'Agenda Masa Depan',
+        // Draft future agenda
+        $draftAgenda = Agenda::create([
+            'title' => 'Agenda Draf Rahasia',
             'date' => now()->addDay()->format('Y-m-d'),
             'time_start' => '09:00',
             'time_end' => '11:00',
             'location' => 'Aula Depan',
-            'status' => 'published',
+            'status' => 'draft',
         ]);
 
         // 1. Check landing page date navigation
-        $response = $this->get('/?agenda_date=' . now()->subDay()->format('Y-m-d'));
-        $response->assertSee('Agenda Masa Lalu');
+        $response = $this->get('/?agenda_date=' . now()->addDay()->format('Y-m-d'));
+        $response->assertSee('Agenda Publik Masa Depan');
+        $response->assertDontSee('Agenda Draf Rahasia');
 
-        // Navigating to future date parameter is restricted (resets to today)
-        $response2 = $this->get('/?agenda_date=' . now()->addDay()->format('Y-m-d'));
-        $response2->assertDontSee('Agenda Masa Depan');
-
-        // 2. Check public calendar page (exclude future events)
-        $response3 = $this->get('/agenda?month=' . now()->month . '&year=' . now()->year);
-        $response3->assertSee('Agenda Masa Lalu');
-        $response3->assertDontSee('Agenda Masa Depan');
+        // 2. Check public calendar page
+        $response2 = $this->get('/agenda?month=' . now()->month . '&year=' . now()->year);
+        $response2->assertSee('Agenda Publik Masa Depan');
+        $response2->assertDontSee('Agenda Draf Rahasia');
     }
 
     /**
