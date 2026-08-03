@@ -22,16 +22,33 @@
 
 /* ── Banner Header Top Section ────────────────────────────────── */
 .satudata-banner {
-    background: linear-gradient(135deg, #064E3B 0%, #004D34 100%);
+    background: radial-gradient(circle at top right, rgba(0, 153, 102, 0.15) 0%, transparent 60%), linear-gradient(135deg, #004F3B 0%, #003326 100%);
+    position: relative;
+    overflow: hidden;
     color: #FFFFFF;
-    padding: 60px 40px;
+    padding: 60px 0;
     width: 100%;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.satudata-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+    background-size: 24px 24px;
+    pointer-events: none;
 }
 
 .satudata-banner-container {
     max-width: 1280px;
     margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
 }
 
 .satudata-banner-title {
@@ -56,13 +73,14 @@
 
 /* ── Main Content Section ─────────────────────────────────────── */
 .satudata-main {
-    padding: 40px;
+    padding: 40px 0;
     width: 100%;
 }
 
 .satudata-main-container {
     max-width: 1280px;
     margin: 0 auto;
+    padding: 0 40px;
 }
 
 /* ── Dashboard Subheader ─────────────────────────────────────── */
@@ -70,25 +88,27 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .satudata-category-tag {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 14px;
     font-weight: 700;
-    color: #00BC7D;
+    color: #009966;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .satudata-section-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 48px; /* Judul/Section Title 48px as requested */
+    font-size: 36px;
     font-weight: 800;
     color: #0F172A;
     margin: 0;
-    letter-spacing: -1.5px;
+    letter-spacing: -1px;
 }
 
 .satudata-status-badge {
@@ -96,10 +116,10 @@
     align-items: center;
     gap: 8px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 14px;
     font-weight: 700;
-    color: #00BC7D;
-    background: transparent; /* No background */
+    color: #009966;
+    background: transparent;
     padding: 0;
     border: none;
 }
@@ -107,85 +127,90 @@
 .status-dot {
     width: 8px;
     height: 8px;
-    background-color: #00BC7D;
+    background-color: #009966;
     border-radius: 50%;
     display: inline-block;
-    box-shadow: 0 0 0 3px rgba(0, 188, 125, 0.2);
+    box-shadow: 0 0 0 3px rgba(0, 153, 102, 0.2);
 }
 
 /* ── 4 Stat Cards Row ────────────────────────────────────────── */
 .stat-cards-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-bottom: 24px;
+    gap: 28px;
+    margin-bottom: 32px;
 }
 
 .stat-card {
     background: #FFFFFF;
-    border-radius: 1px !important; /* Seluruh card radius 1px */
+    border-radius: 1px !important; /* Card luar 1px */
     padding: 24px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
-    border: 1px solid #F1F5F9;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* clean shadow */
+    border: 1px solid #E2E8F0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 160px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* subtle shadow change */
 }
 
 .stat-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
 }
 
 .stat-card-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 11px;
     font-weight: 700;
     color: #64748B;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 
 .stat-card-badge {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 600;
     padding: 3px 8px;
-    border-radius: 3px !important; /* Di dalam card radius 3px */
+    border-radius: 3px !important; /* Card dalam 3px */
     letter-spacing: 0.2px;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 .badge-active {
-    background-color: #E2E8F0;
-    color: #1E293B;
+    background-color: #E6F7F0;
+    color: #009966;
 }
 
 .badge-muted {
-    background-color: #F8FAFC;
+    background-color: #F1F5F9;
     color: #475569;
     border: 1px solid #E2E8F0;
 }
 
 .stat-card-number {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 48px; /* Display Number */
+    font-size: 38px;
     font-weight: 800;
     color: #0F172A;
     line-height: 1.1;
-    margin: 14px 0 10px;
+    margin: 16px 0 8px;
     letter-spacing: -1px;
 }
 
 .stat-card-caption {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 13px;
     color: #64748B;
     font-weight: 500;
     display: flex;
@@ -195,22 +220,23 @@
 }
 
 .caption-accent {
-    color: #059669;
+    color: #009966;
     font-weight: 600;
 }
 
 .caption-icon {
     flex-shrink: 0;
+    color: #009966;
 }
 
 /* ── Chart Card ──────────────────────────────────────────────── */
 .chart-card {
     background: #FFFFFF;
-    border-radius: 1px !important; /* Seluruh card radius 1px */
+    border-radius: 1px !important;
     padding: 28px 32px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
-    border: 1px solid #F1F5F9;
-    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid #E2E8F0;
+    margin-bottom: 28px;
 }
 
 .chart-header {
@@ -222,7 +248,7 @@
 
 .chart-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 24px; /* Sub judul 24 */
+    font-size: 20px;
     font-weight: 800;
     color: #0F172A;
     margin: 0 0 4px 0;
@@ -231,7 +257,7 @@
 
 .chart-subtitle {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 14px;
     color: #64748B;
     margin: 0;
     font-weight: 500;
@@ -240,19 +266,50 @@
 .trend-badge {
     display: inline-block;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 12px;
     font-weight: 700;
-    color: #00BC7D;
-    border: 1.5px solid #00BC7D;
-    background: #F0FDF4;
+    color: #009966;
+    border: 1.5px solid #009966;
+    background: #E6F7F0;
     padding: 4px 12px;
-    border-radius: 3px !important; /* Di dalam card radius 3px */
+    border-radius: 3px !important;
 }
 
 /* Stunting Chart Visual */
 .stunting-chart-container {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 24px;
+    overflow-x: auto;
+    position: relative;
+    padding-left: 45px;
+}
+
+.chart-y-axis-grid {
+    position: absolute;
+    top: 10px;
+    left: 45px;
+    right: 10px;
+    height: 165px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.grid-line {
+    width: 100%;
+    border-top: 1px dashed #E2E8F0;
+    position: relative;
+}
+
+.grid-line-label {
+    position: absolute;
+    left: -40px;
+    top: -7px;
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 600;
 }
 
 .chart-bars-wrapper {
@@ -263,13 +320,17 @@
     padding: 10px 10px 14px;
     border-bottom: 1px solid #E2E8F0;
     gap: 12px;
+    min-width: 650px;
+    position: relative;
+    z-index: 2;
 }
 
 .chart-bar-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
+    width: 80px;
+    flex: 0 0 auto;
     height: 100%;
     justify-content: flex-end;
     gap: 8px;
@@ -277,66 +338,73 @@
 
 .bar-val {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     color: #64748B;
+    background-color: #FFFFFF;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    z-index: 3;
     flex-shrink: 0;
 }
 
 .bar-track {
     width: 100%;
-    max-width: 52px;
+    max-width: 36px;
     height: 165px;
     display: flex;
     align-items: flex-end;
-    background: transparent;
-    border-radius: 3px 3px 0 0 !important; /* Di dalam card radius 3px */
+    background: #F8FAFC;
+    border: 1px solid #F1F5F9;
+    border-radius: 4px 4px 0 0 !important;
     flex-shrink: 0;
+    overflow: hidden;
 }
 
 .bar-fill {
     width: 100%;
-    border-radius: 3px 3px 0 0 !important; /* Di dalam card radius 3px */
-    background: #A7F3D0; /* Warna hijau lembut solid sesuai mockup */
-    transition: height 0.4s ease;
+    border-radius: 4px 4px 0 0 !important;
+    background: #A7F3D0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .chart-bar-item:hover .bar-fill {
-    opacity: 1;
     background: #6EE7B7;
+    transform: scaleY(1.02);
 }
 
 /* Highlight Bar 2026 (Saat Ini) */
 .bar-fill-active {
-    background: #00BC7D !important;
-    opacity: 1 !important;
+    background: linear-gradient(to top, #009966, #00BC7D) !important;
 }
 
 .bar-year {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 13px;
     font-weight: 600;
     color: #475569;
     text-align: center;
-    white-space: nowrap;
+    line-height: 1.2;
     flex-shrink: 0;
 }
 
 .bar-year-active {
-    color: #00BC7D !important;
+    color: #004F3B !important;
     font-weight: 800 !important;
 }
 
 .font-bold {
     font-weight: 800 !important;
-    color: #00BC7D !important;
+    color: #009966 !important;
 }
 
 /* Footer Note */
 .chart-footer-note {
     text-align: center;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 14px;
     color: #64748B;
     margin-top: 18px;
     font-weight: 400;
@@ -351,16 +419,16 @@
 .progress-cards-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-top: 24px;
+    gap: 28px;
+    margin-top: 28px;
 }
 
 .progress-card {
     background: #FFFFFF;
-    border-radius: 1px !important; /* Seluruh card radius 1px */
+    border-radius: 1px !important;
     padding: 28px 32px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
-    border: 1px solid #F1F5F9;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid #E2E8F0;
 }
 
 .progress-card-header {
@@ -377,7 +445,7 @@
 
 .progress-card-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 24px; /* Sub judul 24 */
+    font-size: 18px;
     font-weight: 800;
     color: #0F172A;
     margin: 0 0 4px 0;
@@ -386,7 +454,7 @@
 
 .progress-card-subtitle {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 13px;
     color: #64748B;
     margin: 0;
     font-weight: 500;
@@ -395,13 +463,13 @@
 .progress-badge {
     display: inline-block;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 11px;
     font-weight: 700;
-    color: #00BC7D;
-    border: 1.5px solid #00BC7D;
-    background: #F0FDF4;
-    padding: 4px 12px;
-    border-radius: 3px !important; /* Di dalam card radius 3px */
+    color: #009966;
+    border: 1.5px solid #009966;
+    background: #E6F7F0;
+    padding: 4px 10px;
+    border-radius: 3px !important;
 }
 
 .progress-list {
@@ -424,30 +492,30 @@
 
 .progress-item-name {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 14px;
     font-weight: 600;
-    color: #334155;
+    color: #475569;
 }
 
 .progress-item-value {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px; /* Teks biasa 16 */
+    font-size: 14px;
     font-weight: 700;
-    color: #00BC7D;
+    color: #004F3B;
 }
 
 .progress-track-wrapper {
     width: 100%;
-    height: 12px;
-    background-color: #E2E8F0;
-    border-radius: 3px !important; /* Di dalam card radius 3px */
+    height: 8px;
+    background-color: #F1F5F9;
+    border-radius: 4px !important;
     overflow: hidden;
 }
 
 .progress-bar-fill {
     height: 100%;
-    background-color: #00BC7D;
-    border-radius: 3px !important; /* Di dalam card radius 3px */
+    background: linear-gradient(to right, #A7F3D0, #009966);
+    border-radius: 4px !important;
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -462,11 +530,14 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .stat-cards-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
-    
+}
+
+@media (max-width: 640px) {
     .satudata-header {
         flex-direction: column;
         align-items: flex-start;
@@ -492,3 +563,205 @@
         font-size: 12px;
     }
 }
+
+/* ── Bar Chart Clickability ──────────────────────────────────── */
+.chart-bar-item {
+    cursor: pointer;
+}
+
+.chart-bar-item:hover .bar-track {
+    border-color: #009966;
+}
+
+.chart-click-hint {
+    text-align: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    color: #94A3B8;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+/* ── Stunting Detail Modal ──────────────────────────────────── */
+.stunting-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.stunting-modal-backdrop.active {
+    display: block;
+    opacity: 1;
+}
+
+.stunting-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -48%);
+    width: 90%;
+    max-width: 480px;
+    background: #FFFFFF;
+    border-radius: 3px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.stunting-modal.active {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.stunting-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.stunting-modal-year-badge {
+    display: inline-block;
+    background: #FFFFFF;
+    color: #009966;
+    border: 1px solid #009966;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 3px;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.stunting-modal-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+}
+
+.stunting-modal-close {
+    background: none;
+    border: none;
+    color: #94A3B8;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    transition: color 0.15s, background 0.15s;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+
+.stunting-modal-close:hover {
+    color: #0F172A;
+    background: #F1F5F9;
+}
+
+.stunting-modal-body {
+    padding: 20px 24px 24px;
+}
+
+.modal-rate-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-rate-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.modal-rate-value {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: #004F3B;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.modal-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.modal-detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+}
+
+.modal-detail-icon {
+    font-size: 20px;
+    color: #64748B;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.modal-detail-label {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 3px;
+}
+
+.modal-detail-value {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.modal-catatan {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+    padding: 10px 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    color: #475569;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+}
+

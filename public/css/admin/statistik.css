@@ -1,0 +1,74 @@
+@import url('profil.css');
+
+/* Dynamic Row styling for stunting records, nakes, and zonasi lists */
+.dynamic-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.dynamic-row-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 3px;
+    background-color: #F9FAFB;
+    transition: background-color 0.2s;
+}
+
+.dynamic-row-item:hover {
+    background-color: #F3F4F6;
+}
+
+.btn-remove-row {
+    background-color: #EF4444;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-remove-row:hover {
+    background-color: #DC2626;
+}
+
+.btn-add-row {
+    background-color: #009966;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+    align-self: flex-start;
+}
+
+.btn-add-row:hover {
+    background-color: #008055;
+}
+
+.highlight-radio-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4B5563;
+    cursor: pointer;
+    user-select: none;
+}

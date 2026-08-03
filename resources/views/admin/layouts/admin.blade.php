@@ -53,6 +53,22 @@
                     <span class="material-icons menu-icon">account_circle</span>
                     <span>Edit Profil</span>
                 </a>
+                <a href="{{ route('admin.satudata.statistik.edit') }}" class="menu-link {{ request()->routeIs('admin.satudata.statistik.edit') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">bar_chart</span>
+                    <span>Edit Statistik</span>
+                </a>
+                <a href="{{ route('admin.satudata.statistik.import') }}" class="menu-link {{ request()->routeIs('admin.satudata.statistik.import') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">upload_file</span>
+                    <span>Import Stunting CSV</span>
+                </a>
+                <a href="{{ route('admin.laporan.index') }}" class="menu-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">folder</span>
+                    <span>Kelola Laporan</span>
+                </a>
+                <a href="{{ route('admin.regulasi.index') }}" class="menu-link {{ request()->routeIs('admin.regulasi.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">gavel</span>
+                    <span>Kelola Regulasi</span>
+                </a>
                 
                 <!-- Logout Form -->
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">
