@@ -494,5 +494,45 @@ class DatabaseSeeder extends Seeder
                 $reg
             );
         }
+
+        // Seeding Layanan Terpadu
+        $layananTerpadus = [
+            // Warga
+            ['name' => 'Pendaftaran Peserta Penduduk PBPU dan BP Pemda Program JKN', 'type' => 'Warga', 'icon' => 'users', 'link' => null],
+            ['name' => 'Penyelenggaraan Jaminan Kesehatan Di Luar Skema JKN', 'type' => 'Warga', 'icon' => 'smile', 'link' => null],
+            ['name' => 'Pengelolaan Pengaduan Masyarakat', 'type' => 'Warga', 'icon' => 'chat', 'link' => null],
+            ['name' => 'Pengelolaan Informasi Publik', 'type' => 'Warga', 'icon' => 'chat', 'link' => null],
+
+            // Faskes
+            ['name' => 'Rekomendasi Penutupan Klinik', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Rekomendasi Izin Operasional Klinik', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Apotek', 'type' => 'Faskes', 'icon' => 'bag', 'link' => null],
+            ['name' => 'Rekomendasi Penutupan Apotek', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Rekomendasi Penutupan Toko Obat', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Toko Obat', 'type' => 'Faskes', 'icon' => 'bag', 'link' => null],
+            ['name' => 'Rekomendasi Penutupan Instalasi Farmasi Klinik', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Konsultasi Perizinan Berusaha Optikal', 'type' => 'Faskes', 'icon' => 'globe', 'link' => null],
+            ['name' => 'Konsultasi Perizinan Berusaha Toko Alat Kesehatan', 'type' => 'Faskes', 'icon' => 'globe', 'link' => null],
+            ['name' => 'Konsultasi Perizinan Berusaha Perusahaan Rumah Tangga Alkes PKRT Tertentu', 'type' => 'Faskes', 'icon' => 'globe', 'link' => null],
+            ['name' => 'Konsultasi Sertifikat Pemenuhan Komitmen Produksi Pangan Olahan Industri Rumah Tangga SPP-IRT', 'type' => 'Faskes', 'icon' => 'file', 'link' => null],
+            ['name' => 'Penerbitan Persetujuan Teknis Izin Aktivitas Rumah Sakit', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Sertifikat Laik Sehat Akomodasi', 'type' => 'Faskes', 'icon' => 'file', 'link' => null],
+            ['name' => 'Notifikasi Pemenuhan Komitmen Ijin Penyelenggaraan Pengendalian Vektor Dan Binatang Pembawa Penyakit', 'type' => 'Faskes', 'icon' => 'chat', 'link' => null],
+            ['name' => 'Rekomendasi Sertifikat Laik Higiene Sanitasi Jasaboga/Catering/Rumah Makan/Restoran, Depot Air Minum', 'type' => 'Faskes', 'icon' => 'file', 'link' => null],
+            ['name' => 'Penerbitan Izin Penelitian/Magang/PKL', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+
+            // Nakes
+            ['name' => 'Penerbitan Sertifikat Penyuluhan Keamanan Pangan PKP', 'type' => 'Nakes', 'icon' => 'file', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Tenaga Medis', 'type' => 'Nakes', 'icon' => 'users', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Tenaga Kesehatan', 'type' => 'Nakes', 'icon' => 'users', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Surat Terdaftar Penyehat Tradisional', 'type' => 'Nakes', 'icon' => 'file', 'link' => null],
+        ];
+
+        foreach ($layananTerpadus as $layanan) {
+            \App\Models\LayananTerpadu::updateOrCreate(
+                ['name' => $layanan['name']],
+                $layanan
+            );
+        }
     }
 }

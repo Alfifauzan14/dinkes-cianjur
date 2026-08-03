@@ -41,7 +41,7 @@
                     <span class="material-icons menu-icon">collections</span>
                     <span>Kelola Galeri</span>
                 </a>
-                <a href="#" class="menu-link">
+                <a href="{{ route('admin.layanan.index') }}" class="menu-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">medical_services</span>
                     <span>Edit Layanan</span>
                 </a>

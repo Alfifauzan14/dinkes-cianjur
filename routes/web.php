@@ -221,8 +221,22 @@ Route::resource('/admin/satu-data/regulasi', App\Http\Controllers\Admin\Regulasi
     ]
 ])->middleware('auth');
 
+Route::resource('/admin/layanan-terpadu', App\Http\Controllers\Admin\LayananTerpaduController::class, [
+    'names' => [
+        'index'   => 'admin.layanan.index',
+        'create'  => 'admin.layanan.create',
+        'store'   => 'admin.layanan.store',
+        'edit'    => 'admin.layanan.edit',
+        'update'  => 'admin.layanan.update',
+        'destroy' => 'admin.layanan.destroy',
+    ]
+])->middleware('auth');
+
 Route::get('/layanan-terpadu', function () {
-    return view('layanan-terpadu');
+    $wargaServices = \App\Models\LayananTerpadu::where('type', 'Warga')->get();
+    $faskesServices = \App\Models\LayananTerpadu::where('type', 'Faskes')->get();
+    $nakesServices = \App\Models\LayananTerpadu::where('type', 'Nakes')->get();
+    return view('layanan-terpadu', compact('wargaServices', 'faskesServices', 'nakesServices'));
 })->name('layanan-terpadu');
 
 Route::get('/cianjur-bebas-stunting', function () {
