@@ -128,51 +128,63 @@
                 <div class="stunting-dashboard-grid">
                     <!-- Left Column: Visual Chart -->
                     <div class="stunting-chart-column">
-                        <div class="stunting-chart-container">
-                            <!-- Y-Axis Grid Lines -->
-                            <div class="chart-y-axis-grid">
-                                <div class="grid-line"><span class="grid-line-label">20%</span></div>
-                                <div class="grid-line"><span class="grid-line-label">15%</span></div>
-                                <div class="grid-line"><span class="grid-line-label">10%</span></div>
-                                <div class="grid-line"><span class="grid-line-label">5%</span></div>
-                                <div class="grid-line" style="border-top-style: solid; border-top-color: #CBD5E1;"><span class="grid-line-label">0%</span></div>
+                        <div class="chart-flex-container" style="display: flex; position: relative; align-items: flex-start; gap: 12px; margin-top: 12px;">
+                            <!-- Y-Axis Static Labels (Left) -->
+                            <div class="chart-y-axis-labels" style="display: flex; flex-direction: column; justify-content: space-between; height: 275px; margin-top: 10px; width: 32px; font-size: 11px; color: #94A3B8; font-weight: 700; text-align: right; flex-shrink: 0; position: relative; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1;">
+                                <span>20%</span>
+                                <span>15%</span>
+                                <span>10%</span>
+                                <span>5%</span>
+                                <span>0%</span>
                             </div>
+                            
+                            <!-- Scrollable Chart Area (Right) -->
+                            <div class="stunting-chart-container" style="flex-grow: 1; overflow-x: auto; position: relative; padding-left: 0; margin-top: 0;">
+                                <!-- Y-Axis Grid Lines -->
+                                <div class="chart-y-axis-grid" style="position: absolute; top: 10px; left: 0; right: 0; height: 275px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 1;">
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px solid #CBD5E1; position: relative;"></div>
+                                </div>
 
-                            <div class="chart-bars-wrapper">
-                                @foreach($stuntingRecords as $record)
-                                    @php
-                                        $heightPercent = $maxRate > 0 ? ($record->rate / $maxRate) * 100 : 0;
-                                    @endphp
-                                    <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
-                                         role="button"
-                                         tabindex="0"
-                                         aria-label="Detail stunting tahun {{ $record->year }}"
-                                         data-year="{{ $record->year }}"
-                                         data-rate="{{ $record->rate }}"
-                                         data-total="{{ $record->total_balita ?? '' }}"
-                                         data-stunting="{{ $record->balita_stunting ?? '' }}"
-                                         data-terendah="{{ $record->wilayah_terendah ?? '' }}"
-                                         data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
-                                         data-catatan="{{ $record->catatan ?? '' }}"
-                                         onclick="updateStuntingDetail(this)"
-                                         onkeydown="if(event.key==='Enter')updateStuntingDetail(this)">
-                                        <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ $record->rate }}%</span>
-                                        <div class="bar-track">
-                                            <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%'])></div>
+                                <div class="chart-bars-wrapper" style="position: relative; z-index: 2; height: 320px; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px; margin-bottom: 0;">
+                                    @foreach($stuntingRecords as $record)
+                                        @php
+                                            $heightPercent = $maxRate > 0 ? ($record->rate / $maxRate) * 100 : 0;
+                                        @endphp
+                                        <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
+                                             role="button"
+                                             tabindex="0"
+                                             aria-label="Detail stunting tahun {{ $record->year }}"
+                                             data-year="{{ $record->year }}"
+                                             data-rate="{{ $record->rate }}"
+                                             data-total="{{ $record->total_balita ?? '' }}"
+                                             data-stunting="{{ $record->balita_stunting ?? '' }}"
+                                             data-terendah="{{ $record->wilayah_terendah ?? '' }}"
+                                             data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
+                                             data-catatan="{{ $record->catatan ?? '' }}"
+                                             onclick="updateStuntingDetail(this)"
+                                             onkeydown="if(event.key==='Enter')updateStuntingDetail(this)">
+                                            <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ $record->rate }}%</span>
+                                            <div class="bar-track">
+                                                <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%'])></div>
+                                            </div>
+                                            <span class="bar-year {{ $record->is_highlighted ? 'bar-year-active' : '' }}">
+                                                {{ $record->year }}
+                                                @if($record->is_highlighted)
+                                                    <span class="bar-year-tag" style="display: block; font-size: 10px; font-weight: 700;">(Saat Ini)</span>
+                                                @endif
+                                            </span>
                                         </div>
-                                        <span class="bar-year {{ $record->is_highlighted ? 'bar-year-active' : '' }}">
-                                            {{ $record->year }}
-                                            @if($record->is_highlighted)
-                                                <span class="bar-year-tag" style="display: block; font-size: 10px; font-weight: 700;">(Saat Ini)</span>
-                                            @endif
-                                        </span>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         
                         <!-- Click-to-Detail Hint -->
-                        <div class="chart-click-hint" style="margin-top: 16px; font-size: 13px; color: #64748B; display: flex; align-items: center; gap: 6px; padding-left: 45px;">
+                        <div class="chart-click-hint" style="margin-top: 16px; font-size: 13px; color: #64748B; display: flex; align-items: center; gap: 6px; padding-left: 44px;">
                             <span class="material-icons" style="font-size: 16px; color: #009966;">touch_app</span>
                             <span>Arahkan kursor atau klik batang grafik untuk melihat rincian data tahunan di panel samping.</span>
                         </div>
