@@ -60,7 +60,7 @@ class BeritaMassSeeder extends Seeder
         foreach ($beritaData as $i => $data) {
             // Buat konten lebih panjang untuk realistis
             $data['content'] .= str_repeat("\n\nParagraf tambahan untuk melengkapi berita ini dengan informasi yang lebih detail dan komprehensif bagi masyarakat Kabupaten Cianjur.", 3);
-            $data['slug'] = Str::slug($data['title']) . '-' . ($i + 1);
+            $data['slug'] = Str::slug($data['title']).'-'.($i + 1);
             $data['status'] = 'published';
             $data['image'] = null;
 

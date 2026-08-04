@@ -87,7 +87,7 @@ class SettingController extends Controller
 
         $setting->update($data);
 
-        return redirect()->route('admin.setting.edit')
+        return redirect()->route('admin.setting.edit', ['section' => $request->input('section', 'identitas')])
             ->with('success', 'Pengaturan situs berhasil diperbarui!');
     }
 }

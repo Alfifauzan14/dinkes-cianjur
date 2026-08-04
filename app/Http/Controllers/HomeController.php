@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\Galeri;
-use App\Models\Profile;
+use App\Models\HomeInfoCard;
+use App\Models\HomeSocialLink;
 use App\Models\PagodaSehatCard;
+use App\Models\Profile;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -56,8 +59,10 @@ class HomeController extends Controller
 
         $homeGaleris = Galeri::orderBy('created_at', 'desc')->take(5)->get();
         $profile = Profile::first();
-        
+
         $pagodaCards = PagodaSehatCard::orderBy('order_index')->get();
+        $infoCards = HomeInfoCard::orderBy('order_index')->get();
+        $socialLinks = HomeSocialLink::orderBy('order_index')->get();
 
         return view('welcome', compact(
             'homeBeritas',
@@ -68,14 +73,16 @@ class HomeController extends Controller
             'canNavigateNext',
             'homeGaleris',
             'profile',
-            'pagodaCards'
+            'pagodaCards',
+            'infoCards',
+            'socialLinks'
         ));
     }
 
     /**
      * Fetch agendas by date via AJAX.
      */
-    public function agendaByDate(Request $request): \Illuminate\Http\JsonResponse
+    public function agendaByDate(Request $request): JsonResponse
     {
         $today = Carbon::today();
         $selectedDateStr = $request->query('agenda_date');

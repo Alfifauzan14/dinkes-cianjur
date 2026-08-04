@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
@@ -8,19 +10,18 @@ use App\Http\Controllers\Admin\PagodaSehatController;
 use App\Http\Controllers\Admin\PpidController as AdminPpidController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\RegulasiController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StatistikController;
-use App\Http\Controllers\Admin\SettingController as AdminSettingController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\FaskesController;
+use App\Http\Controllers\FaskesController as PublicFaskesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LabkesdaController;
 use App\Http\Controllers\LayananTerpaduController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PPIDController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\ProgramKesehatanController;
 use App\Http\Controllers\SatuDataController;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +44,7 @@ Route::get('/satu-data/regulasi', [SatuDataController::class, 'regulasi'])->name
 
 /* --- Labkesda & Faskes Routes --- */
 Route::get('/media', [MediaController::class, 'index'])->name('media');
-Route::get('/faskes', [FaskesController::class, 'index'])->name('faskes');
+Route::get('/faskes', [PublicFaskesController::class, 'index'])->name('faskes');
 Route::get('/labkesda', [LabkesdaController::class, 'index'])->name('labkesda');
 
 /* --- Layanan Terpadu & Program Kesehatan Routes --- */
@@ -90,6 +91,12 @@ Route::resource('/admin/pagodasehat', PagodaSehatController::class, [
     ],
 ])->middleware('auth');
 
+/* --- Admin Home Content Routes (edit only) --- */
+Route::get('/admin/home-content', [HomeContentController::class, 'index'])->middleware('auth')->name('admin.home-content.index');
+Route::get('/admin/home-content/{homeInfoCard}/edit', [HomeContentController::class, 'edit'])->middleware('auth')->name('admin.home-content.edit');
+Route::put('/admin/home-content/{homeInfoCard}', [HomeContentController::class, 'update'])->middleware('auth')->name('admin.home-content.update');
+Route::put('/admin/home-content/social/update', [HomeContentController::class, 'updateSocialLinks'])->middleware('auth')->name('admin.home-content.social.update');
+
 /* --- Admin Login Routes (Double-Gatekeeper) --- */
 Route::get('/dinkes-login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/dinkes-gatekeeper', [AuthController::class, 'verifyGatekeeper'])->name('gatekeeper.verify');
@@ -101,9 +108,8 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
 
-Route::get('/admin/pengaturan', [AdminSettingController::class, 'edit'])->middleware('auth')->name('admin.setting.edit');
-Route::put('/admin/pengaturan', [AdminSettingController::class, 'update'])->middleware('auth')->name('admin.setting.update');
-
+Route::get('/admin/pengaturan', [SettingController::class, 'edit'])->middleware('auth')->name('admin.setting.edit');
+Route::put('/admin/pengaturan', [SettingController::class, 'update'])->middleware('auth')->name('admin.setting.update');
 
 Route::resource('/admin/berita', App\Http\Controllers\Admin\BeritaController::class, [
     'parameters' => [
@@ -141,6 +147,17 @@ Route::resource('/admin/galeri', GaleriController::class, [
         'edit' => 'admin.galeri.edit',
         'update' => 'admin.galeri.update',
         'destroy' => 'admin.galeri.destroy',
+    ],
+])->middleware('auth');
+
+Route::resource('/admin/faskes', FaskesController::class, [
+    'names' => [
+        'index' => 'admin.faskes.index',
+        'create' => 'admin.faskes.create',
+        'store' => 'admin.faskes.store',
+        'edit' => 'admin.faskes.edit',
+        'update' => 'admin.faskes.update',
+        'destroy' => 'admin.faskes.destroy',
     ],
 ])->middleware('auth');
 

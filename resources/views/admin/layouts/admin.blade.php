@@ -449,6 +449,13 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('admin.home-content.index') }}" class="nav-link {{ request()->routeIs('admin.home-content.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">info</span>
+                            <p>Kelola Home Content</p>
+                        </a>
+                    </li>
+
                     {{-- LAYANAN & PROGRAM --}}
                     <li class="nav-header">LAYANAN &amp; PROGRAM</li>
 
@@ -480,21 +487,57 @@
                         </a>
                     </li>
 
-                    {{-- SATU DATA & REGULASI --}}
-                    <li class="nav-header">SATU DATA &amp; REGULASI</li>
-
                     <li class="nav-item">
-                        <a href="{{ route('admin.satudata.statistik.edit') }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
-                            <span class="material-icons nav-icon">bar_chart</span>
-                            <p>Statistik Kesehatan</p>
+                        <a href="{{ route('admin.faskes.index') }}" class="nav-link {{ request()->routeIs('admin.faskes.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">location_city</span>
+                            <p>Kelola Faskes</p>
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.satudata.statistik.import') }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.import') ? 'active' : '' }}">
-                            <span class="material-icons nav-icon">upload_file</span>
-                            <p>Unggah Data Stunting</p>
+                    {{-- SATU DATA & REGULASI --}}
+                    <li class="nav-header">SATU DATA &amp; REGULASI</li>
+
+                    {{-- SATU DATA dropdown --}}
+                    <li class="nav-item has-treeview {{ (request()->routeIs('admin.satudata.statistik.*') || request()->routeIs('admin.satudata.statistik.import')) ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ (request()->routeIs('admin.satudata.statistik.*') || request()->routeIs('admin.satudata.statistik.import')) ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">bar_chart</span>
+                            <p>
+                                Satu Data &amp; Statistik
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview pl-3">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'indikator']) }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section', 'indikator') === 'indikator' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">show_chart</span>
+                                    <p>Indikator Utama</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'stunting']) }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'stunting' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">trending_down</span>
+                                    <p>Tren Stunting</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'nakes']) }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'nakes' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">people</span>
+                                    <p>Distribusi Nakes</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'sebaran']) }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'sebaran' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">explore</span>
+                                    <p>Sebaran Puskesmas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.satudata.statistik.import') }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.import') ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">upload_file</span>
+                                    <p>Unggah CSV Stunting</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="nav-item">
@@ -514,25 +557,115 @@
                     {{-- PENGATURAN HALAMAN --}}
                     <li class="nav-header">PENGATURAN HALAMAN</li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.profil.edit') }}" class="nav-link {{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
+                    {{-- PROFIL INSTANSI dropdown --}}
+                    <li class="nav-item has-treeview {{ request()->routeIs('admin.profil.*') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">business</span>
-                            <p>Halaman Profil Dinkes</p>
+                            <p>
+                                Profil Instansi
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview pl-3">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.profil.edit', ['section' => 'sambutan']) }}" class="nav-link {{ request()->routeIs('admin.profil.*') && request('section', 'sambutan') === 'sambutan' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">campaign</span>
+                                    <p>Sambutan Pimpinan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.profil.edit', ['section' => 'visimisi']) }}" class="nav-link {{ request()->routeIs('admin.profil.*') && request('section') === 'visimisi' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">flag</span>
+                                    <p>Visi &amp; Misi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.profil.edit', ['section' => 'sejarah']) }}" class="nav-link {{ request()->routeIs('admin.profil.*') && request('section') === 'sejarah' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">history_edu</span>
+                                    <p>Sejarah Instansi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.profil.edit', ['section' => 'struktur']) }}" class="nav-link {{ request()->routeIs('admin.profil.*') && request('section') === 'struktur' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">account_tree</span>
+                                    <p>Struktur Organisasi</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.ppid.edit') }}" class="nav-link {{ request()->routeIs('admin.ppid.*') ? 'active' : '' }}">
+                    {{-- LAYANAN PPID dropdown --}}
+                    <li class="nav-item has-treeview {{ request()->routeIs('admin.ppid.*') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->routeIs('admin.ppid.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">help_outline</span>
-                            <p>Halaman PPID</p>
+                            <p>
+                                Layanan PPID
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview pl-3">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.ppid.edit', ['section' => 'informasi']) }}" class="nav-link {{ request()->routeIs('admin.ppid.*') && request('section', 'informasi') === 'informasi' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">toc</span>
+                                    <p>Informasi Publik</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.ppid.edit', ['section' => 'statistik']) }}" class="nav-link {{ request()->routeIs('admin.ppid.*') && request('section') === 'statistik' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">view_quilt</span>
+                                    <p>Statistik PPID</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.ppid.edit', ['section' => 'tautan']) }}" class="nav-link {{ request()->routeIs('admin.ppid.*') && request('section') === 'tautan' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">link</span>
+                                    <p>Tautan Publik</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.ppid.edit', ['section' => 'tatacara']) }}" class="nav-link {{ request()->routeIs('admin.ppid.*') && request('section') === 'tatacara' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">playlist_add_check</span>
+                                    <p>Tata Cara &amp; Aksi</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.setting.edit') }}" class="nav-link {{ request()->routeIs('admin.setting.*') ? 'active' : '' }}">
+                    {{-- PENGATURAN SITUS dropdown --}}
+                    <li class="nav-item has-treeview {{ request()->routeIs('admin.setting.*') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->routeIs('admin.setting.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">settings</span>
-                            <p>Pengaturan Situs (Umum)</p>
+                            <p>
+                                Pengaturan Umum
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview pl-3">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.setting.edit', ['section' => 'identitas']) }}" class="nav-link {{ request()->routeIs('admin.setting.*') && request('section', 'identitas') === 'identitas' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">web</span>
+                                    <p>Identitas Situs</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.setting.edit', ['section' => 'kontak']) }}" class="nav-link {{ request()->routeIs('admin.setting.*') && request('section') === 'kontak' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">contact_phone</span>
+                                    <p>Informasi Kontak</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.setting.edit', ['section' => 'darurat']) }}" class="nav-link {{ request()->routeIs('admin.setting.*') && request('section') === 'darurat' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">emergency</span>
+                                    <p>Layanan Darurat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.setting.edit', ['section' => 'sosmed']) }}" class="nav-link {{ request()->routeIs('admin.setting.*') && request('section') === 'sosmed' ? 'active' : '' }}">
+                                    <span class="material-icons nav-icon" style="font-size: 16px;">share</span>
+                                    <p>Media Sosial</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                     {{-- LOGOUT --}}
