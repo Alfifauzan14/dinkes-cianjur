@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\LabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController;
@@ -18,6 +19,8 @@ use App\Models\Galeri;
 use App\Models\LabkesdaCategory;
 use App\Models\LabkesdaSetting;
 use App\Models\Laporan;
+use App\Models\HomeInfoCard;
+use App\Models\HomeSocialLink;
 use App\Models\LayananTerpadu;
 use App\Models\PagodaSehatCard;
 use App\Models\Profile;
@@ -70,6 +73,10 @@ Route::get('/', function () {
 
     $pagodaCards = PagodaSehatCard::orderBy('order_index')->get();
 
+    $infoCards = HomeInfoCard::orderBy('order_index')->get();
+
+    $socialLinks = HomeSocialLink::orderBy('order_index')->get();
+
     return view('welcome', compact(
         'homeBeritas',
         'homeAgendas',
@@ -79,7 +86,9 @@ Route::get('/', function () {
         'canNavigateNext',
         'homeGaleris',
         'profile',
-        'pagodaCards'
+        'pagodaCards',
+        'infoCards',
+        'socialLinks'
     ));
 });
 
@@ -199,6 +208,12 @@ Route::resource('/admin/pagodasehat', PagodaSehatController::class, [
         'destroy' => 'admin.pagodasehat.destroy',
     ],
 ])->middleware('auth');
+
+/* --- Admin Home Content Routes (edit only) --- */
+Route::get('/admin/home-content', [HomeContentController::class, 'index'])->middleware('auth')->name('admin.home-content.index');
+Route::get('/admin/home-content/{homeInfoCard}/edit', [HomeContentController::class, 'edit'])->middleware('auth')->name('admin.home-content.edit');
+Route::put('/admin/home-content/{homeInfoCard}', [HomeContentController::class, 'update'])->middleware('auth')->name('admin.home-content.update');
+Route::put('/admin/home-content/social/update', [HomeContentController::class, 'updateSocialLinks'])->middleware('auth')->name('admin.home-content.social.update');
 
 /* --- Admin Login Routes (Double-Gatekeeper) --- */
 Route::get('/dinkes-login', [AuthController::class, 'showLoginForm'])->name('login');
