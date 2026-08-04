@@ -36,25 +36,24 @@
             <!-- Filter Card -->
             <form action="{{ url('/faskes') }}" method="GET" class="faskes-filter-card">
                 <div class="faskes-filter-section">
+                    <div class="faskes-search-wrap">
+                        <input type="text" name="search" class="faskes-search-input" placeholder="Cari nama Puskesmas..." value="{{ request('search') }}">
+                        <button type="submit" class="faskes-search-btn">Cari</button>
+                    </div>
                     <div class="faskes-filter-wrap">
-                        <label class="faskes-filter-label">Kecamatan</label>
                         <select name="kecamatan" class="faskes-select" onchange="this.form.submit()">
-                            <option value="Semua" {{ request('kecamatan', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Kecamatan</option>
+                            <option value="Semua" {{ request('kecamatan', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Wilayah...</option>
                             @foreach($kecamatans as $kec)
                                 <option value="{{ $kec }}" {{ request('kecamatan') == $kec ? 'selected' : '' }}>{{ $kec }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="faskes-filter-wrap">
-                        <label class="faskes-filter-label">Jenis Faskes</label>
                         <select name="type" class="faskes-select" onchange="this.form.submit()">
-                            <option value="Semua" {{ request('type', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Jenis</option>
+                            <option value="Semua" {{ request('type', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Layanan...</option>
                             <option value="Rumah Sakit" {{ request('type') == 'Rumah Sakit' ? 'selected' : '' }}>Rumah Sakit</option>
                             <option value="Puskesmas" {{ request('type') == 'Puskesmas' ? 'selected' : '' }}>Puskesmas</option>
                         </select>
-                    </div>
-                    <div class="faskes-filter-stats">
-                        <span class="faskes-stat-badge">{{ $faskes->count() }} Faskes</span>
                     </div>
                 </div>
             </form>
@@ -64,7 +63,7 @@
 
                 <!-- Map Section (Left) -->
                 <div class="faskes-map-container">
-                    <div id="faskesMap" style="width:100%; height:100%; min-height:500px; border-radius:3px;"></div>
+                    <div id="faskesMap" style="width:100%; height:100%; border-radius:3px;"></div>
                 </div>
 
                 <!-- Facility List (Right) -->
