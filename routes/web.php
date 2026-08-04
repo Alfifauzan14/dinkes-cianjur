@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\GaleriController;
-use App\Http\Controllers\Admin\LabkesdaController;
+use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -56,11 +56,11 @@ Route::get('/kesehatan-ibu-anak', function () {
 })->name('kia');
 
 /* --- Admin Labkesda Routes --- */
-Route::get('/admin/labkesda/settings', [LabkesdaController::class, 'editSettings'])->middleware('auth')->name('admin.labkesda.settings.edit');
-Route::put('/admin/labkesda/settings', [LabkesdaController::class, 'updateSettings'])->middleware('auth')->name('admin.labkesda.settings.update');
-Route::put('/admin/labkesda/{labkesda}/order', [LabkesdaController::class, 'updateOrder'])->middleware('auth')->name('admin.labkesda.order.update');
+Route::get('/admin/labkesda/settings', [AdminLabkesdaController::class, 'editSettings'])->middleware('auth')->name('admin.labkesda.settings.edit');
+Route::put('/admin/labkesda/settings', [AdminLabkesdaController::class, 'updateSettings'])->middleware('auth')->name('admin.labkesda.settings.update');
+Route::put('/admin/labkesda/{labkesda}/order', [AdminLabkesdaController::class, 'updateOrder'])->middleware('auth')->name('admin.labkesda.order.update');
 
-Route::resource('/admin/labkesda', LabkesdaController::class, [
+Route::resource('/admin/labkesda', AdminLabkesdaController::class, [
     'names' => [
         'index' => 'admin.labkesda.index',
         'create' => 'admin.labkesda.create',

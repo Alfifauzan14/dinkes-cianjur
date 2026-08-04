@@ -71,7 +71,10 @@ class ProfileAdminTest extends TestCase
         $response = $this->get('/profil/tentang-dinkes');
         $response->assertStatus(200);
         $response->assertSee('Perjalanan Dinas Budi');
-        $response->assertSee('Misi 1');
+
+        $responseVisiMisi = $this->get('/profil/visi-misi');
+        $responseVisiMisi->assertStatus(200);
+        $responseVisiMisi->assertSee('Misi 1');
     }
 
     /**
