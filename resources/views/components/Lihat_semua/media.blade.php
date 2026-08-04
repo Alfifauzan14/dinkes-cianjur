@@ -43,9 +43,9 @@
                 @forelse ($galeris as $galeri)
                     <div class="media-card">
                         @if(file_exists(public_path('uploads/galeri/' . $galeri->image)))
-                            <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image" loading="lazy">
+                            <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image lightbox-trigger" loading="lazy">
                         @else
-                            <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image" loading="lazy">
+                            <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image lightbox-trigger" loading="lazy">
                         @endif
                         <div class="media-card-overlay"></div>
                         <span class="media-card-badge">{{ $galeri->category }}</span>
@@ -107,3 +107,11 @@
         </div>
     </main>
 </div>
+
+@include('components.lightbox')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initLightbox('.lightbox-trigger');
+    });
+</script>

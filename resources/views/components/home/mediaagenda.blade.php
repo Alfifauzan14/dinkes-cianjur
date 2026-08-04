@@ -4,7 +4,7 @@
     <div class="mediaagenda-inner">
     <!-- Header -->
     <div class="mediaagenda-header">
-        <h2 class="mediaagenda-title">Media &amp; Agenda</h2>
+        <h2 class="mediaagenda-title">Galeri &amp; Agenda</h2>
     </div>
 
     <!-- Main Container -->
@@ -32,9 +32,9 @@
                     <!-- Large Card -->
                     <div class="media-card large-card">
                         @if(file_exists(public_path('uploads/galeri/' . $firstGaleri->image)))
-                            <img src="{{ asset('uploads/galeri/' . $firstGaleri->image) }}" alt="{{ $firstGaleri->title }}" class="card-image" loading="lazy">
+                            <img src="{{ asset('uploads/galeri/' . $firstGaleri->image) }}" alt="{{ $firstGaleri->title }}" class="card-image lightbox-trigger" loading="lazy">
                         @else
-                            <img src="{{ asset('images/' . $firstGaleri->image) }}" alt="{{ $firstGaleri->title }}" class="card-image" loading="lazy">
+                            <img src="{{ asset('images/' . $firstGaleri->image) }}" alt="{{ $firstGaleri->title }}" class="card-image lightbox-trigger" loading="lazy">
                         @endif
                         <div class="card-overlay"></div>
                         <div class="badge-container">
@@ -59,9 +59,9 @@
                             <!-- Card -->
                             <div class="media-card small-card">
                                 @if(file_exists(public_path('uploads/galeri/' . $galeri->image)))
-                                    <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image" loading="lazy">
+                                    <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image lightbox-trigger" loading="lazy">
                                 @else
-                                    <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image" loading="lazy">
+                                    <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image lightbox-trigger" loading="lazy">
                                 @endif
                                 <div class="card-overlay"></div>
                                 <div class="badge-container">
@@ -157,8 +157,16 @@
     </div>
 </section>
 
+@include('components.lightbox')
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Lightbox Initialization
+    if (typeof initLightbox === 'function') {
+        initLightbox('.lightbox-trigger');
+    }
+
+    // Agenda Timeline Navigation
     const agendaSelector = document.querySelector('.agenda-date-selector');
     const agendaTimeline = document.querySelector('.agenda-timeline');
     if (!agendaSelector || !agendaTimeline) return;
