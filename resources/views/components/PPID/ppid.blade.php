@@ -1,11 +1,14 @@
+@php
+    $ppid = \App\Models\PpidSetting::instance();
+@endphp
 <link rel="stylesheet" href="{{ asset('css/PPID/ppid.css') }}?v={{ time() }}">
 
 <div class="ppid-page-wrapper">
     <!-- Header Section -->
     <header class="ppid-header">
         <div class="ppid-header-container">
-            <h1 class="ppid-header-title">PPID Dinas Kesehatan Kabupaten Cianjur</h1>
-            <p class="ppid-header-subtitle">Pusat layanan informasi publik, permohonan dokumen resmi, serta transparansi kinerja Dinas Kesehatan.</p>
+            <h1 class="ppid-header-title">{{ $ppid->page_title }}</h1>
+            <p class="ppid-header-subtitle">{{ $ppid->page_subtitle }}</p>
         </div>
     </header>
 
@@ -14,18 +17,18 @@
         <div class="ppid-stats-container">
             <!-- Stat Card 1 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">9.757</h3>
-                <p class="ppid-stat-desc">Jumlah Dokumen (berkala, serta merta &amp; setiap saat) yang tersedia pada database PPID Kabupaten Cianjur.</p>
+                <h3 class="ppid-stat-number">{{ $ppid->stat_1_number }}</h3>
+                <p class="ppid-stat-desc">{{ $ppid->stat_1_desc }}</p>
             </div>
             <!-- Stat Card 2 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">8.089.450</h3>
-                <p class="ppid-stat-desc">Jumlah Dokumen (berkala, serta merta &amp; setiap saat) sudah di-lihat publik dari database PPID Kabupaten Cianjur.</p>
+                <h3 class="ppid-stat-number">{{ $ppid->stat_2_number }}</h3>
+                <p class="ppid-stat-desc">{{ $ppid->stat_2_desc }}</p>
             </div>
             <!-- Stat Card 3 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">8.118.414</h3>
-                <p class="ppid-stat-desc">Jumlah Dokumen (berkala, serta merta &amp; setiap saat) sudah di-download publik dari database PPID Kabupaten Cianjur.</p>
+                <h3 class="ppid-stat-number">{{ $ppid->stat_3_number }}</h3>
+                <p class="ppid-stat-desc">{{ $ppid->stat_3_desc }}</p>
             </div>
         </div>
     </section>
@@ -37,11 +40,11 @@
             <div class="ppid-card-wrapper">
                 <h2 class="ppid-section-title">Layanan Informasi Publik</h2>
 
-                <!-- Tampilkan form pencarian langsung tanpa pembungkus accordion -->
+                <!-- Filter Form -->
                 <div class="filter-box-card">
                     <h4 class="filter-title">Informasi Publik</h4>
                     <p class="filter-desc">Silahkan cari Informasi Publik melalui form di bawah ini:</p>
-                    
+
                     <form class="filter-form" onsubmit="event.preventDefault();">
                         <!-- Search input wrapper -->
                         <div class="search-input-wrap">
@@ -64,175 +67,88 @@
                     </form>
                 </div>
 
-                <!-- Bagian Accordion di bawah filter form -->
+                <!-- Accordion Items -->
                 <div class="accordion-container" style="margin-top: 32px;">
-                    <!-- Item 1: Info Kepuasan Masyarakat -->
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="header-text">Info Kepuasan Masyarakat</span>
-                            <span class="material-icons chevron-icon">expand_more</span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p class="placeholder-text">Informasi mengenai Indeks Kepuasan Masyarakat (IKM) terhadap layanan Dinas Kesehatan Kabupaten Cianjur disajikan secara berkala untuk menjaga transparansi dan perbaikan berkelanjutan.</p>
+                    @foreach(range(1,6) as $i)
+                        @php
+                            $title   = $ppid->{'accordion_'.$i.'_title'};
+                            $content = $ppid->{'accordion_'.$i.'_content'};
+                        @endphp
+                        @if($title)
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false">
+                                <span class="header-text">{{ $title }}</span>
+                                <span class="material-icons chevron-icon">expand_more</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="accordion-content-inner">
+                                    <p class="placeholder-text">{{ $content }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Item 2: Permohonan Informasi -->
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="header-text">Permohonan Informasi</span>
-                            <span class="material-icons chevron-icon">expand_more</span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p class="placeholder-text">Alur permohonan informasi publik secara online and offline. Anda dapat mengunduh formulir pengajuan informasi resmi di sini.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 3: Tracking Permohonan Informasi -->
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="header-text">Tracking Permohonan Informasi</span>
-                            <span class="material-icons chevron-icon">expand_more</span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p class="placeholder-text">Masukkan nomor registrasi permohonan Anda untuk melacak status respon dan tindak lanjut dari petugas PPID Dinas Kesehatan.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 4: Standar dan Pelaporan -->
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="header-text">Standar dan Pelaporan</span>
-                            <span class="material-icons chevron-icon">expand_more</span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p class="placeholder-text">Laporan berkala PPID pembantu, maklumat pelayanan informasi publik, dan standar operasional prosedur (SOP) pengelolaan informasi di lingkungan Dinas Kesehatan.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 5: Regulasi PPID Pembantu -->
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="header-text">Regulasi PPID Pembantu</span>
-                            <span class="material-icons chevron-icon">expand_more</span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p class="placeholder-text">Kumpulan undang-undang, peraturan pemerintah, peraturan menteri, serta keputusan bupati terkait keterbukaan informasi publik (KIP).</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 6: Tracking Pengaduan Masyarakat -->
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="header-text">Tracking Pengaduan Masyarakat</span>
-                            <span class="material-icons chevron-icon">expand_more</span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p class="placeholder-text">Lacak status laporan pengaduan masyarakat yang diajukan secara resmi ke Dinas Kesehatan Kabupaten Cianjur.</p>
-                            </div>
-                        </div>
-                    </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
 
-            <!-- Section Informasi Tautan (di bawah ppid card) -->
+            <!-- Section Informasi Tautan -->
             <div class="tautan-section">
-                <span class="tautan-badge-title">Informasi Tautan</span>
-                <h2 class="tautan-title">Pelayanan Publik Kabupaten Cianjur</h2>
-                <p class="tautan-subtitle">Berikut adalah daftar alamat website pelayanan publik pemerintah kabupaten cianjur.</p>
-                
+                <span class="tautan-badge-title">{{ $ppid->tautan_badge }}</span>
+                <h2 class="tautan-title">{{ $ppid->tautan_title }}</h2>
+                <p class="tautan-subtitle">{{ $ppid->tautan_subtitle }}</p>
+
                 <div class="tautan-grid">
-                    <!-- Card 1 -->
-                    <a href="#" class="tautan-card">
-                        <div class="tautan-icon-wrap">
-                            <img src="{{ asset('Assets/ppdi/Rectangle 95.png') }}" alt="BPJS Kesehatan">
-                        </div>
-                        <span class="tautan-card-text">BPJS Kesehatan</span>
-                    </a>
-                    <!-- Card 2 -->
-                    <a href="#" class="tautan-card">
-                        <div class="tautan-icon-wrap">
-                            <img src="{{ asset('Assets/ppdi/Rectangle 100.png') }}" alt="Pelayanan Pendaftaran Penduduk">
-                        </div>
-                        <span class="tautan-card-text">Pelayanan Pendaftaran Penduduk</span>
-                    </a>
-                    <!-- Card 3 -->
-                    <a href="#" class="tautan-card">
-                        <div class="tautan-icon-wrap">
-                            <img src="{{ asset('Assets/ppdi/Rectangle 99.png') }}" alt="Pelayanan Perizinan">
-                        </div>
-                        <span class="tautan-card-text">Pelayanan Perizinan</span>
-                    </a>
-                    <!-- Card 4 -->
-                    <a href="#" class="tautan-card">
-                        <div class="tautan-icon-wrap">
-                            <img src="{{ asset('Assets/ppdi/Rectangle 98.png') }}" alt="Pelayanan Perizinan Trayek">
-                        </div>
-                        <span class="tautan-card-text">Pelayanan Perizinan Trayek</span>
-                    </a>
-                    <!-- Card 5 -->
-                    <a href="#" class="tautan-card">
-                        <div class="tautan-icon-wrap">
-                            <img src="{{ asset('Assets/ppdi/Rectangle 97.png') }}" alt="Pelayanan Kearsipan dan Perpustakaan">
-                        </div>
-                        <span class="tautan-card-text">Pelayanan Kearsipan dan Perpustakaan</span>
-                    </a>
+                    @foreach(range(1,5) as $i)
+                        @php
+                            $label = $ppid->{'tautan_'.$i.'_label'};
+                            $url   = $ppid->{'tautan_'.$i.'_url'} ?: '#';
+                        @endphp
+                        @if($label)
+                        <a href="{{ $url }}" class="tautan-card">
+                            <div class="tautan-icon-wrap">
+                                <img src="{{ asset('Assets/ppdi/Rectangle '.($i + 94).'.png') }}" alt="{{ $label }}">
+                            </div>
+                            <span class="tautan-card-text">{{ $label }}</span>
+                        </a>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
     </main>
 
-<!-- Tata Cara Permohonan Section (full-width, di luar container) -->
+<!-- Tata Cara Permohonan Section -->
 <section class="tata-cara-outer">
     <div class="tata-cara-section">
-        <!-- Left Side: Circle Doctor Image -->
+        <!-- Left Side: Doctor Image -->
         <div class="tata-cara-image-wrapper">
             <img src="{{ asset('Assets/ppdi/doctor_landscape_illustration_1785205715145.png') }}" alt="Ilustrasi Tata Cara Permohonan" class="tata-cara-image">
         </div>
 
         <!-- Right Side: Content -->
         <div class="tata-cara-content-box">
-            <span class="tata-cara-badge">4 langkah mudah pengajuan informasi online</span>
-            <h2 class="tata-cara-heading">Tata Cara Permohonan</h2>
+            <span class="tata-cara-badge">{{ $ppid->tata_cara_badge }}</span>
+            <h2 class="tata-cara-heading">{{ $ppid->tata_cara_heading }}</h2>
 
             <div class="tata-cara-grid">
-                <!-- Card 1 -->
-                <div class="tata-cara-card">
-                    <h3 class="tata-cara-card-title">1. Persiapan</h3>
-                    <p class="tata-cara-card-text">Silahkan lakukan persiapan terlebih dahulu sebelum melakukan permohonan informasi tentang apa yang anda butuhkan.</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="tata-cara-card">
-                    <h3 class="tata-cara-card-title">2. Buat Akun Pemohon</h3>
-                    <p class="tata-cara-card-text">Silahkan <a href="#" class="inline-green-link">buat akun</a> pemohon terlebih dahulu. Jika sudah mempunyai akun, silahkan login melalui menu Layanan Informasi &gt; <a href="#" class="inline-blue-link">E-PPID Online</a>.</p>
-                </div>
-                <!-- Card 3 -->
-                <div class="tata-cara-card">
-                    <h3 class="tata-cara-card-title">3. Buat Tiket</h3>
-                    <p class="tata-cara-card-text">Silahkan buat tiket dan pilih permohonan informasi. Isi formulir dan upload formulir yang sudah anda isi sebelumnya.</p>
-                </div>
-                <!-- Card 4 -->
-                <div class="tata-cara-card">
-                    <h3 class="tata-cara-card-title">4. Selesai</h3>
-                    <p class="tata-cara-card-text">Permohonan anda berhasil dibuat. Anda akan mendapatkan nomor ID Tiket. Permohonan akan diproses 10 hari kerja + 7 hari kerja.</p>
-                </div>
+                @foreach(range(1,4) as $i)
+                    @php
+                        $cardTitle = $ppid->{'tata_cara_card_'.$i.'_title'};
+                        $cardText  = $ppid->{'tata_cara_card_'.$i.'_text'};
+                    @endphp
+                    @if($cardTitle)
+                    <div class="tata-cara-card">
+                        <h3 class="tata-cara-card-title">{{ $cardTitle }}</h3>
+                        <p class="tata-cara-card-text">{{ $cardText }}</p>
+                    </div>
+                    @endif
+                @endforeach
             </div>
 
             <!-- Action Buttons -->
             <div class="tata-cara-actions">
-                <a href="#" class="action-btn-green">1. Mendaftar Akun Pemohon</a>
-                <a href="#" class="action-btn-outline">2. Login E-PPID Online</a>
+                <a href="{{ $ppid->btn_daftar_url ?: '#' }}" class="action-btn-green">{{ $ppid->btn_daftar_label }}</a>
+                <a href="{{ $ppid->btn_login_url ?: '#' }}" class="action-btn-outline">{{ $ppid->btn_login_label }}</a>
             </div>
         </div>
     </div>
@@ -267,19 +183,16 @@
                     header.setAttribute('aria-expanded', 'false');
                 } else {
                     item.classList.add('active');
-                    // Set max-height to scrollHeight to animate expanding
                     content.style.maxHeight = content.scrollHeight + 'px';
                     header.setAttribute('aria-expanded', 'true');
                 }
             });
         });
 
-        // Initialize scroll height for active item on resize
         window.addEventListener('resize', () => {
             const activeItem = document.querySelector('.accordion-item.active');
             if (activeItem) {
                 const content = activeItem.querySelector('.accordion-content');
-                // Don't set max-height for item 1 if it's open by default
                 if (content.style.maxHeight && content.style.maxHeight !== 'none') {
                     content.style.maxHeight = content.scrollHeight + 'px';
                 }

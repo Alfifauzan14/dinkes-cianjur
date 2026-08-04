@@ -437,6 +437,13 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('admin.ppid.edit') }}" class="nav-link {{ request()->routeIs('admin.ppid.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">description</span>
+                            <p>Kelola PPID</p>
+                        </a>
+                    </li>
+
                     {{-- PROGRAM & LAYANAN --}}
                     <li class="nav-header">PROGRAM &amp; LAYANAN</li>
 
@@ -496,6 +503,13 @@
                         <a href="{{ route('admin.regulasi.index') }}" class="nav-link {{ request()->routeIs('admin.regulasi.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">gavel</span>
                             <p>Regulasi &amp; Hukum</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.setting.edit') }}" class="nav-link {{ request()->routeIs('admin.setting.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">settings</span>
+                            <p>Pengaturan Situs</p>
                         </a>
                     </li>
 

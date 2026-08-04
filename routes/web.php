@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\PpidController as AdminPpidController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\RegulasiController;
@@ -82,6 +83,10 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
 
+Route::get('/admin/pengaturan', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->middleware('auth')->name('admin.setting.edit');
+Route::put('/admin/pengaturan', [App\Http\Controllers\Admin\SettingController::class, 'update'])->middleware('auth')->name('admin.setting.update');
+
+
 Route::resource('/admin/berita', App\Http\Controllers\Admin\BeritaController::class, [
     'parameters' => [
         'berita' => 'berita',
@@ -120,6 +125,9 @@ Route::resource('/admin/galeri', GaleriController::class, [
         'destroy' => 'admin.galeri.destroy',
     ],
 ])->middleware('auth');
+
+Route::get('/admin/ppid', [AdminPpidController::class, 'edit'])->middleware('auth')->name('admin.ppid.edit');
+Route::put('/admin/ppid', [AdminPpidController::class, 'update'])->middleware('auth')->name('admin.ppid.update');
 
 Route::get('/admin/profil', [AdminProfileController::class, 'edit'])->middleware('auth')->name('admin.profil.edit');
 Route::put('/admin/profil', [AdminProfileController::class, 'update'])->middleware('auth')->name('admin.profil.update');
