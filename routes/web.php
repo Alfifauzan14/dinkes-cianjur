@@ -3,8 +3,9 @@
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
-use App\Http\Controllers\Admin\PpidController as AdminPpidController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
+use App\Http\Controllers\Admin\PagodaSehatController;
+use App\Http\Controllers\Admin\PpidController as AdminPpidController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\RegulasiController;
 use App\Http\Controllers\Admin\StatistikController;
@@ -59,7 +60,7 @@ Route::get('/kesehatan-ibu-anak', function () {
 /* --- Admin Labkesda Routes --- */
 Route::get('/admin/labkesda/settings', [AdminLabkesdaController::class, 'editSettings'])->middleware('auth')->name('admin.labkesda.settings.edit');
 Route::put('/admin/labkesda/settings', [AdminLabkesdaController::class, 'updateSettings'])->middleware('auth')->name('admin.labkesda.settings.update');
-Route::put('/admin/labkesda/{labkesda}/order', [AdminLabkesdaController::class, 'updateOrder'])->middleware('auth')->name('admin.labkesda.order.update');
+Route::put('/admin/labkesda/{labkesda}/move', [AdminLabkesdaController::class, 'move'])->middleware('auth')->name('admin.labkesda.move');
 
 Route::resource('/admin/labkesda', AdminLabkesdaController::class, [
     'names' => [
@@ -69,6 +70,20 @@ Route::resource('/admin/labkesda', AdminLabkesdaController::class, [
         'edit' => 'admin.labkesda.edit',
         'update' => 'admin.labkesda.update',
         'destroy' => 'admin.labkesda.destroy',
+    ],
+])->middleware('auth');
+
+/* --- Admin Pagoda Sehat Routes --- */
+Route::put('/admin/pagodasehat/{pagodasehat}/move', [PagodaSehatController::class, 'move'])->middleware('auth')->name('admin.pagodasehat.move');
+
+Route::resource('/admin/pagodasehat', PagodaSehatController::class, [
+    'names' => [
+        'index' => 'admin.pagodasehat.index',
+        'create' => 'admin.pagodasehat.create',
+        'store' => 'admin.pagodasehat.store',
+        'edit' => 'admin.pagodasehat.edit',
+        'update' => 'admin.pagodasehat.update',
+        'destroy' => 'admin.pagodasehat.destroy',
     ],
 ])->middleware('auth');
 

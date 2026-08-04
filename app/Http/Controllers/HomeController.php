@@ -6,6 +6,7 @@ use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\Galeri;
 use App\Models\Profile;
+use App\Models\PagodaSehatCard;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -55,6 +56,8 @@ class HomeController extends Controller
 
         $homeGaleris = Galeri::orderBy('created_at', 'desc')->take(5)->get();
         $profile = Profile::first();
+        
+        $pagodaCards = PagodaSehatCard::orderBy('order_index')->get();
 
         return view('welcome', compact(
             'homeBeritas',
@@ -64,7 +67,8 @@ class HomeController extends Controller
             'nextDate',
             'canNavigateNext',
             'homeGaleris',
-            'profile'
+            'profile',
+            'pagodaCards'
         ));
     }
 

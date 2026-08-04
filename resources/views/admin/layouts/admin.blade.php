@@ -468,6 +468,13 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('admin.pagodasehat.index') }}" class="nav-link {{ request()->routeIs('admin.pagodasehat.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">medical_services</span>
+                            <p>Kelola Pagoda Sehat</p>
+                        </a>
+                    </li>
+
                     {{-- SATU DATA & DOKUMEN --}}
                     <li class="nav-header">SATU DATA &amp; DOKUMEN</li>
 
