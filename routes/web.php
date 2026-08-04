@@ -9,10 +9,10 @@ use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\ProgramKesehatanController;
 use App\Models\Agenda;
 use App\Models\Berita;
+use App\Models\Faskes;
 use App\Models\Galeri;
 use App\Models\Laporan;
 use App\Models\LayananTerpadu;
@@ -21,6 +21,7 @@ use App\Models\Regulasi;
 use App\Models\StatistikSetting;
 use App\Models\StuntingRecord;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -175,15 +176,31 @@ Route::get('/media', function (Request $request) {
     return view('media', compact('galeris'));
 })->name('media');
 
-Route::get('/faskes', function () {
-    return view('faskes');
+Route::get('/faskes', function (Request $request) {
+    $query = Faskes::query();
+
+    if ($request->filled('kecamatan') && $request->input('kecamatan') !== 'Semua') {
+        $query->where('kecamatan', $request->input('kecamatan'));
+    }
+
+    if ($request->filled('type') && $request->input('type') !== 'Semua') {
+        $query->where('type', $request->input('type'));
+    }
+
+    $faskes = $query->orderBy('type')->orderBy('name')->get();
+    $kecamatans = Faskes::select('kecamatan')->distinct()->orderBy('kecamatan')->pluck('kecamatan');
+
+    return view('faskes', compact('faskes', 'kecamatans'));
 })->name('faskes');
 
+use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\LabkesdaController;
+use App\Models\LabkesdaCategory;
+use App\Models\LabkesdaSetting;
 
 Route::get('/labkesda', function () {
-    $settings = \App\Models\LabkesdaSetting::firstOrCreate(['id' => 1]);
-    $categories = \App\Models\LabkesdaCategory::with('items')->orderBy('order_index')->get();
+    $settings = LabkesdaSetting::firstOrCreate(['id' => 1]);
+    $categories = LabkesdaCategory::with('items')->orderBy('order_index')->get();
 
     return view('labkesda', compact('settings', 'categories'));
 })->name('labkesda');
@@ -303,6 +320,17 @@ Route::resource('/admin/program-kesehatan', App\Http\Controllers\Admin\ProgramKe
         'edit' => 'admin.program-kesehatan.edit',
         'update' => 'admin.program-kesehatan.update',
         'destroy' => 'admin.program-kesehatan.destroy',
+    ],
+])->middleware('auth');
+
+Route::resource('/admin/faskes', FaskesController::class, [
+    'names' => [
+        'index' => 'admin.faskes.index',
+        'create' => 'admin.faskes.create',
+        'store' => 'admin.faskes.store',
+        'edit' => 'admin.faskes.edit',
+        'update' => 'admin.faskes.update',
+        'destroy' => 'admin.faskes.destroy',
     ],
 ])->middleware('auth');
 

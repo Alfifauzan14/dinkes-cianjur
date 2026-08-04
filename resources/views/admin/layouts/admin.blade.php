@@ -77,6 +77,10 @@
                     <span class="material-icons menu-icon">science</span>
                     <span>Kelola Labkesda</span>
                 </a>
+                <a href="{{ route('admin.faskes.index') }}" class="menu-link {{ request()->routeIs('admin.faskes.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">location_city</span>
+                    <span>Kelola Faskes</span>
+                </a>
                 
                 <!-- Logout Form -->
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">
