@@ -176,4 +176,21 @@ class LabkesdaController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function reorder(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'required|integer|exists:labkesda_categories,id',
+        ]);
+
+        $ids = $request->input('ids');
+        DB::transaction(function () use ($ids) {
+            foreach ($ids as $index => $id) {
+                LabkesdaCategory::where('id', $id)->update(['order_index' => $index + 1]);
+            }
+        });
+
+        return response()->json(['success' => true]);
+    }
 }

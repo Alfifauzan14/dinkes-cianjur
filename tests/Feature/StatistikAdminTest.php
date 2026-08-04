@@ -32,7 +32,7 @@ class StatistikAdminTest extends TestCase
             ->get('/admin/satu-data/statistik');
 
         $response->assertStatus(200);
-        $response->assertSee('Ubah Dashboard Statistik');
+        $response->assertSee('Statistik Kesehatan');
         $response->assertSee('47'); // Default Puskesmas number
     }
 

@@ -33,6 +33,9 @@ class DatabaseSeeder extends Seeder
         // Seeder galeri massal untuk testing
         $this->call(GaleriMassSeeder::class);
 
+        // Seeder pengaturan situs
+        $this->call(SettingSeeder::class);
+
         // Pastikan User Admin ada
         User::updateOrCreate(
             ['email' => 'admin@dinkes.go.id'],

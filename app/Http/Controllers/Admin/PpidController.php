@@ -79,6 +79,11 @@ class PpidController extends Controller
             'accordion_5_content' => 'nullable|string',
             'accordion_6_title'   => 'nullable|string|max:255',
             'accordion_6_content' => 'nullable|string',
+
+            'accordion_items'            => 'nullable|array',
+            'accordion_items.*.title'    => 'required|string|max:255',
+            'accordion_items.*.category' => 'required|string|in:berkala,serta-merta,setiap-saat',
+            'accordion_items.*.content'  => 'required|string',
         ]);
 
         $ppid = PpidSetting::instance();

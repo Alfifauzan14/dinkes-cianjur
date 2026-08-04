@@ -45,16 +45,16 @@
                     <h4 class="filter-title">Informasi Publik</h4>
                     <p class="filter-desc">Silahkan cari Informasi Publik melalui form di bawah ini:</p>
 
-                    <form class="filter-form" onsubmit="event.preventDefault();">
+                    <form class="filter-form" id="ppid-search-form" onsubmit="event.preventDefault();">
                         <!-- Search input wrapper -->
                         <div class="search-input-wrap">
                             <span class="material-icons search-icon">search</span>
-                            <input type="text" class="search-input-field" placeholder="Cari Informasi....">
+                            <input type="text" id="ppid-search-input" class="search-input-field" placeholder="Cari Informasi....">
                         </div>
 
                         <!-- Category select dropdown -->
                         <div class="category-select-wrap">
-                            <select class="category-select-field">
+                            <select id="ppid-category-select" class="category-select-field">
                                 <option value="semua">Semua Kategori</option>
                                 <option value="berkala">Informasi Berkala</option>
                                 <option value="serta-merta">Informasi Serta Merta</option>
@@ -69,25 +69,49 @@
 
                 <!-- Accordion Items -->
                 <div class="accordion-container" style="margin-top: 32px;">
-                    @foreach(range(1,6) as $i)
-                        @php
-                            $title   = $ppid->{'accordion_'.$i.'_title'};
-                            $content = $ppid->{'accordion_'.$i.'_content'};
-                        @endphp
-                        @if($title)
-                        <div class="accordion-item">
+                    @php
+                        $items = $ppid->accordion_items;
+                        if (empty($items)) {
+                            // Fallback to legacy fields
+                            $items = [];
+                            foreach(range(1,6) as $i) {
+                                $t = $ppid->{'accordion_'.$i.'_title'};
+                                $c = $ppid->{'accordion_'.$i.'_content'};
+                                if ($t) {
+                                    $items[] = [
+                                        'title' => $t,
+                                        'content' => $c,
+                                        'category' => $i % 2 === 0 ? 'setiap-saat' : ($i === 5 ? 'serta-merta' : 'berkala')
+                                    ];
+                                }
+                            }
+                        }
+                    @endphp
+
+                    @forelse($items as $item)
+                        <div class="accordion-item" data-category="{{ $item['category'] ?? 'berkala' }}" data-title="{{ strtolower($item['title'] ?? '') }}" data-content="{{ strtolower($item['content'] ?? '') }}">
                             <button class="accordion-header" aria-expanded="false">
-                                <span class="header-text">{{ $title }}</span>
+                                <span class="header-text">{{ $item['title'] }}</span>
                                 <span class="material-icons chevron-icon">expand_more</span>
                             </button>
                             <div class="accordion-content">
                                 <div class="accordion-content-inner">
-                                    <p class="placeholder-text">{{ $content }}</p>
+                                    <p class="placeholder-text">{{ $item['content'] }}</p>
                                 </div>
                             </div>
                         </div>
-                        @endif
-                    @endforeach
+                    @empty
+                        <div class="no-results-msg" style="text-align: center; padding: 40px 20px; color: #64748B;">
+                            <span class="material-icons" style="font-size: 48px; color: #CBD5E1; display: block; margin-bottom: 12px;">info</span>
+                            Tidak ada informasi publik yang ditemukan.
+                        </div>
+                    @endforelse
+                    
+                    {{-- Message shown when client-side filter returns empty --}}
+                    <div id="no-filter-results" class="no-results-msg" style="display: none; text-align: center; padding: 40px 20px; color: #64748B;">
+                        <span class="material-icons" style="font-size: 48px; color: #CBD5E1; display: block; margin-bottom: 12px;">search_off</span>
+                        Tidak ada informasi publik yang cocok dengan pencarian Anda.
+                    </div>
                 </div>
             </div>
 
@@ -155,7 +179,7 @@
 </section>
 </div>
 
-<!-- Accordion Interactive JavaScript -->
+<!-- Accordion Interactive JavaScript & Search Logic -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const accordionHeaders = document.querySelectorAll('.accordion-header');
@@ -171,7 +195,7 @@
                     if (otherItem !== item) {
                         otherItem.classList.remove('active');
                         const otherContent = otherItem.querySelector('.accordion-content');
-                        otherContent.style.maxHeight = null;
+                        if (otherContent) otherContent.style.maxHeight = null;
                         otherItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
                     }
                 });
@@ -188,6 +212,61 @@
                 }
             });
         });
+
+        // Search & filter logic
+        const searchForm = document.getElementById('ppid-search-form');
+        const searchInput = document.getElementById('ppid-search-input');
+        const categorySelect = document.getElementById('ppid-category-select');
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        const noResultsMsg = document.getElementById('no-filter-results');
+
+        function filterItems() {
+            const query = searchInput.value.toLowerCase().trim();
+            const category = categorySelect.value;
+            let visibleCount = 0;
+
+            accordionItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                const title = item.getAttribute('data-title');
+                const content = item.getAttribute('data-content');
+
+                const matchesQuery = !query || title.includes(query) || content.includes(query);
+                const matchesCategory = category === 'semua' || itemCategory === category;
+
+                if (matchesQuery && matchesCategory) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                    // Collapse hidden items
+                    item.classList.remove('active');
+                    const itemContent = item.querySelector('.accordion-content');
+                    if (itemContent) itemContent.style.maxHeight = null;
+                    const itemHeader = item.querySelector('.accordion-header');
+                    if (itemHeader) itemHeader.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            if (visibleCount === 0 && accordionItems.length > 0) {
+                noResultsMsg.style.display = 'block';
+            } else {
+                noResultsMsg.style.display = 'none';
+            }
+        }
+
+        // Trigger filters
+        if (searchForm) {
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                filterItems();
+            });
+        }
+        if (searchInput) {
+            searchInput.addEventListener('input', filterItems);
+        }
+        if (categorySelect) {
+            categorySelect.addEventListener('change', filterItems);
+        }
 
         window.addEventListener('resize', () => {
             const activeItem = document.querySelector('.accordion-item.active');

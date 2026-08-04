@@ -33,6 +33,11 @@ class PpidSetting extends Model
         'accordion_4_title', 'accordion_4_content',
         'accordion_5_title', 'accordion_5_content',
         'accordion_6_title', 'accordion_6_content',
+        'accordion_items',
+    ];
+
+    protected $casts = [
+        'accordion_items' => 'array',
     ];
 
     /**
@@ -97,6 +102,14 @@ class PpidSetting extends Model
                 'accordion_5_content' => 'Kumpulan undang-undang, peraturan pemerintah, peraturan menteri, serta keputusan bupati terkait keterbukaan informasi publik (KIP).',
                 'accordion_6_title'   => 'Tracking Pengaduan Masyarakat',
                 'accordion_6_content' => 'Lacak status laporan pengaduan masyarakat yang diajukan secara resmi ke Dinas Kesehatan Kabupaten Cianjur.',
+                'accordion_items'     => [
+                    ['title' => 'Info Kepuasan Masyarakat', 'content' => 'Informasi mengenai Indeks Kepuasan Masyarakat (IKM) terhadap layanan Dinas Kesehatan Kabupaten Cianjur disajikan secara berkala untuk menjaga transparansi dan perbaikan berkelanjutan.', 'category' => 'berkala'],
+                    ['title' => 'Permohonan Informasi', 'content' => 'Alur permohonan informasi publik secara online and offline. Anda dapat mengunduh formulir pengajuan informasi resmi di sini.', 'category' => 'setiap-saat'],
+                    ['title' => 'Tracking Permohonan Informasi', 'content' => 'Masukkan nomor registrasi permohonan Anda untuk melacak status respon dan tindak lanjut dari petugas PPID Dinas Kesehatan.', 'category' => 'setiap-saat'],
+                    ['title' => 'Standar dan Pelaporan', 'content' => 'Laporan berkala PPID pembantu, maklumat pelayanan informasi publik, dan standar operasional prosedur (SOP) pengelolaan informasi di lingkungan Dinas Kesehatan.', 'category' => 'berkala'],
+                    ['title' => 'Regulasi PPID Pembantu', 'content' => 'Kumpulan undang-undang, peraturan pemerintah, peraturan menteri, serta keputusan bupati terkait keterbukaan informasi publik (KIP).', 'category' => 'serta-merta'],
+                    ['title' => 'Tracking Pengaduan Masyarakat', 'content' => 'Lacak status laporan pengaduan masyarakat yang diajukan secara resmi ke Dinas Kesehatan Kabupaten Cianjur.', 'category' => 'setiap-saat'],
+                ],
             ]
         );
     }

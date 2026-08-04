@@ -24,6 +24,10 @@
                 <div style="font-size: 13px; color: #6B7280; margin-top: 4px;">Kelola kartu portal akses layanan kesehatan.</div>
             </div>
             <div style="display: flex; gap: 10px;">
+                <button type="button" id="btn-save-order" class="btn-admin btn-admin-primary" style="display: none; background-color: #004F3B;" onclick="saveNewOrder('pagodasehat')">
+                    <span class="material-icons">save</span>
+                    <span>Simpan Urutan</span>
+                </button>
                 <a href="{{ route('admin.pagodasehat.create') }}" class="btn-admin btn-admin-primary">
                     <span class="material-icons">add</span>
                     <span>Tambah Kartu Baru</span>
@@ -45,7 +49,7 @@
                 </thead>
                 <tbody>
                     @forelse($cards as $card)
-                        <tr>
+                        <tr class="order-row" data-id="{{ $card->id }}">
                             <td style="text-align: center;">
                                 <div style="width: 48px; height: 48px; background-color: #F3F4F6; border-radius: 3px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden;">
                                     @if($card->image)
@@ -74,10 +78,10 @@
                             </td>
                             <td style="text-align: center;">
                                 <div style="display: inline-flex; gap: 2px;">
-                                    <button type="button" class="btn-order-move" onclick="moveItem('pagodasehat', {{ $card->id }}, 'up')" title="Pindah ke atas" {{ $loop->first ? 'disabled' : '' }}>
+                                    <button type="button" class="btn-order-move btn-move-up" onclick="moveRow(this, 'up')" title="Pindah ke atas" {{ $loop->first ? 'disabled' : '' }}>
                                         <span class="material-icons" style="font-size: 18px;">keyboard_arrow_up</span>
                                     </button>
-                                    <button type="button" class="btn-order-move" onclick="moveItem('pagodasehat', {{ $card->id }}, 'down')" title="Pindah ke bawah" {{ $loop->last ? 'disabled' : '' }}>
+                                    <button type="button" class="btn-order-move btn-move-down" onclick="moveRow(this, 'down')" title="Pindah ke bawah" {{ $loop->last ? 'disabled' : '' }}>
                                         <span class="material-icons" style="font-size: 18px;">keyboard_arrow_down</span>
                                     </button>
                                 </div>
@@ -137,29 +141,79 @@
     cursor: not-allowed;
     color: #9CA3AF;
 }
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.spinner {
+    animation: spin 1s linear infinite;
+}
 </style>
 <script>
-function moveItem(type, id, direction) {
-    fetch('{{ url("admin") }}/' + type + '/' + id + '/move', {
-        method: 'PUT',
+function moveRow(button, direction) {
+    const row = button.closest('.order-row');
+    if (!row) return;
+    
+    if (direction === 'up') {
+        const prev = row.previousElementSibling;
+        if (prev && prev.classList.contains('order-row')) {
+            row.parentNode.insertBefore(row, prev);
+        }
+    } else {
+        const next = row.nextElementSibling;
+        if (next && next.classList.contains('order-row')) {
+            row.parentNode.insertBefore(next, row);
+        }
+    }
+    
+    updateRowButtons();
+    // Show the "Simpan Urutan" button
+    document.getElementById('btn-save-order').style.display = 'inline-flex';
+}
+
+function updateRowButtons() {
+    const rows = document.querySelectorAll('.order-row');
+    rows.forEach((row, index) => {
+        const upBtn = row.querySelector('.btn-move-up');
+        const downBtn = row.querySelector('.btn-move-down');
+        
+        if (upBtn) upBtn.disabled = (index === 0);
+        if (downBtn) downBtn.disabled = (index === rows.length - 1);
+    });
+}
+
+function saveNewOrder(type) {
+    const rows = document.querySelectorAll('.order-row');
+    const ids = Array.from(rows).map(row => row.getAttribute('data-id'));
+    
+    const saveBtn = document.getElementById('btn-save-order');
+    saveBtn.disabled = true;
+    saveBtn.innerHTML = '<span class="material-icons spinner" style="font-size:16px;">sync</span><span>Menyimpan...</span>';
+
+    fetch('{{ url("admin") }}/' + type + '/reorder', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': '{{ csrf_token() }}',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({ direction: direction })
+        body: JSON.stringify({ ids: ids })
     })
     .then(function(response) { return response.json(); })
     .then(function(data) {
         if (data.success) {
             location.reload();
         } else {
-            alert('Tidak bisa memindahkan item.');
+            alert('Gagal menyimpan urutan.');
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = '<span class="material-icons">save</span><span>Simpan Urutan</span>';
         }
     })
     .catch(function(error) {
         console.error('Error:', error);
-        alert('Terjadi kesalahan saat memindahkan item.');
+        alert('Terjadi kesalahan saat menyimpan urutan.');
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<span class="material-icons">save</span><span>Simpan Urutan</span>';
     });
 }
 </script>

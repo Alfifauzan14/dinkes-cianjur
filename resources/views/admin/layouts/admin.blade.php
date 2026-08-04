@@ -27,26 +27,38 @@
         /* =============================================
            GLOBAL FONT
         ============================================= */
-        body, .main-sidebar, .content-wrapper, .main-header, .main-footer {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        body, .main-sidebar, .content-wrapper, .main-header, .main-footer, .modal-content, input, select, textarea, button {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+        }
+
+        .card, .admin-card, .info-box, .small-box {
+            box-shadow: 0 0 35px rgba(0, 0, 0, 0.05) !important;
+            border: none !important;
+            border-radius: 3px !important;
+        }
+        
+        .modal-content {
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15) !important;
+            border: none !important;
+            border-radius: 3px !important;
         }
 
         /* =============================================
            SIDEBAR — DARK FOREST + MINT ACCENT
         ============================================= */
         .main-sidebar {
-            background-color: #0D3B2E !important;
+            background-color: #1B4D42 !important;
         }
 
         /* Brand header */
         .brand-link {
-            background-color: #063020 !important;
+            background-color: #123C33 !important;
             color: #FFFFFF !important;
             border-bottom: 1px solid rgba(94, 233, 181, 0.15) !important;
             padding: 12px 16px !important;
         }
         .brand-link:hover {
-            background-color: #042318 !important;
+            background-color: #0E3028 !important;
         }
         .brand-text {
             color: #FFFFFF !important;
@@ -82,8 +94,8 @@
             transition: all 0.2s ease !important;
         }
         .nav-sidebar .nav-item .nav-link:hover {
-            background-color: rgba(94, 233, 181, 0.10) !important;
-            color: #5EE9B5 !important;
+            background-color: rgba(255, 255, 255, 0.10) !important;
+            color: #FFFFFF !important;
         }
         .nav-sidebar .nav-item .nav-link:hover .nav-icon {
             color: #5EE9B5 !important;
@@ -91,7 +103,7 @@
 
         /* Active state — mint green accent */
         .nav-sidebar .nav-item .nav-link.active {
-            background-color: rgba(94, 233, 181, 0.14) !important;
+            background-color: rgba(94, 233, 181, 0.18) !important;
             color: #5EE9B5 !important;
             border-left: 3px solid #5EE9B5 !important;
             font-weight: 600 !important;
@@ -385,7 +397,7 @@
     <aside class="main-sidebar elevation-4">
         <!-- Brand Logo -->
         <a href="{{ route('admin.dashboard') }}" class="brand-link">
-            <img src="{{ asset('Assets/layouts/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinkes" class="brand-image img-circle elevation-3" style="opacity: .9">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo Dinkes" class="brand-image elevation-3" style="opacity: .9; background: #fff; padding: 2px; border-radius: 3px;">
             <span class="brand-text">Dinkes Cianjur</span>
         </a>
 
@@ -413,39 +425,32 @@
                         </a>
                     </li>
 
-                    {{-- KONTEN PUBLIK --}}
-                    <li class="nav-header">KONTEN PUBLIK</li>
+                    {{-- KELOLA KONTEN --}}
+                    <li class="nav-header">KELOLA KONTEN</li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.berita.index') }}" class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">newspaper</span>
-                            <p>Kelola Berita</p>
+                            <p>Berita &amp; Artikel</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.agenda.index') }}" class="nav-link {{ request()->routeIs('admin.agenda.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">event</span>
-                            <p>Kelola Agenda</p>
+                            <p>Agenda Kegiatan</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.galeri.index') }}" class="nav-link {{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">collections</span>
-                            <p>Kelola Galeri</p>
+                            <p>Galeri Foto</p>
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.ppid.edit') }}" class="nav-link {{ request()->routeIs('admin.ppid.*') ? 'active' : '' }}">
-                            <span class="material-icons nav-icon">description</span>
-                            <p>Kelola PPID</p>
-                        </a>
-                    </li>
-
-                    {{-- PROGRAM & LAYANAN --}}
-                    <li class="nav-header">PROGRAM &amp; LAYANAN</li>
+                    {{-- LAYANAN & PROGRAM --}}
+                    <li class="nav-header">LAYANAN &amp; PROGRAM</li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.program-kesehatan.index') }}" class="nav-link {{ request()->routeIs('admin.program-kesehatan.*') ? 'active' : '' }}">
@@ -464,38 +469,31 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.labkesda.index') }}" class="nav-link {{ request()->routeIs('admin.labkesda.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">science</span>
-                            <p>Kelola Labkesda</p>
+                            <p>Layanan Labkesda</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.pagodasehat.index') }}" class="nav-link {{ request()->routeIs('admin.pagodasehat.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">medical_services</span>
-                            <p>Kelola Pagoda Sehat</p>
+                            <p>Layanan Pagoda Sehat</p>
                         </a>
                     </li>
 
-                    {{-- SATU DATA & DOKUMEN --}}
-                    <li class="nav-header">SATU DATA &amp; DOKUMEN</li>
+                    {{-- SATU DATA & REGULASI --}}
+                    <li class="nav-header">SATU DATA &amp; REGULASI</li>
 
                     <li class="nav-item">
-                        <a href="{{ route('admin.profil.edit') }}" class="nav-link {{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
-                            <span class="material-icons nav-icon">business</span>
-                            <p>Profil Dinkes</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('admin.satudata.statistik.edit') }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.edit') ? 'active' : '' }}">
+                        <a href="{{ route('admin.satudata.statistik.edit') }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">bar_chart</span>
-                            <p>Indikator Statistik</p>
+                            <p>Statistik Kesehatan</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.satudata.statistik.import') }}" class="nav-link {{ request()->routeIs('admin.satudata.statistik.import') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">upload_file</span>
-                            <p>Import CSV Stunting</p>
+                            <p>Unggah Data Stunting</p>
                         </a>
                     </li>
 
@@ -509,14 +507,31 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.regulasi.index') }}" class="nav-link {{ request()->routeIs('admin.regulasi.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">gavel</span>
-                            <p>Regulasi &amp; Hukum</p>
+                            <p>Regulasi &amp; Kebijakan</p>
+                        </a>
+                    </li>
+
+                    {{-- PENGATURAN HALAMAN --}}
+                    <li class="nav-header">PENGATURAN HALAMAN</li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.profil.edit') }}" class="nav-link {{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">business</span>
+                            <p>Halaman Profil Dinkes</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.ppid.edit') }}" class="nav-link {{ request()->routeIs('admin.ppid.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">help_outline</span>
+                            <p>Halaman PPID</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.setting.edit') }}" class="nav-link {{ request()->routeIs('admin.setting.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">settings</span>
-                            <p>Pengaturan Situs</p>
+                            <p>Pengaturan Situs (Umum)</p>
                         </a>
                     </li>
 

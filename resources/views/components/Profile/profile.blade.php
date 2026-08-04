@@ -5,7 +5,7 @@
     <header class="profile-header">
         <div class="profile-header-container">
             <h1 class="profile-header-title">Profil Dinas Kesehatan Kabupaten Cianjur</h1>
-            <p class="profile-header-subtitle">Mewujudkan Transformasi Pelayanan Kesehatan Masyarakat yang Profesional, Merata, dan Terintegrasi.</p>
+            <p class="profile-header-subtitle">{{ $site_settings->site_tagline ?? 'Mewujudkan Transformasi Pelayanan Kesehatan Masyarakat yang Profesional, Merata, dan Terintegrasi.' }}</p>
         </div>
     </header>
 

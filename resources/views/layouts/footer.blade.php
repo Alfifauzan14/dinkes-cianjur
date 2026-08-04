@@ -7,10 +7,10 @@
             {{-- Kolom 1: Brand & Logo --}}
             <div class="footer-col footer-brand">
                 <div class="footer-logo-wrap">
-                    <a href="{{ url('/') }}" class="footer-logo-link" title="Beranda Dinas Kesehatan Kabupaten Cianjur">
+                    <a href="{{ url('/') }}" class="footer-logo-link" title="Beranda {{ $site_settings->site_name ?? 'Dinas Kesehatan Kabupaten Cianjur' }}">
                         <img
-                            src="{{ asset('images/logo.png') }}"
-                            alt="Logo Resmi Dinas Kesehatan Kabupaten Cianjur"
+                            src="{{ isset($site_settings) && $site_settings->site_logo ? asset('uploads/settings/' . $site_settings->site_logo) : asset('images/logo.png') }}"
+                            alt="Logo Resmi {{ $site_settings->site_name ?? 'Dinas Kesehatan Kabupaten Cianjur' }}"
                             class="footer-logo-img"
                             loading="lazy"
                             decoding="async"
@@ -18,7 +18,7 @@
                     </a>
                 </div>
                 <p class="footer-tagline">
-                    Mewujudkan masyarakat<br>Cianjur yang sehat, mandiri,<br>dan berkeadilan.
+                    {!! nl2br(e($site_settings->site_tagline ?? "Mewujudkan masyarakat\nCianjur yang sehat, mandiri,\ndan berkeadilan.")) !!}
                 </p>
             </div>
 
@@ -28,22 +28,22 @@
                 <ul class="footer-contact-list">
                     <li class="footer-contact-item">
                         <span class="footer-contact-icon material-icons" aria-hidden="true">place</span>
-                        <span>Jl. Pangeran No. 105, Cianjur, Jawa Barat.</span>
+                        <span>{{ $site_settings->address ?? 'Jl. Pangeran No. 105, Cianjur, Jawa Barat.' }}</span>
                     </li>
                     <li class="footer-contact-item">
                         <span class="footer-contact-icon material-icons" aria-hidden="true">phone</span>
-                        <a href="tel:0263261000" class="footer-contact-link">(0263) 261XXX</a>
+                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $site_settings->phone ?? '0263261000') }}" class="footer-contact-link">{{ $site_settings->phone ?? '(0263) 261XXX' }}</a>
                     </li>
                     <li class="footer-contact-item">
                         <span class="footer-contact-icon material-icons" aria-hidden="true">email</span>
-                        <a href="mailto:kontak@dinkes.cianjurkab.go.id" class="footer-contact-link">kontak@dinkes.cianjurkab.go.id</a>
+                        <a href="mailto:{{ $site_settings->email ?? 'kontak@dinkes.cianjurkab.go.id' }}" class="footer-contact-link">{{ $site_settings->email ?? 'kontak@dinkes.cianjurkab.go.id' }}</a>
                     </li>
                 </ul>
 
                 {{-- Emergency Callout Button --}}
-                <a href="tel:119" class="footer-emergency-btn" id="footer-emergency-btn" role="button" aria-label="Ambulans Gawat Darurat PSC 119 Cianjur">
+                <a href="tel:{{ preg_replace('/[^0-9+]/', '', $site_settings->emergency_call ?? '119') }}" class="footer-emergency-btn" id="footer-emergency-btn" role="button" aria-label="{{ $site_settings->emergency_title ?? 'Ambulans Gawat Darurat: PSC 119 Cianjur' }}">
                     <span class="footer-emergency-icon material-icons" aria-hidden="true">warning</span>
-                    <span>Ambulans Gawat Darurat: PSC 119 Cianjur</span>
+                    <span>{{ $site_settings->emergency_title ?? 'Ambulans Gawat Darurat: PSC 119 Cianjur' }}</span>
                 </a>
             </div>
 
@@ -64,23 +64,23 @@
                 <p class="footer-social-desc">Ikuti Informasi Kesehatan Terkini:</p>
                 <div class="footer-social-icons">
                     {{-- Facebook --}}
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-fb" aria-label="Facebook Dinkes Cianjur" title="Facebook">
+                    <a href="{{ $site_settings->social_facebook ?? 'https://facebook.com' }}" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-fb" aria-label="Facebook Dinkes Cianjur" title="Facebook">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
                     {{-- Instagram --}}
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-ig" aria-label="Instagram Dinkes Cianjur" title="Instagram">
+                    <a href="{{ $site_settings->social_instagram ?? 'https://instagram.com' }}" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-ig" aria-label="Instagram Dinkes Cianjur" title="Instagram">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
                     {{-- X / Twitter --}}
-                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-x" aria-label="X (Twitter) Dinkes Cianjur" title="X (Twitter)">
+                    <a href="{{ $site_settings->social_twitter ?? 'https://x.com' }}" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-x" aria-label="X (Twitter) Dinkes Cianjur" title="X (Twitter)">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
                     {{-- YouTube --}}
-                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-yt" aria-label="YouTube Dinkes Cianjur" title="YouTube">
+                    <a href="{{ $site_settings->social_youtube ?? 'https://youtube.com' }}" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-yt" aria-label="YouTube Dinkes Cianjur" title="YouTube">
                         <i class="fa-brands fa-youtube"></i>
                     </a>
                     {{-- TikTok --}}
-                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-tt" aria-label="TikTok Dinkes Cianjur" title="TikTok">
+                    <a href="{{ $site_settings->social_tiktok ?? 'https://tiktok.com' }}" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-tt" aria-label="TikTok Dinkes Cianjur" title="TikTok">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
                 </div>
@@ -91,7 +91,7 @@
 
     {{-- Copyright Bar --}}
     <div class="footer-copyright">
-        <p>&copy; {{ date('Y') }} Dinas Kesehatan Kabupaten Cianjur. Hak Cipta Dilindungi Undang-Undang.</p>
+        <p>&copy; {{ date('Y') }} {{ $site_settings->site_name ?? 'Dinas Kesehatan Kabupaten Cianjur' }}. Hak Cipta Dilindungi Undang-Undang.</p>
     </div>
 </footer>
 
