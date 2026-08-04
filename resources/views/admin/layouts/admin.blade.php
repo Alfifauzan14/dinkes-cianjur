@@ -73,6 +73,10 @@
                     <span class="material-icons menu-icon">gavel</span>
                     <span>Kelola Regulasi</span>
                 </a>
+                <a href="{{ route('admin.labkesda.index') }}" class="menu-link {{ request()->routeIs('admin.labkesda.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">science</span>
+                    <span>Kelola Labkesda</span>
+                </a>
                 
                 <!-- Logout Form -->
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">
