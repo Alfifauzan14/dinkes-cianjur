@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PagodaSehatController;
 use App\Http\Controllers\Admin\PpidController as AdminPpidController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\RegulasiController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AuthController;
@@ -23,7 +24,6 @@ use App\Http\Controllers\PPIDController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramKesehatanController;
 use App\Http\Controllers\SatuDataController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /* --- Public Halaman Utama & Info Routes --- */
@@ -106,9 +106,8 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
 
-Route::get('/admin/pengaturan', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->middleware('auth')->name('admin.setting.edit');
-Route::put('/admin/pengaturan', [App\Http\Controllers\Admin\SettingController::class, 'update'])->middleware('auth')->name('admin.setting.update');
-
+Route::get('/admin/pengaturan', [SettingController::class, 'edit'])->middleware('auth')->name('admin.setting.edit');
+Route::put('/admin/pengaturan', [SettingController::class, 'update'])->middleware('auth')->name('admin.setting.update');
 
 Route::resource('/admin/berita', App\Http\Controllers\Admin\BeritaController::class, [
     'parameters' => [

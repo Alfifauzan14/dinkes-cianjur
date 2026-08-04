@@ -15,7 +15,7 @@ class SatuDataController extends Controller
      */
     public function statistik(): View
     {
-        $setting = StatistikSetting::first() ?? new StatistikSetting();
+        $setting = StatistikSetting::first() ?? new StatistikSetting;
         $stuntingRecords = StuntingRecord::orderBy('year', 'asc')->get();
         $maxRate = $stuntingRecords->max('rate') ?: 1;
 

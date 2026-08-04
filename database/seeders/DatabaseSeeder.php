@@ -10,7 +10,6 @@ use App\Models\LayananTerpadu;
 use App\Models\Profile;
 use App\Models\ProgramKesehatan;
 use App\Models\Regulasi;
-use App\Models\StatistikSetting;
 use App\Models\StuntingRecord;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
