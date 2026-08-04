@@ -24,280 +24,388 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/adminlte.min.css') }}">
 
     <style>
+        /* ==============================================
+           CSS VARIABLES
+        ============================================== */
+        :root {
+            --sidebar-bg: #1A3D35;
+            --sidebar-brand: #122E28;
+            --sidebar-accent: #4DD4A4;
+            --sidebar-accent-dim: rgba(77, 212, 164, 0.15);
+            --sidebar-text: rgba(255,255,255,0.72);
+            --sidebar-text-muted: rgba(255,255,255,0.38);
+            --card-bg: #ffffff;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 20px rgba(0,0,0,0.04);
+            --border-subtle: #E8EEF3;
+            --content-bg: #F4F7FA;
+            --brand-green: #009966;
+            --brand-green-dark: #007A52;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --input-focus-ring: 0 0 0 3px rgba(0,153,102,0.14);
+        }
         /* =============================================
            GLOBAL FONT
         ============================================= */
-        body, .main-sidebar, .content-wrapper, .main-header, .main-footer, .modal-content, input, select, textarea, button {
+        /* ==============================================
+           GLOBAL FONT & BASE
+        ============================================== */
+        body, .main-sidebar, .content-wrapper, .main-header, .main-footer,
+        .modal-content, input, select, textarea, button {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
         }
 
-        .card, .admin-card, .info-box, .small-box {
-            box-shadow: 0 0 35px rgba(0, 0, 0, 0.05) !important;
-            border: none !important;
-            border-radius: 3px !important;
-        }
-        
-        .modal-content {
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15) !important;
-            border: none !important;
-            border-radius: 3px !important;
+        body.hold-transition.sidebar-mini {
+            background-color: var(--content-bg) !important;
         }
 
-        /* =============================================
-           SIDEBAR — DARK FOREST + MINT ACCENT
-        ============================================= */
+        /* ==============================================
+           SIDEBAR — DEEP FOREST
+        ============================================== */
         .main-sidebar {
-            background-color: #1B4D42 !important;
+            background-color: var(--sidebar-bg) !important;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.12) !important;
         }
 
         /* Brand header */
         .brand-link {
-            background-color: #123C33 !important;
+            background-color: var(--sidebar-brand) !important;
             color: #FFFFFF !important;
-            border-bottom: 1px solid rgba(94, 233, 181, 0.15) !important;
-            padding: 12px 16px !important;
+            border-bottom: 1px solid rgba(77,212,164,0.12) !important;
+            padding: 14px 18px !important;
         }
-        .brand-link:hover {
-            background-color: #0E3028 !important;
-        }
+        .brand-link:hover { background-color: #0d2620 !important; }
         .brand-text {
             color: #FFFFFF !important;
             font-weight: 700 !important;
             font-size: 15px !important;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
         }
 
-        /* User panel in sidebar */
+        /* User panel */
         .main-sidebar .user-panel {
-            border-bottom: 1px solid rgba(94, 233, 181, 0.12) !important;
+            border-bottom: 1px solid rgba(77,212,164,0.10) !important;
+            padding: 12px 16px 14px !important;
+            margin: 0 !important;
         }
         .main-sidebar .user-panel .info a {
-            color: #C8F5E5 !important;
+            color: rgba(255,255,255,0.70) !important;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
         }
 
-        /* Sidebar nav section headers */
+        /* Nav section headers */
         .nav-sidebar .nav-header {
-            color: rgba(94, 233, 181, 0.55) !important;
-            font-size: 10px !important;
+            color: var(--sidebar-text-muted) !important;
+            font-size: 9.5px !important;
             font-weight: 700 !important;
-            letter-spacing: 1.2px !important;
-            padding: 14px 16px 4px !important;
+            letter-spacing: 1.4px !important;
+            padding: 18px 18px 5px !important;
+            text-transform: uppercase !important;
         }
 
         /* Nav items */
         .nav-sidebar .nav-item .nav-link {
-            color: rgba(255, 255, 255, 0.75) !important;
+            color: var(--sidebar-text) !important;
             border-radius: 0 !important;
-            padding: 9px 16px !important;
-            transition: all 0.2s ease !important;
+            padding: 10px 18px !important;
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
+            transition: all 0.18s ease !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+        .nav-sidebar .nav-item .nav-link p {
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
+            margin: 0 !important;
+            line-height: 1.3 !important;
         }
         .nav-sidebar .nav-item .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.10) !important;
+            background-color: rgba(255,255,255,0.07) !important;
             color: #FFFFFF !important;
         }
-        .nav-sidebar .nav-item .nav-link:hover .nav-icon {
-            color: #5EE9B5 !important;
-        }
+        .nav-sidebar .nav-item .nav-link:hover .nav-icon { color: var(--sidebar-accent) !important; }
 
-        /* Active state — mint green accent */
+        /* Active state */
         .nav-sidebar .nav-item .nav-link.active {
-            background-color: rgba(94, 233, 181, 0.18) !important;
-            color: #5EE9B5 !important;
-            border-left: 3px solid #5EE9B5 !important;
+            background-color: var(--sidebar-accent-dim) !important;
+            color: var(--sidebar-accent) !important;
+            border-left: 3px solid var(--sidebar-accent) !important;
             font-weight: 600 !important;
             box-shadow: none !important;
         }
-        .nav-sidebar .nav-item .nav-link.active .nav-icon {
-            color: #5EE9B5 !important;
+        .nav-sidebar .nav-item .nav-link.active .nav-icon { color: var(--sidebar-accent) !important; }
+
+        /* Treeview sub-items */
+        .nav-treeview > .nav-item > .nav-link {
+            padding: 8px 18px 8px 40px !important;
+            font-size: 12.5px !important;
+            color: rgba(255,255,255,0.55) !important;
+        }
+        .nav-treeview > .nav-item > .nav-link:hover {
+            background-color: rgba(255,255,255,0.06) !important;
+            color: rgba(255,255,255,0.85) !important;
+        }
+        .nav-treeview > .nav-item > .nav-link.active {
+            color: var(--sidebar-accent) !important;
+            background-color: var(--sidebar-accent-dim) !important;
+            border-left: 3px solid var(--sidebar-accent) !important;
+        }
+
+        /* Treeview expand arrow */
+        .nav-sidebar .nav-item > .nav-link > .right.fa-angle-left {
+            font-size: 12px !important;
+            opacity: 0.5;
+            transition: transform 0.2s ease, opacity 0.2s ease !important;
+        }
+        .nav-sidebar .nav-item.menu-open > .nav-link > .right.fa-angle-left {
+            transform: rotate(-90deg) !important;
+            opacity: 0.9 !important;
         }
 
         /* Nav icons */
         .nav-sidebar .nav-icon {
-            font-size: 18px !important;
+            font-size: 17px !important;
             vertical-align: middle !important;
-            margin-right: 8px !important;
-            color: rgba(255, 255, 255, 0.5) !important;
+            margin-right: 10px !important;
+            color: rgba(255, 255, 255, 0.42) !important;
             transition: color 0.2s ease !important;
         }
 
-        /* Logout button style */
+        /* Logout button */
         .nav-logout-btn {
             display: flex !important;
             align-items: center !important;
-            gap: 8px !important;
+            gap: 9px !important;
             width: 100% !important;
-            padding: 9px 16px !important;
+            padding: 10px 18px !important;
             background: transparent !important;
             border: none !important;
-            color: rgba(255, 120, 120, 0.85) !important;
+            color: rgba(255, 110, 110, 0.75) !important;
             text-align: left !important;
             cursor: pointer !important;
-            transition: all 0.2s ease !important;
+            transition: all 0.18s ease !important;
             font-family: inherit !important;
-            font-size: 14px !important;
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
         }
         .nav-logout-btn:hover {
-            background-color: rgba(220, 53, 69, 0.15) !important;
-            color: #FF7070 !important;
+            background-color: rgba(220, 53, 69, 0.12) !important;
+            color: #FF8080 !important;
         }
-        .nav-logout-btn .material-icons {
-            font-size: 18px !important;
-            vertical-align: middle !important;
-        }
+        .nav-logout-btn .material-icons { font-size: 17px !important; vertical-align: middle !important; }
 
-        /* =============================================
-           TOP NAR & CONTENT
-        ============================================= */
+        /* ==============================================
+           TOP NAV & HEADER
+        ============================================== */
         .main-header {
-            border-bottom: 1px solid #E2E8F0;
+            border-bottom: 1px solid var(--border-subtle) !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05) !important;
+            background-color: #ffffff !important;
         }
-
+        .content-header { padding: 18px 24px 0 !important; }
         .content-header h1 {
-            color: #004F3B;
+            color: var(--text-primary);
             font-weight: 700;
-            font-size: 22px;
+            font-size: 21px;
+        }
+        .breadcrumb {
+            background: transparent !important;
+            font-size: 12.5px !important;
+            color: var(--text-secondary) !important;
+            padding: 0 !important;
+        }
+        .breadcrumb-item.active { color: var(--text-secondary) !important; }
+        .breadcrumb-item a { color: var(--brand-green) !important; }
+
+        /* ==============================================
+           CONTENT WRAPPER & BACKGROUND
+        ============================================== */
+        .content-wrapper {
+            background-color: var(--content-bg) !important;
+        }
+        section.content {
+            padding: 20px 24px 80px !important;
         }
 
-        /* =============================================
-           BRAND COLORS (Buttons, alerts, text)
-        ============================================= */
+        /* ==============================================
+           FOOTER
+        ============================================== */
+        .main-footer {
+            background-color: #ffffff !important;
+            border-top: 1px solid var(--border-subtle) !important;
+            padding: 14px 24px !important;
+            font-size: 12.5px !important;
+            color: var(--text-secondary) !important;
+        }
+
+        /* ==============================================
+           BRAND COLORS
+        ============================================== */
         .btn-success, .bg-success {
-            background-color: #009966 !important;
-            border-color: #009966 !important;
+            background-color: var(--brand-green) !important;
+            border-color: var(--brand-green) !important;
         }
         .btn-success:hover {
-            background-color: #007A52 !important;
-            border-color: #007A52 !important;
+            background-color: var(--brand-green-dark) !important;
+            border-color: var(--brand-green-dark) !important;
         }
-        .text-success { color: #009966 !important; }
-        .card-success.card-outline {
-            border-top: 3px solid #009966 !important;
-        }
+        .text-success { color: var(--brand-green) !important; }
+        .card-success.card-outline { border-top: 3px solid var(--brand-green) !important; }
 
-        /* =============================================
-           CARD RADIUS DESIGN SYSTEM
-           Outer: 1px | Inner (body, btn, form): 3px
-        ============================================= */
-        .card {
-            border-radius: 1px !important;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
+        /* ==============================================
+           CARD — Clean White with Soft Shadow
+        ============================================== */
+        .card, .admin-card {
+            background-color: var(--card-bg) !important;
+            border: none !important;
+            border-radius: 8px !important;
+            box-shadow: var(--card-shadow) !important;
+            margin-bottom: 24px !important;
         }
-        .card .card-body,
-        .btn,
-        .form-control,
-        .badge,
-        .input-group-text,
+        .card .card-body { border-radius: 8px !important; padding: 24px !important; }
+        .card-header {
+            padding: 18px 24px !important;
+            background-color: #ffffff !important;
+            border-bottom: 1px solid var(--border-subtle) !important;
+            border-radius: 8px 8px 0 0 !important;
+        }
+        .card-header .card-title {
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: var(--text-primary) !important;
+            margin: 0 !important;
+        }
+        .info-box, .small-box {
+            box-shadow: var(--card-shadow) !important;
+            border: none !important;
+            border-radius: 8px !important;
+        }
         .modal-content {
-            border-radius: 3px !important;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.14) !important;
+            border: none !important;
+            border-radius: 8px !important;
         }
-        .modal-header, .modal-footer {
-            border-radius: 0 !important;
-        }
+        .modal-header, .modal-footer { border-radius: 0 !important; }
 
-        /* =============================================
-           FORM IMPROVEMENTS
-        ============================================= */
-        .form-control {
+        /* ==============================================
+           FORM — Premium Controls
+        ============================================== */
+        .form-control, .custom-select {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-size: 14px !important;
-            border-color: #CBD5E1 !important;
-            padding: 8px 12px !important;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+            color: var(--text-primary) !important;
+            border: 1px solid #D1DCE8 !important;
+            border-radius: 6px !important;
+            padding: 10px 14px !important;
+            height: auto !important;
+            background-color: #ffffff !important;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
         }
-        .form-control:focus {
-            border-color: #009966 !important;
-            box-shadow: 0 0 0 3px rgba(0, 153, 102, 0.12) !important;
+        .form-control:focus, .custom-select:focus {
+            border-color: var(--brand-green) !important;
+            box-shadow: var(--input-focus-ring) !important;
+            outline: none !important;
         }
+        .form-control::placeholder { color: #A0AEC0 !important; font-size: 13.5px !important; }
+        textarea.form-control { min-height: 100px; resize: vertical; }
+
         label {
             font-weight: 600 !important;
             font-size: 13px !important;
             color: #374151 !important;
-            margin-bottom: 4px !important;
+            margin-bottom: 6px !important;
+            display: block !important;
+        }
+        .form-group { margin-bottom: 20px !important; }
+
+        /* Custom file input */
+        .custom-file-label {
+            border: 1px solid #D1DCE8 !important;
+            border-radius: 6px !important;
+            font-size: 13.5px !important;
+            color: #A0AEC0 !important;
+            padding: 10px 14px !important;
+            height: auto !important;
+        }
+        .custom-file-label::after {
+            background-color: #F1F5F9 !important;
+            color: #374151 !important;
+            font-weight: 600 !important;
+            border-left: 1px solid #D1DCE8 !important;
+            border-radius: 0 6px 6px 0 !important;
+            height: 100% !important;
+            padding: 10px 14px !important;
         }
 
-        /* =============================================
-           SWAL2 CUSTOM THEME (brand colors)
-        ============================================= */
-        .swal2-confirm {
-            border-radius: 3px !important;
+        /* Buttons */
+        .btn {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 600 !important;
+            border-radius: 6px !important;
+            font-size: 13.5px !important;
+            padding: 9px 20px !important;
+            transition: all 0.18s ease !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
         }
-        .swal2-cancel {
-            border-radius: 3px !important;
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
+        .btn:hover { transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn-sm {
+            padding: 6px 14px !important;
+            font-size: 12.5px !important;
         }
-        .swal2-popup {
-            border-radius: 1px !important;
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
-        }
-        .swal2-title {
-            font-size: 18px !important;
-            font-weight: 700 !important;
+        .badge { border-radius: 4px !important; font-size: 11px !important; font-weight: 600 !important; }
+        .input-group-text {
+            border: 1px solid #D1DCE8 !important;
+            border-radius: 6px !important;
+            background-color: #F8FAFC !important;
+            color: var(--text-secondary) !important;
+            font-size: 13.5px !important;
         }
 
-        /* =============================================
-           TABLE & CARD IMPROVEMENTS
-           ============================================= */
-        .card-header {
-            padding: 16px 20px !important;
-            background-color: #FFFFFF !important;
-            border-bottom: 1px solid #E2E8F0 !important;
-        }
+        /* ==============================================
+           TABLE — Clean & Legible
+        ============================================== */
         .table thead th {
             font-size: 11px !important;
             font-weight: 700 !important;
             text-transform: uppercase !important;
-            letter-spacing: 0.8px !important;
-            color: #475569 !important;
-            border-bottom: 2px solid #E2E8F0 !important;
+            letter-spacing: 0.7px !important;
+            color: var(--text-secondary) !important;
+            border-bottom: 1px solid var(--border-subtle) !important;
+            border-top: none !important;
             background-color: #F8FAFC !important;
-            padding: 12px 16px !important;
+            padding: 13px 16px !important;
         }
         .table td {
             vertical-align: middle !important;
-            font-size: 14px !important;
+            font-size: 13.5px !important;
+            color: var(--text-primary) !important;
             padding: 14px 16px !important;
-            border-bottom: 1px solid #F1F5F9 !important;
+            border-bottom: 1px solid #F0F4F8 !important;
         }
-        .table-responsive {
-            border: none !important;
-        }
+        .table-responsive { border: none !important; }
+        .table > tbody > tr:last-child > td { border-bottom: none !important; }
 
-        /* =============================================
-           FORM & INPUTS (Prevent clipping in select sm)
-           ============================================= */
+        /* Form control sm */
         .form-control-sm, .custom-select-sm, select.form-control-sm {
-            height: 36px !important;
-            padding: 6px 12px !important;
+            height: 37px !important;
+            padding: 7px 12px !important;
             font-size: 13px !important;
-            border-radius: 3px !important;
-            border-color: #CBD5E1 !important;
-        }
-        select.form-control-sm, .custom-select-sm {
-            padding-right: 28px !important; /* spacing for arrow */
-        }
-        .btn-sm {
-            height: 36px !important;
-            padding: 6px 16px !important;
-            font-size: 13px !important;
-            font-weight: 600 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 6px !important;
-            border-radius: 3px !important;
+            border-radius: 6px !important;
+            border-color: #D1DCE8 !important;
         }
 
-        /* =============================================
-           PREMIUM TABLE ACTIONS (Clean & Spacious)
-           ============================================= */
+        /* ==============================================
+           ACTION BUTTONS
+        ============================================== */
         .btn-action-group {
             display: inline-flex !important;
             align-items: center !important;
-            gap: 8px !important;
+            gap: 6px !important;
         }
         .btn-action {
             display: inline-flex !important;
@@ -305,43 +413,27 @@
             justify-content: center !important;
             width: 32px !important;
             height: 32px !important;
-            border-radius: 4px !important;
+            border-radius: 6px !important;
             border: 1px solid transparent !important;
-            transition: all 0.2s ease !important;
+            transition: all 0.18s ease !important;
             cursor: pointer !important;
             text-decoration: none !important;
             padding: 0 !important;
         }
-        .btn-action-edit {
-            color: #D97706 !important;
-            background-color: #FEF3C7 !important;
-            border-color: #FDE68A !important;
-        }
-        .btn-action-edit:hover {
-            color: #92400E !important;
-            background-color: #FDE68A !important;
-            border-color: #FCD34D !important;
-        }
-        .btn-action-delete {
-            color: #DC2626 !important;
-            background-color: #FEE2E2 !important;
-            border-color: #FCA5A5 !important;
-        }
-        .btn-action-delete:hover {
-            color: #991B1B !important;
-            background-color: #FCA5A5 !important;
-            border-color: #F87171 !important;
-        }
-        .btn-action-view {
-            color: #0284C7 !important;
-            background-color: #E0F2FE !important;
-            border-color: #BAE6FD !important;
-        }
-        .btn-action-view:hover {
-            color: #0369A1 !important;
-            background-color: #BAE6FD !important;
-            border-color: #7DD3FC !important;
-        }
+        .btn-action:hover { transform: translateY(-1px); }
+        .btn-action-edit { color: #D97706 !important; background-color: #FEF3C7 !important; border-color: #FDE68A !important; }
+        .btn-action-edit:hover { background-color: #FDE68A !important; border-color: #FCD34D !important; color: #92400E !important; }
+        .btn-action-delete { color: #DC2626 !important; background-color: #FEE2E2 !important; border-color: #FCA5A5 !important; }
+        .btn-action-delete:hover { background-color: #FCA5A5 !important; border-color: #F87171 !important; color: #991B1B !important; }
+        .btn-action-view { color: #0284C7 !important; background-color: #E0F2FE !important; border-color: #BAE6FD !important; }
+        .btn-action-view:hover { background-color: #BAE6FD !important; border-color: #7DD3FC !important; color: #0369A1 !important; }
+
+        /* ==============================================
+           SWAL2
+        ============================================== */
+        .swal2-confirm, .swal2-cancel { border-radius: 6px !important; font-family: 'Plus Jakarta Sans', sans-serif !important; font-weight: 600 !important; }
+        .swal2-popup { border-radius: 10px !important; font-family: 'Plus Jakarta Sans', sans-serif !important; }
+        .swal2-title { font-size: 18px !important; font-weight: 700 !important; }
     </style>
 
     @yield('styles')
@@ -415,7 +507,7 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
 
                     {{-- DASHBOARD --}}
                     <li class="nav-item">
@@ -426,38 +518,38 @@
                     </li>
 
                     {{-- KELOLA KONTEN --}}
-                    <li class="nav-header">KELOLA KONTEN</li>
+                    <li class="nav-header">KONTEN</li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.berita.index') }}" class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">newspaper</span>
-                            <p>Berita &amp; Artikel</p>
+                            <p>Berita</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.agenda.index') }}" class="nav-link {{ request()->routeIs('admin.agenda.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">event</span>
-                            <p>Agenda Kegiatan</p>
+                            <p>Agenda</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.galeri.index') }}" class="nav-link {{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">collections</span>
-                            <p>Galeri Foto</p>
+                            <p>Galeri</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.home-content.index') }}" class="nav-link {{ request()->routeIs('admin.home-content.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">info</span>
-                            <p>Kelola Home Content</p>
+                            <p>Konten Beranda</p>
                         </a>
                     </li>
 
                     {{-- LAYANAN & PROGRAM --}}
-                    <li class="nav-header">LAYANAN &amp; PROGRAM</li>
+                    <li class="nav-header">LAYANAN</li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.program-kesehatan.index') }}" class="nav-link {{ request()->routeIs('admin.program-kesehatan.*') ? 'active' : '' }}">
@@ -469,40 +561,40 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.layanan.index') }}" class="nav-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">widgets</span>
-                            <p>Layanan Terpadu</p>
+                            <p>Layanan</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.labkesda.index') }}" class="nav-link {{ request()->routeIs('admin.labkesda.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">science</span>
-                            <p>Layanan Labkesda</p>
+                            <p>Labkesda</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.pagodasehat.index') }}" class="nav-link {{ request()->routeIs('admin.pagodasehat.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">medical_services</span>
-                            <p>Layanan Pagoda Sehat</p>
+                            <p>Pagoda Sehat</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.faskes.index') }}" class="nav-link {{ request()->routeIs('admin.faskes.*') ? 'active' : '' }}">
                             <span class="material-icons nav-icon">location_city</span>
-                            <p>Kelola Faskes</p>
+                            <p>Faskes</p>
                         </a>
                     </li>
 
                     {{-- SATU DATA & REGULASI --}}
-                    <li class="nav-header">SATU DATA &amp; REGULASI</li>
+                    <li class="nav-header">DATA & REGULASI</li>
 
                     {{-- SATU DATA dropdown --}}
                     <li class="nav-item has-treeview {{ (request()->routeIs('admin.satudata.statistik.*') || request()->routeIs('admin.satudata.statistik.import')) ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ (request()->routeIs('admin.satudata.statistik.*') || request()->routeIs('admin.satudata.statistik.import')) ? 'active' : '' }}">
                             <span class="material-icons nav-icon">bar_chart</span>
                             <p>
-                                Satu Data &amp; Statistik
+                                Data & Statistik
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -555,7 +647,14 @@
                     </li>
 
                     {{-- PENGATURAN HALAMAN --}}
-                    <li class="nav-header">PENGATURAN HALAMAN</li>
+                    <li class="nav-header">PENGATURAN</li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.kategori.index') }}" class="nav-link {{ request()->routeIs('admin.kategori.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">category</span>
+                            <p>Kelola Kategori</p>
+                        </a>
+                    </li>
 
                     {{-- PROFIL INSTANSI dropdown --}}
                     <li class="nav-item has-treeview {{ request()->routeIs('admin.profil.*') ? 'menu-open' : '' }}">
@@ -669,7 +768,7 @@
                     </li>
 
                     {{-- LOGOUT --}}
-                    <li class="nav-item mt-2" style="border-top: 1px solid rgba(94, 233, 181, 0.1); padding-top: 8px;">
+                    <li class="nav-item mt-1" style="border-top: 1px solid rgba(77,212,164,0.12); padding-top: 6px;">
                         <form action="{{ route('logout') }}" method="POST" id="form-logout-sidebar">
                             @csrf
                             <button type="button" class="nav-logout-btn" onclick="confirmLogout()">
@@ -708,7 +807,7 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container-fluid" style="padding-bottom: 48px;">
                 @yield('content')
             </div>
         </section>

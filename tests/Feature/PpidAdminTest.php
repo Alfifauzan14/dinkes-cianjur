@@ -29,8 +29,7 @@ class PpidAdminTest extends TestCase
 
         $response = $this->actingAs($admin)->get('/admin/ppid');
         $response->assertStatus(200);
-        $response->assertSee('Informasi Publik (Accordion)');
-        $response->assertSee('PPID Dinas Kesehatan Kabupaten Cianjur');
+        $response->assertSee('Daftar Informasi Publik');
     }
 
     /**
@@ -40,32 +39,19 @@ class PpidAdminTest extends TestCase
     {
         $admin = User::factory()->create();
 
-        $data = [
+        // 1. Update Statistik/Header
+        $response = $this->actingAs($admin)->put('/admin/ppid', [
+            'section' => 'statistik',
             'page_title' => 'PPID Baru',
             'page_subtitle' => 'Subtitle Baru',
             'stat_1_number' => '100',
             'stat_1_desc' => 'Deskripsi 100',
-            'stat_2_number' => '200',
-            'stat_2_desc' => 'Deskripsi 200',
-            'stat_3_number' => '300',
-            'stat_3_desc' => 'Deskripsi 300',
-            'tautan_badge' => 'Badge Baru',
-            'tautan_title' => 'Tautan Baru',
-            'tautan_subtitle' => 'Tautan Subtitle Baru',
-            'tata_cara_badge' => 'Cara Badge Baru',
-            'tata_cara_heading' => 'Cara Heading Baru',
-            'btn_daftar_label' => 'Daftar Label Baru',
-            'btn_daftar_url' => 'https://daftar.com',
-            'btn_login_label' => 'Login Label Baru',
-            'btn_login_url' => 'https://login.com',
-            'tata_cara_card_1_title' => 'Langkah 1',
-            'tata_cara_card_1_text' => 'Teks 1',
-            'tata_cara_card_2_title' => 'Langkah 2',
-            'tata_cara_card_2_text' => 'Teks 2',
-            'tata_cara_card_3_title' => 'Langkah 3',
-            'tata_cara_card_3_text' => 'Teks 3',
-            'tata_cara_card_4_title' => 'Langkah 4',
-            'tata_cara_card_4_text' => 'Teks 4',
+        ]);
+        $response->assertRedirect('/admin/ppid?section=statistik');
+
+        // 2. Update Informasi (Accordion)
+        $response = $this->actingAs($admin)->put('/admin/ppid', [
+            'section' => 'informasi',
             'accordion_items' => [
                 [
                     'title' => 'Accordion 1',
@@ -78,16 +64,16 @@ class PpidAdminTest extends TestCase
                     'content' => 'Content 2',
                 ],
             ]
-        ];
-
-        $response = $this->actingAs($admin)->put('/admin/ppid', $data);
-        $response->assertRedirect('/admin/ppid');
+        ]);
+        $response->assertRedirect('/admin/ppid?section=informasi');
         $response->assertSessionHas('success', 'Konten halaman PPID berhasil diperbarui!');
 
         $this->assertDatabaseHas('ppid_settings', [
             'id' => 1,
             'page_title' => 'PPID Baru',
             'page_subtitle' => 'Subtitle Baru',
+            'stat_1_number' => '100',
+            'stat_1_desc' => 'Deskripsi 100',
         ]);
 
         $setting = PpidSetting::first();

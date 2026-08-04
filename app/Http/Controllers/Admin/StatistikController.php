@@ -15,7 +15,7 @@ class StatistikController extends Controller
     /**
      * Show the edit form for statistics dashboard.
      */
-    public function edit(): View
+    public function edit(Request $request): View
     {
         $setting = StatistikSetting::firstOrCreate(
             ['id' => 1],
@@ -53,7 +53,12 @@ class StatistikController extends Controller
 
         $stuntingRecords = StuntingRecord::orderBy('year', 'asc')->get();
 
-        return view('admin.statistik.edit', compact('setting', 'stuntingRecords'));
+        $section = $request->query('section', 'indikator');
+        if (!in_array($section, ['indikator', 'stunting', 'nakes', 'sebaran'])) {
+            $section = 'indikator';
+        }
+
+        return view('admin.statistik.' . $section, compact('setting', 'stuntingRecords'));
     }
 
     /**
@@ -61,132 +66,136 @@ class StatistikController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $request->validate([
-            'status_badge' => 'required|string|max:100',
-            'stat_1_num' => 'required|string|max:50',
-            'stat_1_badge' => 'required|string|max:100',
-            'stat_1_caption' => 'required|string|max:255',
-            'stat_2_num' => 'required|string|max:50',
-            'stat_2_badge' => 'required|string|max:100',
-            'stat_2_caption' => 'required|string|max:255',
-            'stat_3_num' => 'required|string|max:50',
-            'stat_3_badge' => 'required|string|max:100',
-            'stat_3_caption' => 'required|string|max:255',
-            'stat_4_num' => 'required|string|max:50',
-            'stat_4_badge' => 'required|string|max:100',
-            'stat_4_caption' => 'required|string|max:255',
-            'stunting_title' => 'required|string|max:255',
-            'stunting_subtitle' => 'required|string|max:255',
-            'stunting_trend_badge' => 'required|string|max:100',
-            'stunting_footer_note' => 'required|string',
-            'nakes_names' => 'nullable|array',
-            'nakes_values' => 'nullable|array',
-            'nakes_widths' => 'nullable|array',
-            'sebaran_names' => 'nullable|array',
-            'sebaran_values' => 'nullable|array',
-            'sebaran_widths' => 'nullable|array',
-            'stunting_years' => 'nullable|array',
-            'stunting_total_balita' => 'nullable|array',
-            'stunting_balita_stunt' => 'nullable|array',
-            'stunting_wil_terendah' => 'nullable|array',
-            'stunting_wil_tertinggi' => 'nullable|array',
-            'stunting_catatan' => 'nullable|array',
-            'highlighted_year' => 'nullable|integer',
-        ]);
+        $section = $request->input('section', 'indikator');
+        $rules = [];
 
-        // Process Nakes JSON array
-        $nakesData = [];
-        if ($request->has('nakes_names')) {
-            foreach ($request->nakes_names as $index => $name) {
-                if (! empty($name)) {
-                    $nakesData[] = [
-                        'name' => $name,
-                        'value' => $request->nakes_values[$index] ?? '',
-                        'width' => (int) ($request->nakes_widths[$index] ?? 0),
-                    ];
-                }
-            }
+        if ($section === 'indikator') {
+            $rules = [
+                'status_badge' => 'required|string|max:100',
+                'stat_1_num' => 'required|string|max:50',
+                'stat_1_badge' => 'required|string|max:100',
+                'stat_1_caption' => 'required|string|max:255',
+                'stat_2_num' => 'required|string|max:50',
+                'stat_2_badge' => 'required|string|max:100',
+                'stat_2_caption' => 'required|string|max:255',
+                'stat_3_num' => 'required|string|max:50',
+                'stat_3_badge' => 'required|string|max:100',
+                'stat_3_caption' => 'required|string|max:255',
+                'stat_4_num' => 'required|string|max:50',
+                'stat_4_badge' => 'required|string|max:100',
+                'stat_4_caption' => 'required|string|max:255',
+            ];
+        } elseif ($section === 'stunting') {
+            $rules = [
+                'stunting_title' => 'required|string|max:255',
+                'stunting_subtitle' => 'required|string|max:255',
+                'stunting_trend_badge' => 'required|string|max:100',
+                'stunting_footer_note' => 'required|string',
+                'stunting_years' => 'nullable|array',
+                'stunting_total_balita' => 'nullable|array',
+                'stunting_balita_stunt' => 'nullable|array',
+                'stunting_rates' => 'nullable|array',
+                'stunting_wil_terendah' => 'nullable|array',
+                'stunting_wil_tertinggi' => 'nullable|array',
+                'stunting_catatan' => 'nullable|array',
+                'highlighted_year' => 'nullable|integer',
+            ];
+        } elseif ($section === 'nakes') {
+            $rules = [
+                'nakes_names' => 'nullable|array',
+                'nakes_values' => 'nullable|array',
+                'nakes_widths' => 'nullable|array',
+            ];
+        } elseif ($section === 'sebaran') {
+            $rules = [
+                'sebaran_names' => 'nullable|array',
+                'sebaran_values' => 'nullable|array',
+                'sebaran_widths' => 'nullable|array',
+            ];
         }
 
-        // Process Sebaran Zonasi JSON array
-        $sebaranData = [];
-        if ($request->has('sebaran_names')) {
-            foreach ($request->sebaran_names as $index => $name) {
-                if (! empty($name)) {
-                    $sebaranData[] = [
-                        'name' => $name,
-                        'value' => $request->sebaran_values[$index] ?? '',
-                        'width' => (int) ($request->sebaran_widths[$index] ?? 0),
-                    ];
-                }
-            }
-        }
+        $request->validate($rules);
 
-        // Update settings
         $setting = StatistikSetting::firstOrCreate(['id' => 1]);
-        $setting->update([
-            'status_badge' => $request->status_badge,
-            'stat_1_num' => $request->stat_1_num,
-            'stat_1_badge' => $request->stat_1_badge,
-            'stat_1_caption' => $request->stat_1_caption,
-            'stat_2_num' => $request->stat_2_num,
-            'stat_2_badge' => $request->stat_2_badge,
-            'stat_2_caption' => $request->stat_2_caption,
-            'stat_3_num' => $request->stat_3_num,
-            'stat_3_badge' => $request->stat_3_badge,
-            'stat_3_caption' => $request->stat_3_caption,
-            'stat_4_num' => $request->stat_4_num,
-            'stat_4_badge' => $request->stat_4_badge,
-            'stat_4_caption' => $request->stat_4_caption,
-            'stunting_title' => $request->stunting_title,
-            'stunting_subtitle' => $request->stunting_subtitle,
-            'stunting_trend_badge' => $request->stunting_trend_badge,
-            'stunting_footer_note' => $request->stunting_footer_note,
-            'nakes_data' => $nakesData,
-            'sebaran_data' => $sebaranData,
-        ]);
 
-        // Process Stunting Trend records with extended detail columns
-        $submittedYears = [];
-        if ($request->has('stunting_years')) {
-            foreach ($request->stunting_years as $index => $year) {
-                if (! empty($year)) {
-                    $yearInt = (int) $year;
-                    $totalBalita = (int) ($request->stunting_total_balita[$index] ?? 0);
-                    $balitaStunt = (int) ($request->stunting_balita_stunt[$index] ?? 0);
-                    $rate = $totalBalita > 0
-                        ? StuntingRecord::calculateRate($totalBalita, $balitaStunt)
-                        : (float) ($request->stunting_rates[$index] ?? 0.0);
-                    $isHighlighted = ($yearInt === (int) $request->highlighted_year);
+        if ($section === 'indikator') {
+            $data = $request->only(array_keys($rules));
+            $setting->update($data);
+        } elseif ($section === 'stunting') {
+            $data = $request->only(['stunting_title', 'stunting_subtitle', 'stunting_trend_badge', 'stunting_footer_note']);
+            $setting->update($data);
 
-                    StuntingRecord::updateOrCreate(
-                        ['year' => $yearInt],
-                        [
-                            'rate' => $rate,
-                            'is_highlighted' => $isHighlighted,
-                            'total_balita' => $totalBalita ?: null,
-                            'balita_stunting' => $balitaStunt ?: null,
-                            'wilayah_terendah' => $request->stunting_wil_terendah[$index] ?? null,
-                            'wilayah_tertinggi' => $request->stunting_wil_tertinggi[$index] ?? null,
-                            'catatan' => $request->stunting_catatan[$index] ?? null,
-                        ]
-                    );
+            // Process Stunting Trend records with extended detail columns
+            $submittedYears = [];
+            if ($request->has('stunting_years')) {
+                foreach ($request->stunting_years as $index => $year) {
+                    if (! empty($year)) {
+                        $yearInt = (int) $year;
+                        $totalBalita = (int) ($request->stunting_total_balita[$index] ?? 0);
+                        $balitaStunt = (int) ($request->stunting_balita_stunt[$index] ?? 0);
+                        $rate = $totalBalita > 0
+                            ? StuntingRecord::calculateRate($totalBalita, $balitaStunt)
+                            : (float) ($request->stunting_rates[$index] ?? 0.0);
+                        $isHighlighted = ($yearInt === (int) $request->highlighted_year);
 
-                    $submittedYears[] = $yearInt;
+                        StuntingRecord::updateOrCreate(
+                            ['year' => $yearInt],
+                            [
+                                'rate' => $rate,
+                                'is_highlighted' => $isHighlighted,
+                                'total_balita' => $totalBalita ?: null,
+                                'balita_stunting' => $balitaStunt ?: null,
+                                'wilayah_terendah' => $request->stunting_wil_terendah[$index] ?? null,
+                                'wilayah_tertinggi' => $request->stunting_wil_tertinggi[$index] ?? null,
+                                'catatan' => $request->stunting_catatan[$index] ?? null,
+                            ]
+                        );
+
+                        $submittedYears[] = $yearInt;
+                    }
                 }
             }
+
+            // Delete records not in the submitted list
+            StuntingRecord::whereNotIn('year', $submittedYears)->delete();
+
+            // Ensure correct highlight
+            if (! empty($request->highlighted_year)) {
+                StuntingRecord::where('year', '!=', (int) $request->highlighted_year)->update(['is_highlighted' => false]);
+                StuntingRecord::where('year', (int) $request->highlighted_year)->update(['is_highlighted' => true]);
+            }
+        } elseif ($section === 'nakes') {
+            $nakesData = [];
+            if ($request->has('nakes_names')) {
+                foreach ($request->nakes_names as $index => $name) {
+                    if (! empty($name)) {
+                        $nakesData[] = [
+                            'name' => $name,
+                            'value' => $request->nakes_values[$index] ?? '',
+                            'width' => (int) ($request->nakes_widths[$index] ?? 0),
+                        ];
+                    }
+                }
+            }
+            $setting->update(['nakes_data' => $nakesData]);
+        } elseif ($section === 'sebaran') {
+            $sebaranData = [];
+            if ($request->has('sebaran_names')) {
+                foreach ($request->sebaran_names as $index => $name) {
+                    if (! empty($name)) {
+                        $sebaranData[] = [
+                            'name' => $name,
+                            'value' => $request->sebaran_values[$index] ?? '',
+                            'width' => (int) ($request->sebaran_widths[$index] ?? 0),
+                        ];
+                    }
+                }
+            }
+            $setting->update(['sebaran_data' => $sebaranData]);
         }
 
-        // Delete records not in the submitted list
-        StuntingRecord::whereNotIn('year', $submittedYears)->delete();
-
-        // Ensure correct highlight
-        if (! empty($request->highlighted_year)) {
-            StuntingRecord::where('year', '!=', (int) $request->highlighted_year)->update(['is_highlighted' => false]);
-            StuntingRecord::where('year', (int) $request->highlighted_year)->update(['is_highlighted' => true]);
-        }
-
-        return redirect()->route('admin.satudata.statistik.edit')->with('success', 'Dashboard Statistik berhasil diperbarui!');
+        return redirect()->route('admin.satudata.statistik.edit', ['section' => $section])
+            ->with('success', 'Data Statistik berhasil diperbarui!');
     }
 
     /**

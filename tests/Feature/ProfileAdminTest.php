@@ -116,17 +116,23 @@ class ProfileAdminTest extends TestCase
             ],
         ]);
 
+        // 1. Update Sambutan
         $response = $this->actingAs($admin)
             ->put('/admin/profil', [
+                'section' => 'sambutan',
                 'kepala_dinas_name' => 'Nama Baru',
                 'kepala_dinas_role' => 'Jabatan Baru',
                 'sambutan_title' => 'Judul Baru',
                 'sambutan_quote' => 'Quote Baru',
                 'sambutan_desc_1' => 'Desc Baru 1',
                 'sambutan_desc_2' => 'Desc Baru 2',
-                'sejarah_title' => 'Sejarah Baru',
-                'sejarah_text_1' => 'Teks Baru 1',
-                'sejarah_text_2' => 'Teks Baru 2',
+            ]);
+        $response->assertRedirect('/admin/profil?section=sambutan');
+
+        // 2. Update Visi Misi
+        $response = $this->actingAs($admin)
+            ->put('/admin/profil', [
+                'section' => 'visimisi',
                 'visi_title' => 'Visi Baru',
                 'visi_desc' => 'Visi Desc Baru',
                 'stat_1_text' => 'Stat Baru 1',
@@ -136,12 +142,15 @@ class ProfileAdminTest extends TestCase
                     ['title' => 'Misi Baru 2', 'desc' => 'Desc Baru 2'],
                 ],
             ]);
+        $response->assertRedirect('/admin/profil?section=visimisi');
+        $response->assertSessionHas('success', 'Profil instansi berhasil diperbarui!');
 
-        $response->assertRedirect(route('admin.profil.edit'));
         $this->assertDatabaseHas('profiles', [
             'id' => 1,
             'kepala_dinas_name' => 'Nama Baru',
             'kepala_dinas_role' => 'Jabatan Baru',
+            'visi_title' => 'Visi Baru',
+            'stat_1_text' => 'Stat Baru 1',
         ]);
 
         $updatedProfile = Profile::find(1);

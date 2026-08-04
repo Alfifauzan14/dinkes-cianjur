@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
 use App\Http\Controllers\Admin\PagodaSehatController;
@@ -208,11 +209,17 @@ Route::resource('/admin/layanan-terpadu', AdminLayananTerpaduController::class, 
 
 Route::resource('/admin/program-kesehatan', App\Http\Controllers\Admin\ProgramKesehatanController::class, [
     'names' => [
-        'index' => 'admin.program-kesehatan.index',
-        'create' => 'admin.program-kesehatan.create',
-        'store' => 'admin.program-kesehatan.store',
-        'edit' => 'admin.program-kesehatan.edit',
-        'update' => 'admin.program-kesehatan.update',
+        'index'   => 'admin.program-kesehatan.index',
+        'create'  => 'admin.program-kesehatan.create',
+        'store'   => 'admin.program-kesehatan.store',
+        'edit'    => 'admin.program-kesehatan.edit',
+        'update'  => 'admin.program-kesehatan.update',
         'destroy' => 'admin.program-kesehatan.destroy',
     ],
 ])->middleware('auth');
+
+/* --- Admin Kategori Routes --- */
+Route::get('/admin/kategori', [KategoriController::class, 'index'])->middleware('auth')->name('admin.kategori.index');
+Route::post('/admin/kategori', [KategoriController::class, 'store'])->middleware('auth')->name('admin.kategori.store');
+Route::put('/admin/kategori/{kategori}', [KategoriController::class, 'update'])->middleware('auth')->name('admin.kategori.update');
+Route::delete('/admin/kategori/{kategori}', [KategoriController::class, 'destroy'])->middleware('auth')->name('admin.kategori.destroy');

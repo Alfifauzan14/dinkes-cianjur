@@ -29,8 +29,7 @@ class SettingAdminTest extends TestCase
 
         $response = $this->actingAs($admin)->get('/admin/pengaturan');
         $response->assertStatus(200);
-        $response->assertSee('Identitas Situs');
-        $response->assertSee('Dinas Kesehatan Kabupaten Cianjur');
+        $response->assertSee('Identitas Utama Website');
     }
 
     /**
@@ -40,24 +39,31 @@ class SettingAdminTest extends TestCase
     {
         $admin = User::factory()->create();
 
-        $data = [
+        // 1. Update Identitas
+        $response = $this->actingAs($admin)->put('/admin/pengaturan', [
+            'section' => 'identitas',
             'site_name' => 'Nama Dinas Baru',
             'site_tagline' => 'Tagline Dinas Baru',
+        ]);
+        $response->assertRedirect('/admin/pengaturan?section=identitas');
+        $response->assertSessionHas('success', 'Pengaturan situs berhasil diperbarui!');
+
+        // 2. Update Kontak
+        $response = $this->actingAs($admin)->put('/admin/pengaturan', [
+            'section' => 'kontak',
             'address' => 'Jl. Baru No. 12',
             'phone' => '08123456789',
             'email' => 'baru@dinkes.com',
+        ]);
+        $response->assertRedirect('/admin/pengaturan?section=kontak');
+
+        // 3. Update Darurat
+        $response = $this->actingAs($admin)->put('/admin/pengaturan', [
+            'section' => 'darurat',
             'emergency_call' => '112',
             'emergency_title' => 'PSC 112 Baru',
-            'social_facebook' => 'https://facebook.com/baru',
-            'social_instagram' => 'https://instagram.com/baru',
-            'social_twitter' => 'https://x.com/baru',
-            'social_youtube' => 'https://youtube.com/baru',
-            'social_tiktok' => 'https://tiktok.com/@baru',
-        ];
-
-        $response = $this->actingAs($admin)->put('/admin/pengaturan', $data);
-        $response->assertRedirect('/admin/pengaturan');
-        $response->assertSessionHas('success', 'Pengaturan situs berhasil diperbarui!');
+        ]);
+        $response->assertRedirect('/admin/pengaturan?section=darurat');
 
         $this->assertDatabaseHas('settings', [
             'id' => 1,
@@ -66,6 +72,8 @@ class SettingAdminTest extends TestCase
             'address' => 'Jl. Baru No. 12',
             'phone' => '08123456789',
             'email' => 'baru@dinkes.com',
+            'emergency_call' => '112',
+            'emergency_title' => 'PSC 112 Baru',
         ]);
     }
 }

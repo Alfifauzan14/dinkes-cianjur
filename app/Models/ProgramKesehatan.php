@@ -14,6 +14,8 @@ class ProgramKesehatan extends Model
     protected $fillable = [
         'title',
         'slug',
+        'kategori',
+        'icon',
         'subtitle',
         'stat_1_num',
         'stat_1_label',

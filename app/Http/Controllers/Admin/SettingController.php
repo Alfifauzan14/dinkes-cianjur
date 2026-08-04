@@ -15,7 +15,7 @@ class SettingController extends Controller
     /**
      * Show the form for editing the site settings.
      */
-    public function edit(): View
+    public function edit(Request $request): View
     {
         $setting = Setting::firstOrCreate(['id' => 1], [
             'site_name' => 'Dinas Kesehatan Kabupaten Cianjur',
@@ -33,7 +33,12 @@ class SettingController extends Controller
             'social_tiktok' => 'https://tiktok.com',
         ]);
 
-        return view('admin.setting.edit', compact('setting'));
+        $section = $request->query('section', 'identitas');
+        if (!in_array($section, ['identitas', 'kontak', 'darurat', 'sosmed'])) {
+            $section = 'identitas';
+        }
+
+        return view('admin.setting.' . $section, compact('setting'));
     }
 
     /**
@@ -41,30 +46,44 @@ class SettingController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $rules = [
-            'site_name' => 'required|string|max:255',
-            'site_tagline' => 'required|string|max:255',
-            'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
-            'address' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'emergency_call' => 'required|string|max:255',
-            'emergency_title' => 'required|string|max:255',
-            'social_facebook' => 'nullable|url|max:255',
-            'social_instagram' => 'nullable|url|max:255',
-            'social_twitter' => 'nullable|url|max:255',
-            'social_youtube' => 'nullable|url|max:255',
-            'social_tiktok' => 'nullable|url|max:255',
-        ];
+        $section = $request->input('section', 'identitas');
+        $rules = [];
+
+        if ($section === 'identitas') {
+            $rules = [
+                'site_name' => 'required|string|max:255',
+                'site_tagline' => 'required|string|max:255',
+                'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            ];
+        } elseif ($section === 'kontak') {
+            $rules = [
+                'address' => 'required|string|max:255',
+                'phone' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+            ];
+        } elseif ($section === 'darurat') {
+            $rules = [
+                'emergency_call' => 'required|string|max:255',
+                'emergency_title' => 'required|string|max:255',
+            ];
+        } elseif ($section === 'sosmed') {
+            $rules = [
+                'social_facebook' => 'nullable|url|max:255',
+                'social_instagram' => 'nullable|url|max:255',
+                'social_twitter' => 'nullable|url|max:255',
+                'social_youtube' => 'nullable|url|max:255',
+                'social_tiktok' => 'nullable|url|max:255',
+            ];
+        }
 
         $request->validate($rules);
 
         $setting = Setting::firstOrCreate(['id' => 1]);
 
-        $data = $request->except(['site_logo', '_token', '_method']);
+        $data = $request->only(array_keys($rules));
 
         // Handle Site Logo Upload
-        if ($request->hasFile('site_logo')) {
+        if ($section === 'identitas' && $request->hasFile('site_logo')) {
             $image = $request->file('site_logo');
             $imageName = 'logo_'.time().'_'.Str::random(8).'.'.$image->getClientOriginalExtension();
 
@@ -87,7 +106,7 @@ class SettingController extends Controller
 
         $setting->update($data);
 
-        return redirect()->route('admin.setting.edit', ['section' => $request->input('section', 'identitas')])
+        return redirect()->route('admin.setting.edit', ['section' => $section])
             ->with('success', 'Pengaturan situs berhasil diperbarui!');
     }
 }
