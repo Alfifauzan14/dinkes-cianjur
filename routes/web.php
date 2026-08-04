@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ProgramKesehatanController;
 use App\Models\Agenda;
 use App\Models\Berita;
@@ -157,8 +158,19 @@ Route::get('/satu-data/regulasi', function () {
 })->name('satudata.regulasi');
 
 /* --- Labkesda & Faskes Routes --- */
-Route::get('/media', function () {
-    $galeris = Galeri::orderBy('created_at', 'desc')->paginate(12)->withQueryString();
+Route::get('/media', function (Request $request) {
+    $query = Galeri::orderBy('created_at', 'desc');
+
+    if ($request->filled('search')) {
+        $search = $request->input('search');
+        $query->where('title', 'like', "%{$search}%");
+    }
+
+    if ($request->filled('category') && $request->input('category') !== 'Semua') {
+        $query->where('category', $request->input('category'));
+    }
+
+    $galeris = $query->paginate(12)->withQueryString();
 
     return view('media', compact('galeris'));
 })->name('media');

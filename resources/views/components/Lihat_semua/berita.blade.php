@@ -127,8 +127,8 @@
 
             <!-- Pagination -->
             @if($beritas->hasPages())
-                <div class="berita-pagination" style="display: flex; justify-content: center; margin-top: 48px;">
-                    {{ $beritas->links() }}
+                <div class="berita-pagination">
+                    {{ $beritas->links('vendor.pagination.berita-custom') }}
                 </div>
             @endif
         </div>

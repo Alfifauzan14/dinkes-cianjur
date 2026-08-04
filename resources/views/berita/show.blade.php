@@ -90,7 +90,10 @@
                 </article>
 
                 <!-- Kolom Sidebar: Berita Terpopuler (Kanan) -->
-                <aside class="sidebar-card">
+                <aside class="sidebar-card" id="sidebarPopular">
+                    <button class="sidebar-close-btn" id="closeSidebar" title="Tutup">
+                        <span class="material-icons">close</span>
+                    </button>
                     <h2 class="sidebar-title">Berita Terpopuler</h2>
                     <div class="popular-list">
                         @forelse($popularBeritas as $popular)
@@ -119,6 +122,37 @@
 
     {{-- Footer Component --}}
     @include('layouts.footer')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebarPopular');
+            const closeBtn = document.getElementById('closeSidebar');
+            const layout = document.querySelector('.detail-layout');
+
+            // Create open button
+            const openBtn = document.createElement('button');
+            openBtn.id = 'openSidebar';
+            openBtn.className = 'sidebar-open-btn';
+            openBtn.title = 'Tampilkan Berita Populer';
+            openBtn.innerHTML = '<span class="material-icons">format_list_bulleted</span>';
+            document.querySelector('.detail-page-wrapper').appendChild(openBtn);
+
+            function closeSidebar() {
+                sidebar.classList.add('hidden');
+                layout.classList.add('sidebar-closed');
+                openBtn.classList.add('visible');
+            }
+
+            function openSidebar() {
+                sidebar.classList.remove('hidden');
+                layout.classList.remove('sidebar-closed');
+                openBtn.classList.remove('visible');
+            }
+
+            closeBtn.addEventListener('click', closeSidebar);
+            openBtn.addEventListener('click', openSidebar);
+        });
+    </script>
 
 </body>
 </html>
