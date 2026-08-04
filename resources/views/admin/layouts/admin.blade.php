@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     {{-- Material Icons --}}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {{-- Font Awesome --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     {{-- Custom Stylesheet --}}
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}?v={{ time() }}">
     @yield('styles')
@@ -57,7 +59,6 @@
                     <span class="material-icons menu-icon">account_circle</span>
                     <span>Edit Profil</span>
                 </a>
-<<<<<<< HEAD
                 <a href="{{ route('admin.satudata.statistik.edit') }}" class="menu-link {{ request()->routeIs('admin.satudata.statistik.edit') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">bar_chart</span>
                     <span>Edit Statistik</span>
@@ -85,6 +86,14 @@
                 <a href="{{ route('admin.setting.edit') }}" class="menu-link {{ request()->routeIs('admin.setting.*') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">settings</span>
                     <span>Pengaturan Situs</span>
+                </a>
+                <a href="{{ route('admin.pagodasehat.index') }}" class="menu-link {{ request()->routeIs('admin.pagodasehat.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">dashboard</span>
+                    <span>Kelola Pagoda Sehat</span>
+                </a>
+                <a href="{{ route('admin.home-content.index') }}" class="menu-link {{ request()->routeIs('admin.home-content.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">info</span>
+                    <span>Kelola Home Content</span>
                 </a>
                 </a>
                 

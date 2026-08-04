@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\HomeContentController;
+use App\Http\Controllers\Admin\LabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController;
+use App\Http\Controllers\Admin\PagodaSehatController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RegulasiController;
 use App\Http\Controllers\Admin\StatistikController;
@@ -14,8 +17,13 @@ use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\Faskes;
 use App\Models\Galeri;
+use App\Models\LabkesdaCategory;
+use App\Models\LabkesdaSetting;
 use App\Models\Laporan;
+use App\Models\HomeInfoCard;
+use App\Models\HomeSocialLink;
 use App\Models\LayananTerpadu;
+use App\Models\PagodaSehatCard;
 use App\Models\Profile;
 use App\Models\Regulasi;
 use App\Models\StatistikSetting;
@@ -65,6 +73,12 @@ Route::get('/', function () {
     $homeGaleris = Galeri::orderBy('created_at', 'desc')->take(5)->get();
     $profile = Profile::first();
 
+    $pagodaCards = PagodaSehatCard::orderBy('order_index')->get();
+
+    $infoCards = HomeInfoCard::orderBy('order_index')->get();
+
+    $socialLinks = HomeSocialLink::orderBy('order_index')->get();
+
     return view('welcome', compact(
         'homeBeritas',
         'homeAgendas',
@@ -73,7 +87,10 @@ Route::get('/', function () {
         'nextDate',
         'canNavigateNext',
         'homeGaleris',
-        'profile'
+        'profile',
+        'pagodaCards',
+        'infoCards',
+        'socialLinks'
     ));
 });
 
@@ -208,7 +225,7 @@ Route::get('/labkesda', function () {
 /* --- Admin Labkesda Routes --- */
 Route::get('/admin/labkesda/settings', [LabkesdaController::class, 'editSettings'])->middleware('auth')->name('admin.labkesda.settings.edit');
 Route::put('/admin/labkesda/settings', [LabkesdaController::class, 'updateSettings'])->middleware('auth')->name('admin.labkesda.settings.update');
-Route::put('/admin/labkesda/{labkesda}/order', [LabkesdaController::class, 'updateOrder'])->middleware('auth')->name('admin.labkesda.order.update');
+Route::put('/admin/labkesda/{labkesda}/move', [LabkesdaController::class, 'move'])->middleware('auth')->name('admin.labkesda.move');
 
 Route::resource('/admin/labkesda', LabkesdaController::class, [
     'names' => [
@@ -220,6 +237,26 @@ Route::resource('/admin/labkesda', LabkesdaController::class, [
         'destroy' => 'admin.labkesda.destroy',
     ],
 ])->middleware('auth');
+
+/* --- Admin Pagoda Sehat Routes --- */
+Route::put('/admin/pagodasehat/{pagodasehat}/move', [PagodaSehatController::class, 'move'])->middleware('auth')->name('admin.pagodasehat.move');
+
+Route::resource('/admin/pagodasehat', PagodaSehatController::class, [
+    'names' => [
+        'index' => 'admin.pagodasehat.index',
+        'create' => 'admin.pagodasehat.create',
+        'store' => 'admin.pagodasehat.store',
+        'edit' => 'admin.pagodasehat.edit',
+        'update' => 'admin.pagodasehat.update',
+        'destroy' => 'admin.pagodasehat.destroy',
+    ],
+])->middleware('auth');
+
+/* --- Admin Home Content Routes (edit only) --- */
+Route::get('/admin/home-content', [HomeContentController::class, 'index'])->middleware('auth')->name('admin.home-content.index');
+Route::get('/admin/home-content/{homeInfoCard}/edit', [HomeContentController::class, 'edit'])->middleware('auth')->name('admin.home-content.edit');
+Route::put('/admin/home-content/{homeInfoCard}', [HomeContentController::class, 'update'])->middleware('auth')->name('admin.home-content.update');
+Route::put('/admin/home-content/social/update', [HomeContentController::class, 'updateSocialLinks'])->middleware('auth')->name('admin.home-content.social.update');
 
 /* --- Admin Login Routes (Double-Gatekeeper) --- */
 Route::get('/dinkes-login', [AuthController::class, 'showLoginForm'])->name('login');
