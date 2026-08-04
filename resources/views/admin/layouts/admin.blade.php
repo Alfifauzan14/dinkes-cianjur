@@ -77,6 +77,10 @@
                     <span class="material-icons menu-icon">science</span>
                     <span>Kelola Labkesda</span>
                 </a>
+                <a href="{{ route('admin.pagodasehat.index') }}" class="menu-link {{ request()->routeIs('admin.pagodasehat.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">dashboard</span>
+                    <span>Kelola Pagoda Sehat</span>
+                </a>
                 
                 <!-- Logout Form -->
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">

@@ -144,13 +144,35 @@ class LabkesdaController extends Controller
             ->with('success', 'Informasi Kontak Labkesda berhasil diperbarui.');
     }
 
-    public function updateOrder(Request $request, LabkesdaCategory $labkesda)
+    public function move(Request $request, LabkesdaCategory $labkesda)
     {
         $request->validate([
-            'order_index' => 'required|integer|min:1',
+            'direction' => 'required|in:up,down',
         ]);
 
-        $labkesda->update(['order_index' => $request->order_index]);
+        $all = LabkesdaCategory::orderBy('order_index')->orderBy('id')->get();
+        $position = $all->pluck('id')->values()->search($labkesda->id);
+
+        if ($position === false) {
+            return response()->json(['success' => false]);
+        }
+        if ($request->direction === 'up' && $position === 0) {
+            return response()->json(['success' => false]);
+        }
+        if ($request->direction === 'down' && $position === $all->count() - 1) {
+            return response()->json(['success' => false]);
+        }
+
+        $swapPosition = $request->direction === 'up' ? $position - 1 : $position + 1;
+
+        DB::transaction(function () use ($all, $position, $swapPosition) {
+            $ids = $all->pluck('id')->all();
+            [$ids[$position], $ids[$swapPosition]] = [$ids[$swapPosition], $ids[$position]];
+
+            foreach ($ids as $i => $id) {
+                LabkesdaCategory::where('id', $id)->update(['order_index' => $i + 1]);
+            }
+        });
 
         return response()->json(['success' => true]);
     }

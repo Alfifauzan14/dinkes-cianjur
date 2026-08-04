@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\LabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController;
+use App\Http\Controllers\Admin\PagodaSehatController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RegulasiController;
 use App\Http\Controllers\Admin\StatistikController;
@@ -13,8 +15,11 @@ use App\Http\Controllers\ProgramKesehatanController;
 use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\Galeri;
+use App\Models\LabkesdaCategory;
+use App\Models\LabkesdaSetting;
 use App\Models\Laporan;
 use App\Models\LayananTerpadu;
+use App\Models\PagodaSehatCard;
 use App\Models\Profile;
 use App\Models\Regulasi;
 use App\Models\StatistikSetting;
@@ -63,6 +68,8 @@ Route::get('/', function () {
     $homeGaleris = Galeri::orderBy('created_at', 'desc')->take(5)->get();
     $profile = Profile::first();
 
+    $pagodaCards = PagodaSehatCard::orderBy('order_index')->get();
+
     return view('welcome', compact(
         'homeBeritas',
         'homeAgendas',
@@ -71,7 +78,8 @@ Route::get('/', function () {
         'nextDate',
         'canNavigateNext',
         'homeGaleris',
-        'profile'
+        'profile',
+        'pagodaCards'
     ));
 });
 
@@ -155,11 +163,9 @@ Route::get('/faskes', function () {
     return view('faskes');
 })->name('faskes');
 
-use App\Http\Controllers\Admin\LabkesdaController;
-
 Route::get('/labkesda', function () {
-    $settings = \App\Models\LabkesdaSetting::firstOrCreate(['id' => 1]);
-    $categories = \App\Models\LabkesdaCategory::with('items')->orderBy('order_index')->get();
+    $settings = LabkesdaSetting::firstOrCreate(['id' => 1]);
+    $categories = LabkesdaCategory::with('items')->orderBy('order_index')->get();
 
     return view('labkesda', compact('settings', 'categories'));
 })->name('labkesda');
@@ -167,7 +173,7 @@ Route::get('/labkesda', function () {
 /* --- Admin Labkesda Routes --- */
 Route::get('/admin/labkesda/settings', [LabkesdaController::class, 'editSettings'])->middleware('auth')->name('admin.labkesda.settings.edit');
 Route::put('/admin/labkesda/settings', [LabkesdaController::class, 'updateSettings'])->middleware('auth')->name('admin.labkesda.settings.update');
-Route::put('/admin/labkesda/{labkesda}/order', [LabkesdaController::class, 'updateOrder'])->middleware('auth')->name('admin.labkesda.order.update');
+Route::put('/admin/labkesda/{labkesda}/move', [LabkesdaController::class, 'move'])->middleware('auth')->name('admin.labkesda.move');
 
 Route::resource('/admin/labkesda', LabkesdaController::class, [
     'names' => [
@@ -177,6 +183,20 @@ Route::resource('/admin/labkesda', LabkesdaController::class, [
         'edit' => 'admin.labkesda.edit',
         'update' => 'admin.labkesda.update',
         'destroy' => 'admin.labkesda.destroy',
+    ],
+])->middleware('auth');
+
+/* --- Admin Pagoda Sehat Routes --- */
+Route::put('/admin/pagodasehat/{pagodasehat}/move', [PagodaSehatController::class, 'move'])->middleware('auth')->name('admin.pagodasehat.move');
+
+Route::resource('/admin/pagodasehat', PagodaSehatController::class, [
+    'names' => [
+        'index' => 'admin.pagodasehat.index',
+        'create' => 'admin.pagodasehat.create',
+        'store' => 'admin.pagodasehat.store',
+        'edit' => 'admin.pagodasehat.edit',
+        'update' => 'admin.pagodasehat.update',
+        'destroy' => 'admin.pagodasehat.destroy',
     ],
 ])->middleware('auth');
 
