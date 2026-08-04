@@ -45,13 +45,17 @@
                     <span class="material-icons menu-icon">medical_services</span>
                     <span>Edit Layanan</span>
                 </a>
-                <a href="#" class="menu-link">
+                <a href="{{ route('admin.ppid.edit') }}" class="menu-link {{ request()->routeIs('admin.ppid.*') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">description</span>
                     <span>Edit PPID</span>
                 </a>
                 <a href="{{ route('admin.profil.edit') }}" class="menu-link {{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">account_circle</span>
                     <span>Edit Profil</span>
+                </a>
+                <a href="{{ route('admin.setting.edit') }}" class="menu-link {{ request()->routeIs('admin.setting.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">settings</span>
+                    <span>Pengaturan Situs</span>
                 </a>
                 
                 <!-- Logout Form -->

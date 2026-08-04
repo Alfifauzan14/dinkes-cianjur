@@ -115,6 +115,10 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
 
+Route::get('/admin/pengaturan', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->middleware('auth')->name('admin.setting.edit');
+Route::put('/admin/pengaturan', [App\Http\Controllers\Admin\SettingController::class, 'update'])->middleware('auth')->name('admin.setting.update');
+
+
 Route::resource('/admin/berita', App\Http\Controllers\Admin\BeritaController::class, [
     'names' => [
         'index' => 'admin.berita.index',
@@ -150,6 +154,9 @@ Route::resource('/admin/galeri', App\Http\Controllers\Admin\GaleriController::cl
         'destroy' => 'admin.galeri.destroy',
     ],
 ])->middleware('auth');
+
+Route::get('/admin/ppid', [App\Http\Controllers\Admin\PpidController::class, 'edit'])->middleware('auth')->name('admin.ppid.edit');
+Route::put('/admin/ppid', [App\Http\Controllers\Admin\PpidController::class, 'update'])->middleware('auth')->name('admin.ppid.update');
 
 Route::get('/admin/profil', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->middleware('auth')->name('admin.profil.edit');
 Route::put('/admin/profil', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->middleware('auth')->name('admin.profil.update');
