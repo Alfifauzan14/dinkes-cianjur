@@ -175,15 +175,15 @@ class ProfileController extends Controller
         // Handle Struktur Organisasi Image
         if ($request->hasFile('struktur_organisasi_image')) {
             $image = $request->file('struktur_organisasi_image');
-            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
 
             $destinationPath = public_path('uploads/profile');
-            if (!File::isDirectory($destinationPath)) {
+            if (! File::isDirectory($destinationPath)) {
                 File::makeDirectory($destinationPath, 0755, true, true);
             }
 
             if ($profile->struktur_organisasi_image) {
-                $oldImagePath = public_path('uploads/profile/' . $profile->struktur_organisasi_image);
+                $oldImagePath = public_path('uploads/profile/'.$profile->struktur_organisasi_image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
