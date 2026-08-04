@@ -48,3 +48,21 @@
     </div>
 
 </section>
+
+<script>
+    document.querySelector('.emergency-close-badge')?.addEventListener('click', function () {
+        this.closest('.emergency-bubble-wrapper').style.display = 'none';
+    });
+
+    document.querySelector('.search-button')?.addEventListener('click', function () {
+        var q = document.querySelector('.search-input')?.value.trim();
+        if (q) window.location.href = '{{ url("/berita") }}?search=' + encodeURIComponent(q);
+    });
+
+    document.querySelector('.search-input')?.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            var q = this.value.trim();
+            if (q) window.location.href = '{{ url("/berita") }}?search=' + encodeURIComponent(q);
+        }
+    });
+</script>

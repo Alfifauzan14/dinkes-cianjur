@@ -160,7 +160,106 @@
 @include('components.lightbox')
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
+    // Lightbox Initialization
+    if (typeof initLightbox === 'function') {
         initLightbox('.lightbox-trigger');
-    });
+    }
+
+    // Agenda Timeline Navigation
+    const agendaSelector = document.querySelector('.agenda-date-selector');
+    const agendaTimeline = document.querySelector('.agenda-timeline');
+    if (!agendaSelector || !agendaTimeline) return;
+
+    function attachAgendaNavListeners() {
+        const navBtns = agendaSelector.querySelectorAll('a.date-nav-btn');
+        navBtns.forEach(btn => {
+            btn.removeEventListener('click', handleNavClick);
+            btn.addEventListener('click', handleNavClick);
+        });
+    }
+
+    function handleNavClick(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        const urlParams = new URLSearchParams(href.substring(href.indexOf('?')));
+        const agendaDate = urlParams.get('agenda_date');
+        if (!agendaDate) return;
+
+        agendaTimeline.style.opacity = '0.5';
+        agendaTimeline.style.pointerEvents = 'none';
+
+        fetch(`/api/agenda-by-date?agenda_date=${agendaDate}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) return;
+
+                // Update Selector HTML
+                agendaSelector.innerHTML = `
+                    <a href="?agenda_date=${data.prevDate}" class="date-nav-btn" aria-label="Previous date">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </a>
+                    <span class="agenda-current-date">${data.currentDateLabel}</span>
+                    <a href="?agenda_date=${data.nextDate}" class="date-nav-btn" aria-label="Next date">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </a>
+                `;
+
+                // Update Timeline HTML
+                let timelineHtml = '<div class="timeline-line"></div>';
+                if (data.agendas && data.agendas.length > 0) {
+                    data.agendas.forEach(agenda => {
+                        timelineHtml += `
+                            <div class="timeline-item">
+                                <div class="timeline-time-badge">${agenda.time_start}</div>
+                                <div class="timeline-content-card">
+                                    <h5 class="agenda-item-title">${agenda.title}</h5>
+                                    <div class="agenda-item-meta">
+                                        <span class="agenda-item-location">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                                <circle cx="12" cy="10" r="3" />
+                                            </svg>
+                                            ${agenda.location}
+                                        </span>
+                                        <span class="agenda-item-duration">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <polyline points="12 6 12 12 16 14" />
+                                            </svg>
+                                            ${agenda.time_start} - ${agenda.time_end}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    timelineHtml += `
+                        <div style="text-align: center; padding: 48px; color: #9CA3AF; width: 100%;">
+                            <span class="material-icons" style="font-size: 48px; margin-bottom: 8px;">event_busy</span>
+                            <p style="font-weight: 600;">Belum ada agenda kegiatan mendatang.</p>
+                        </div>
+                    `;
+                }
+
+                agendaTimeline.innerHTML = timelineHtml;
+                agendaTimeline.style.opacity = '1';
+                agendaTimeline.style.pointerEvents = 'auto';
+
+                attachAgendaNavListeners();
+            })
+            .catch(err => {
+                console.error('Failed to fetch agenda:', err);
+                agendaTimeline.style.opacity = '1';
+                agendaTimeline.style.pointerEvents = 'auto';
+            });
+    }
+
+    attachAgendaNavListeners();
+});
 </script>

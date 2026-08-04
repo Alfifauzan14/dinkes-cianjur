@@ -1,6 +1,16 @@
 <link rel="stylesheet" href="{{ asset('css/SatuData/regulasi.css') }}?v={{ time() }}">
 
 <div class="regulasi-wrapper">
+    <!-- Banner Header Top Section -->
+    <header class="satudata-banner" style="background: linear-gradient(135deg, #004F3B 0%, #003326 100%); padding: 48px 24px; text-align: center; color: #FFFFFF;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h1 style="font-size: 32px; font-weight: 800; margin: 0 0 8px 0; color: #FFFFFF;">Satu Data Kesehatan Kabupaten Cianjur</h1>
+            <p style="font-size: 15px; color: rgba(255, 255, 255, 0.85); margin: 0; max-width: 680px; margin: 0 auto;">
+                Pusat data terpadu indikator kinerja kesehatan, angka kecukupan faskes/nakes, publikasi profil tahunan, dan produk hukum daerah.
+            </p>
+        </div>
+    </header>
+
     <main class="regulasi-main">
         <div class="regulasi-container">
             
@@ -15,11 +25,36 @@
                 </div>
             </div>
 
+            <!-- Live Search & Filter Bar -->
+            <div class="regulasi-filter-bar" style="margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; background: #FFFFFF; padding: 16px 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.04);">
+                <div style="position: relative; flex: 1; min-width: 260px;">
+                    <span class="material-icons" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6B7280; font-size: 20px;">search</span>
+                    <input type="text" id="regulasiSearchInput" placeholder="Cari nomor, judul, atau kata kunci..." style="width: 100%; padding: 10px 14px 10px 40px; border: 1px solid #E5E7EB; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box; transition: border-color 0.2s;" onfocus="this.style.borderColor='#009966'" onblur="this.style.borderColor='#E5E7EB'">
+                </div>
+                <div class="regulasi-topic-pills" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button type="button" class="topic-pill-btn active" data-topic="all" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #009966; background: #009966; color: #FFFFFF; font-size: 13px; font-weight: 600; cursor: pointer;">
+                        Semua Topik
+                    </button>
+                    <button type="button" class="topic-pill-btn" data-topic="STUNTING" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #E5E7EB; background: #F9FAFB; color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;">
+                        Stunting
+                    </button>
+                    <button type="button" class="topic-pill-btn" data-topic="KIA" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #E5E7EB; background: #F9FAFB; color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;">
+                        KIA
+                    </button>
+                    <button type="button" class="topic-pill-btn" data-topic="GERMAS" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #E5E7EB; background: #F9FAFB; color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;">
+                        Germas
+                    </button>
+                    <button type="button" class="topic-pill-btn" data-topic="FASKES" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #E5E7EB; background: #F9FAFB; color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;">
+                        Faskes
+                    </button>
+                </div>
+            </div>
+
             <!-- Regulasi Grid List -->
             <div class="regulasi-grid">
                 @forelse($regulasis as $regulasi)
                     <!-- Card -->
-                    <div class="regulasi-card">
+                    <div class="regulasi-card" data-topic="{{ strtoupper($regulasi->topic) }}">
                         <div class="regulasi-card-cover">
                             @if($regulasi->cover_path)
                                 <img src="{{ asset('storage/' . $regulasi->cover_path) }}" alt="Cover {{ $regulasi->title }}" class="cover-img">
@@ -133,3 +168,55 @@
         </div>
     </main>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('regulasiSearchInput');
+    const topicBtns = document.querySelectorAll('.topic-pill-btn');
+    const regulasiCards = document.querySelectorAll('.regulasi-card');
+
+    let activeTopic = 'all';
+
+    function filterRegulasi() {
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        regulasiCards.forEach(card => {
+            const topic = card.getAttribute('data-topic') || '';
+            const text = card.textContent.toLowerCase();
+
+            const matchesTopic = (activeTopic === 'all') || (topic.includes(activeTopic));
+            const matchesQuery = query === '' || text.includes(query);
+
+            if (matchesTopic && matchesQuery) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', filterRegulasi);
+    }
+
+    topicBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            topicBtns.forEach(b => {
+                b.classList.remove('active');
+                b.style.background = '#F9FAFB';
+                b.style.color = '#374151';
+                b.style.borderColor = '#E5E7EB';
+            });
+
+            this.classList.add('active');
+            this.style.background = '#009966';
+            this.style.color = '#FFFFFF';
+            this.style.borderColor = '#009966';
+
+            activeTopic = this.getAttribute('data-topic');
+            filterRegulasi();
+        });
+    });
+});
+</script>
+

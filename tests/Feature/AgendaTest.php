@@ -22,6 +22,28 @@ class AgendaTest extends TestCase
     }
 
     /**
+     * Test public agenda AJAX endpoint by date.
+     */
+    public function test_public_agenda_ajax_endpoint_returns_json(): void
+    {
+        Agenda::create([
+            'title' => 'Rapat Evaluasi Dinkes',
+            'date' => '2026-08-04',
+            'time_start' => '09:00',
+            'time_end' => '11:00',
+            'location' => 'Kantor Dinkes',
+            'description' => 'Evaluasi program bulanan.',
+            'status' => 'published',
+        ]);
+
+        $response = $this->getJson('/api/agenda-by-date?agenda_date=2026-08-04');
+        $response->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+            ]);
+    }
+
+    /**
      * Test admin agenda page redirects when guest.
      */
     public function test_guest_cannot_access_admin_agenda(): void

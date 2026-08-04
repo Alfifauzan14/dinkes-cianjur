@@ -30,7 +30,10 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        if ($request->username === 'admin' && $request->password === 'dinkes2026') {
+        $expectedUsername = config('services.gatekeeper.username', 'admin');
+        $expectedPassword = config('services.gatekeeper.password', 'dinkes2026');
+
+        if ($request->username === $expectedUsername && $request->password === $expectedPassword) {
             $request->session()->put('gatekeeper_passed', true);
 
             return response()->json(['success' => true]);

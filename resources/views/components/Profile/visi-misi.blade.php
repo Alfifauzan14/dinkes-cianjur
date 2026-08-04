@@ -1,5 +1,5 @@
 <!-- Visi Section Card -->
-<div class="visi-card-container">
+<div class="visi-card-container" style="margin-bottom: 32px;">
     <span class="visi-badge">Visi Kami</span>
     
     <h2 class="visi-title">"{{ $profile ? $profile->visi_title : 'Mewujudkan Masyarakat Kabupaten Cianjur yang Sehat, Mandiri, Berkeadilan, dan Berdaya Saing.' }}"</h2>
