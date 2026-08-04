@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'gatekeeper' => [
+        'username' => env('GATEKEEPER_USERNAME', 'admin'),
+        'password' => env('GATEKEEPER_PASSWORD', 'dinkes2026'),
+    ],
+
 ];

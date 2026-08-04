@@ -1,298 +1,322 @@
 @extends('admin.layouts.admin')
-
 @section('title', 'Ubah Dashboard Statistik')
 @section('header_title', 'Ubah Dashboard Statistik')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/statistik.css') }}?v={{ time() }}">
+<style>
+    .profile-tabs-nav {
+        display: flex;
+        border-bottom: 2px solid #E2E8F0;
+        margin-bottom: 24px;
+        gap: 8px;
+    }
+    .tab-nav-btn {
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        padding: 10px 16px;
+        font-weight: 600;
+        color: #64748B;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        outline: none !important;
+        cursor: pointer;
+    }
+    .tab-nav-btn:hover {
+        color: #009966;
+    }
+    .tab-nav-btn.active {
+        color: #009966;
+        border-bottom-color: #009966;
+    }
+    .tab-nav-btn .material-icons {
+        font-size: 18px;
+    }
+    .profile-tab-panel {
+        display: none;
+    }
+    .profile-tab-panel.active {
+        display: block;
+    }
+    .dynamic-row-item {
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 3px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+</style>
 @endsection
 
 @section('content')
-<div class="berita-admin-wrapper">
-    <div class="admin-card">
+<div class="card card-outline card-success">
+    <div class="card-body">
         
-        <!-- Alerts -->
-        @if(session('success'))
-            <div class="alert-success" style="background-color: #DEF7EC; color: #03543F; padding: 14px; border-radius: 3px; margin-bottom: 20px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                <span class="material-icons">check_circle</span>
-                <span>{{ session('success') }}</span>
-            </div>
-        @endif
-
-        @if($errors->any())
-            <div class="alert-danger" style="background-color: #FDE8E8; color: #9B1C1C; padding: 14px; border-radius: 3px; margin-bottom: 20px; font-weight: 600;">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                    <span class="material-icons">error</span>
-                    <span>Terdapat beberapa kesalahan penginputan:</span>
-                </div>
-                <ul style="margin-left: 28px; font-size: 14px; font-weight: 500;">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <!-- Tab Navigation -->
         <div class="profile-tabs-nav">
             <button type="button" class="tab-nav-btn active" onclick="switchTab(event, 'tab-indicators')">
-                <span class="material-icons" style="font-size: 18px;">bar_chart</span>
-                <span>Indikator & Status</span>
+                <span class="material-icons">bar_chart</span>
+                <span>Indikator &amp; Status</span>
             </button>
             <button type="button" class="tab-nav-btn" onclick="switchTab(event, 'tab-stunting')">
-                <span class="material-icons" style="font-size: 18px;">show_chart</span>
+                <span class="material-icons">show_chart</span>
                 <span>Grafik Tren Stunting</span>
             </button>
             <button type="button" class="tab-nav-btn" onclick="switchTab(event, 'tab-lists')">
-                <span class="material-icons" style="font-size: 18px;">list_alt</span>
-                <span>Distribusi Nakes & Zonasi</span>
+                <span class="material-icons">list_alt</span>
+                <span>Distribusi Nakes &amp; Zonasi</span>
             </button>
         </div>
 
-        <form action="{{ route('admin.satudata.statistik.update') }}" method="POST" class="admin-form">
+        <form action="{{ route('admin.satudata.statistik.update') }}" method="POST">
             @csrf
             @method('PUT')
 
             <!-- ==================== TAB 1: INDICATORS & STATUS ==================== -->
             <div id="tab-indicators" class="profile-tab-panel active">
-                
-                <!-- Status Badge -->
-                <div class="form-group" style="margin-bottom: 24px;">
+                <div class="form-group">
                     <label for="status_badge">Label Status Data (Keterangan Pojok Kanan Atas)</label>
-                    <input type="text" name="status_badge" id="status_badge" value="{{ old('status_badge', $setting->status_badge) }}" class="form-control-input" required>
-                    <small style="color: #6B7280; font-size: 12px; display: block; margin-top: 4px;">Contoh: <strong>Data Riil Semester I 2026</strong></small>
+                    <input type="text" name="status_badge" id="status_badge" value="{{ old('status_badge', $setting->status_badge) }}" class="form-control" required>
+                    <small class="text-muted">Contoh: <strong>Data Riil Semester I 2026</strong></small>
                 </div>
 
-                <div style="border-top: 1px solid #E5E7EB; margin: 24px 0 16px; padding-top: 16px;">
-                    <h3 style="color: #004F3B; font-size: 18px; font-weight: 700; margin-bottom: 12px;">Data 4 Kartu Indikator Utama</h3>
+                <div class="border-top pt-3 mt-4 mb-3">
+                    <h3 class="h6 font-weight-bold text-success">Data 4 Kartu Indikator Utama</h3>
                 </div>
 
-                <div class="form-row-2col">
-                    <!-- Card 1: Puskesmas -->
-                    <div class="misi-card-field">
-                        <span class="misi-card-number">KARTU 1: PUSKESMAS</span>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label>Angka/Nilai Utama</label>
-                            <input type="text" name="stat_1_num" value="{{ old('stat_1_num', $setting->stat_1_num) }}" class="form-control-input" required>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label>Label Badge Atas</label>
-                            <input type="text" name="stat_1_badge" value="{{ old('stat_1_badge', $setting->stat_1_badge) }}" class="form-control-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Keterangan Bawah (Caption)</label>
-                            <input type="text" name="stat_1_caption" value="{{ old('stat_1_caption', $setting->stat_1_caption) }}" class="form-control-input" required>
+                <div class="row">
+                    <!-- Card 1 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card p-3 mb-0" style="background:#F8FAFC; border:1px solid #E2E8F0;">
+                            <span class="badge badge-success mb-2 align-self-start">KARTU 1: PUSKESMAS</span>
+                            <div class="form-group">
+                                <label>Angka/Nilai Utama</label>
+                                <input type="text" name="stat_1_num" value="{{ old('stat_1_num', $setting->stat_1_num) }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Label Badge Atas</label>
+                                <input type="text" name="stat_1_badge" value="{{ old('stat_1_badge', $setting->stat_1_badge) }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label>Keterangan Bawah (Caption)</label>
+                                <input type="text" name="stat_1_caption" value="{{ old('stat_1_caption', $setting->stat_1_caption) }}" class="form-control form-control-sm" required>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Card 2: RS Rujukan -->
-                    <div class="misi-card-field">
-                        <span class="misi-card-number">KARTU 2: RUMAH SAKIT RUJUKAN</span>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label>Angka/Nilai Utama</label>
-                            <input type="text" name="stat_2_num" value="{{ old('stat_2_num', $setting->stat_2_num) }}" class="form-control-input" required>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label>Label Badge Atas</label>
-                            <input type="text" name="stat_2_badge" value="{{ old('stat_2_badge', $setting->stat_2_badge) }}" class="form-control-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Keterangan Bawah (Caption)</label>
-                            <input type="text" name="stat_2_caption" value="{{ old('stat_2_caption', $setting->stat_2_caption) }}" class="form-control-input" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row-2col" style="margin-top: 16px;">
-                    <!-- Card 3: SDM Kesehatan -->
-                    <div class="misi-card-field">
-                        <span class="misi-card-number">KARTU 3: SDM KESEHATAN</span>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label>Angka/Nilai Utama</label>
-                            <input type="text" name="stat_3_num" value="{{ old('stat_3_num', $setting->stat_3_num) }}" class="form-control-input" required>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label>Label Badge Atas</label>
-                            <input type="text" name="stat_3_badge" value="{{ old('stat_3_badge', $setting->stat_3_badge) }}" class="form-control-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Keterangan Bawah (Caption)</label>
-                            <input type="text" name="stat_3_caption" value="{{ old('stat_3_caption', $setting->stat_3_caption) }}" class="form-control-input" required>
-                        </div>
-                    </div>
-
-                    <!-- Card 4: Imunisasi -->
-                    <div class="misi-card-field">
-                        <span class="misi-card-number">KARTU 4: CAKUPAN IMUNISASI</span>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label>Angka/Nilai Utama</label>
-                            <input type="text" name="stat_4_num" value="{{ old('stat_4_num', $setting->stat_4_num) }}" class="form-control-input" required>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label>Label Badge Atas</label>
-                            <input type="text" name="stat_4_badge" value="{{ old('stat_4_badge', $setting->stat_4_badge) }}" class="form-control-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Keterangan Bawah (Caption)</label>
-                            <input type="text" name="stat_4_caption" value="{{ old('stat_4_caption', $setting->stat_4_caption) }}" class="form-control-input" required>
+                    <!-- Card 2 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card p-3 mb-0" style="background:#F8FAFC; border:1px solid #E2E8F0;">
+                            <span class="badge badge-success mb-2 align-self-start">KARTU 2: RUMAH SAKIT RUJUKAN</span>
+                            <div class="form-group">
+                                <label>Angka/Nilai Utama</label>
+                                <input type="text" name="stat_2_num" value="{{ old('stat_2_num', $setting->stat_2_num) }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Label Badge Atas</label>
+                                <input type="text" name="stat_2_badge" value="{{ old('stat_2_badge', $setting->stat_2_badge) }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label>Keterangan Bawah (Caption)</label>
+                                <input type="text" name="stat_2_caption" value="{{ old('stat_2_caption', $setting->stat_2_caption) }}" class="form-control form-control-sm" required>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="row">
+                    <!-- Card 3 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card p-3 mb-0" style="background:#F8FAFC; border:1px solid #E2E8F0;">
+                            <span class="badge badge-success mb-2 align-self-start">KARTU 3: SDM KESEHATAN</span>
+                            <div class="form-group">
+                                <label>Angka/Nilai Utama</label>
+                                <input type="text" name="stat_3_num" value="{{ old('stat_3_num', $setting->stat_3_num) }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Label Badge Atas</label>
+                                <input type="text" name="stat_3_badge" value="{{ old('stat_3_badge', $setting->stat_3_badge) }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label>Keterangan Bawah (Caption)</label>
+                                <input type="text" name="stat_3_caption" value="{{ old('stat_3_caption', $setting->stat_3_caption) }}" class="form-control form-control-sm" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card p-3 mb-0" style="background:#F8FAFC; border:1px solid #E2E8F0;">
+                            <span class="badge badge-success mb-2 align-self-start">KARTU 4: CAKUPAN IMUNISASI</span>
+                            <div class="form-group">
+                                <label>Angka/Nilai Utama</label>
+                                <input type="text" name="stat_4_num" value="{{ old('stat_4_num', $setting->stat_4_num) }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Label Badge Atas</label>
+                                <input type="text" name="stat_4_badge" value="{{ old('stat_4_badge', $setting->stat_4_badge) }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label>Keterangan Bawah (Caption)</label>
+                                <input type="text" name="stat_4_caption" value="{{ old('stat_4_caption', $setting->stat_4_caption) }}" class="form-control form-control-sm" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- ==================== TAB 2: STUNTING TREND GRAPH ==================== -->
             <div id="tab-stunting" class="profile-tab-panel">
-                
-                <div class="form-row-2col">
-                    <div class="form-group">
-                        <label for="stunting_title">Judul Grafik Stunting</label>
-                        <input type="text" name="stunting_title" id="stunting_title" value="{{ old('stunting_title', $setting->stunting_title) }}" class="form-control-input" required>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="stunting_title">Judul Grafik Stunting</label>
+                            <input type="text" name="stunting_title" id="stunting_title" value="{{ old('stunting_title', $setting->stunting_title) }}" class="form-control" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="stunting_subtitle">Subjudul Grafik Stunting</label>
-                        <input type="text" name="stunting_subtitle" id="stunting_subtitle" value="{{ old('stunting_subtitle', $setting->stunting_subtitle) }}" class="form-control-input" required>
-                    </div>
-                </div>
-
-                <div class="form-row-2col">
-                    <div class="form-group">
-                        <label for="stunting_trend_badge">Badge Keterangan Tren</label>
-                        <input type="text" name="stunting_trend_badge" id="stunting_trend_badge" value="{{ old('stunting_trend_badge', $setting->stunting_trend_badge) }}" class="form-control-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="stunting_footer_note">Catatan Kaki Grafik (Bisa HTML/Bold)</label>
-                        <input type="text" name="stunting_footer_note" id="stunting_footer_note" value="{{ old('stunting_footer_note', $setting->stunting_footer_note) }}" class="form-control-input" required>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="stunting_subtitle">Subjudul Grafik Stunting</label>
+                            <input type="text" name="stunting_subtitle" id="stunting_subtitle" value="{{ old('stunting_subtitle', $setting->stunting_subtitle) }}" class="form-control" required>
+                        </div>
                     </div>
                 </div>
 
-                <div style="border-top: 1px solid #E5E7EB; margin: 24px 0 16px; padding-top: 16px;">
-                    <h3 style="color: #004F3B; font-size: 18px; font-weight: 700; margin-bottom: 4px;">Data Batang Grafik Tahunan</h3>
-                    <p style="color: #6B7280; font-size: 13px; margin-bottom: 12px;">Tambahkan nilai prevalensi untuk masing-masing tahun. Pilih satu tahun untuk di-highlight aktif di grafik.</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="stunting_trend_badge">Badge Keterangan Tren</label>
+                            <input type="text" name="stunting_trend_badge" id="stunting_trend_badge" value="{{ old('stunting_trend_badge', $setting->stunting_trend_badge) }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="stunting_footer_note">Catatan Kaki Grafik (Bisa HTML/Bold)</label>
+                            <input type="text" name="stunting_footer_note" id="stunting_footer_note" value="{{ old('stunting_footer_note', $setting->stunting_footer_note) }}" class="form-control" required>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="stunting-records-container" class="dynamic-list-wrapper">
+                <div class="border-top pt-3 mt-4 mb-3">
+                    <h3 class="h6 font-weight-bold text-success">Data Batang Grafik Tahunan</h3>
+                    <small class="text-muted d-block mb-3">Tambahkan prevalensi stunting per tahun. Pilih tahun aktif untuk di-highlight di grafik.</small>
+                </div>
+
+                <div id="stunting-records-container">
                     @foreach($stuntingRecords as $record)
                         <div class="dynamic-row-item">
-                            <div class="form-group" style="flex: 1; margin: 0;">
-                                <label style="font-size: 12px; margin-bottom: 4px;">Tahun</label>
-                                <input type="number" name="stunting_years[]" value="{{ $record->year }}" class="form-control-input" placeholder="Tahun" required>
+                            <div class="form-group mb-0" style="flex: 1; min-width: 120px;">
+                                <label style="font-size:11px; color:#475569;">Tahun</label>
+                                <input type="number" name="stunting_years[]" value="{{ $record->year }}" class="form-control form-control-sm" placeholder="Tahun" required onchange="updateRadioValue(this)">
                             </div>
-                            <div class="form-group" style="flex: 1; margin: 0;">
-                                <label style="font-size: 12px; margin-bottom: 4px;">Persentase (%)</label>
-                                <input type="number" step="0.1" name="stunting_rates[]" value="{{ $record->rate }}" class="form-control-input" placeholder="Contoh: 14.7" required>
+                            <div class="form-group mb-0" style="flex: 1; min-width: 120px;">
+                                <label style="font-size:11px; color:#475569;">Persentase (%)</label>
+                                <input type="number" step="0.1" name="stunting_rates[]" value="{{ $record->rate }}" class="form-control form-control-sm" placeholder="e.g. 14.7" required>
                             </div>
-                            <div style="flex-shrink: 0; padding-top: 18px;">
-                                <label class="highlight-radio-label">
-                                    <input type="radio" name="highlighted_year" value="{{ $record->year }}" {{ $record->is_highlighted ? 'checked' : '' }}>
-                                    <span>Highlight</span>
-                                </label>
+                            <div class="mb-0 pt-3" style="min-width: 100px;">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="hl-year-{{ $record->year }}" name="highlighted_year" value="{{ $record->year }}" {{ $record->is_highlighted ? 'checked' : '' }} class="custom-control-input">
+                                    <label class="custom-control-label font-weight-normal text-secondary" style="font-size: 13px; cursor:pointer;" for="hl-year-{{ $record->year }}">Highlight</label>
+                                </div>
                             </div>
-                            <div style="flex-shrink: 0; padding-top: 18px;">
-                                <button type="button" class="btn-remove-row" onclick="removeRow(this)">
-                                    <span class="material-icons">delete</span>
-                                </button>
-                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
+                                <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
+                            </button>
                         </div>
                     @endforeach
                 </div>
 
-                <button type="button" class="btn-add-row" onclick="addStuntingRow()" style="margin-top: 12px;">
-                    <span class="material-icons">add</span>
-                    <span>Tambah Data Tahun</span>
+                <button type="button" class="btn btn-sm btn-outline-success mt-3" onclick="addStuntingRow()">
+                    <span class="material-icons" style="font-size:14px;vertical-align:middle;">add</span> Tambah Data Tahun
                 </button>
-
             </div>
 
             <!-- ==================== TAB 3: NAKES & ZONASI ==================== -->
             <div id="tab-lists" class="profile-tab-panel">
                 
                 <!-- Nakes Profesi List -->
-                <div>
-                    <h3 style="color: #004F3B; font-size: 18px; font-weight: 700; margin-bottom: 4px;">1. Distribusi Profesi Nakes</h3>
-                    <p style="color: #6B7280; font-size: 13px; margin-bottom: 12px;">Mendaftarkan baris profesi nakes beserta label nilai dan lebar persentase bar-nya.</p>
-                </div>
-
-                <div id="nakes-rows-container" class="dynamic-list-wrapper">
-                    @if($setting->nakes_data)
-                        @foreach($setting->nakes_data as $nakes)
-                            <div class="dynamic-row-item">
-                                <div class="form-group" style="flex: 2; margin: 0;">
-                                    <label style="font-size: 12px; margin-bottom: 4px;">Nama Profesi</label>
-                                    <input type="text" name="nakes_names[]" value="{{ $nakes['name'] }}" class="form-control-input" placeholder="Contoh: Perawat Kesehatan" required>
-                                </div>
-                                <div class="form-group" style="flex: 2; margin: 0;">
-                                    <label style="font-size: 12px; margin-bottom: 4px;">Label Nilai</label>
-                                    <input type="text" name="nakes_values[]" value="{{ $nakes['value'] }}" class="form-control-input" placeholder="Contoh: 1,604 (42%)" required>
-                                </div>
-                                <div class="form-group" style="flex: 1; margin: 0;">
-                                    <label style="font-size: 12px; margin-bottom: 4px;">Lebar Bar (%)</label>
-                                    <input type="number" min="0" max="100" name="nakes_widths[]" value="{{ $nakes['width'] }}" class="form-control-input" placeholder="Contoh: 42" required>
-                                </div>
-                                <div style="flex-shrink: 0; padding-top: 18px;">
-                                    <button type="button" class="btn-remove-row" onclick="removeRow(this)">
-                                        <span class="material-icons">delete</span>
+                <div class="mb-4">
+                    <h3 class="h6 font-weight-bold text-success mb-1">1. Distribusi Profesi Nakes</h3>
+                    <small class="text-muted d-block mb-3">Mendaftarkan profesi nakes beserta label nilai dan lebar persentase bar visualnya.</small>
+                    
+                    <div id="nakes-rows-container">
+                        @if($setting->nakes_data)
+                            @foreach($setting->nakes_data as $nakes)
+                                <div class="dynamic-row-item">
+                                    <div class="form-group mb-0" style="flex: 2; min-width: 200px;">
+                                        <label style="font-size:11px; color:#475569;">Nama Profesi</label>
+                                        <input type="text" name="nakes_names[]" value="{{ $nakes['name'] }}" class="form-control form-control-sm" placeholder="e.g. Perawat Kesehatan" required>
+                                    </div>
+                                    <div class="form-group mb-0" style="flex: 2; min-width: 150px;">
+                                        <label style="font-size:11px; color:#475569;">Label Nilai</label>
+                                        <input type="text" name="nakes_values[]" value="{{ $nakes['value'] }}" class="form-control form-control-sm" placeholder="e.g. 1,604 (42%)" required>
+                                    </div>
+                                    <div class="form-group mb-0" style="flex: 1; min-width: 100px;">
+                                        <label style="font-size:11px; color:#475569;">Lebar Bar (%)</label>
+                                        <input type="number" min="0" max="100" name="nakes_widths[]" value="{{ $nakes['width'] }}" class="form-control form-control-sm" placeholder="0-100" required>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
+                                        <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
                                     </button>
                                 </div>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
+                            @endforeach
+                        @endif
+                    </div>
 
-                <button type="button" class="btn-add-row" onclick="addNakesRow()" style="margin-bottom: 32px;">
-                    <span class="material-icons">add</span>
-                    <span>Tambah Profesi Nakes</span>
-                </button>
+                    <button type="button" class="btn btn-sm btn-outline-success mt-2" onclick="addNakesRow()">
+                        <span class="material-icons" style="font-size:14px;vertical-align:middle;">add</span> Tambah Profesi Nakes
+                    </button>
+                </div>
 
                 <!-- Sebaran Zonasi List -->
-                <div style="border-top: 1px solid #E5E7EB; margin-top: 24px; padding-top: 24px;">
-                    <h3 style="color: #004F3B; font-size: 18px; font-weight: 700; margin-bottom: 4px;">2. Sebaran Puskesmas per Zonasi</h3>
-                    <p style="color: #6B7280; font-size: 13px; margin-bottom: 12px;">Mendaftarkan sebaran zonasi geografis puskesmas, angka unit, dan lebar persentase bar-nya.</p>
-                </div>
-
-                <div id="sebaran-rows-container" class="dynamic-list-wrapper">
-                    @if($setting->sebaran_data)
-                        @foreach($setting->sebaran_data as $sebaran)
-                            <div class="dynamic-row-item">
-                                <div class="form-group" style="flex: 2; margin: 0;">
-                                    <label style="font-size: 12px; margin-bottom: 4px;">Nama Zonasi</label>
-                                    <input type="text" name="sebaran_names[]" value="{{ $sebaran['name'] }}" class="form-control-input" placeholder="Contoh: Zonasi Selatan" required>
-                                </div>
-                                <div class="form-group" style="flex: 2; margin: 0;">
-                                    <label style="font-size: 12px; margin-bottom: 4px;">Label Nilai</label>
-                                    <input type="text" name="sebaran_values[]" value="{{ $sebaran['value'] }}" class="form-control-input" placeholder="Contoh: 17 Puskesmas (36%)" required>
-                                </div>
-                                <div class="form-group" style="flex: 1; margin: 0;">
-                                    <label style="font-size: 12px; margin-bottom: 4px;">Lebar Bar (%)</label>
-                                    <input type="number" min="0" max="100" name="sebaran_widths[]" value="{{ $sebaran['width'] }}" class="form-control-input" placeholder="Contoh: 36" required>
-                                </div>
-                                <div style="flex-shrink: 0; padding-top: 18px;">
-                                    <button type="button" class="btn-remove-row" onclick="removeRow(this)">
-                                        <span class="material-icons">delete</span>
+                <div class="border-top pt-4 mt-4">
+                    <h3 class="h6 font-weight-bold text-success mb-1">2. Sebaran Puskesmas per Zonasi</h3>
+                    <small class="text-muted d-block mb-3">Mendaftarkan sebaran zonasi geografis puskesmas, angka unit, dan lebar persentase bar visualnya.</small>
+                    
+                    <div id="sebaran-rows-container">
+                        @if($setting->sebaran_data)
+                            @foreach($setting->sebaran_data as $sebaran)
+                                <div class="dynamic-row-item">
+                                    <div class="form-group mb-0" style="flex: 2; min-width: 200px;">
+                                        <label style="font-size:11px; color:#475569;">Nama Zonasi</label>
+                                        <input type="text" name="sebaran_names[]" value="{{ $sebaran['name'] }}" class="form-control form-control-sm" placeholder="e.g. Zonasi Selatan" required>
+                                    </div>
+                                    <div class="form-group mb-0" style="flex: 2; min-width: 150px;">
+                                        <label style="font-size:11px; color:#475569;">Label Nilai</label>
+                                        <input type="text" name="sebaran_values[]" value="{{ $sebaran['value'] }}" class="form-control form-control-sm" placeholder="e.g. 17 Puskesmas (36%)" required>
+                                    </div>
+                                    <div class="form-group mb-0" style="flex: 1; min-width: 100px;">
+                                        <label style="font-size:11px; color:#475569;">Lebar Bar (%)</label>
+                                        <input type="number" min="0" max="100" name="sebaran_widths[]" value="{{ $sebaran['width'] }}" class="form-control form-control-sm" placeholder="0-100" required>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
+                                        <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
                                     </button>
                                 </div>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
+                            @endforeach
+                        @endif
+                    </div>
 
-                <button type="button" class="btn-add-row" onclick="addSebaranRow()">
-                    <span class="material-icons">add</span>
-                    <span>Tambah Zonasi Puskesmas</span>
-                </button>
+                    <button type="button" class="btn btn-sm btn-outline-success mt-2" onclick="addSebaranRow()">
+                        <span class="material-icons" style="font-size:14px;vertical-align:middle;">add</span> Tambah Zonasi Puskesmas
+                    </button>
+                </div>
 
             </div>
 
             <!-- Submit Button Footer -->
-            <div style="border-top: 1px solid #E5E7EB; margin-top: 32px; padding-top: 20px; display: flex; justify-content: flex-end;">
-                <button type="submit" class="btn-primary" style="background-color: #004F3B; color: #FFFFFF; font-weight: 700; padding: 12px 28px; display: inline-flex; align-items: center; gap: 8px; border-radius: 3px; border: none; cursor: pointer; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#003d2e'" onmouseout="this.style.backgroundColor='#004F3B'">
-                    <span class="material-icons">save</span>
-                    <span>Simpan Perubahan</span>
+            <div class="border-top pt-3 mt-4 d-flex justify-content-end">
+                <button type="submit" class="btn btn-success" style="padding: 10px 24px;">
+                    <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                 </button>
             </div>
-
         </form>
-
     </div>
 </div>
 @endsection
@@ -314,12 +338,21 @@
         evt.currentTarget.classList.add('active');
     }
 
-    // Remove row generic function
+    // Remove row generic function with SweetAlert2
     function removeRow(button) {
-        if(confirm('Apakah Anda yakin ingin menghapus baris data ini?')) {
-            const row = button.closest('.dynamic-row-item');
-            row.remove();
-        }
+        Swal.fire({
+            title: 'Hapus baris data ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if(result.isConfirmed) {
+                const row = button.closest('.dynamic-row-item');
+                row.remove();
+            }
+        });
     }
 
     // Dynamic row addition templates
@@ -331,25 +364,23 @@
         const row = document.createElement('div');
         row.className = 'dynamic-row-item';
         row.innerHTML = `
-            <div class="form-group" style="flex: 1; margin: 0;">
-                <label style="font-size: 12px; margin-bottom: 4px;">Tahun</label>
-                <input type="number" name="stunting_years[]" class="form-control-input" placeholder="Tahun" required onchange="updateRadioValue(this)">
+            <div class="form-group mb-0" style="flex: 1; min-width: 120px;">
+                <label style="font-size:11px; color:#475569;">Tahun</label>
+                <input type="number" name="stunting_years[]" class="form-control form-control-sm" placeholder="Tahun" required onchange="updateRadioValue(this)">
             </div>
-            <div class="form-group" style="flex: 1; margin: 0;">
-                <label style="font-size: 12px; margin-bottom: 4px;">Persentase (%)</label>
-                <input type="number" step="0.1" name="stunting_rates[]" class="form-control-input" placeholder="Contoh: 14.7" required>
+            <div class="form-group mb-0" style="flex: 1; min-width: 120px;">
+                <label style="font-size:11px; color:#475569;">Persentase (%)</label>
+                <input type="number" step="0.1" name="stunting_rates[]" class="form-control form-control-sm" placeholder="e.g. 14.7" required>
             </div>
-            <div style="flex-shrink: 0; padding-top: 18px;">
-                <label class="highlight-radio-label">
-                    <input type="radio" name="highlighted_year" value="">
-                    <span>Highlight</span>
-                </label>
+            <div class="mb-0 pt-3" style="min-width: 100px;">
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="hl-year-new-\${count}" name="highlighted_year" value="" class="custom-control-input">
+                    <label class="custom-control-label font-weight-normal text-secondary" style="font-size: 13px; cursor:pointer;" for="hl-year-new-\${count}">Highlight</label>
+                </div>
             </div>
-            <div style="flex-shrink: 0; padding-top: 18px;">
-                <button type="button" class="btn-remove-row" onclick="removeRow(this)">
-                    <span class="material-icons">delete</span>
-                </button>
-            </div>
+            <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
+                <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
+            </button>
         `;
         container.appendChild(row);
     }
@@ -360,6 +391,13 @@
         const radio = row.querySelector('input[type="radio"]');
         if (radio) {
             radio.value = input.value;
+            // Also update the 'for' attribute and 'id' so click works correctly
+            const radioId = 'hl-year-' + input.value;
+            radio.id = radioId;
+            const label = row.querySelector('.custom-control-label');
+            if (label) {
+                label.setAttribute('for', radioId);
+            }
         }
     }
 
@@ -368,23 +406,21 @@
         const row = document.createElement('div');
         row.className = 'dynamic-row-item';
         row.innerHTML = `
-            <div class="form-group" style="flex: 2; margin: 0;">
-                <label style="font-size: 12px; margin-bottom: 4px;">Nama Profesi</label>
-                <input type="text" name="nakes_names[]" class="form-control-input" placeholder="Contoh: Perawat Kesehatan" required>
+            <div class="form-group mb-0" style="flex: 2; min-width: 200px;">
+                <label style="font-size:11px; color:#475569;">Nama Profesi</label>
+                <input type="text" name="nakes_names[]" class="form-control form-control-sm" placeholder="e.g. Perawat Kesehatan" required>
             </div>
-            <div class="form-group" style="flex: 2; margin: 0;">
-                <label style="font-size: 12px; margin-bottom: 4px;">Label Nilai</label>
-                <input type="text" name="nakes_values[]" class="form-control-input" placeholder="Contoh: 1,604 (42%)" required>
+            <div class="form-group mb-0" style="flex: 2; min-width: 150px;">
+                <label style="font-size:11px; color:#475569;">Label Nilai</label>
+                <input type="text" name="nakes_values[]" class="form-control form-control-sm" placeholder="e.g. 1,604 (42%)" required>
             </div>
-            <div class="form-group" style="flex: 1; margin: 0;">
-                <label style="font-size: 12px; margin-bottom: 4px;">Lebar Bar (%)</label>
-                <input type="number" min="0" max="100" name="nakes_widths[]" class="form-control-input" placeholder="Contoh: 42" required>
+            <div class="form-group mb-0" style="flex: 1; min-width: 100px;">
+                <label style="font-size:11px; color:#475569;">Lebar Bar (%)</label>
+                <input type="number" min="0" max="100" name="nakes_widths[]" class="form-control form-control-sm" placeholder="0-100" required>
             </div>
-            <div style="flex-shrink: 0; padding-top: 18px;">
-                <button type="button" class="btn-remove-row" onclick="removeRow(this)">
-                    <span class="material-icons">delete</span>
-                </button>
-            </div>
+            <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
+                <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
+            </button>
         `;
         container.appendChild(row);
     }
@@ -394,23 +430,21 @@
         const row = document.createElement('div');
         row.className = 'dynamic-row-item';
         row.innerHTML = `
-            <div class="form-group" style="flex: 2; margin: 0;">
-                <label style="font-size: 12px; margin-bottom: 4px;">Nama Zonasi</label>
-                <input type="text" name="sebaran_names[]" class="form-control-input" placeholder="Contoh: Zonasi Selatan" required>
+            <div class="form-group mb-0" style="flex: 2; min-width: 200px;">
+                <label style="font-size:11px; color:#475569;">Nama Zonasi</label>
+                <input type="text" name="sebaran_names[]" class="form-control form-control-sm" placeholder="e.g. Zonasi Selatan" required>
             </div>
-            <div class="form-group" style="flex: 2; margin: 0;">
-                <label style="font-size: 12px; margin-bottom: 4px;">Label Nilai</label>
-                <input type="text" name="sebaran_values[]" class="form-control-input" placeholder="Contoh: 17 Puskesmas (36%)" required>
+            <div class="form-group mb-0" style="flex: 2; min-width: 150px;">
+                <label style="font-size:11px; color:#475569;">Label Nilai</label>
+                <input type="text" name="sebaran_values[]" class="form-control form-control-sm" placeholder="e.g. 17 Puskesmas (36%)" required>
             </div>
-            <div class="form-group" style="flex: 1; margin: 0;">
-                <label style="font-size: 12px; margin-bottom: 4px;">Lebar Bar (%)</label>
-                <input type="number" min="0" max="100" name="sebaran_widths[]" class="form-control-input" placeholder="Contoh: 36" required>
+            <div class="form-group mb-0" style="flex: 1; min-width: 100px;">
+                <label style="font-size:11px; color:#475569;">Lebar Bar (%)</label>
+                <input type="number" min="0" max="100" name="sebaran_widths[]" class="form-control form-control-sm" placeholder="0-100" required>
             </div>
-            <div style="flex-shrink: 0; padding-top: 18px;">
-                <button type="button" class="btn-remove-row" onclick="removeRow(this)">
-                    <span class="material-icons">delete</span>
-                </button>
-            </div>
+            <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
+                <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
+            </button>
         `;
         container.appendChild(row);
     }

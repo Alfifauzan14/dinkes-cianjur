@@ -1,6 +1,16 @@
 <link rel="stylesheet" href="{{ asset('css/SatuData/laporan.css') }}?v={{ time() }}">
 
 <div class="laporan-wrapper">
+    <!-- Banner Header Top Section -->
+    <header class="satudata-banner" style="background: linear-gradient(135deg, #004F3B 0%, #003326 100%); padding: 48px 24px; text-align: center; color: #FFFFFF;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h1 style="font-size: 32px; font-weight: 800; margin: 0 0 8px 0; color: #FFFFFF;">Satu Data Kesehatan Kabupaten Cianjur</h1>
+            <p style="font-size: 15px; color: rgba(255, 255, 255, 0.85); margin: 0; max-width: 680px; margin: 0 auto;">
+                Pusat data terpadu indikator kinerja kesehatan, angka kecukupan faskes/nakes, publikasi profil tahunan, dan produk hukum daerah.
+            </p>
+        </div>
+    </header>
+
     <main class="laporan-main">
         <div class="laporan-container">
             
