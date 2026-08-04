@@ -231,6 +231,10 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
 
+Route::get('/admin/pengaturan', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->middleware('auth')->name('admin.setting.edit');
+Route::put('/admin/pengaturan', [App\Http\Controllers\Admin\SettingController::class, 'update'])->middleware('auth')->name('admin.setting.update');
+
+
 Route::resource('/admin/berita', App\Http\Controllers\Admin\BeritaController::class, [
     'parameters' => [
         'berita' => 'berita',
@@ -270,8 +274,22 @@ Route::resource('/admin/galeri', GaleriController::class, [
     ],
 ])->middleware('auth');
 
-Route::get('/admin/profil', [ProfileController::class, 'edit'])->middleware('auth')->name('admin.profil.edit');
-Route::put('/admin/profil', [ProfileController::class, 'update'])->middleware('auth')->name('admin.profil.update');
+Route::resource('/admin/faskes', FaskesController::class, [
+    'names' => [
+        'index' => 'admin.faskes.index',
+        'create' => 'admin.faskes.create',
+        'store' => 'admin.faskes.store',
+        'edit' => 'admin.faskes.edit',
+        'update' => 'admin.faskes.update',
+        'destroy' => 'admin.faskes.destroy',
+    ],
+])->middleware('auth');
+
+Route::get('/admin/ppid', [App\Http\Controllers\Admin\PpidController::class, 'edit'])->middleware('auth')->name('admin.ppid.edit');
+Route::put('/admin/ppid', [App\Http\Controllers\Admin\PpidController::class, 'update'])->middleware('auth')->name('admin.ppid.update');
+
+Route::get('/admin/profil', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->middleware('auth')->name('admin.profil.edit');
+Route::put('/admin/profil', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->middleware('auth')->name('admin.profil.update');
 
 Route::get('/admin/satu-data/statistik', [StatistikController::class, 'edit'])->middleware('auth')->name('admin.satudata.statistik.edit');
 Route::put('/admin/satu-data/statistik', [StatistikController::class, 'update'])->middleware('auth')->name('admin.satudata.statistik.update');
@@ -320,17 +338,6 @@ Route::resource('/admin/program-kesehatan', App\Http\Controllers\Admin\ProgramKe
         'edit' => 'admin.program-kesehatan.edit',
         'update' => 'admin.program-kesehatan.update',
         'destroy' => 'admin.program-kesehatan.destroy',
-    ],
-])->middleware('auth');
-
-Route::resource('/admin/faskes', FaskesController::class, [
-    'names' => [
-        'index' => 'admin.faskes.index',
-        'create' => 'admin.faskes.create',
-        'store' => 'admin.faskes.store',
-        'edit' => 'admin.faskes.edit',
-        'update' => 'admin.faskes.update',
-        'destroy' => 'admin.faskes.destroy',
     ],
 ])->middleware('auth');
 

@@ -49,7 +49,7 @@
                     <span class="material-icons menu-icon">assignment</span>
                     <span>Kelola Program</span>
                 </a>
-                <a href="#" class="menu-link">
+                <a href="{{ route('admin.ppid.edit') }}" class="menu-link {{ request()->routeIs('admin.ppid.*') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">description</span>
                     <span>Edit PPID</span>
                 </a>
@@ -57,6 +57,7 @@
                     <span class="material-icons menu-icon">account_circle</span>
                     <span>Edit Profil</span>
                 </a>
+<<<<<<< HEAD
                 <a href="{{ route('admin.satudata.statistik.edit') }}" class="menu-link {{ request()->routeIs('admin.satudata.statistik.edit') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">bar_chart</span>
                     <span>Edit Statistik</span>
@@ -80,6 +81,11 @@
                 <a href="{{ route('admin.faskes.index') }}" class="menu-link {{ request()->routeIs('admin.faskes.*') ? 'active' : '' }}">
                     <span class="material-icons menu-icon">location_city</span>
                     <span>Kelola Faskes</span>
+                </a>
+                <a href="{{ route('admin.setting.edit') }}" class="menu-link {{ request()->routeIs('admin.setting.*') ? 'active' : '' }}">
+                    <span class="material-icons menu-icon">settings</span>
+                    <span>Pengaturan Situs</span>
+                </a>
                 </a>
                 
                 <!-- Logout Form -->
