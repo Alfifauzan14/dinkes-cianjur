@@ -29,6 +29,16 @@ class AgendaController extends Controller
             $query->where('status', $request->input('status'));
         }
 
+        $timeFilter = $request->input('time_filter', 'all');
+        $today = \Carbon\Carbon::today()->toDateString();
+        if ($timeFilter === 'upcoming') {
+            $query->where('date', '>', $today);
+        } elseif ($timeFilter === 'today') {
+            $query->whereDate('date', $today);
+        } elseif ($timeFilter === 'past') {
+            $query->where('date', '<', $today);
+        }
+
         $agendas = $query->orderBy('date', 'desc')
             ->orderBy('time_start', 'asc')
             ->paginate(10);

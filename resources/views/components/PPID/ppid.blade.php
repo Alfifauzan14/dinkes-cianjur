@@ -4,11 +4,14 @@
 <link rel="stylesheet" href="{{ asset('css/PPID/ppid.css') }}?v={{ time() }}">
 
 <div class="ppid-page-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('ppid', 'PPID Pembantu', 'Pejabat Pengelola Informasi dan Dokumentasi Dinas Kesehatan.');
+    @endphp
     <!-- Header Section -->
     <header class="ppid-header">
         <div class="ppid-header-container">
-            <h1 class="ppid-header-title">{{ $ppid->page_title }}</h1>
-            <p class="ppid-header-subtitle">{{ $ppid->page_subtitle }}</p>
+            <h1 class="ppid-header-title">{{ $headerSetting->title }}</h1>
+            <p class="ppid-header-subtitle">{{ $headerSetting->subtitle }}</p>
         </div>
     </header>
 

@@ -12,7 +12,7 @@ class SettingSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Setting::firstOrCreate(['id' => 1], [
+        \App\Models\SettingFooter::firstOrCreate(['id' => 1], [
             'site_name' => 'Dinas Kesehatan Kabupaten Cianjur',
             'site_tagline' => 'Mewujudkan Transformasi Pelayanan Kesehatan Masyarakat yang Profesional, Merata, dan Terintegrasi.',
             'site_logo' => null,

@@ -1,11 +1,14 @@
 <link rel="stylesheet" href="{{ asset('css/Profile/profile.css') }}?v={{ time() }}">
 
 <div class="profile-page-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('profil', 'Profil Dinas Kesehatan', 'Mengenal lebih dekat Dinas Kesehatan Kabupaten Cianjur, struktur organisasi, tugas pokok dan fungsinya.');
+    @endphp
     <!-- Header Section -->
     <header class="profile-header">
         <div class="profile-header-container">
-            <h1 class="profile-header-title">Profil Dinas Kesehatan Kabupaten Cianjur</h1>
-            <p class="profile-header-subtitle">{{ $site_settings->site_tagline ?? 'Mewujudkan Transformasi Pelayanan Kesehatan Masyarakat yang Profesional, Merata, dan Terintegrasi.' }}</p>
+            <h1 class="profile-header-title">{{ $headerSetting->title }}</h1>
+            <p class="profile-header-subtitle">{{ $headerSetting->subtitle }}</p>
         </div>
     </header>
 

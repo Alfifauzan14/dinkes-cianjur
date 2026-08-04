@@ -39,7 +39,7 @@
         @endif
 
         <div class="custom-form-card">
-            <form action="{{ route('admin.setting.update') }}" method="POST" id="setting-form">
+            <form action="{{ route('admin.settingfooter.update') }}" method="POST" id="setting-form">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="section" value="sosmed">

@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             if (!app()->runningInConsole()) {
-                view()->share('site_settings', \App\Models\Setting::first());
+                view()->share('site_settings', \App\Models\SettingFooter::first());
             }
         } catch (\Exception $e) {
             // Silence exception if DB is not migrated yet during installation

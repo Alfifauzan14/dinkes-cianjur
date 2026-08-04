@@ -15,10 +15,13 @@
     <link rel="stylesheet" href="{{ asset('css/Profile/profile.css') }}?v={{ time() }}">
 
     <div class="profile-page-wrapper">
+        @php
+            $headerSetting = \App\Models\HeaderSetting::getByKey('visi-misi', 'Visi & Misi', 'Arah kebijakan strategis dan komitmen pelayanan kesehatan Dinas Kesehatan Kabupaten Cianjur.');
+        @endphp
         <header class="profile-header">
             <div class="profile-header-container">
-                <h1 class="profile-header-title">Visi & Misi</h1>
-                <p class="profile-header-subtitle">{{ $site_settings->site_tagline ?? 'Mewujudkan Transformasi Pelayanan Kesehatan Masyarakat yang Profesional, Merata, dan Terintegrasi.' }}</p>
+                <h1 class="profile-header-title">{{ $headerSetting->title }}</h1>
+                <p class="profile-header-subtitle">{{ $headerSetting->subtitle }}</p>
             </div>
         </header>
 

@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
+use App\Models\SettingFooter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
-class SettingController extends Controller
+class SettingFooterController extends Controller
 {
     /**
      * Show the form for editing the site settings.
      */
     public function edit(Request $request): View
     {
-        $setting = Setting::firstOrCreate(['id' => 1], [
+        $setting = SettingFooter::firstOrCreate(['id' => 1], [
             'site_name' => 'Dinas Kesehatan Kabupaten Cianjur',
             'site_tagline' => 'Mewujudkan masyarakat Cianjur yang sehat, mandiri, dan berkeadilan.',
             'site_logo' => null,
@@ -38,7 +38,7 @@ class SettingController extends Controller
             $section = 'identitas';
         }
 
-        return view('admin.setting.' . $section, compact('setting'));
+        return view('admin.settingfooter.' . $section, compact('setting'));
     }
 
     /**
@@ -78,7 +78,7 @@ class SettingController extends Controller
 
         $request->validate($rules);
 
-        $setting = Setting::firstOrCreate(['id' => 1]);
+        $setting = SettingFooter::firstOrCreate(['id' => 1]);
 
         $data = $request->only(array_keys($rules));
 
@@ -106,7 +106,7 @@ class SettingController extends Controller
 
         $setting->update($data);
 
-        return redirect()->route('admin.setting.edit', ['section' => $section])
+        return redirect()->route('admin.settingfooter.edit', ['section' => $section])
             ->with('success', 'Pengaturan situs berhasil diperbarui!');
     }
 }

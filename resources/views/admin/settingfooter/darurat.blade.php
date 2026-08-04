@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
-@section('title', 'Informasi Kontak')
-@section('header_title', 'Informasi Kontak')
+@section('title', 'Layanan Darurat')
+@section('header_title', 'Layanan Darurat')
 
 @section('styles')
 <style>
@@ -39,35 +39,30 @@
         @endif
 
         <div class="custom-form-card">
-            <form action="{{ route('admin.setting.update') }}" method="POST" id="setting-form">
+            <form action="{{ route('admin.settingfooter.update') }}" method="POST" id="setting-form">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="section" value="kontak">
+                <input type="hidden" name="section" value="darurat">
 
                 <div class="form-section-title">
-                    <span class="material-icons text-success">contact_phone</span>
-                    <span>Informasi Kontak Instansi</span>
+                    <span class="material-icons text-danger">emergency</span>
+                    <span>Layanan Gawat Darurat (PSC 119)</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email Hubung <span class="text-danger">*</span></label>
-                    <input type="email" name="email" id="email" value="{{ old('email', $setting->email) }}" class="form-control @error('email') is-invalid @enderror" required>
-                    @error('email') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                    <label for="emergency_call">Nomor Emergency Call <span class="text-danger">*</span></label>
+                    <input type="text" name="emergency_call" id="emergency_call" value="{{ old('emergency_call', $setting->emergency_call) }}" class="form-control @error('emergency_call') is-invalid @enderror" required>
+                    @error('emergency_call') <span class="invalid-feedback">{{ $message }}</span> @enderror
                 </div>
                 <div class="form-group">
-                    <label for="phone">Nomor Telepon <span class="text-danger">*</span></label>
-                    <input type="text" name="phone" id="phone" value="{{ old('phone', $setting->phone) }}" class="form-control @error('phone') is-invalid @enderror" required>
-                    @error('phone') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                </div>
-                <div class="form-group">
-                    <label for="address">Alamat Lengkap Kantor <span class="text-danger">*</span></label>
-                    <input type="text" name="address" id="address" value="{{ old('address', $setting->address) }}" class="form-control @error('address') is-invalid @enderror" required>
-                    @error('address') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                    <label for="emergency_title">Judul / Nama Layanan Darurat <span class="text-danger">*</span></label>
+                    <input type="text" name="emergency_title" id="emergency_title" value="{{ old('emergency_title', $setting->emergency_title) }}" class="form-control @error('emergency_title') is-invalid @enderror" required>
+                    @error('emergency_title') <span class="invalid-feedback">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
                     <button type="submit" class="btn btn-success px-4" id="btn-save-setting">
-                        <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Kontak
+                        <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Layanan Darurat
                     </button>
                 </div>
             </form>

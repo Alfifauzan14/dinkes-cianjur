@@ -7,6 +7,7 @@
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         {{-- Search & Filter --}}
         <form action="{{ route('admin.agenda.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+            <input type="hidden" name="time_filter" value="{{ request('time_filter', 'all') }}">
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari agenda atau lokasi..." style="width: 220px;">
             <select name="status" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 140px;">
                 <option value="">Semua Status</option>
@@ -14,7 +15,7 @@
                 <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draf</option>
             </select>
             @if(request('search') || request('status'))
-                <a href="{{ route('admin.agenda.index') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
+                <a href="{{ route('admin.agenda.index', ['time_filter' => request('time_filter', 'all')]) }}" class="btn btn-sm btn-outline-secondary">Reset</a>
             @endif
         </form>
 
@@ -27,6 +28,32 @@
                 <span class="material-icons" style="font-size:16px;">add</span> Tambah Agenda
             </button>
         </div>
+    </div>
+
+    {{-- Tabs --}}
+    <div class="px-4 pt-3 pb-0 bg-white" style="border-bottom: 1px solid #E2E8F0;">
+        <ul class="nav nav-tabs border-0" id="agenda-time-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link {{ request('time_filter', 'all') === 'all' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('time_filter', 'all') === 'all' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'all'])) }}">
+                    Semua Agenda
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('time_filter') === 'upcoming' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('time_filter') === 'upcoming' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'upcoming'])) }}">
+                    Akan Datang
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('time_filter') === 'today' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('time_filter') === 'today' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'today'])) }}">
+                    Hari Ini
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('time_filter') === 'past' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('time_filter') === 'past' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'past'])) }}">
+                    Lampau / Selesai
+                </a>
+            </li>
+        </ul>
     </div>
 
     <div class="card-body p-0">

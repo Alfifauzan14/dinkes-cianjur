@@ -37,8 +37,9 @@
                     <label for="type">Jenis Faskes</label>
                     <select name="type" id="type" class="form-control-select" required>
                         <option value="" disabled selected>Pilih Jenis</option>
-                        <option value="Rumah Sakit" {{ old('type') == 'Rumah Sakit' ? 'selected' : '' }}>Rumah Sakit</option>
-                        <option value="Puskesmas" {{ old('type') == 'Puskesmas' ? 'selected' : '' }}>Puskesmas</option>
+                        @foreach($types as $t)
+                            <option value="{{ $t->name }}" {{ old('type') == $t->name ? 'selected' : '' }}>{{ $t->name }}</option>
+                        @endforeach
                     </select>
                     @error('type')
                         <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
@@ -49,7 +50,7 @@
                     <select name="kecamatan" id="kecamatan" class="form-control-select" required>
                         <option value="" disabled selected>Pilih Kecamatan</option>
                         @foreach($kecamatans as $kec)
-                            <option value="{{ $kec }}" {{ old('kecamatan') == $kec ? 'selected' : '' }}>{{ $kec }}</option>
+                            <option value="{{ $kec->name }}" {{ old('kecamatan') == $kec->name ? 'selected' : '' }}>{{ $kec->name }}</option>
                         @endforeach
                     </select>
                     @error('kecamatan')

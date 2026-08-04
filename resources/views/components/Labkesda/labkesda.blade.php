@@ -1,11 +1,14 @@
 <link rel="stylesheet" href="{{ asset('css/Labkesda/labkesda.css') }}?v={{ time() }}">
 
 <div class="labkesda-page-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('labkesda', 'Labkesda Cianjur', 'Unit Pelaksana Teknis Daerah (UPTD) pelayanan pengujian sampel klinis dan lingkungan secara profesional.');
+    @endphp
     <!-- Header Section -->
     <header class="labkesda-header">
         <div class="labkesda-header-container">
-            <h1 class="labkesda-header-title">Laboratorium Kesehatan Daerah</h1>
-            <p class="labkesda-header-subtitle">Fasilitas Lab Uji Terpadu Daerah untuk pengujian kesehatan masyarakat Kabupaten Cianjur.</p>
+            <h1 class="labkesda-header-title">{{ $headerSetting->title }}</h1>
+            <p class="labkesda-header-subtitle">{{ $headerSetting->subtitle }}</p>
         </div>
     </header>
 

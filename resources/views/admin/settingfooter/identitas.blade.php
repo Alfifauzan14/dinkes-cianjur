@@ -47,7 +47,7 @@
         @endif
 
         <div class="custom-form-card">
-            <form action="{{ route('admin.setting.update') }}" method="POST" enctype="multipart/form-data" id="setting-form">
+            <form action="{{ route('admin.settingfooter.update') }}" method="POST" enctype="multipart/form-data" id="setting-form">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="section" value="identitas">

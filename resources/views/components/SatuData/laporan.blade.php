@@ -1,12 +1,15 @@
 <link rel="stylesheet" href="{{ asset('css/SatuData/laporan.css') }}?v={{ time() }}">
 
 <div class="laporan-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('laporan', 'Laporan Dinkes', 'Transparansi laporan akuntabilitas kinerja, keuangan, dan informasi publik.');
+    @endphp
     <!-- Banner Header Top Section -->
-    <header class="satudata-banner" style="background: linear-gradient(135deg, #004F3B 0%, #003326 100%); padding: 48px 24px; text-align: center; color: #FFFFFF;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <h1 style="font-size: 32px; font-weight: 800; margin: 0 0 8px 0; color: #FFFFFF;">Satu Data Kesehatan Kabupaten Cianjur</h1>
-            <p style="font-size: 15px; color: rgba(255, 255, 255, 0.85); margin: 0; max-width: 680px; margin: 0 auto;">
-                Pusat data terpadu indikator kinerja kesehatan, angka kecukupan faskes/nakes, publikasi profil tahunan, dan produk hukum daerah.
+    <header class="satudata-banner" style="background: linear-gradient(135deg, #004F3B 0%, #003326 100%); padding: 60px 24px; text-align: left; color: #FFFFFF;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 16px;">
+            <h1 style="font-size: 32px; font-weight: 800; margin: 0 0 8px 0; color: #FFFFFF;">{{ $headerSetting->title }}</h1>
+            <p style="font-size: 15px; color: rgba(255, 255, 255, 0.85); margin: 0; max-width: 800px;">
+                {{ $headerSetting->subtitle }}
             </p>
         </div>
     </header>

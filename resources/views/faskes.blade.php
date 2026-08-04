@@ -15,11 +15,14 @@
     @include('layouts.navbar')
 
     <div class="faskes-page-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('faskes', 'Fasilitas Kesehatan', 'Peta sebaran dan daftar lengkap Rumah Sakit, Puskesmas, serta Klinik rujukan di wilayah Cianjur.');
+    @endphp
     <!-- Header Section -->
     <header class="faskes-header">
         <div class="faskes-header-container">
-            <h1 class="faskes-header-title">Fasilitas Kesehatan Kabupaten Cianjur</h1>
-            <p class="faskes-header-subtitle">Peta interaktif Rumah Sakit dan Puskesmas di seluruh wilayah Kabupaten Cianjur</p>
+            <h1 class="faskes-header-title">{{ $headerSetting->title }}</h1>
+            <p class="faskes-header-subtitle">{{ $headerSetting->subtitle }}</p>
         </div>
     </header>
 
@@ -44,15 +47,16 @@
                         <select name="kecamatan" class="faskes-select" onchange="this.form.submit()">
                             <option value="Semua" {{ request('kecamatan', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Wilayah...</option>
                             @foreach($kecamatans as $kec)
-                                <option value="{{ $kec }}" {{ request('kecamatan') == $kec ? 'selected' : '' }}>{{ $kec }}</option>
+                                <option value="{{ $kec->name }}" {{ request('kecamatan') == $kec->name ? 'selected' : '' }}>{{ $kec->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="faskes-filter-wrap">
                         <select name="type" class="faskes-select" onchange="this.form.submit()">
                             <option value="Semua" {{ request('type', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Layanan...</option>
-                            <option value="Rumah Sakit" {{ request('type') == 'Rumah Sakit' ? 'selected' : '' }}>Rumah Sakit</option>
-                            <option value="Puskesmas" {{ request('type') == 'Puskesmas' ? 'selected' : '' }}>Puskesmas</option>
+                            @foreach($types as $t)
+                                <option value="{{ $t->name }}" {{ request('type') == $t->name ? 'selected' : '' }}>{{ $t->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -116,7 +120,11 @@
                                 @endif
                             </div>
                             <div class="faskes-card-actions">
-                                <button class="faskes-btn faskes-btn-peta" onclick="showOnMap({{ $item->lat }}, {{ $item->lng }}, '{{ $item->name }}')">
+                                <button class="faskes-btn faskes-btn-peta"
+                                    data-lat="{{ $item->lat }}"
+                                    data-lng="{{ $item->lng }}"
+                                    data-name="{{ $item->name }}"
+                                    onclick="showOnMap(this.dataset.lat, this.dataset.lng, this.dataset.name)">
                                     <span class="faskes-btn-icon">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                                     </span>
@@ -147,7 +155,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    const faskesData = @json($faskes);
+    const faskesData = JSON.parse('{!! addslashes(json_encode($faskes)) !!}');
 
     // Initialize map centered on Cianjur
     const map = L.map('faskesMap').setView([-6.81, 107.13], 11);

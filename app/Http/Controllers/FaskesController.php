@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faskes;
+use App\Models\JenisFaskes;
+use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -28,8 +30,9 @@ class FaskesController extends Controller
         }
 
         $faskes = $query->orderBy('type')->orderBy('name')->get();
-        $kecamatans = Faskes::select('kecamatan')->distinct()->orderBy('kecamatan')->pluck('kecamatan');
+        $kecamatans = Kecamatan::orderBy('name')->get();
+        $types = JenisFaskes::orderBy('name')->get();
 
-        return view('faskes', compact('faskes', 'kecamatans'));
+        return view('faskes', compact('faskes', 'kecamatans', 'types'));
     }
 }

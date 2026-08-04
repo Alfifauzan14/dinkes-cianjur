@@ -1,11 +1,14 @@
 <link rel="stylesheet" href="{{ asset('css/LayananTerpadu/layanan-terpadu.css') }}?v={{ time() }}">
 
 <div class="lt-page-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('layanan-terpadu', 'Layanan Terpadu', 'Portal perizinan praktis dan pelayanan informasi terintegrasi bagi masyarakat, faskes, dan tenaga kesehatan.');
+    @endphp
     <!-- Header Section -->
     <header class="lt-header">
         <div class="lt-header-container">
-            <h1 class="lt-header-title">Layanan Terpadu Kesehatan Kabupaten Cianjur</h1>
-            <p class="lt-header-subtitle">Pusat pelayanan perizinan, rekomendasi medis, dan sertifikasi kesehatan secara cepat, transparan, dan terintegrasi.</p>
+            <h1 class="lt-header-title">{{ $headerSetting->title }}</h1>
+            <p class="lt-header-subtitle">{{ $headerSetting->subtitle }}</p>
         </div>
     </header>
 
