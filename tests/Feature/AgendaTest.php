@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Agenda;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class AgendaTest extends TestCase
@@ -174,12 +175,12 @@ class AgendaTest extends TestCase
         ]);
 
         // 1. Check landing page date navigation
-        $response = $this->get('/?agenda_date=' . now()->addDay()->format('Y-m-d'));
+        $response = $this->get('/?agenda_date='.now()->addDay()->format('Y-m-d'));
         $response->assertSee('Agenda Publik Masa Depan');
         $response->assertDontSee('Agenda Draf Rahasia');
 
         // 2. Check public calendar page
-        $response2 = $this->get('/agenda?month=' . now()->month . '&year=' . now()->year);
+        $response2 = $this->get('/agenda?month='.now()->month.'&year='.now()->year);
         $response2->assertSee('Agenda Publik Masa Depan');
         $response2->assertDontSee('Agenda Draf Rahasia');
     }
@@ -209,11 +210,11 @@ class AgendaTest extends TestCase
             'email' => 'admin@dinkes.go.id',
         ]);
 
-        $csvContent = "title,date,time_start,time_end,location,description,status\n" .
-                      "Agenda Impor 1,2026-08-05,09:00,11:00,Aula Utama,Deskripsi impor 1,published\n" .
+        $csvContent = "title,date,time_start,time_end,location,description,status\n".
+                      "Agenda Impor 1,2026-08-05,09:00,11:00,Aula Utama,Deskripsi impor 1,published\n".
                       "Agenda Impor 2,2026-08-06,10:00,12:00,Aula Kecil,Deskripsi impor 2,draft\n";
 
-        $file = \Illuminate\Http\UploadedFile::fake()->createWithContent('agendas.csv', $csvContent);
+        $file = UploadedFile::fake()->createWithContent('agendas.csv', $csvContent);
 
         $response = $this->actingAs($admin)
             ->post(route('admin.agenda.import'), [

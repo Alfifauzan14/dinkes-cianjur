@@ -12,6 +12,7 @@ class RegulasiController extends Controller
     public function index()
     {
         $regulasis = Regulasi::orderBy('year', 'desc')->orderBy('created_at', 'desc')->get();
+
         return view('admin.regulasi.index', compact('regulasis'));
     }
 
@@ -23,14 +24,14 @@ class RegulasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'        => 'required|string|max:255',
-            'category'     => 'required|string|max:100', // e.g. PERATURAN BUPATI
-            'topic'        => 'required|string|max:100', // e.g. PERBUP STUNTING
-            'description'  => 'required|string',
-            'year'         => 'required|integer|min:2000|max:2100',
-            'file_cover'   => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'file_document'=> 'required|file|mimes:pdf|max:10240',
-            'status'       => 'required|string|in:Berlaku,Tidak Berlaku',
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|max:100', // e.g. PERATURAN BUPATI
+            'topic' => 'required|string|max:100', // e.g. PERBUP STUNTING
+            'description' => 'required|string',
+            'year' => 'required|integer|min:2000|max:2100',
+            'file_cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'file_document' => 'required|file|mimes:pdf|max:10240',
+            'status' => 'required|string|in:Berlaku,Tidak Berlaku',
         ]);
 
         $docFile = $request->file('file_document');
@@ -39,11 +40,11 @@ class RegulasiController extends Controller
         // Calculate size
         $bytes = $docFile->getSize();
         if ($bytes >= 1048576) {
-            $size = number_format($bytes / 1048576, 1) . ' MB';
+            $size = number_format($bytes / 1048576, 1).' MB';
         } elseif ($bytes >= 1024) {
-            $size = number_format($bytes / 1024, 0) . ' KB';
+            $size = number_format($bytes / 1024, 0).' KB';
         } else {
-            $size = $bytes . ' B';
+            $size = $bytes.' B';
         }
 
         $coverPath = null;
@@ -52,15 +53,15 @@ class RegulasiController extends Controller
         }
 
         Regulasi::create([
-            'title'       => $request->title,
-            'category'    => $request->category,
-            'topic'       => $request->topic,
+            'title' => $request->title,
+            'category' => $request->category,
+            'topic' => $request->topic,
             'description' => $request->description,
-            'year'        => $request->year,
-            'cover_path'  => $coverPath,
-            'file_path'   => $docPath,
-            'file_size'   => $size,
-            'status'      => $request->status,
+            'year' => $request->year,
+            'cover_path' => $coverPath,
+            'file_path' => $docPath,
+            'file_size' => $size,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('admin.regulasi.index')->with('success', 'Regulasi berhasil ditambahkan!');
@@ -74,23 +75,23 @@ class RegulasiController extends Controller
     public function update(Request $request, Regulasi $regulasi)
     {
         $request->validate([
-            'title'        => 'required|string|max:255',
-            'category'     => 'required|string|max:100',
-            'topic'        => 'required|string|max:100',
-            'description'  => 'required|string',
-            'year'         => 'required|integer|min:2000|max:2100',
-            'file_cover'   => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'file_document'=> 'nullable|file|mimes:pdf|max:10240',
-            'status'       => 'required|string|in:Berlaku,Tidak Berlaku',
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|max:100',
+            'topic' => 'required|string|max:100',
+            'description' => 'required|string',
+            'year' => 'required|integer|min:2000|max:2100',
+            'file_cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'file_document' => 'nullable|file|mimes:pdf|max:10240',
+            'status' => 'required|string|in:Berlaku,Tidak Berlaku',
         ]);
 
         $data = [
-            'title'       => $request->title,
-            'category'    => $request->category,
-            'topic'       => $request->topic,
+            'title' => $request->title,
+            'category' => $request->category,
+            'topic' => $request->topic,
             'description' => $request->description,
-            'year'        => $request->year,
-            'status'      => $request->status,
+            'year' => $request->year,
+            'status' => $request->status,
         ];
 
         if ($request->hasFile('file_cover')) {
@@ -108,11 +109,11 @@ class RegulasiController extends Controller
             $docPath = $docFile->store('regulasi/documents', 'public');
             $bytes = $docFile->getSize();
             if ($bytes >= 1048576) {
-                $size = number_format($bytes / 1048576, 1) . ' MB';
+                $size = number_format($bytes / 1048576, 1).' MB';
             } elseif ($bytes >= 1024) {
-                $size = number_format($bytes / 1024, 0) . ' KB';
+                $size = number_format($bytes / 1024, 0).' KB';
             } else {
-                $size = $bytes . ' B';
+                $size = $bytes.' B';
             }
 
             $data['file_path'] = $docPath;

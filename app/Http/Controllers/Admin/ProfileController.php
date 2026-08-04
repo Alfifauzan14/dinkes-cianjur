@@ -16,7 +16,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $profile = Profile::firstOrCreate([
-            'id' => 1
+            'id' => 1,
         ], [
             'kepala_dinas_name' => 'Dr. I Made Setiawan',
             'kepala_dinas_role' => 'Kepala Dinas Kesehatan Kabupaten Cianjur',
@@ -36,29 +36,29 @@ class ProfileController extends Controller
             'misi' => [
                 [
                     'title' => '1. Pemerataan Pelayanan',
-                    'desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.'
+                    'desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.',
                 ],
                 [
                     'title' => '2. Tata Kelola Adil',
-                    'desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.'
+                    'desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.',
                 ],
                 [
                     'title' => '3. SDM Profesional',
-                    'desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.'
+                    'desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.',
                 ],
                 [
                     'title' => '4. Kemandirian Masyarakat',
-                    'desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.'
+                    'desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.',
                 ],
                 [
                     'title' => '5. Mutu Pelayanan',
-                    'desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.'
+                    'desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.',
                 ],
                 [
                     'title' => '6. Ketahanan Kesehatan',
-                    'desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.'
+                    'desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.',
                 ],
-            ]
+            ],
         ]);
 
         if (empty($profile->misi)) {
@@ -66,29 +66,29 @@ class ProfileController extends Controller
                 'misi' => [
                     [
                         'title' => '1. Pemerataan Pelayanan',
-                        'desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.'
+                        'desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.',
                     ],
                     [
                         'title' => '2. Tata Kelola Adil',
-                        'desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.'
+                        'desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.',
                     ],
                     [
                         'title' => '3. SDM Profesional',
-                        'desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.'
+                        'desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.',
                     ],
                     [
                         'title' => '4. Kemandirian Masyarakat',
-                        'desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.'
+                        'desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.',
                     ],
                     [
                         'title' => '5. Mutu Pelayanan',
-                        'desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.'
+                        'desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.',
                     ],
                     [
                         'title' => '6. Ketahanan Kesehatan',
-                        'desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.'
+                        'desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.',
                     ],
-                ]
+                ],
             ]);
             $profile->refresh();
         }
@@ -132,16 +132,16 @@ class ProfileController extends Controller
         // Handle Kepala Dinas Image
         if ($request->hasFile('kepala_dinas_image')) {
             $image = $request->file('kepala_dinas_image');
-            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
 
             $destinationPath = public_path('uploads/profile');
-            if (!File::isDirectory($destinationPath)) {
+            if (! File::isDirectory($destinationPath)) {
                 File::makeDirectory($destinationPath, 0755, true, true);
             }
 
             // Hapus gambar lama jika ada dan bukan bawaan seeder
             if ($profile->kepala_dinas_image && $profile->kepala_dinas_image !== 'Group 83.png') {
-                $oldImagePath = public_path('uploads/profile/' . $profile->kepala_dinas_image);
+                $oldImagePath = public_path('uploads/profile/'.$profile->kepala_dinas_image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -154,15 +154,15 @@ class ProfileController extends Controller
         // Handle Sejarah Image
         if ($request->hasFile('sejarah_image')) {
             $image = $request->file('sejarah_image');
-            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
 
             $destinationPath = public_path('uploads/profile');
-            if (!File::isDirectory($destinationPath)) {
+            if (! File::isDirectory($destinationPath)) {
                 File::makeDirectory($destinationPath, 0755, true, true);
             }
 
             if ($profile->sejarah_image) {
-                $oldImagePath = public_path('uploads/profile/' . $profile->sejarah_image);
+                $oldImagePath = public_path('uploads/profile/'.$profile->sejarah_image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }

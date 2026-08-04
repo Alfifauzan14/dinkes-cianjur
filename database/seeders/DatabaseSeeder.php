@@ -4,9 +4,18 @@ namespace Database\Seeders;
 
 use App\Models\Agenda;
 use App\Models\Berita;
+use App\Models\Galeri;
+use App\Models\Laporan;
+use App\Models\LayananTerpadu;
+use App\Models\Profile;
+use App\Models\ProgramKesehatan;
+use App\Models\Regulasi;
+use App\Models\StatistikSetting;
+use App\Models\StuntingRecord;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
@@ -178,14 +187,14 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($galeriData as $data) {
-            \App\Models\Galeri::updateOrCreate(
+            Galeri::updateOrCreate(
                 ['title' => $data['title']],
                 $data
             );
         }
 
         // Seeding data Profil & Sambutan Pimpinan (Single Row)
-        \App\Models\Profile::updateOrCreate(
+        Profile::updateOrCreate(
             ['id' => 1],
             [
                 'kepala_dinas_name' => 'Dr. I Made Setiawan',
@@ -203,132 +212,132 @@ class DatabaseSeeder extends Seeder
                 'visi_desc' => 'Dinas Kesehatan Kabupaten Cianjur berkomitmen penuh mendorong transformasi pelayanan kesehatan agar seluruh warga memiliki akses yang setara, cepat, dan terjangkau terhadap layanan medis berkualitas.',
                 'stat_1_text' => '47 Puskesmas Rujukan',
                 'stat_2_text' => '32 Kecamatan Terjangkau',
-                
+
                 'misi' => [
                     [
                         'title' => '1. Pemerataan Pelayanan',
-                        'desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.'
+                        'desc' => 'Menjamin ketersediaan layanan kesehatan yang merata, cepat, dan terjangkau bagi seluruh masyarakat.',
                     ],
                     [
                         'title' => '2. Tata Kelola Adil',
-                        'desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.'
+                        'desc' => 'Membangun manajemen pelayanan kesehatan yang efisien, transparan, dan berbasis teknologi informasi.',
                     ],
                     [
                         'title' => '3. SDM Profesional',
-                        'desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.'
+                        'desc' => 'Meningkatkan kompetensi, kuantitas, dan penyebaran tenaga kesehatan yang berkualitas.',
                     ],
                     [
                         'title' => '4. Kemandirian Masyarakat',
-                        'desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.'
+                        'desc' => 'Mendorong promosi kesehatan agar masyarakat mampu hidup bersih dan sehat secara mandiri.',
                     ],
                     [
                         'title' => '5. Mutu Pelayanan',
-                        'desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.'
+                        'desc' => 'Meningkatkan mutu pelayanan yang berorientasi pada kepuasan pasien di seluruh fasilitas.',
                     ],
                     [
                         'title' => '6. Ketahanan Kesehatan',
-                        'desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.'
+                        'desc' => 'Memperkuat sistem kesiapsiagaan dalam penanggulangan penyakit menular secara berkelanjutan.',
                     ],
-                ]
+                ],
             ]
         );
 
         // Seeding data Stunting Records with details
         $stuntingData = [
             [
-                'year' => 2018, 
-                'rate' => 4.2, 
-                'total_balita' => 124500, 
-                'balita_stunting' => 5229, 
-                'wilayah_terendah' => 'Kec. Pacet (1.2%)', 
-                'wilayah_tertinggi' => 'Kec. Cidaun (7.8%)', 
+                'year' => 2018,
+                'rate' => 4.2,
+                'total_balita' => 124500,
+                'balita_stunting' => 5229,
+                'wilayah_terendah' => 'Kec. Pacet (1.2%)',
+                'wilayah_tertinggi' => 'Kec. Cidaun (7.8%)',
                 'catatan' => 'Fokus awal pada pembangunan sarana air bersih di kecamatan dengan sanitasi buruk.',
-                'is_highlighted' => false
+                'is_highlighted' => false,
             ],
             [
-                'year' => 2019, 
-                'rate' => 16.2, 
-                'total_balita' => 128400, 
-                'balita_stunting' => 20800, 
-                'wilayah_terendah' => 'Kec. Cipanas (5.4%)', 
-                'wilayah_tertinggi' => 'Kec. Sindangbarang (24.1%)', 
+                'year' => 2019,
+                'rate' => 16.2,
+                'total_balita' => 128400,
+                'balita_stunting' => 20800,
+                'wilayah_terendah' => 'Kec. Cipanas (5.4%)',
+                'wilayah_tertinggi' => 'Kec. Sindangbarang (24.1%)',
                 'catatan' => 'Peningkatan angka tercatat karena perbaikan metodologi pendataan digital di posyandu.',
-                'is_highlighted' => false
+                'is_highlighted' => false,
             ],
             [
-                'year' => 2020, 
-                'rate' => 4.8, 
-                'total_balita' => 131200, 
-                'balita_stunting' => 6297, 
-                'wilayah_terendah' => 'Kec. Cianjur Kota (1.8%)', 
-                'wilayah_tertinggi' => 'Kec. Pagelaran (9.2%)', 
+                'year' => 2020,
+                'rate' => 4.8,
+                'total_balita' => 131200,
+                'balita_stunting' => 6297,
+                'wilayah_terendah' => 'Kec. Cianjur Kota (1.8%)',
+                'wilayah_tertinggi' => 'Kec. Pagelaran (9.2%)',
                 'catatan' => 'Dampak program bantuan sosial pangan selama pandemi COVID-19 membantu gizi keluarga.',
-                'is_highlighted' => false
+                'is_highlighted' => false,
             ],
             [
-                'year' => 2021, 
-                'rate' => 18.2, 
-                'total_balita' => 135000, 
-                'balita_stunting' => 24570, 
-                'wilayah_terendah' => 'Kec. Karangtengah (8.2%)', 
-                'wilayah_tertinggi' => 'Kec. Naringgul (29.5%)', 
+                'year' => 2021,
+                'rate' => 18.2,
+                'total_balita' => 135000,
+                'balita_stunting' => 24570,
+                'wilayah_terendah' => 'Kec. Karangtengah (8.2%)',
+                'wilayah_tertinggi' => 'Kec. Naringgul (29.5%)',
                 'catatan' => 'Hasil survei SSGI nasional menunjukkan angka prevalensi yang lebih tinggi dibanding e-PPGBM.',
-                'is_highlighted' => false
+                'is_highlighted' => false,
             ],
             [
-                'year' => 2022, 
-                'rate' => 9.8, 
-                'total_balita' => 138600, 
-                'balita_stunting' => 13582, 
-                'wilayah_terendah' => 'Kec. Bojongpicung (4.1%)', 
-                'wilayah_tertinggi' => 'Kec. Kadupandak (18.6%)', 
+                'year' => 2022,
+                'rate' => 9.8,
+                'total_balita' => 138600,
+                'balita_stunting' => 13582,
+                'wilayah_terendah' => 'Kec. Bojongpicung (4.1%)',
+                'wilayah_tertinggi' => 'Kec. Kadupandak (18.6%)',
                 'catatan' => 'Peluncuran program Orang Tua Asuh Anak Stunting terbukti menurunkan angka kasus secara signifikan.',
-                'is_highlighted' => false
+                'is_highlighted' => false,
             ],
             [
-                'year' => 2023, 
-                'rate' => 14.7, 
-                'total_balita' => 141000, 
-                'balita_stunting' => 20727, 
-                'wilayah_terendah' => 'Kec. Mande (6.2%)', 
-                'wilayah_tertinggi' => 'Kec. Sukaresmi (21.3%)', 
+                'year' => 2023,
+                'rate' => 14.7,
+                'total_balita' => 141000,
+                'balita_stunting' => 20727,
+                'wilayah_terendah' => 'Kec. Mande (6.2%)',
+                'wilayah_tertinggi' => 'Kec. Sukaresmi (21.3%)',
                 'catatan' => 'Intervensi gizi spesifik difokuskan pada 10 desa lokus stunting prioritas pertama.',
-                'is_highlighted' => false
+                'is_highlighted' => false,
             ],
             [
-                'year' => 2024, 
-                'rate' => 18.2, 
-                'total_balita' => 143200, 
-                'balita_stunting' => 26062, 
-                'wilayah_terendah' => 'Kec. Cibeber (9.1%)', 
-                'wilayah_tertinggi' => 'Kec. Agrabinta (28.4%)', 
+                'year' => 2024,
+                'rate' => 18.2,
+                'total_balita' => 143200,
+                'balita_stunting' => 26062,
+                'wilayah_terendah' => 'Kec. Cibeber (9.1%)',
+                'wilayah_tertinggi' => 'Kec. Agrabinta (28.4%)',
                 'catatan' => 'Survei ulang dilakukan pasca gempa bumi untuk mendeteksi kerentanan pangan balita di pengungsian.',
-                'is_highlighted' => false
+                'is_highlighted' => false,
             ],
             [
-                'year' => 2025, 
-                'rate' => 14.7, 
-                'total_balita' => 145000, 
-                'balita_stunting' => 21315, 
-                'wilayah_terendah' => 'Kec. Ciranjang (5.8%)', 
-                'wilayah_tertinggi' => 'Kec. Leles (22.5%)', 
+                'year' => 2025,
+                'rate' => 14.7,
+                'total_balita' => 145000,
+                'balita_stunting' => 21315,
+                'wilayah_terendah' => 'Kec. Ciranjang (5.8%)',
+                'wilayah_tertinggi' => 'Kec. Leles (22.5%)',
                 'catatan' => 'Implementasi program beras fortifikasi (Nutri Rice) untuk ibu hamil di seluruh wilayah rawan.',
-                'is_highlighted' => false
+                'is_highlighted' => false,
             ],
             [
-                'year' => 2026, 
-                'rate' => 9.8, 
-                'total_balita' => 147500, 
-                'balita_stunting' => 14455, 
-                'wilayah_terendah' => 'Kec. Haurwangi (3.2%)', 
-                'wilayah_tertinggi' => 'Kec. Campakamulya (15.7%)', 
+                'year' => 2026,
+                'rate' => 9.8,
+                'total_balita' => 147500,
+                'balita_stunting' => 14455,
+                'wilayah_terendah' => 'Kec. Haurwangi (3.2%)',
+                'wilayah_tertinggi' => 'Kec. Campakamulya (15.7%)',
                 'catatan' => 'Penurunan signifikan ditopang oleh integrasi satu data kesehatan e-PPGBM dan kolaborasi lintas OPD.',
-                'is_highlighted' => true
+                'is_highlighted' => true,
             ],
         ];
 
         foreach ($stuntingData as $record) {
-            \App\Models\StuntingRecord::updateOrCreate(
+            StuntingRecord::updateOrCreate(
                 ['year' => $record['year']],
                 [
                     'rate' => $record['rate'],
@@ -337,13 +346,13 @@ class DatabaseSeeder extends Seeder
                     'wilayah_terendah' => $record['wilayah_terendah'],
                     'wilayah_tertinggi' => $record['wilayah_tertinggi'],
                     'catatan' => $record['catatan'],
-                    'is_highlighted' => $record['is_highlighted']
+                    'is_highlighted' => $record['is_highlighted'],
                 ]
             );
         }
 
         // Seeding data Statistik Settings (Single Row)
-        \App\Models\StatistikSetting::updateOrCreate(
+        StatistikSetting::updateOrCreate(
             ['id' => 1],
             [
                 'status_badge' => 'Data Riil Semester I 2026',
@@ -373,15 +382,15 @@ class DatabaseSeeder extends Seeder
                     ['name' => 'Zonasi Selatan', 'value' => '17 Puskesmas (36%)', 'width' => 36],
                     ['name' => 'Zonasi Utara', 'value' => '16 Puskesmas (34%)', 'width' => 34],
                     ['name' => 'Zonasi Tengah', 'value' => '14 Puskesmas (30%)', 'width' => 30],
-                ]
+                ],
             ]
         );
 
         // Create mock directories & documents in public disk
-        \Illuminate\Support\Facades\Storage::disk('public')->makeDirectory('laporan');
-        \Illuminate\Support\Facades\Storage::disk('public')->makeDirectory('regulasi/documents');
-        \Illuminate\Support\Facades\Storage::disk('public')->put('laporan/dummy_laporan.pdf', '%PDF-1.4 Mock Laporan PDF Content');
-        \Illuminate\Support\Facades\Storage::disk('public')->put('regulasi/documents/dummy_regulasi.pdf', '%PDF-1.4 Mock Regulasi PDF Content');
+        Storage::disk('public')->makeDirectory('laporan');
+        Storage::disk('public')->makeDirectory('regulasi/documents');
+        Storage::disk('public')->put('laporan/dummy_laporan.pdf', '%PDF-1.4 Mock Laporan PDF Content');
+        Storage::disk('public')->put('regulasi/documents/dummy_regulasi.pdf', '%PDF-1.4 Mock Regulasi PDF Content');
 
         // Seeding Laporan
         $laporans = [
@@ -423,7 +432,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($laporans as $lap) {
-            \App\Models\Laporan::updateOrCreate(
+            Laporan::updateOrCreate(
                 ['title' => $lap['title']],
                 $lap
             );
@@ -489,9 +498,124 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($regulasis as $reg) {
-            \App\Models\Regulasi::updateOrCreate(
+            Regulasi::updateOrCreate(
                 ['title' => $reg['title']],
                 $reg
+            );
+        }
+
+        // Seeding Layanan Terpadu
+        $layananTerpadus = [
+            // Warga
+            ['name' => 'Pendaftaran Peserta Penduduk PBPU dan BP Pemda Program JKN', 'type' => 'Warga', 'icon' => 'users', 'link' => null],
+            ['name' => 'Penyelenggaraan Jaminan Kesehatan Di Luar Skema JKN', 'type' => 'Warga', 'icon' => 'smile', 'link' => null],
+            ['name' => 'Pengelolaan Pengaduan Masyarakat', 'type' => 'Warga', 'icon' => 'chat', 'link' => null],
+            ['name' => 'Pengelolaan Informasi Publik', 'type' => 'Warga', 'icon' => 'chat', 'link' => null],
+
+            // Faskes
+            ['name' => 'Rekomendasi Penutupan Klinik', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Rekomendasi Izin Operasional Klinik', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Apotek', 'type' => 'Faskes', 'icon' => 'bag', 'link' => null],
+            ['name' => 'Rekomendasi Penutupan Apotek', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Rekomendasi Penutupan Toko Obat', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Toko Obat', 'type' => 'Faskes', 'icon' => 'bag', 'link' => null],
+            ['name' => 'Rekomendasi Penutupan Instalasi Farmasi Klinik', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Konsultasi Perizinan Berusaha Optikal', 'type' => 'Faskes', 'icon' => 'globe', 'link' => null],
+            ['name' => 'Konsultasi Perizinan Berusaha Toko Alat Kesehatan', 'type' => 'Faskes', 'icon' => 'globe', 'link' => null],
+            ['name' => 'Konsultasi Perizinan Berusaha Perusahaan Rumah Tangga Alkes PKRT Tertentu', 'type' => 'Faskes', 'icon' => 'globe', 'link' => null],
+            ['name' => 'Konsultasi Sertifikat Pemenuhan Komitmen Produksi Pangan Olahan Industri Rumah Tangga SPP-IRT', 'type' => 'Faskes', 'icon' => 'file', 'link' => null],
+            ['name' => 'Penerbitan Persetujuan Teknis Izin Aktivitas Rumah Sakit', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+            ['name' => 'Sertifikat Laik Sehat Akomodasi', 'type' => 'Faskes', 'icon' => 'file', 'link' => null],
+            ['name' => 'Notifikasi Pemenuhan Komitmen Ijin Penyelenggaraan Pengendalian Vektor Dan Binatang Pembawa Penyakit', 'type' => 'Faskes', 'icon' => 'chat', 'link' => null],
+            ['name' => 'Rekomendasi Sertifikat Laik Higiene Sanitasi Jasaboga/Catering/Rumah Makan/Restoran, Depot Air Minum', 'type' => 'Faskes', 'icon' => 'file', 'link' => null],
+            ['name' => 'Penerbitan Izin Penelitian/Magang/PKL', 'type' => 'Faskes', 'icon' => 'desktop', 'link' => null],
+
+            // Nakes
+            ['name' => 'Penerbitan Sertifikat Penyuluhan Keamanan Pangan PKP', 'type' => 'Nakes', 'icon' => 'file', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Tenaga Medis', 'type' => 'Nakes', 'icon' => 'users', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Tenaga Kesehatan', 'type' => 'Nakes', 'icon' => 'users', 'link' => null],
+            ['name' => 'Rekomendasi Perizinan Surat Terdaftar Penyehat Tradisional', 'type' => 'Nakes', 'icon' => 'file', 'link' => null],
+        ];
+
+        foreach ($layananTerpadus as $layanan) {
+            LayananTerpadu::updateOrCreate(
+                ['name' => $layanan['name']],
+                $layanan
+            );
+        }
+
+        // Seeding Program Kesehatan (Stunting & KIA)
+        $programs = [
+            [
+                'title' => 'Cianjur Bebas Stunting',
+                'slug' => 'cianjur-bebas-stunting',
+                'subtitle' => 'Program komprehensif untuk mencegah dan menurunkan angka stunting di Kabupaten Cianjur melalui intervensi gizi dan edukasi.',
+                'stat_1_num' => '12.5%',
+                'stat_1_label' => 'Prevalensi Stunting',
+                'stat_2_num' => '3,200',
+                'stat_2_label' => 'Balita Terpantau',
+                'stat_3_num' => '2,800',
+                'stat_3_label' => 'Keluarga Penerima Manfaat',
+                'content' => '<h3 class="st-content-title">Apa itu Stunting?</h3>
+<p class="st-content-text">Stunting adalah kondisi gagal tumbuh pada anak balita (bayi di bawah lima tahun) akibat kekurangan gizi kronis sehingga anak terlalu pendek untuk usianya. Kekurangan gizi terjadi sejak bayi dalam kandungan hingga awal kehidupan anak (1000 Hari Pertama Kehidupan).</p>
+<h3 class="st-content-title">Penyebab Stunting</h3>
+<ul class="st-content-list">
+    <li>Kurangnya asupan gizi pada ibu selama kehamilan.</li>
+    <li>Kebutuhan gizi anak tidak tercukupi.</li>
+    <li>Kurangnya pengetahuan ibu mengenai kesehatan dan gizi.</li>
+    <li>Terbatasnya layanan kesehatan termasuk layanan kehamilan dan nifas.</li>
+    <li>Kurangnya akses makanan bergizi dan air bersih.</li>
+</ul>
+<h3 class="st-content-title">Dampak Stunting</h3>
+<p class="st-content-text">Stunting tidak hanya menyebabkan tubuh anak pendek, tetapi juga menghambat perkembangan otak, menurunkan kemampuan belajar, dan meningkatkan risiko penyakit kronis di masa dewasa.</p>',
+                'intervensi' => [
+                    ['title' => 'Pemberian Makanan Tambahan (PMT) untuk Balita', 'description' => 'Menyediakan makanan bergizi tinggi untuk balita stunting dan gizi buruk guna memenuhi kebutuhan nutrisi harian mereka.'],
+                    ['title' => 'Edukasi Gizi dan Pola Asuh untuk Orang Tua', 'description' => 'Memberikan pendampingan dan edukasi kepada orang tua tentang pola asuh yang baik, gizi seimbang, dan stimulasi tumbuh kembang anak.'],
+                    ['title' => 'Pemantauan Tumbuh Kembang Balita', 'description' => 'Melakukan pengukuran rutin tinggi badan, berat badan, dan lingkar kepala balita untuk deteksi dini stunting di Posyandu.'],
+                    ['title' => 'Perbaikan Sanitasi dan Akses Air Bersih', 'description' => 'Meningkatkan akses keluarga terhadap air bersih dan sanitasi layak untuk mencegah penyakit infeksi yang mempengaruhi pertumbuhan anak.'],
+                    ['title' => 'Suplementasi Gizi untuk Ibu Hamil', 'description' => 'Pemberian tablet tambah darah dan suplemen gizi untuk ibu hamil guna mencegah anemia dan memastikan janin tumbuh optimal.'],
+                    ['title' => 'Pemberdayaan Kader Posyandu', 'description' => 'Melatih dan memberdayakan kader kesehatan untuk melakukan deteksi dini, pencatatan, dan pelaporan kasus stunting di tingkat desa.'],
+                ],
+                'status' => 'published',
+            ],
+            [
+                'title' => 'Kesehatan Ibu & Anak (KIA)',
+                'slug' => 'kesehatan-ibu-anak',
+                'subtitle' => 'Pelayanan kesehatan komprehensif untuk ibu dan anak yang meliputi periode pra-konsepsi, kehamilan, persalinan, nifas, dan bayi.',
+                'stat_1_num' => null,
+                'stat_1_label' => null,
+                'stat_2_num' => null,
+                'stat_2_label' => null,
+                'stat_3_num' => null,
+                'stat_3_label' => null,
+                'content' => '<h3 class="kia-content-title">Mengapa KIA Penting?</h3>
+<p class="kia-content-text">Kesehatan Ibu dan Anak (KIA) adalah fondasi utama dalam membangun generasi bangsa yang sehat dan berkualitas. Periode 1000 Hari Pertama Kehidupan (HPK) merupakan masa emas perkembangan anak yang krusial.</p>
+<p class="kia-content-text">Dengan pelayanan KIA yang optimal, kita dapat menurunkan Angka Kematian Ibu (AKI) dan Angka Kematian Bayi (AKB), serta mencegah stunting sejak dini.</p>
+<h3 class="kia-content-title">Layanan KIA yang Tersedia</h3>
+<ul class="kia-content-list">
+    <li><strong>Konsultasi dan pemeriksaan kehamilan rutin</strong> - Pemantauan kesehatan ibu dan janin secara berkala.</li>
+    <li><strong>Persalinan di fasilitas kesehatan</strong> - Layanan persalinan aman dan profesional di puskesmas atau rumah sakit.</li>
+    <li><strong>Pemeriksaan neonatal dan imunisasi</strong> - Screening bayi baru lahir dan vaksinasi lengkap.</li>
+    <li><strong>Pemantauan tumbuh kembang anak</strong> - Pengukuran rutin tinggi badan, berat badan, dan lingkar kepala.</li>
+    <li><strong>Pemberian vitamin A dan suplemen gizi</strong> - Suplementasi untuk mencegah defisiensi gizi.</li>
+</ul>
+<p class="kia-content-text">Semua layanan KIA tersedia secara gratis di Puskesmas dan Fasilitas Kesehatan Primer di seluruh Kabupaten Cianjur.</p>',
+                'intervensi' => [
+                    ['title' => 'Pelayanan Antenatal Care (ANC)', 'description' => 'Pemeriksaan kehamilan rutin untuk memantau kesehatan ibu dan janin, termasuk USG, laboratorium, dan konseling gizi.'],
+                    ['title' => 'Pelayanan Persalinan dan Penolongan Persalinan', 'description' => 'Pelayanan persalinan yang aman dan profesional di fasilitas kesehatan dengan tenaga medis berpengalaman.'],
+                    ['title' => 'Pelayanan Postnatal Care (PNC)', 'description' => 'Pemeriksaan dan pendampingan untuk ibu dan bayi setelah persalinan untuk memastikan pemulihan optimal.'],
+                    ['title' => 'Imunisasi Bayi dan Anak', 'description' => 'Vaksinasi lengkap sesuai jadwal untuk mencegah penyakit infeksi yang berbahaya pada bayi dan anak.'],
+                    ['title' => 'Pelayanan KB Pasca Persalinan', 'description' => 'Pelayanan kontrasepsi setelah persalinan untuk mengatur jarak kelahiran dan kesehatan reproduksi ibu.'],
+                    ['title' => 'Pemeriksaan Kesehatan Ibu Nifas', 'description' => 'Pemeriksaan ibu nifas di rumah atau puskesmas untuk mendeteksi dini komplikasi pasca persalinan.'],
+                ],
+                'status' => 'published',
+            ],
+        ];
+
+        foreach ($programs as $prog) {
+            ProgramKesehatan::updateOrCreate(
+                ['slug' => $prog['slug']],
+                $prog
             );
         }
     }

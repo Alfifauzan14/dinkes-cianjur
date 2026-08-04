@@ -36,9 +36,14 @@
                         <span class="stat-card-label">PUSKESMAS</span>
                         <span class="stat-card-badge badge-active">{{ $setting->stat_1_badge }}</span>
                     </div>
-                    <div class="stat-card-number">{{ $setting->stat_1_num }}</div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="stat-card-body-wrap" style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+                        <div class="stat-card-number" style="margin: 0;">{{ $setting->stat_1_num }}</div>
+                        <div class="stat-card-icon-wrapper" style="color: #009966; background-color: #E6F7F0; width: 44px; height: 44px; border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <span class="material-icons" style="font-size: 22px;">local_hospital</span>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent" style="margin-top: 8px;">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>{{ $setting->stat_1_caption }}</span>
@@ -49,10 +54,18 @@
                 <div class="stat-card">
                     <div class="stat-card-header">
                         <span class="stat-card-label">RUMAH SAKIT RUJUKAN</span>
-                        <span class="stat-card-badge badge-muted">{{ $setting->stat_2_badge }}</span>
+                        <span class="stat-card-badge badge-active">{{ $setting->stat_2_badge }}</span>
                     </div>
-                    <div class="stat-card-number">{{ $setting->stat_2_num }}</div>
-                    <div class="stat-card-caption">
+                    <div class="stat-card-body-wrap" style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+                        <div class="stat-card-number" style="margin: 0;">{{ $setting->stat_2_num }}</div>
+                        <div class="stat-card-icon-wrapper" style="color: #009966; background-color: #E6F7F0; width: 44px; height: 44px; border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <span class="material-icons" style="font-size: 22px;">corporate_fare</span>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent" style="margin-top: 8px;">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                         <span>{{ $setting->stat_2_caption }}</span>
                     </div>
                 </div>
@@ -61,10 +74,18 @@
                 <div class="stat-card">
                     <div class="stat-card-header">
                         <span class="stat-card-label">SDM KESEHATAN</span>
-                        <span class="stat-card-badge badge-muted">{{ $setting->stat_3_badge }}</span>
+                        <span class="stat-card-badge badge-active">{{ $setting->stat_3_badge }}</span>
                     </div>
-                    <div class="stat-card-number">{{ $setting->stat_3_num }}</div>
-                    <div class="stat-card-caption">
+                    <div class="stat-card-body-wrap" style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+                        <div class="stat-card-number" style="margin: 0;">{{ $setting->stat_3_num }}</div>
+                        <div class="stat-card-icon-wrapper" style="color: #009966; background-color: #E6F7F0; width: 44px; height: 44px; border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <span class="material-icons" style="font-size: 22px;">people</span>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent" style="margin-top: 8px;">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                         <span>{{ $setting->stat_3_caption }}</span>
                     </div>
                 </div>
@@ -73,10 +94,18 @@
                 <div class="stat-card">
                     <div class="stat-card-header">
                         <span class="stat-card-label">CAKUPAN IMUNISASI</span>
-                        <span class="stat-card-badge badge-muted">{{ $setting->stat_4_badge }}</span>
+                        <span class="stat-card-badge badge-active">{{ $setting->stat_4_badge }}</span>
                     </div>
-                    <div class="stat-card-number">{{ $setting->stat_4_num }}</div>
-                    <div class="stat-card-caption">
+                    <div class="stat-card-body-wrap" style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+                        <div class="stat-card-number" style="margin: 0;">{{ $setting->stat_4_num }}</div>
+                        <div class="stat-card-icon-wrapper" style="color: #009966; background-color: #E6F7F0; width: 44px; height: 44px; border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <span class="material-icons" style="font-size: 22px;">vaccines</span>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent" style="margin-top: 8px;">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
                         <span>{{ $setting->stat_4_caption }}</span>
                     </div>
                 </div>
@@ -95,124 +124,140 @@
                     </div>
                 </div>
 
-                <!-- Bar Chart Canvas Container -->
-                <div class="stunting-chart-container">
-                    <!-- Y-Axis Grid Lines -->
-                    <div class="chart-y-axis-grid">
-                        <div class="grid-line"><span class="grid-line-label">20%</span></div>
-                        <div class="grid-line"><span class="grid-line-label">15%</span></div>
-                        <div class="grid-line"><span class="grid-line-label">10%</span></div>
-                        <div class="grid-line"><span class="grid-line-label">5%</span></div>
-                        <div class="grid-line" style="border-top-style: solid; border-top-color: #CBD5E1;"><span class="grid-line-label">0%</span></div>
+                <!-- Split Dashboard Grid Layout -->
+                <div class="stunting-dashboard-grid">
+                    <!-- Left Column: Visual Chart -->
+                    <div class="stunting-chart-column">
+                        <div class="chart-flex-container" style="display: flex; position: relative; align-items: flex-start; gap: 12px; margin-top: 12px;">
+                             <!-- Y-Axis Static Labels (Left) -->
+                            @php
+                                $maxRateValue = $stuntingRecords->max('rate') ?: 1;
+                                $yMax = ceil($maxRateValue / 5) * 5;
+                                if ($yMax < 10) {
+                                    $yMax = 10;
+                                }
+                            @endphp
+                            <div class="chart-y-axis-labels" style="display: flex; flex-direction: column; justify-content: space-between; height: 275px; margin-top: 10px; width: 32px; font-size: 11px; color: #94A3B8; font-weight: 700; text-align: right; flex-shrink: 0; position: relative; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif;">
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.75 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.5 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.25 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>0%</span></div>
+                            </div>
+                            
+                            <!-- Scrollable Chart Area (Right) -->
+                            <div class="stunting-chart-container" style="flex-grow: 1; overflow-x: auto; position: relative; padding-left: 0; margin-top: 0;">
+                                <!-- Y-Axis Grid Lines -->
+                                <div class="chart-y-axis-grid" style="position: absolute; top: 10px; left: 0; right: 0; height: 275px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 1;">
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px solid #CBD5E1; position: relative;"></div>
+                                </div>
+
+                                <div class="chart-bars-wrapper" style="position: relative; z-index: 2; height: 320px; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px; margin-bottom: 0;">
+                                    @foreach($stuntingRecords as $record)
+                                        @php
+                                            $heightPercent = $yMax > 0 ? ($record->rate / $yMax) * 100 : 0;
+                                        @endphp
+                                        <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
+                                             role="button"
+                                             tabindex="0"
+                                             aria-label="Detail stunting tahun {{ $record->year }}"
+                                             data-year="{{ $record->year }}"
+                                             data-rate="{{ $record->rate }}"
+                                             data-total="{{ $record->total_balita ?? '' }}"
+                                             data-stunting="{{ $record->balita_stunting ?? '' }}"
+                                             data-terendah="{{ $record->wilayah_terendah ?? '' }}"
+                                             data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
+                                             data-catatan="{{ $record->catatan ?? '' }}"
+                                             onclick="updateStuntingDetail(this)"
+                                             onkeydown="if(event.key==='Enter')updateStuntingDetail(this)">
+                                            <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ $record->rate }}%</span>
+                                            <div class="bar-track">
+                                                <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%'])></div>
+                                            </div>
+                                            <span class="bar-year {{ $record->is_highlighted ? 'bar-year-active' : '' }}">
+                                                {{ $record->year }}
+                                                @if($record->is_highlighted)
+                                                    <span class="bar-year-tag" style="display: block; font-size: 10px; font-weight: 700;">(Saat Ini)</span>
+                                                @endif
+                                            </span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Click-to-Detail Hint -->
+                        <div class="chart-click-hint" style="margin-top: 16px; font-size: 13px; color: #64748B; display: flex; align-items: center; gap: 6px; padding-left: 44px;">
+                            <span class="material-icons" style="font-size: 16px; color: #009966;">touch_app</span>
+                            <span>Arahkan kursor atau klik batang grafik untuk melihat rincian data tahunan di panel samping.</span>
+                        </div>
                     </div>
 
-                    <div class="chart-bars-wrapper">
-                        @foreach($stuntingRecords as $record)
-                            @php
-                                $heightPercent = $maxRate > 0 ? ($record->rate / $maxRate) * 100 : 0;
-                            @endphp
-                            <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
-                                 role="button"
-                                 tabindex="0"
-                                 aria-label="Detail stunting tahun {{ $record->year }}"
-                                 data-year="{{ $record->year }}"
-                                 data-rate="{{ $record->rate }}"
-                                 data-total="{{ $record->total_balita ?? '' }}"
-                                 data-stunting="{{ $record->balita_stunting ?? '' }}"
-                                 data-terendah="{{ $record->wilayah_terendah ?? '' }}"
-                                 data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
-                                 data-catatan="{{ $record->catatan ?? '' }}"
-                                 onclick="openStuntingModal(this)"
-                                 onkeydown="if(event.key==='Enter')openStuntingModal(this)">
-                                <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ $record->rate }}%</span>
-                                <div class="bar-track">
-                                    <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%'])></div>
-                                </div>
-                                <span class="bar-year {{ $record->is_highlighted ? 'bar-year-active' : '' }}">
-                                    {{ $record->year }}
-                                    @if($record->is_highlighted)
-                                        <span class="bar-year-tag" style="display: block; font-size: 11px; font-weight: 500;">(Saat Ini)</span>
-                                    @endif
-                                </span>
+                    <!-- Right Column: Interactive Details Panel -->
+                    <div class="stunting-detail-column">
+                        <div id="stunting-detail-card" class="stunting-detail-card">
+                            <div class="detail-card-header">
+                                <h4 class="detail-card-title">Rincian Indikator Stunting</h4>
+                                <span id="detail-year" class="detail-year-badge">2026</span>
                             </div>
-                        @endforeach
+
+                            <div class="detail-rate-box">
+                                <span class="detail-rate-label">PREVALENSI STUNTING</span>
+                                <span id="detail-rate" class="detail-rate-val">9.8%</span>
+                            </div>
+
+                            <div class="detail-stats-grid">
+                                <div class="detail-stat-item">
+                                    <span class="detail-stat-label">Total Balita Diukur</span>
+                                    <span id="detail-total" class="detail-stat-val">—</span>
+                                </div>
+                                <div class="detail-stat-item">
+                                    <span class="detail-stat-label">Kondisi Stunting</span>
+                                    <span id="detail-stunting" class="detail-stat-val" style="color: #DC2626;">—</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-list">
+                                <div class="detail-list-row">
+                                    <span class="detail-list-label">Prevalensi Terendah</span>
+                                    <span id="detail-terendah" class="detail-list-val">—</span>
+                                </div>
+                                <div class="detail-list-row">
+                                    <span class="detail-list-label">Prevalensi Tertinggi</span>
+                                    <span id="detail-tertinggi" class="detail-list-val">—</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-note-box">
+                                <div style="display: flex; gap: 6px; align-items: flex-start;">
+                                    <span class="material-icons" style="font-size: 16px; color: #009966; margin-top: 2px;">info</span>
+                                    <span id="detail-catatan">—</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Footer Note -->
-                <div class="chart-footer-note">
+                <div class="chart-footer-note" style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #F1F5F9;">
                     {!! $setting->stunting_footer_note !!}
-                </div>
-
-                <!-- Click-to-Detail Hint -->
-                <div class="chart-click-hint">
-                    <span class="material-icons" style="font-size: 14px; vertical-align: middle;">touch_app</span>
-                    Klik batang grafik untuk melihat detail data
-                </div>
-            </div>
-
-            <!-- ── Stunting Detail Modal ─────────────────────────────────────── -->
-            <div id="stunting-modal-backdrop" class="stunting-modal-backdrop" onclick="closeStuntingModal()" aria-hidden="true"></div>
-            <div id="stunting-modal" class="stunting-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-                <div class="stunting-modal-header">
-                    <div>
-                        <span class="stunting-modal-year-badge" id="modal-year-badge">2026</span>
-                        <h3 class="stunting-modal-title" id="modal-title">Data Prevalensi Stunting</h3>
-                    </div>
-                    <button class="stunting-modal-close" onclick="closeStuntingModal()" aria-label="Tutup modal">
-                        <span class="material-icons">close</span>
-                    </button>
-                </div>
-
-                <div class="stunting-modal-body">
-                    <!-- Rate Highlight -->
-                    <div class="modal-rate-card">
-                        <span class="modal-rate-label">Prevalensi Stunting</span>
-                        <span class="modal-rate-value" id="modal-rate">—</span>
-                    </div>
-
-                    <!-- Detail Grid -->
-                    <div class="modal-detail-grid">
-                        <div class="modal-detail-item" id="modal-total-wrap">
-                            <span class="modal-detail-icon material-icons">people</span>
-                            <div>
-                                <span class="modal-detail-label">Total Balita Diukur</span>
-                                <span class="modal-detail-value" id="modal-total">—</span>
-                            </div>
-                        </div>
-                        <div class="modal-detail-item" id="modal-stunting-wrap">
-                            <span class="modal-detail-icon material-icons" style="color: #DC2626;">child_care</span>
-                            <div>
-                                <span class="modal-detail-label">Balita Stunting</span>
-                                <span class="modal-detail-value" id="modal-stunting" style="color: #DC2626;">—</span>
-                            </div>
-                        </div>
-                        <div class="modal-detail-item" id="modal-terendah-wrap">
-                            <span class="modal-detail-icon material-icons" style="color: #009966;">trending_down</span>
-                            <div>
-                                <span class="modal-detail-label">Wilayah Terendah</span>
-                                <span class="modal-detail-value" id="modal-terendah" style="color: #009966;">—</span>
-                            </div>
-                        </div>
-                        <div class="modal-detail-item" id="modal-tertinggi-wrap">
-                            <span class="modal-detail-icon material-icons" style="color: #D97706;">trending_up</span>
-                            <div>
-                                <span class="modal-detail-label">Wilayah Tertinggi</span>
-                                <span class="modal-detail-value" id="modal-tertinggi" style="color: #D97706;">—</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Catatan -->
-                    <div class="modal-catatan" id="modal-catatan-wrap">
-                        <span class="material-icons" style="font-size: 16px; vertical-align: middle; color: #64748B;">info</span>
-                        <span id="modal-catatan">—</span>
-                    </div>
                 </div>
             </div>
 
             <script>
-            function openStuntingModal(el) {
+            function updateStuntingDetail(el) {
+                // Remove active classes
+                document.querySelectorAll('.chart-bar-item').forEach(b => {
+                    b.classList.remove('bar-active-selected');
+                });
+                
+                // Add active class
+                el.classList.add('bar-active-selected');
+
                 const year     = el.dataset.year;
                 const rate     = el.dataset.rate;
                 const total    = el.dataset.total;
@@ -221,44 +266,33 @@
                 const tertinggi= el.dataset.tertinggi;
                 const catatan  = el.dataset.catatan;
 
-                document.getElementById('modal-year-badge').textContent = year;
-                document.getElementById('modal-title').textContent      = 'Data Prevalensi Stunting ' + year;
-                document.getElementById('modal-rate').textContent       = rate + '%';
+                const detailCard = document.getElementById('stunting-detail-card');
+                detailCard.style.opacity = '0.5';
 
-                const setItem = (wrapId, valId, val, fallback) => {
-                    const wrap = document.getElementById(wrapId);
-                    const valEl = document.getElementById(valId);
-                    if (val) {
-                        valEl.textContent = val;
-                        wrap.style.display = '';
-                    } else {
-                        wrap.style.display = fallback ? '' : 'none';
-                        valEl.textContent = '—';
+                setTimeout(() => {
+                    document.getElementById('detail-year').textContent = year;
+                    document.getElementById('detail-rate').textContent = rate + '%';
+                    
+                    document.getElementById('detail-total').textContent = total ? Number(total).toLocaleString('id-ID') : '—';
+                    document.getElementById('detail-stunting').textContent = stunting ? Number(stunting).toLocaleString('id-ID') + ' Balita' : '—';
+                    document.getElementById('detail-terendah').textContent = terendah || '—';
+                    document.getElementById('detail-tertinggi').textContent = tertinggi || '—';
+                    document.getElementById('detail-catatan').textContent = catatan || 'Tidak ada catatan tambahan untuk tahun ini.';
+                    
+                    detailCard.style.opacity = '1';
+                }, 120);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const highlightedBar = document.querySelector('.chart-bar-item.bar-highlighted');
+                if (highlightedBar) {
+                    updateStuntingDetail(highlightedBar);
+                } else {
+                    const firstBar = document.querySelector('.chart-bar-item');
+                    if (firstBar) {
+                        updateStuntingDetail(firstBar);
                     }
-                };
-
-                setItem('modal-total-wrap',    'modal-total',    total    ? Number(total).toLocaleString('id-ID') : '', false);
-                setItem('modal-stunting-wrap', 'modal-stunting', stunting ? Number(stunting).toLocaleString('id-ID') + ' anak' : '', false);
-                setItem('modal-terendah-wrap', 'modal-terendah', terendah, false);
-                setItem('modal-tertinggi-wrap','modal-tertinggi',tertinggi, false);
-
-                const catatanWrap = document.getElementById('modal-catatan-wrap');
-                document.getElementById('modal-catatan').textContent = catatan || '—';
-                catatanWrap.style.display = catatan ? '' : 'none';
-
-                document.getElementById('stunting-modal').classList.add('active');
-                document.getElementById('stunting-modal-backdrop').classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeStuntingModal() {
-                document.getElementById('stunting-modal').classList.remove('active');
-                document.getElementById('stunting-modal-backdrop').classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeStuntingModal();
+                }
             });
             </script>
 

@@ -1,10 +1,24 @@
 <?php
 
+use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\LayananTerpaduController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\RegulasiController;
+use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\ProgramKesehatanController;
 use App\Models\Agenda;
 use App\Models\Berita;
+use App\Models\Galeri;
+use App\Models\Laporan;
+use App\Models\LayananTerpadu;
+use App\Models\Profile;
+use App\Models\Regulasi;
+use App\Models\StatistikSetting;
+use App\Models\StuntingRecord;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +35,7 @@ Route::get('/', function () {
     if ($selectedDateStr) {
         try {
             $selectedDate = Carbon::parse($selectedDateStr)->startOfDay();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $selectedDate = $today;
         }
     }
@@ -38,23 +52,23 @@ Route::get('/', function () {
     $indonesianMonthsShort = [
         1 => 'JANUARI', 2 => 'FEBRUARI', 3 => 'MARET', 4 => 'APRIL',
         5 => 'MEI', 6 => 'JUNI', 7 => 'JULI', 8 => 'AGUSTUS',
-        9 => 'SEPTEMBER', 10 => 'OKTOBER', 11 => 'NOVEMBER', 12 => 'DESEMBER'
+        9 => 'SEPTEMBER', 10 => 'OKTOBER', 11 => 'NOVEMBER', 12 => 'DESEMBER',
     ];
-    $currentDateLabel = $selectedDate->format('d') . ' ' . $indonesianMonthsShort[$selectedDate->format('n')] . ' ' . $selectedDate->format('Y');
+    $currentDateLabel = $selectedDate->format('d').' '.$indonesianMonthsShort[$selectedDate->format('n')].' '.$selectedDate->format('Y');
 
     $prevDate = $selectedDate->copy()->subDay()->format('Y-m-d');
     $nextDate = $selectedDate->copy()->addDay()->format('Y-m-d');
     $canNavigateNext = true;
 
-    $homeGaleris = App\Models\Galeri::orderBy('created_at', 'desc')->take(5)->get();
-    $profile = App\Models\Profile::first();
+    $homeGaleris = Galeri::orderBy('created_at', 'desc')->take(5)->get();
+    $profile = Profile::first();
 
     return view('welcome', compact(
-        'homeBeritas', 
-        'homeAgendas', 
-        'currentDateLabel', 
-        'prevDate', 
-        'nextDate', 
+        'homeBeritas',
+        'homeAgendas',
+        'currentDateLabel',
+        'prevDate',
+        'nextDate',
         'canNavigateNext',
         'homeGaleris',
         'profile'
@@ -65,7 +79,8 @@ Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
 Route::get('/profil/tentang-dinkes', function () {
-    $profile = App\Models\Profile::first();
+    $profile = Profile::first();
+
     return view('profil', compact('profile'));
 })->name('profil.tentang');
 
@@ -77,7 +92,7 @@ Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
 
 /* --- Satu Data Kesehatan Routes --- */
 Route::get('/satu-data/statistik', function () {
-    $setting = \App\Models\StatistikSetting::firstOrCreate(
+    $setting = StatistikSetting::firstOrCreate(
         ['id' => 1],
         [
             'status_badge' => 'Data Riil Semester I 2026',
@@ -107,29 +122,32 @@ Route::get('/satu-data/statistik', function () {
                 ['name' => 'Zonasi Selatan', 'value' => '17 Puskesmas (36%)', 'width' => 36],
                 ['name' => 'Zonasi Utara', 'value' => '16 Puskesmas (34%)', 'width' => 34],
                 ['name' => 'Zonasi Tengah', 'value' => '14 Puskesmas (30%)', 'width' => 30],
-            ]
+            ],
         ]
     );
 
-    $stuntingRecords = \App\Models\StuntingRecord::orderBy('year', 'asc')->get();
+    $stuntingRecords = StuntingRecord::orderBy('year', 'asc')->get();
     $maxRate = $stuntingRecords->max('rate') ?: 1;
 
     return view('statistik', compact('setting', 'stuntingRecords', 'maxRate'));
 })->name('satudata.statistik');
 
 Route::get('/satu-data/laporan', function () {
-    $laporans = \App\Models\Laporan::orderBy('release_date', 'desc')->get();
+    $laporans = Laporan::orderBy('release_date', 'desc')->get();
+
     return view('laporan', compact('laporans'));
 })->name('satudata.laporan');
 
 Route::get('/satu-data/regulasi', function () {
-    $regulasis = \App\Models\Regulasi::orderBy('year', 'desc')->orderBy('created_at', 'desc')->paginate(6);
+    $regulasis = Regulasi::orderBy('year', 'desc')->orderBy('created_at', 'desc')->paginate(6);
+
     return view('regulasi', compact('regulasis'));
 })->name('satudata.regulasi');
 
 /* --- Labkesda & Faskes Routes --- */
 Route::get('/media', function () {
-    $galeris = App\Models\Galeri::orderBy('created_at', 'desc')->paginate(12)->withQueryString();
+    $galeris = Galeri::orderBy('created_at', 'desc')->paginate(12)->withQueryString();
+
     return view('media', compact('galeris'));
 })->name('media');
 
@@ -179,7 +197,7 @@ Route::resource('/admin/agenda', App\Http\Controllers\Admin\AgendaController::cl
     ],
 ])->middleware('auth');
 
-Route::resource('/admin/galeri', App\Http\Controllers\Admin\GaleriController::class, [
+Route::resource('/admin/galeri', GaleriController::class, [
     'names' => [
         'index' => 'admin.galeri.index',
         'create' => 'admin.galeri.create',
@@ -190,45 +208,73 @@ Route::resource('/admin/galeri', App\Http\Controllers\Admin\GaleriController::cl
     ],
 ])->middleware('auth');
 
-Route::get('/admin/profil', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->middleware('auth')->name('admin.profil.edit');
-Route::put('/admin/profil', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->middleware('auth')->name('admin.profil.update');
+Route::get('/admin/profil', [ProfileController::class, 'edit'])->middleware('auth')->name('admin.profil.edit');
+Route::put('/admin/profil', [ProfileController::class, 'update'])->middleware('auth')->name('admin.profil.update');
 
-Route::get('/admin/satu-data/statistik', [App\Http\Controllers\Admin\StatistikController::class, 'edit'])->middleware('auth')->name('admin.satudata.statistik.edit');
-Route::put('/admin/satu-data/statistik', [App\Http\Controllers\Admin\StatistikController::class, 'update'])->middleware('auth')->name('admin.satudata.statistik.update');
-Route::get('/admin/satu-data/statistik/import', [App\Http\Controllers\Admin\StatistikController::class, 'importForm'])->middleware('auth')->name('admin.satudata.statistik.import');
-Route::post('/admin/satu-data/statistik/import', [App\Http\Controllers\Admin\StatistikController::class, 'importCsv'])->middleware('auth')->name('admin.satudata.statistik.import.post');
-Route::get('/admin/satu-data/statistik/template', [App\Http\Controllers\Admin\StatistikController::class, 'downloadTemplate'])->middleware('auth')->name('admin.satudata.statistik.template');
+Route::get('/admin/satu-data/statistik', [StatistikController::class, 'edit'])->middleware('auth')->name('admin.satudata.statistik.edit');
+Route::put('/admin/satu-data/statistik', [StatistikController::class, 'update'])->middleware('auth')->name('admin.satudata.statistik.update');
+Route::get('/admin/satu-data/statistik/import', [StatistikController::class, 'importForm'])->middleware('auth')->name('admin.satudata.statistik.import');
+Route::post('/admin/satu-data/statistik/import', [StatistikController::class, 'importCsv'])->middleware('auth')->name('admin.satudata.statistik.import.post');
+Route::get('/admin/satu-data/statistik/template', [StatistikController::class, 'downloadTemplate'])->middleware('auth')->name('admin.satudata.statistik.template');
 
-Route::resource('/admin/satu-data/laporan', App\Http\Controllers\Admin\LaporanController::class, [
+Route::resource('/admin/satu-data/laporan', LaporanController::class, [
     'names' => [
-        'index'   => 'admin.laporan.index',
-        'create'  => 'admin.laporan.create',
-        'store'   => 'admin.laporan.store',
-        'edit'    => 'admin.laporan.edit',
-        'update'  => 'admin.laporan.update',
+        'index' => 'admin.laporan.index',
+        'create' => 'admin.laporan.create',
+        'store' => 'admin.laporan.store',
+        'edit' => 'admin.laporan.edit',
+        'update' => 'admin.laporan.update',
         'destroy' => 'admin.laporan.destroy',
-    ]
+    ],
 ])->middleware('auth');
 
-Route::resource('/admin/satu-data/regulasi', App\Http\Controllers\Admin\RegulasiController::class, [
+Route::resource('/admin/satu-data/regulasi', RegulasiController::class, [
     'names' => [
-        'index'   => 'admin.regulasi.index',
-        'create'  => 'admin.regulasi.create',
-        'store'   => 'admin.regulasi.store',
-        'edit'    => 'admin.regulasi.edit',
-        'update'  => 'admin.regulasi.update',
+        'index' => 'admin.regulasi.index',
+        'create' => 'admin.regulasi.create',
+        'store' => 'admin.regulasi.store',
+        'edit' => 'admin.regulasi.edit',
+        'update' => 'admin.regulasi.update',
         'destroy' => 'admin.regulasi.destroy',
-    ]
+    ],
+])->middleware('auth');
+
+Route::resource('/admin/layanan-terpadu', LayananTerpaduController::class, [
+    'names' => [
+        'index' => 'admin.layanan.index',
+        'create' => 'admin.layanan.create',
+        'store' => 'admin.layanan.store',
+        'edit' => 'admin.layanan.edit',
+        'update' => 'admin.layanan.update',
+        'destroy' => 'admin.layanan.destroy',
+    ],
+])->middleware('auth');
+
+Route::resource('/admin/program-kesehatan', App\Http\Controllers\Admin\ProgramKesehatanController::class, [
+    'names' => [
+        'index' => 'admin.program-kesehatan.index',
+        'create' => 'admin.program-kesehatan.create',
+        'store' => 'admin.program-kesehatan.store',
+        'edit' => 'admin.program-kesehatan.edit',
+        'update' => 'admin.program-kesehatan.update',
+        'destroy' => 'admin.program-kesehatan.destroy',
+    ],
 ])->middleware('auth');
 
 Route::get('/layanan-terpadu', function () {
-    return view('layanan-terpadu');
+    $wargaServices = LayananTerpadu::where('type', 'Warga')->get();
+    $faskesServices = LayananTerpadu::where('type', 'Faskes')->get();
+    $nakesServices = LayananTerpadu::where('type', 'Nakes')->get();
+
+    return view('layanan-terpadu', compact('wargaServices', 'faskesServices', 'nakesServices'));
 })->name('layanan-terpadu');
 
+Route::get('/program/{slug}', [ProgramKesehatanController::class, 'show'])->name('program.show');
+
 Route::get('/cianjur-bebas-stunting', function () {
-    return view('stunting');
+    return redirect()->route('program.show', 'cianjur-bebas-stunting');
 })->name('stunting');
 
 Route::get('/kesehatan-ibu-anak', function () {
-    return view('kia');
+    return redirect()->route('program.show', 'kesehatan-ibu-anak');
 })->name('kia');
