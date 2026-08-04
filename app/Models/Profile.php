@@ -21,6 +21,7 @@ class Profile extends Model
         'sejarah_text_1',
         'sejarah_text_2',
         'sejarah_image',
+        'struktur_organisasi_image',
         'visi_title',
         'visi_desc',
         'stat_1_text',

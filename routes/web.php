@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\LabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\LayananTerpaduController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PPIDController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ProgramKesehatanController;
 use App\Http\Controllers\SatuDataController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 Route::get('/profil/tentang-dinkes', [ProfileController::class, 'index'])->name('profil.tentang');
+Route::get('/profil/visi-misi', [ProfileController::class, 'visiMisi'])->name('profil.visi-misi');
+Route::get('/profil/struktur-organisasi', [ProfileController::class, 'strukturOrganisasi'])->name('profil.struktur-organisasi');
 Route::get('/ppid', [PPIDController::class, 'index'])->name('ppid');
 Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
 Route::get('/api/agenda-by-date', [HomeController::class, 'agendaByDate'])->name('agenda.by_date');
@@ -50,6 +54,22 @@ Route::get('/cianjur-bebas-stunting', function () {
 Route::get('/kesehatan-ibu-anak', function () {
     return redirect()->route('program.show', 'kesehatan-ibu-anak');
 })->name('kia');
+
+/* --- Admin Labkesda Routes --- */
+Route::get('/admin/labkesda/settings', [LabkesdaController::class, 'editSettings'])->middleware('auth')->name('admin.labkesda.settings.edit');
+Route::put('/admin/labkesda/settings', [LabkesdaController::class, 'updateSettings'])->middleware('auth')->name('admin.labkesda.settings.update');
+Route::put('/admin/labkesda/{labkesda}/order', [LabkesdaController::class, 'updateOrder'])->middleware('auth')->name('admin.labkesda.order.update');
+
+Route::resource('/admin/labkesda', LabkesdaController::class, [
+    'names' => [
+        'index' => 'admin.labkesda.index',
+        'create' => 'admin.labkesda.create',
+        'store' => 'admin.labkesda.store',
+        'edit' => 'admin.labkesda.edit',
+        'update' => 'admin.labkesda.update',
+        'destroy' => 'admin.labkesda.destroy',
+    ],
+])->middleware('auth');
 
 /* --- Admin Login Routes (Double-Gatekeeper) --- */
 Route::get('/dinkes-login', [AuthController::class, 'showLoginForm'])->name('login');

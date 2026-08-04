@@ -383,15 +383,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 48px;
+}
+
+.berita-pagination-list {
+    display: flex;
+    align-items: center;
     gap: 8px;
-    margin-top: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .berita-page-btn {
-    width: 40px;
+    min-width: 40px;
     height: 40px;
-    border: 1px solid #E5E7EB;
-    border-radius: 3px !important;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px;
     background-color: #FFFFFF;
     font-size: 14px;
     font-weight: 600;
@@ -401,6 +409,8 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-decoration: none;
+    padding: 0 10px;
 }
 
 .berita-page-btn svg {
@@ -408,22 +418,32 @@
     height: 18px;
 }
 
-.berita-page-btn:hover {
+.berita-page-btn:hover:not(.active):not(.disabled) {
     background-color: #F3F4F6;
-    border-color: #D1D5DB;
+    border-color: #9CA3AF;
     color: #1F2937;
 }
 
 .berita-page-btn.active {
-    background-color: #009966;
-    border-color: #009966;
+    background-color: #004F3B;
+    border-color: #004F3B;
     color: #FFFFFF;
+    cursor: default;
+}
+
+.berita-page-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .berita-page-dots {
     font-size: 14px;
+    font-weight: 600;
     color: #9CA3AF;
     padding: 0 4px;
+    display: flex;
+    align-items: center;
+    height: 40px;
 }
 
 /* ── Responsive Design ───────────────────────────────────────── */

@@ -454,6 +454,13 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('admin.labkesda.index') }}" class="nav-link {{ request()->routeIs('admin.labkesda.*') ? 'active' : '' }}">
+                            <span class="material-icons nav-icon">science</span>
+                            <p>Kelola Labkesda</p>
+                        </a>
+                    </li>
+
                     {{-- SATU DATA & DOKUMEN --}}
                     <li class="nav-header">SATU DATA &amp; DOKUMEN</li>
 

@@ -400,4 +400,266 @@
     }
 }
 
+/* ── Struktur Organisasi Section ──────────────────────────────── */
+.struktur-section {
+    margin-top: 60px;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 1px;
+    padding: 48px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.struktur-header {
+    margin-bottom: 40px;
+}
+
+.struktur-subtitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #009966;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.struktur-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #004F3B;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.struktur-image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 3px;
+    padding: 20px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.struktur-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.struktur-empty-state {
+    text-align: center;
+    padding: 80px 40px;
+    background: #F9FAFB;
+    border: 2px dashed #D1D5DB;
+    border-radius: 3px;
+}
+
+.struktur-empty-icon {
+    font-size: 64px !important;
+    color: #D1D5DB;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.struktur-empty-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #6B7280;
+    margin: 0 0 8px 0;
+}
+
+.struktur-empty-subtext {
+    font-size: 14px;
+    color: #9CA3AF;
+    margin: 0;
+}
+
+/* ── Struktur Legend ──────────────────────────────────────────── */
+.struktur-legend {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    padding: 16px 0;
+    border-top: 1px solid #E5E7EB;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-line {
+    display: inline-block;
+    width: 32px;
+    height: 3px;
+}
+
+.legend-line-solid {
+    background-color: #009966;
+}
+
+.legend-line-dashed {
+    background: repeating-linear-gradient(
+        90deg,
+        #009966,
+        #009966 4px,
+        transparent 4px,
+        transparent 8px
+    );
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-dot-green {
+    background-color: #009966;
+}
+
+.legend-box {
+    width: 24px;
+    height: 14px;
+    border-radius: 3px;
+}
+
+.legend-box-green {
+    background-color: #009966;
+}
+
+.legend-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555555;
+}
+
+/* ── Struktur Description ────────────────────────────────────── */
+.struktur-description {
+    margin-top: 32px;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 3px;
+    padding: 28px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.struktur-description p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+    line-height: 1.7;
+    margin: 0;
+    text-align: center;
+}
+
+.struktur-description p strong {
+    font-weight: 700;
+    color: #009966;
+}
+
+/* ── Struktur Action Buttons ─────────────────────────────────── */
+.struktur-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.struktur-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 2px solid transparent;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-decoration: none;
+}
+
+.struktur-btn .material-icons {
+    font-size: 18px;
+}
+
+.struktur-btn-primary {
+    background-color: #009966;
+    color: #FFFFFF;
+    border-color: #009966;
+}
+
+.struktur-btn-primary:hover {
+    background-color: #007A52;
+    border-color: #007A52;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 153, 102, 0.3);
+}
+
+.struktur-btn-outline {
+    background-color: #FFFFFF;
+    color: #009966;
+    border-color: #009966;
+}
+
+.struktur-btn-outline:hover {
+    background-color: #F0FDF4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 153, 102, 0.15);
+}
+
+/* ── Struktur Section Responsive ──────────────────────────────── */
+@media (max-width: 1024px) {
+    .struktur-section {
+        padding: 40px;
+    }
+
+    .struktur-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .struktur-section {
+        padding: 24px;
+    }
+
+    .struktur-title {
+        font-size: 28px;
+    }
+
+    .struktur-empty-state {
+        padding: 40px 20px;
+    }
+
+    .struktur-legend {
+        gap: 16px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .struktur-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .struktur-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+}
+
 

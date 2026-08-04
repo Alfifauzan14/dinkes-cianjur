@@ -27,6 +27,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seeder berita massal untuk testing
+        $this->call(BeritaMassSeeder::class);
+
+        // Seeder galeri massal untuk testing
+        $this->call(GaleriMassSeeder::class);
+
         // Pastikan User Admin ada
         User::updateOrCreate(
             ['email' => 'admin@dinkes.go.id'],

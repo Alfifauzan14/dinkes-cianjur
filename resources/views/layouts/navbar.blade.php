@@ -20,7 +20,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('profil.tentang') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">info</span><span>Tentang Dinkes</span></a></li>
-                        <li><a href="#" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">account_tree</span><span>Struktur Organisasi & Pejabat</span></a></li>
+                        <li><a href="{{ route('profil.visi-misi') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">flag</span><span>Visi & Misi</span></a></li>
+                        <li><a href="{{ route('profil.struktur-organisasi') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">account_tree</span><span>Struktur Organisasi & Pejabat</span></a></li>
                     </ul>
                 </li>
 

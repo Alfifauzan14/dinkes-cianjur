@@ -16,4 +16,24 @@ class ProfileController extends Controller
 
         return view('profil', compact('profile'));
     }
+
+    /**
+     * Display the Visi Misi page.
+     */
+    public function visiMisi(): View
+    {
+        $profile = Profile::first();
+
+        return view('visi-misi', compact('profile'));
+    }
+
+    /**
+     * Display the Struktur Organisasi page.
+     */
+    public function strukturOrganisasi(): View
+    {
+        $profile = Profile::first();
+
+        return view('struktur-organisasi', compact('profile'));
+    }
 }
