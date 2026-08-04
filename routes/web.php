@@ -155,9 +155,30 @@ Route::get('/faskes', function () {
     return view('faskes');
 })->name('faskes');
 
+use App\Http\Controllers\Admin\LabkesdaController;
+
 Route::get('/labkesda', function () {
-    return view('labkesda');
+    $settings = \App\Models\LabkesdaSetting::firstOrCreate(['id' => 1]);
+    $categories = \App\Models\LabkesdaCategory::with('items')->orderBy('order_index')->get();
+
+    return view('labkesda', compact('settings', 'categories'));
 })->name('labkesda');
+
+/* --- Admin Labkesda Routes --- */
+Route::get('/admin/labkesda/settings', [LabkesdaController::class, 'editSettings'])->middleware('auth')->name('admin.labkesda.settings.edit');
+Route::put('/admin/labkesda/settings', [LabkesdaController::class, 'updateSettings'])->middleware('auth')->name('admin.labkesda.settings.update');
+Route::put('/admin/labkesda/{labkesda}/order', [LabkesdaController::class, 'updateOrder'])->middleware('auth')->name('admin.labkesda.order.update');
+
+Route::resource('/admin/labkesda', LabkesdaController::class, [
+    'names' => [
+        'index' => 'admin.labkesda.index',
+        'create' => 'admin.labkesda.create',
+        'store' => 'admin.labkesda.store',
+        'edit' => 'admin.labkesda.edit',
+        'update' => 'admin.labkesda.update',
+        'destroy' => 'admin.labkesda.destroy',
+    ],
+])->middleware('auth');
 
 /* --- Admin Login Routes (Double-Gatekeeper) --- */
 Route::get('/dinkes-login', [AuthController::class, 'showLoginForm'])->name('login');
