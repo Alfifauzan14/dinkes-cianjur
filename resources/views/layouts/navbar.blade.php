@@ -20,7 +20,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('profil.tentang') }}" class="dropdown-item">Tentang Dinkes</a></li>
-                        <li><a href="{{ route('profil.tentang') }}#struktur-organisasi" class="dropdown-item">Struktur Organisasi & Pejabat</a></li>
+                        <li><a href="{{ route('profil.visi-misi') }}" class="dropdown-item">Visi & Misi</a></li>
+                        <li><a href="{{ route('profil.struktur-organisasi') }}" class="dropdown-item">Struktur Organisasi & Pejabat</a></li>
                     </ul>
                 </li>
 

@@ -84,6 +84,18 @@ Route::get('/profil/tentang-dinkes', function () {
     return view('profil', compact('profile'));
 })->name('profil.tentang');
 
+Route::get('/profil/visi-misi', function () {
+    $profile = Profile::first();
+
+    return view('visi-misi', compact('profile'));
+})->name('profil.visi-misi');
+
+Route::get('/profil/struktur-organisasi', function () {
+    $profile = Profile::first();
+
+    return view('struktur-organisasi', compact('profile'));
+})->name('profil.struktur-organisasi');
+
 Route::get('/ppid', function () {
     return view('ppid');
 })->name('ppid');

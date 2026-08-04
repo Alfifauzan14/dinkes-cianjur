@@ -441,16 +441,15 @@
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 3px;
-    padding: 0;
+    padding: 20px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
-    overflow: hidden;
 }
 
 .struktur-image {
     width: 100%;
     height: auto;
-    object-fit: contain;
+    display: block;
 }
 
 .struktur-empty-state {
