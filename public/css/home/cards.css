@@ -38,17 +38,17 @@
 
 .info-card-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
-    color: #332C2B;
+    color: #004F3B;
     margin-bottom: 8px;
 }
 
 .info-card-desc {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
-    color: #6b7280;
+    color: #4B5563;
     line-height: 1.6;
     margin: 0;
 }

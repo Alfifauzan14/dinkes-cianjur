@@ -59,7 +59,7 @@ class BeritaController extends Controller
         $beritasQuery = Berita::where('status', 'published')
             ->orderBy('created_at', 'desc');
 
-        if (!empty($excludeIds)) {
+        if (! empty($excludeIds)) {
             $beritasQuery->whereNotIn('id', $excludeIds);
         }
 

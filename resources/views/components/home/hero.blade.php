@@ -31,18 +31,13 @@
     </div>
 
     <div class="social-sidebar">
-        <a href="#" class="social-icon-link" aria-label="Instagram">
-            <i class="fa-brands fa-instagram" style="font-size: 20px;"></i>
-        </a>
-        <a href="#" class="social-icon-link" aria-label="TikTok">
-            <i class="fa-brands fa-tiktok" style="font-size: 20px;"></i>
-        </a>
-        <a href="#" class="social-icon-link" aria-label="Facebook">
-            <i class="fa-brands fa-facebook-f" style="font-size: 20px;"></i>
-        </a>
-        <a href="#" class="social-icon-link" aria-label="YouTube">
-            <i class="fa-brands fa-youtube" style="font-size: 20px;"></i>
-        </a>
+        @foreach(($socialLinks ?? collect()) as $link)
+            @if($link->url)
+                <a href="{{ $link->url }}" class="social-icon-link" aria-label="{{ ucfirst($link->platform) }}" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-{{ $link->platform === 'facebook' ? 'facebook-f' : $link->platform }}" style="font-size: 20px;"></i>
+                </a>
+            @endif
+        @endforeach
     </div>
 
     <!-- Dekorasi bawah: ellipse image assets -->
@@ -53,3 +48,21 @@
     </div>
 
 </section>
+
+<script>
+    document.querySelector('.emergency-close-badge')?.addEventListener('click', function () {
+        this.closest('.emergency-bubble-wrapper').style.display = 'none';
+    });
+
+    document.querySelector('.search-button')?.addEventListener('click', function () {
+        var q = document.querySelector('.search-input')?.value.trim();
+        if (q) window.location.href = '{{ url("/berita") }}?search=' + encodeURIComponent(q);
+    });
+
+    document.querySelector('.search-input')?.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            var q = this.value.trim();
+            if (q) window.location.href = '{{ url("/berita") }}?search=' + encodeURIComponent(q);
+        }
+    });
+</script>

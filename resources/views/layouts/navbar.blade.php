@@ -5,7 +5,7 @@
         <div class="dinkes-navbar-container">
             <div class="navbar-brand">
                 <img src="{{ asset('Assets/layouts/Nav/logo_pemkab_cropped.png') }}" alt="Logo Pemerintah Kabupaten Cianjur" class="logo-pemkab">
-                <img src="{{ asset('Assets/layouts/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinas Kesehatan Kabupaten Cianjur" class="logo-dinkes">
+                <img src="{{ isset($site_settings) && $site_settings->site_logo ? asset('uploads/settings/' . $site_settings->site_logo) : asset('Assets/layouts/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinas Kesehatan Kabupaten Cianjur" class="logo-dinkes">
             </div>
 
             <ul class="navbar-menu">
@@ -19,33 +19,35 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('profil.tentang') }}" class="dropdown-item">Tentang Dinkes</a></li>
-                        <li><a href="#" class="dropdown-item">Struktur Organisasi & Pejabat</a></li>
+                        <li><a href="{{ route('profil.tentang') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">info</span><span>Tentang Dinkes</span></a></li>
+                        <li><a href="{{ route('profil.visi-misi') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">flag</span><span>Visi & Misi</span></a></li>
+                        <li><a href="{{ route('profil.struktur-organisasi') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">account_tree</span><span>Struktur Organisasi & Pejabat</span></a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="menu-item">
+                    <a href="#" class="menu-item {{ Request::is('program/*') ? 'active' : '' }}">
                         Program Kesehatan
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('stunting') }}" class="dropdown-item">Cianjur Bebas Stunting</a></li>
-                        <li><a href="{{ route('kia') }}" class="dropdown-item">Kesehatan Ibu & Anak (KIA)</a></li>
+                        @foreach(\App\Models\ProgramKesehatan::where('status', 'published')->get() as $prog)
+                            <li><a href="{{ route('program.show', $prog->slug) }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">health_and_safety</span><span>{{ $prog->title }}</span></a></li>
+                        @endforeach
                     </ul>
                 </li>
 
                 <li class="dropdown">
                     <a href="#" class="menu-item">
-                        program Terpadu
+                        Program Terpadu
                         <svg class="chevron-icon" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/layanan-terpadu') }}" class="dropdown-item">Layanan Terpadu</a></li>
+                        <li><a href="{{ url('/layanan-terpadu') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">widgets</span><span>Layanan Terpadu</span></a></li>
                     </ul>
                 </li>
 
@@ -57,8 +59,8 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('faskes') }}" class="dropdown-item">Info Puskesmas & Rumah Sakit</a></li>
-                        <li><a href="{{ url('/labkesda') }}" class="dropdown-item">Laboratorium Kesehatan Daerah (Labkesda)</a></li>
+                        <li><a href="{{ route('faskes') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">local_hospital</span><span>Info Puskesmas & Rumah Sakit</span></a></li>
+                        <li><a href="{{ url('/labkesda') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">biotech</span><span>Laboratorium Kesehatan Daerah (Labkesda)</span></a></li>
                     </ul>
                 </li>
 
@@ -70,9 +72,9 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('satudata.statistik') }}" class="dropdown-item">Dashboard Statistik</a></li>
-                        <li><a href="{{ route('satudata.laporan') }}" class="dropdown-item">Unduh Profil Kesehatan PDF</a></li>
-                        <li><a href="{{ route('satudata.regulasi') }}" class="dropdown-item">Regulasi & Hukum</a></li>
+                        <li><a href="{{ route('satudata.statistik') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">bar_chart</span><span>Dashboard Statistik</span></a></li>
+                        <li><a href="{{ route('satudata.laporan') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">description</span><span>Unduh Profil Kesehatan PDF</span></a></li>
+                        <li><a href="{{ route('satudata.regulasi') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">gavel</span><span>Regulasi & Hukum</span></a></li>
                     </ul>
                 </li>
 

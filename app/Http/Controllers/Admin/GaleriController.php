@@ -55,10 +55,10 @@ class GaleriController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
 
             $destinationPath = public_path('uploads/galeri');
-            if (!File::isDirectory($destinationPath)) {
+            if (! File::isDirectory($destinationPath)) {
                 File::makeDirectory($destinationPath, 0755, true, true);
             }
 
@@ -94,16 +94,16 @@ class GaleriController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
 
             $destinationPath = public_path('uploads/galeri');
-            if (!File::isDirectory($destinationPath)) {
+            if (! File::isDirectory($destinationPath)) {
                 File::makeDirectory($destinationPath, 0755, true, true);
             }
 
             // Hapus gambar lama jika ada
             if ($galeri->image) {
-                $oldImagePath = public_path('uploads/galeri/' . $galeri->image);
+                $oldImagePath = public_path('uploads/galeri/'.$galeri->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -124,7 +124,7 @@ class GaleriController extends Controller
     public function destroy(Galeri $galeri)
     {
         if ($galeri->image) {
-            $imagePath = public_path('uploads/galeri/' . $galeri->image);
+            $imagePath = public_path('uploads/galeri/'.$galeri->image);
             if (File::exists($imagePath)) {
                 File::delete($imagePath);
             }

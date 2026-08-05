@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ asset('css/Lihat_semua/berita.css') }}?v={{ time() }}">
 
 <div class="berita-page-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('berita', 'Berita & Publikasi', 'Kabar berita terbaru, rilis pers, sosialisasi germas, dan pengumuman resmi Dinas Kesehatan.');
+    @endphp
     <!-- Header Banner -->
     <header class="berita-header">
         <div class="berita-header-container">
@@ -127,8 +130,8 @@
 
             <!-- Pagination -->
             @if($beritas->hasPages())
-                <div class="berita-pagination" style="display: flex; justify-content: center; margin-top: 48px;">
-                    {{ $beritas->links() }}
+                <div class="berita-pagination">
+                    {{ $beritas->links('vendor.pagination.berita-custom') }}
                 </div>
             @endif
         </div>

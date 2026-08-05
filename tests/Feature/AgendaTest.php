@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Agenda;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class AgendaTest extends TestCase
@@ -18,6 +19,28 @@ class AgendaTest extends TestCase
     {
         $response = $this->get('/agenda');
         $response->assertStatus(200);
+    }
+
+    /**
+     * Test public agenda AJAX endpoint by date.
+     */
+    public function test_public_agenda_ajax_endpoint_returns_json(): void
+    {
+        Agenda::create([
+            'title' => 'Rapat Evaluasi Dinkes',
+            'date' => '2026-08-04',
+            'time_start' => '09:00',
+            'time_end' => '11:00',
+            'location' => 'Kantor Dinkes',
+            'description' => 'Evaluasi program bulanan.',
+            'status' => 'published',
+        ]);
+
+        $response = $this->getJson('/api/agenda-by-date?agenda_date=2026-08-04');
+        $response->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+            ]);
     }
 
     /**
@@ -149,42 +172,39 @@ class AgendaTest extends TestCase
     }
 
     /**
-     * Test future agendas (scheduled after today) are hidden from public views.
+     * Test draft agendas are hidden from public views.
      */
-    public function test_future_agendas_are_hidden_from_public_views(): void
+    public function test_draft_agendas_are_hidden_from_public_views(): void
     {
-        // Past agenda
-        $pastAgenda = Agenda::create([
-            'title' => 'Agenda Masa Lalu',
-            'date' => now()->subDay()->format('Y-m-d'),
+        // Published future agenda
+        $publishedAgenda = Agenda::create([
+            'title' => 'Agenda Publik Masa Depan',
+            'date' => now()->addDay()->format('Y-m-d'),
             'time_start' => '08:00',
             'time_end' => '10:00',
             'location' => 'Aula',
             'status' => 'published',
         ]);
 
-        // Future agenda
-        $futureAgenda = Agenda::create([
-            'title' => 'Agenda Masa Depan',
+        // Draft future agenda
+        $draftAgenda = Agenda::create([
+            'title' => 'Agenda Draf Rahasia',
             'date' => now()->addDay()->format('Y-m-d'),
             'time_start' => '09:00',
             'time_end' => '11:00',
             'location' => 'Aula Depan',
-            'status' => 'published',
+            'status' => 'draft',
         ]);
 
         // 1. Check landing page date navigation
-        $response = $this->get('/?agenda_date=' . now()->subDay()->format('Y-m-d'));
-        $response->assertSee('Agenda Masa Lalu');
+        $response = $this->get('/?agenda_date='.now()->addDay()->format('Y-m-d'));
+        $response->assertSee('Agenda Publik Masa Depan');
+        $response->assertDontSee('Agenda Draf Rahasia');
 
-        // Navigating to future date parameter is restricted (resets to today)
-        $response2 = $this->get('/?agenda_date=' . now()->addDay()->format('Y-m-d'));
-        $response2->assertDontSee('Agenda Masa Depan');
-
-        // 2. Check public calendar page (exclude future events)
-        $response3 = $this->get('/agenda?month=' . now()->month . '&year=' . now()->year);
-        $response3->assertSee('Agenda Masa Lalu');
-        $response3->assertDontSee('Agenda Masa Depan');
+        // 2. Check public calendar page
+        $response2 = $this->get('/agenda?month='.now()->month.'&year='.now()->year);
+        $response2->assertSee('Agenda Publik Masa Depan');
+        $response2->assertDontSee('Agenda Draf Rahasia');
     }
 
     /**
@@ -212,11 +232,11 @@ class AgendaTest extends TestCase
             'email' => 'admin@dinkes.go.id',
         ]);
 
-        $csvContent = "title,date,time_start,time_end,location,description,status\n" .
-                      "Agenda Impor 1,2026-08-05,09:00,11:00,Aula Utama,Deskripsi impor 1,published\n" .
+        $csvContent = "title,date,time_start,time_end,location,description,status\n".
+                      "Agenda Impor 1,2026-08-05,09:00,11:00,Aula Utama,Deskripsi impor 1,published\n".
                       "Agenda Impor 2,2026-08-06,10:00,12:00,Aula Kecil,Deskripsi impor 2,draft\n";
 
-        $file = \Illuminate\Http\UploadedFile::fake()->createWithContent('agendas.csv', $csvContent);
+        $file = UploadedFile::fake()->createWithContent('agendas.csv', $csvContent);
 
         $response = $this->actingAs($admin)
             ->post(route('admin.agenda.import'), [

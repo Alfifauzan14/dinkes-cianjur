@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ asset('css/LayananTerpadu/layanan-terpadu.css') }}?v={{ time() }}">
 
 <div class="lt-page-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('layanan-terpadu', 'Layanan Terpadu', 'Portal perizinan praktis dan pelayanan informasi terintegrasi bagi masyarakat, faskes, dan tenaga kesehatan.');
+    @endphp
     <!-- Header Section -->
     <header class="lt-header">
         <div class="lt-header-container">
@@ -9,181 +12,118 @@
         </div>
     </header>
 
+    <!-- Filter & Search Section -->
+    <div class="lt-filter-bar" style="max-width: 1200px; margin: 24px auto 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+        <div style="position: relative; flex: 1; min-width: 280px;">
+            <span class="material-icons" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #64748B; font-size: 20px;">search</span>
+            <input type="text" id="layananSearchInput" placeholder="Cari layanan perizinan, sertifikat, atau rekomendasi..." style="width: 100%; padding: 12px 16px 12px 42px; border: 1px solid #E2E8F0; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: border-color 0.2s;" onfocus="this.style.borderColor='#009966'" onblur="this.style.borderColor='#E2E2E8F0'">
+        </div>
+
+        <div class="lt-category-tabs" style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="lt-tab-btn active" data-type="all" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; border: 1px solid #009966; background: #009966; color: #FFFFFF; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                <span class="material-icons" style="font-size: 18px;">groups</span>
+                <span>Semua Layanan</span>
+            </button>
+            <button type="button" class="lt-tab-btn" data-type="warga" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; border: 1px solid #E2E8F0; background: #FFFFFF; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                <span class="material-icons" style="font-size: 18px;">person</span>
+                <span>Untuk Warga</span>
+            </button>
+            <button type="button" class="lt-tab-btn" data-type="faskes" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; border: 1px solid #E2E8F0; background: #FFFFFF; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                <span class="material-icons" style="font-size: 18px;">local_hospital</span>
+                <span>Untuk Faskes</span>
+            </button>
+            <button type="button" class="lt-tab-btn" data-type="nakes" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; border: 1px solid #E2E8F0; background: #FFFFFF; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                <span class="material-icons" style="font-size: 18px;">medical_services</span>
+                <span>Untuk Nakes</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Main Content Section -->
     <main class="lt-content">
         <div class="lt-container">
 
             <!-- Layanan Untuk Warga -->
-            <div class="lt-category-section">
+            <div class="lt-category-section" data-type="warga">
                 <div class="lt-title-section">
                     <h2 class="lt-main-title">Layanan Untuk Warga</h2>
                 </div>
 
                 <div class="lt-services-grid">
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        </span>
-                        <span class="lt-service-text">Pendaftaran Peserta Penduduk PBPU dan BP Pemda Program JKN</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                        </span>
-                        <span class="lt-service-text">Penyelenggaraan Jaminan Kesehatan Di Luar Skema JKN</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                        </span>
-                        <span class="lt-service-text">Pengelolaan Pengaduan Masyarakat</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                        </span>
-                        <span class="lt-service-text">Pengelolaan Informasi Publik</span>
-                    </div>
+                    @forelse($wargaServices as $service)
+                        @if($service->link)
+                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable" style="text-decoration: none; color: inherit;">
+                        @else
+                            <div class="lt-service-item">
+                        @endif
+                            <span class="lt-service-icon">
+                                @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
+                            </span>
+                            <span class="lt-service-text">{{ $service->name }}</span>
+                        @if($service->link)
+                            </a>
+                        @else
+                            </div>
+                        @endif
+                    @empty
+                        <div style="grid-column: 1 / -1; color: #94A3B8; text-align: center; padding: 20px;">Belum ada layanan untuk warga.</div>
+                    @endforelse
                 </div>
             </div>
 
             <!-- Layanan Untuk Faskes -->
-            <div class="lt-category-section">
+            <div class="lt-category-section" data-type="faskes">
                 <div class="lt-title-section">
                     <h2 class="lt-main-title">Layanan Untuk Faskes</h2>
                 </div>
 
                 <div class="lt-services-grid">
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Penutupan Klinik</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Izin Operasional Klinik</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Perizinan Apotek</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Penutupan Apotek</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Penutupan Toko Obat</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Perizinan Toko Obat</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Penutupan Instalasi Farmasi Klinik</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        </span>
-                        <span class="lt-service-text">Konsultasi Perizinan Berusaha Optikal</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        </span>
-                        <span class="lt-service-text">Konsultasi Perizinan Berusaha Toko Alat Kesehatan</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        </span>
-                        <span class="lt-service-text">Konsultasi Perizinan Berusaha Perusahaan Rumah Tangga Alkes PKRT Tertentu</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </span>
-                        <span class="lt-service-text">Konsultasi Sertifikat Pemenuhan Komitmen Produksi Pangan Olahan Industri Rumah Tangga SPP-IRT</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </span>
-                        <span class="lt-service-text">Penerbitan Persetujuan Teknis Izin Aktivitas Rumah Sakit</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </span>
-                        <span class="lt-service-text">Sertifikat Laik Sehat Akomodasi</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                        </span>
-                        <span class="lt-service-text">Notifikasi Pemenuhan Komitmen Ijin Penyelenggaraan Pengendalian Vektor Dan Binatang Pembawa Penyakit</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Sertifikat Laik Higiene Sanitasi Jasaboga/Catering/Rumah Makan/Restoran, Depot Air Minum</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </span>
-                        <span class="lt-service-text">Penerbitan Izin Penelitian/Magang/PKL</span>
-                    </div>
+                    @forelse($faskesServices as $service)
+                        @if($service->link)
+                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable" style="text-decoration: none; color: inherit;">
+                        @else
+                            <div class="lt-service-item">
+                        @endif
+                            <span class="lt-service-icon">
+                                @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
+                            </span>
+                            <span class="lt-service-text">{{ $service->name }}</span>
+                        @if($service->link)
+                            </a>
+                        @else
+                            </div>
+                        @endif
+                    @empty
+                        <div style="grid-column: 1 / -1; color: #94A3B8; text-align: center; padding: 20px;">Belum ada layanan untuk faskes.</div>
+                    @endforelse
                 </div>
             </div>
 
             <!-- Layanan Untuk Nakes -->
-            <div class="lt-category-section">
+            <div class="lt-category-section" data-type="nakes">
                 <div class="lt-title-section">
                     <h2 class="lt-main-title">Layanan Untuk Nakes</h2>
                 </div>
 
                 <div class="lt-services-grid">
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </span>
-                        <span class="lt-service-text">Penerbitan Sertifikat Penyuluhan Keamanan Pangan PKP</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Perizinan Tenaga Medis</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Perizinan Tenaga Kesehatan</span>
-                    </div>
-                    <div class="lt-service-item">
-                        <span class="lt-service-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </span>
-                        <span class="lt-service-text">Rekomendasi Perizinan Surat Terdaftar Penyehat Tradisional</span>
-                    </div>
+                    @forelse($nakesServices as $service)
+                        @if($service->link)
+                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable" style="text-decoration: none; color: inherit;">
+                        @else
+                            <div class="lt-service-item">
+                        @endif
+                            <span class="lt-service-icon">
+                                @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
+                            </span>
+                            <span class="lt-service-text">{{ $service->name }}</span>
+                        @if($service->link)
+                            </a>
+                        @else
+                            </div>
+                        @endif
+                    @empty
+                        <div style="grid-column: 1 / -1; color: #94A3B8; text-align: center; padding: 20px;">Belum ada layanan untuk nakes.</div>
+                    @endforelse
                 </div>
             </div>
 
@@ -221,3 +161,71 @@
         </div>
     </main>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('layananSearchInput');
+    const tabBtns = document.querySelectorAll('.lt-tab-btn');
+    const categorySections = document.querySelectorAll('.lt-category-section');
+
+    let activeType = 'all';
+
+    function filterLayanan() {
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        categorySections.forEach(section => {
+            const sectionType = section.getAttribute('data-type');
+            const matchesType = (activeType === 'all') || (sectionType === activeType);
+
+            if (!matchesType) {
+                section.style.display = 'none';
+                return;
+            }
+
+            // Filter individual service items inside this section
+            const serviceItems = section.querySelectorAll('.lt-service-item');
+            let hasVisibleItems = false;
+
+            serviceItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    item.style.display = 'flex';
+                    hasVisibleItems = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (hasVisibleItems) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', filterLayanan);
+    }
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            tabBtns.forEach(b => {
+                b.classList.remove('active');
+                b.style.background = '#FFFFFF';
+                b.style.color = '#475569';
+                b.style.borderColor = '#E2E8F0';
+            });
+
+            this.classList.add('active');
+            this.style.background = '#009966';
+            this.style.color = '#FFFFFF';
+            this.style.borderColor = '#009966';
+
+            activeType = this.getAttribute('data-type');
+            filterLayanan();
+        });
+    });
+});
+</script>
+

@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ asset('css/Lihat_semua/media.css') }}?v={{ time() }}">
 
 <div class="media-page-wrapper">
+    @php
+        $headerSetting = \App\Models\HeaderSetting::getByKey('media', 'Galeri Foto', 'Dokumentasi visual rangkaian kegiatan, kampanye kesehatan, dan pelayanan publik di lapangan.');
+    @endphp
     <!-- Header Banner -->
     <header class="media-header">
         <div class="media-header-container">
@@ -13,7 +16,7 @@
     <main class="media-content">
         <div class="media-container">
             <!-- Search & Filter Bar -->
-            <div class="media-filter-bar">
+            <form action="{{ url('/media') }}" method="GET" class="media-filter-bar">
                 <div class="media-search-section">
                     <h3 class="media-filter-label">Cari Album Kegiatan</h3>
                     <div class="media-search-box">
@@ -21,31 +24,31 @@
                             <circle cx="11" cy="11" r="8" />
                             <path d="M21 21l-4.35-4.35" />
                         </svg>
-                        <input type="text" class="media-search-input" placeholder="Cari Judul Berita...">
-                        <button class="media-search-btn">Cari</button>
+                        <input type="text" name="search" class="media-search-input" value="{{ request('search') }}" placeholder="Cari Judul Galeri...">
+                        <button type="submit" class="media-search-btn">Cari</button>
                     </div>
                 </div>
                 <div class="media-filter-section">
                     <h3 class="media-filter-label">Filter Kategori</h3>
                     <div class="media-filter-dropdown">
-                        <select class="media-select">
-                            <option>Semua Wilayah</option>
-                            <option>Kota Cianjur</option>
-                            <option>Cianjur Selatan</option>
-                            <option>Cianjur Utara</option>
+                        <select name="category" class="media-select" onchange="this.form.submit()">
+                            <option value="Semua" {{ request('category', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Kategori</option>
+                            <option value="PROGRAM" {{ request('category') == 'PROGRAM' ? 'selected' : '' }}>PROGRAM</option>
+                            <option value="KEGIATAN" {{ request('category') == 'KEGIATAN' ? 'selected' : '' }}>KEGIATAN</option>
+                            <option value="NASIONAL" {{ request('category') == 'NASIONAL' ? 'selected' : '' }}>NASIONAL</option>
                         </select>
                     </div>
                 </div>
-            </div>
+            </form>
 
             <!-- Gallery Grid -->
             <div class="media-gallery-grid">
                 @forelse ($galeris as $galeri)
                     <div class="media-card">
                         @if(file_exists(public_path('uploads/galeri/' . $galeri->image)))
-                            <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image" loading="lazy">
+                            <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image lightbox-trigger" loading="lazy">
                         @else
-                            <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image" loading="lazy">
+                            <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="media-card-image lightbox-trigger" loading="lazy">
                         @endif
                         <div class="media-card-overlay"></div>
                         <span class="media-card-badge">{{ $galeri->category }}</span>
@@ -64,46 +67,17 @@
             <!-- Pagination -->
             @if ($galeris->hasPages())
                 <div class="media-pagination">
-                    {{-- Previous Page Link --}}
-                    @if ($galeris->onFirstPage())
-                        <span class="media-page-btn disabled" style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; justify-content: center;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-                                <path d="M15 18l-6-6 6-6" />
-                            </svg>
-                        </span>
-                    @else
-                        <a href="{{ $galeris->previousPageUrl() }}" class="media-page-btn" aria-label="Previous" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; justify-content: center;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-                                <path d="M15 18l-6-6 6-6" />
-                            </svg>
-                        </a>
-                    @endif
-
-                    {{-- Pagination Elements --}}
-                    @foreach ($galeris->getUrlRange(1, $galeris->lastPage()) as $page => $url)
-                        @if ($page == $galeris->currentPage())
-                            <span class="media-page-btn active">{{ $page }}</span>
-                        @else
-                            <a href="{{ $url }}" class="media-page-btn" style="text-decoration: none; color: inherit;">{{ $page }}</a>
-                        @endif
-                    @endforeach
-
-                    {{-- Next Page Link --}}
-                    @if ($galeris->hasMorePages())
-                        <a href="{{ $galeris->nextPageUrl() }}" class="media-page-btn" aria-label="Next" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; justify-content: center;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-                                <path d="M9 18l6-6-6-6" />
-                            </svg>
-                        </a>
-                    @else
-                        <span class="media-page-btn disabled" style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; justify-content: center;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-                                <path d="M9 18l6-6-6-6" />
-                            </svg>
-                        </span>
-                    @endif
+                    {{ $galeris->links('vendor.pagination.media-custom') }}
                 </div>
             @endif
         </div>
     </main>
 </div>
+
+@include('components.lightbox')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initLightbox('.lightbox-trigger');
+    });
+</script>

@@ -135,6 +135,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    align-items: stretch;
 }
 
 /* ── Service Card ────────────────────────────────────────────── */
@@ -147,6 +148,9 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
@@ -166,11 +170,18 @@
     width: 40px;
     height: 40px;
     color: #009966;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .labkesda-card-icon svg {
     width: 100%;
     height: 100%;
+}
+
+.labkesda-card-icon .material-icons {
+    font-size: 32px;
 }
 
 .labkesda-card-tag {
@@ -194,17 +205,19 @@
     color: #6B7280;
     margin: 0 0 16px 0;
     line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 /* ── Card Features List ──────────────────────────────────────── */
 .labkesda-card-features {
     list-style: none;
     padding: 0;
-    margin: 0 0 25px 0;
+    margin: 0 0 20px 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    flex: 1;
 }
 
 .labkesda-card-features li {

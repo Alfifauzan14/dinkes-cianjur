@@ -1,0 +1,393 @@
+/* ================================================================
+   ADMIN LABKESDA MANAGEMENT CSS - PREMIUM DINKES CIANJUR EDITION
+   Font      : Plus Jakarta Sans
+   Warna     : Primary #004F3B, Accent #009966, Muted #6B7280
+   Radius    : Card Luar 1px, Item/Card Dalam 3px
+   Shadow    : 0px 0px 35px rgba(0, 0, 0, 0.05)
+   ================================================================ */
+
+.berita-admin-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ── Content Card ────────────────────────────────────────────── */
+.admin-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 1px; /* Card luar: 1px */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+}
+
+.card-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* ── Form Controls ───────────────────────────────────────────── */
+.form-control-input, .form-control-select {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px; /* Input/Select: 3px */
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    color: #111827;
+    background-color: #FFFFFF;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control-input:focus, .form-control-select:focus {
+    border-color: #009966;
+    box-shadow: 0 0 0 3px rgba(0, 153, 102, 0.1);
+}
+
+.form-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px; /* Textarea: 3px */
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    resize: vertical;
+    color: #111827;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-textarea:focus {
+    border-color: #009966;
+    box-shadow: 0 0 0 3px rgba(0, 153, 102, 0.1);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn-admin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 20px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 3px; /* Button: 3px */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn-admin-primary {
+    background-color: #009966; /* Accent Green */
+    color: #FFFFFF;
+}
+
+.btn-admin-primary:hover {
+    background-color: #004F3B; /* Primary Green */
+}
+
+.btn-admin-secondary {
+    background-color: #F3F4F6;
+    color: #374151;
+    border: 1px solid #D1D5DB;
+}
+
+.btn-admin-secondary:hover {
+    background-color: #E5E7EB;
+}
+
+.btn-admin-danger {
+    background-color: #EF4444;
+    color: #FFFFFF;
+}
+
+.btn-admin-danger:hover {
+    background-color: #DC2626;
+}
+
+/* ── Data Table ──────────────────────────────────────────────── */
+.admin-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 8px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.admin-table th {
+    background-color: #F9FAFB;
+    color: #004F3B; /* Primary Green Header */
+    font-weight: 700;
+    padding: 16px;
+    border-bottom: 2px solid #E5E7EB;
+}
+
+.admin-table td {
+    padding: 16px;
+    border-bottom: 1px solid #E5E7EB;
+    color: #374151;
+    vertical-align: middle;
+}
+
+.admin-table tr:hover {
+    background-color: #F9FAFB;
+}
+
+.actions-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-action-edit {
+    color: #009966;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.btn-action-edit:hover {
+    color: #004F3B;
+}
+
+.btn-action-delete {
+    color: #EF4444;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.btn-action-delete:hover {
+    color: #DC2626;
+}
+
+/* ── Repeater (Item Layanan) ─────────────────────────────────── */
+.repeater-group,
+div.repeater-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px;
+}
+
+.repeater-row,
+div.repeater-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.repeater-row .form-control-input {
+    flex: 1;
+}
+
+.repeater-row .btn-remove-row {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FEE2E2;
+    color: #DC2626;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.2s ease;
+}
+
+.repeater-row .btn-remove-row:hover {
+    background-color: #FECACA;
+}
+
+.btn-add-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: #F3F4F6;
+    color: #374151;
+    border: 1px dashed #D1D5DB;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-add-row:hover {
+    background-color: #E5E7EB;
+    border-color: #9CA3AF;
+}
+
+/* ── Icon Picker ─────────────────────────────────────────────── */
+.icon-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.icon-picker-item {
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    background-color: #F8FAFC;
+    transition: all 0.2s ease;
+}
+
+.icon-picker-item:hover {
+    border-color: #009966;
+    background-color: #E6F7F0;
+}
+
+.icon-picker-item input[type="radio"] {
+    margin: 0;
+}
+
+.icon-picker-item .icon-circle {
+    color: #009966;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: #E6F7F0;
+    border-radius: 50%;
+}
+
+.icon-picker-item span.material-icons {
+    font-size: 20px;
+}
+
+.icon-picker-item .icon-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    text-transform: capitalize;
+    text-align: center;
+    word-break: break-word;
+}
+
+.icon-picker-item.selected {
+    border-color: #009966;
+    background-color: #E6F7F0;
+    box-shadow: 0 0 0 2px rgba(0, 153, 102, 0.15);
+}
+
+/* ── Form Layout ─────────────────────────────────────────────── */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 800px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #004F3B; /* Primary Green label */
+}
+
+.form-section-divider {
+    border: none;
+    border-top: 1px solid #E5E7EB;
+    margin: 8px 0;
+}
+
+/* ── Alert Notification ──────────────────────────────────────── */
+.admin-alert {
+    padding: 14px 20px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-alert-success {
+    background-color: #D1FAE5;
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+}
+
+/* ── Settings Card ───────────────────────────────────────────── */
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.settings-preview {
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 3px;
+    padding: 20px;
+}
+
+.settings-preview-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+}
+
+.settings-preview-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 14px;
+    color: #374151;
+}
+
+.settings-preview-item:last-child {
+    border-bottom: none;
+}
+
+.settings-preview-item .material-icons {
+    color: #009966;
+    font-size: 20px;
+    margin-top: 1px;
+}

@@ -29,6 +29,16 @@ class AgendaController extends Controller
             $query->where('status', $request->input('status'));
         }
 
+        $timeFilter = $request->input('time_filter', 'all');
+        $today = \Carbon\Carbon::today()->toDateString();
+        if ($timeFilter === 'upcoming') {
+            $query->where('date', '>', $today);
+        } elseif ($timeFilter === 'today') {
+            $query->whereDate('date', $today);
+        } elseif ($timeFilter === 'past') {
+            $query->where('date', '<', $today);
+        }
+
         $agendas = $query->orderBy('date', 'desc')
             ->orderBy('time_start', 'asc')
             ->paginate(10);
@@ -127,7 +137,7 @@ class AgendaController extends Controller
 
         $path = $file->getRealPath();
         $handle = fopen($path, 'r');
-        if (!$handle) {
+        if (! $handle) {
             return redirect()->back()->withErrors(['csv_file' => 'Gagal membuka berkas CSV.']);
         }
 
@@ -138,7 +148,7 @@ class AgendaController extends Controller
         $delimiter = ',';
         if (strpos($firstLine, ';') !== false && strpos($firstLine, ',') === false) {
             $delimiter = ';';
-        } else if (strpos($firstLine, ';') !== false && strpos($firstLine, ',') !== false) {
+        } elseif (strpos($firstLine, ';') !== false && strpos($firstLine, ',') !== false) {
             $commaCount = substr_count($firstLine, ',');
             $semicolonCount = substr_count($firstLine, ';');
             if ($semicolonCount > $commaCount) {
@@ -148,44 +158,65 @@ class AgendaController extends Controller
 
         // Read headers and normalize
         $header = fgetcsv($handle, 1000, $delimiter);
-        if (!$header) {
+        if (! $header) {
             fclose($handle);
+
             return redirect()->back()->withErrors(['csv_file' => 'Berkas CSV kosong atau tidak valid.']);
         }
 
         $header = array_map(function ($h) {
             $h = preg_replace('/[\x{FEFF}\x{200B}]/u', '', $h);
+
             return strtolower(trim($h));
         }, $header);
 
         // Map column names dynamically (supporting English & Indonesian)
         $titleIndex = array_search('title', $header);
-        if ($titleIndex === false) $titleIndex = array_search('judul', $header);
-        if ($titleIndex === false) $titleIndex = array_search('nama', $header);
+        if ($titleIndex === false) {
+            $titleIndex = array_search('judul', $header);
+        }
+        if ($titleIndex === false) {
+            $titleIndex = array_search('nama', $header);
+        }
 
         $dateIndex = array_search('date', $header);
-        if ($dateIndex === false) $dateIndex = array_search('tanggal', $header);
+        if ($dateIndex === false) {
+            $dateIndex = array_search('tanggal', $header);
+        }
 
         $timeStartIndex = array_search('time_start', $header);
-        if ($timeStartIndex === false) $timeStartIndex = array_search('waktu_mulai', $header);
+        if ($timeStartIndex === false) {
+            $timeStartIndex = array_search('waktu_mulai', $header);
+        }
 
         $timeEndIndex = array_search('time_end', $header);
-        if ($timeEndIndex === false) $timeEndIndex = array_search('waktu_selesai', $header);
+        if ($timeEndIndex === false) {
+            $timeEndIndex = array_search('waktu_selesai', $header);
+        }
 
         $locationIndex = array_search('location', $header);
-        if ($locationIndex === false) $locationIndex = array_search('lokasi', $header);
-        if ($locationIndex === false) $locationIndex = array_search('tempat', $header);
+        if ($locationIndex === false) {
+            $locationIndex = array_search('lokasi', $header);
+        }
+        if ($locationIndex === false) {
+            $locationIndex = array_search('tempat', $header);
+        }
 
         $descriptionIndex = array_search('description', $header);
-        if ($descriptionIndex === false) $descriptionIndex = array_search('deskripsi', $header);
-        if ($descriptionIndex === false) $descriptionIndex = array_search('keterangan', $header);
+        if ($descriptionIndex === false) {
+            $descriptionIndex = array_search('deskripsi', $header);
+        }
+        if ($descriptionIndex === false) {
+            $descriptionIndex = array_search('keterangan', $header);
+        }
 
         $statusIndex = array_search('status', $header);
 
         if ($titleIndex === false || $dateIndex === false || $timeStartIndex === false || $timeEndIndex === false || $locationIndex === false) {
             fclose($handle);
+
             return redirect()->back()->withErrors([
-                'csv_file' => 'Format kolom CSV tidak sesuai. Pastikan memiliki kolom wajib: Judul/Title, Tanggal/Date, Waktu Mulai/Time Start, Waktu Selesai/Time End, Lokasi/Location.'
+                'csv_file' => 'Format kolom CSV tidak sesuai. Pastikan memiliki kolom wajib: Judul/Title, Tanggal/Date, Waktu Mulai/Time Start, Waktu Selesai/Time End, Lokasi/Location.',
             ]);
         }
 
@@ -211,33 +242,38 @@ class AgendaController extends Controller
 
             if (empty($title)) {
                 $errors[] = "Baris {$rowNumber}: Judul tidak boleh kosong.";
+
                 continue;
             }
 
             $parsedDate = null;
-            if (!empty($dateVal)) {
+            if (! empty($dateVal)) {
                 try {
                     $parsedDate = Carbon::parse($dateVal)->format('Y-m-d');
                 } catch (\Exception $e) {
                     $errors[] = "Baris {$rowNumber}: Format tanggal '{$dateVal}' tidak valid. Gunakan format YYYY-MM-DD.";
+
                     continue;
                 }
             } else {
                 $errors[] = "Baris {$rowNumber}: Tanggal tidak boleh kosong.";
+
                 continue;
             }
 
             if (empty($timeStart) || empty($timeEnd)) {
                 $errors[] = "Baris {$rowNumber}: Waktu mulai dan selesai tidak boleh kosong.";
+
                 continue;
             }
 
             if (empty($location)) {
                 $errors[] = "Baris {$rowNumber}: Lokasi tidak boleh kosong.";
+
                 continue;
             }
 
-            if (!in_array($status, ['published', 'draft'])) {
+            if (! in_array($status, ['published', 'draft'])) {
                 $status = 'published';
             }
 
@@ -261,6 +297,7 @@ class AgendaController extends Controller
             if ($importedCount === 0) {
                 return redirect()->route('admin.agenda.index')->withErrors($errors);
             }
+
             return redirect()->route('admin.agenda.index')->with('success', $msg)->withErrors($errors);
         }
 

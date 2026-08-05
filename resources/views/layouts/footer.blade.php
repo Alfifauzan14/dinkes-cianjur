@@ -10,10 +10,10 @@
             {{-- Kolom 1: Brand & Logo --}}
             <div class="footer-col footer-brand">
                 <div class="footer-logo-wrap">
-                    <a href="{{ url('/') }}" class="footer-logo-link" title="Beranda Dinas Kesehatan Kabupaten Cianjur">
+                    <a href="{{ url('/') }}" class="footer-logo-link" title="Beranda {{ $site_settings->site_name ?? 'Dinas Kesehatan Kabupaten Cianjur' }}">
                         <img
-                            src="{{ asset('images/logo.png') }}"
-                            alt="Logo Resmi Dinas Kesehatan Kabupaten Cianjur"
+                            src="{{ isset($site_settings) && $site_settings->site_logo ? asset('uploads/settings/' . $site_settings->site_logo) : asset('images/logo.png') }}"
+                            alt="Logo Resmi {{ $site_settings->site_name ?? 'Dinas Kesehatan Kabupaten Cianjur' }}"
                             class="footer-logo-img"
                             loading="lazy"
                             decoding="async"
