@@ -354,8 +354,8 @@ label {
     padding: 0 !important;
 }
 .btn-action:hover { transform: translateY(-1px); }
-.btn-action-edit   { color: #D97706 !important; background-color: #FEF3C7 !important; border-color: #FDE68A !important; }
-.btn-action-edit:hover   { background-color: #FDE68A !important; border-color: #FCD34D !important; color: #92400E !important; }
+.btn-action-edit   { color: #007A52 !important; background-color: #D1FAE5 !important; border-color: #A7F3D0 !important; }
+.btn-action-edit:hover   { background-color: #A7F3D0 !important; border-color: #6EE7B7 !important; color: #004F3B !important; }
 .btn-action-delete { color: #DC2626 !important; background-color: #FEE2E2 !important; border-color: #FCA5A5 !important; }
 .btn-action-delete:hover { background-color: #FCA5A5 !important; border-color: #F87171 !important; color: #991B1B !important; }
 .btn-action-view   { color: #0284C7 !important; background-color: #E0F2FE !important; border-color: #BAE6FD !important; }
@@ -369,3 +369,8 @@ label {
 }
 .swal2-popup { border-radius: 10px !important; font-family: 'Plus Jakarta Sans', sans-serif !important; }
 .swal2-title { font-size: 18px !important; font-weight: 700 !important; }
+
+/* ── Hide checkbox yang tidak diinginkan di SweetAlert2 ────────────────── */
+label.swal2-checkbox,
+.swal2-checkbox { display: none !important; }
+

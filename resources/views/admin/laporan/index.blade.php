@@ -150,7 +150,7 @@
         <div class="modal-content">
             <form action="" method="POST" id="form-edit-laporan" enctype="multipart/form-data">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background:#D97706;color:#fff;border-radius:0;">
+                <div class="modal-header" style="background:#007A52;color:#fff;border-radius:0;">
                     <h5 class="modal-title" id="modalEditLaporanLabel">
                         <span class="material-icons" style="vertical-align:middle;margin-right:6px;">edit_note</span>
                         Edit Laporan
@@ -198,7 +198,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning text-white">
+                    <button type="submit" class="btn btn-success">
                         <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>

@@ -4,11 +4,11 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex align-items-center" style="padding: 14px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         {{-- Search & Filter --}}
-        <form action="{{ route('admin.berita.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+        <form action="{{ route('admin.berita.index') }}" method="GET" class="d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari judul berita..." style="width: 220px;">
-            <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 150px;">
+            <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 160px;">
                 <option value="">Semua Kategori</option>
                 <option value="Kesehatan"  {{ request('category') == 'Kesehatan'  ? 'selected' : '' }}>Kesehatan</option>
                 <option value="Kegiatan"   {{ request('category') == 'Kegiatan'   ? 'selected' : '' }}>Kegiatan</option>
@@ -19,8 +19,9 @@
             @endif
         </form>
 
-        <a href="{{ route('admin.berita.create') }}" class="btn btn-sm btn-success">
-            <span class="material-icons" style="font-size:16px;">add</span> Tulis Berita
+        {{-- Tombol Tulis Berita: push ke kanan penuh --}}
+        <a href="{{ route('admin.berita.create') }}" class="btn btn-sm btn-success ml-auto" style="white-space: nowrap;">
+            <span class="material-icons" style="font-size:16px; vertical-align:middle;">add</span> Tulis Berita
         </a>
     </div>
 
@@ -57,7 +58,7 @@
                         </td>
                         <td class="align-middle">
                             @php
-                                $catColors = ['Kesehatan'=>['bg'=>'#DEF7EC','color'=>'#03543F'],'Kegiatan'=>['bg'=>'#E0F2FE','color'=>'#0369A1'],'Pengumuman'=>['bg'=>'#FEF3C7','color'=>'#92400E']];
+                                $catColors = ['Kesehatan'=>['bg'=>'#DEF7EC','color'=>'#03543F'],'Kegiatan'=>['bg'=>'#E0F2FE','color'=>'#0369A1'],'Pengumuman'=>['bg'=>'#EDE9FE','color'=>'#5B21B6']];
                                 $cat = $catColors[$berita->category] ?? ['bg'=>'#F1F5F9','color'=>'#475569'];
                             @endphp
                             <span class="badge" style="padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700;" @style(['background: ' . $cat['bg'], 'color: ' . $cat['color']])>

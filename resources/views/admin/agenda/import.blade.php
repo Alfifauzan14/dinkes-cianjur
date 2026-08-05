@@ -89,7 +89,7 @@
             </table>
         </div>
 
-        <blockquote style="margin: 0; padding: 12px 16px; background-color: #FFFBEB; border-left: 4px solid #F59E0B; border-radius: 3px; font-size: 13px; color: #78350F; line-height: 1.5;">
+        <blockquote style="margin: 0; padding: 12px 16px; background-color: #EFF6FF; border-left: 4px solid #3B82F6; border-radius: 3px; font-size: 13px; color: #1E3A8A; line-height: 1.5;">
             <strong>Tips:</strong> Sistem secara otomatis mendeteksi pemisah kolom koma (<code>,</code>) maupun titik-koma (<code>;</code>) sehingga Anda tidak perlu khawatir dengan perbedaan format regional Excel Anda. Kolom header juga dapat ditulis menggunakan istilah bahasa Indonesia (Judul, Tanggal, Lokasi, dll).
         </blockquote>
     </div>

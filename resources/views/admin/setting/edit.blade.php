@@ -70,8 +70,8 @@
 .form-group label .label-badge {
     font-size: 10px;
     font-weight: 600;
-    background: #fef3c7;
-    color: #92400e;
+    background: #D1FAE5;
+    color: #065F46;
     padding: 2px 6px;
     border-radius: 4px;
 }

@@ -29,9 +29,10 @@
             showCancelButton: true,
             confirmButtonColor: '#dc3545',
             cancelButtonColor: '#6c757d',
-            confirmButtonText: '<span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span> Hapus',
+            confirmButtonText: 'Hapus',
             cancelButtonText: 'Batal',
-            reverseButtons: true
+            reverseButtons: true,
+            focusCancel: true
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById(formId).submit();

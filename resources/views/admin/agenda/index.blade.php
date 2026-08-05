@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex align-items-center" style="padding: 14px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         {{-- Search & Filter --}}
-        <form action="{{ route('admin.agenda.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+        <form action="{{ route('admin.agenda.index') }}" method="GET" class="d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
             <input type="hidden" name="time_filter" value="{{ request('time_filter', 'all') }}">
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari agenda atau lokasi..." style="width: 220px;">
             <select name="status" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 140px;">
@@ -20,11 +20,11 @@
         </form>
 
         {{-- Action Buttons --}}
-        <div class="d-flex" style="gap: 8px;">
-            <a href="{{ route('admin.agenda.import_form') }}" class="btn btn-sm btn-outline-secondary">
+        <div class="d-flex ml-auto" style="gap: 8px;">
+            <a href="{{ route('admin.agenda.import_form') }}" class="btn btn-sm btn-outline-secondary" style="white-space:nowrap;">
                 <span class="material-icons" style="font-size:16px;">upload_file</span> Impor CSV
             </a>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahAgenda">
+            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahAgenda" style="white-space:nowrap;">
                 <span class="material-icons" style="font-size:16px;">add</span> Tambah Agenda
             </button>
         </div>
@@ -84,7 +84,7 @@
                         </td>
                         <td>
                             @if($agenda->isPending())
-                                <span class="badge" style="background:#FEF3C7;color:#92400E;padding:4px 10px;border-radius:3px;">Menunggu</span>
+                                <span class="badge" style="background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:3px;">Menunggu</span>
                             @elseif($agenda->status == 'published')
                                 <span class="badge" style="background:#DEF7EC;color:#03543F;padding:4px 10px;border-radius:3px;">Diterbitkan</span>
                             @else
@@ -173,13 +173,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tambah_time_start">Waktu Mulai <span class="text-danger">*</span></label>
-                                <input type="text" name="time_start" id="tambah_time_start" class="form-control" value="08:00" placeholder="08:00" required>
+                                <input type="time" name="time_start" id="tambah_time_start" class="form-control" value="08:00" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tambah_time_end">Waktu Selesai <span class="text-danger">*</span></label>
-                                <input type="text" name="time_end" id="tambah_time_end" class="form-control" value="10:00" placeholder="10:00 atau Selesai" required>
+                                <input type="time" name="time_end" id="tambah_time_end" class="form-control" value="10:00" required>
                             </div>
                         </div>
                     </div>
@@ -214,7 +214,7 @@
         <div class="modal-content">
             <form action="" method="POST" id="form-edit-agenda">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background:#D97706;color:#fff;border-radius:0;">
+                <div class="modal-header" style="background:#007A52;color:#fff;border-radius:0;">
                     <h5 class="modal-title" id="modalEditAgendaLabel">
                         <span class="material-icons" style="vertical-align:middle;margin-right:6px;">edit_calendar</span>
                         Edit Agenda
@@ -244,13 +244,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="edit_time_start">Waktu Mulai <span class="text-danger">*</span></label>
-                                <input type="text" name="time_start" id="edit_time_start" class="form-control" required>
+                                <input type="time" name="time_start" id="edit_time_start" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="edit_time_end">Waktu Selesai <span class="text-danger">*</span></label>
-                                <input type="text" name="time_end" id="edit_time_end" class="form-control" required>
+                                <input type="time" name="time_end" id="edit_time_end" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -268,7 +268,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning text-white">
+                    <button type="submit" class="btn btn-success">
                         <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>

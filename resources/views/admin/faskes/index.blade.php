@@ -60,7 +60,7 @@
     @endif
 
     <div class="admin-card">
-        <div class="card-header-actions d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px;">
+        <div class="card-header-actions d-flex align-items-center" style="gap: 16px; flex-wrap: wrap;">
             <form action="{{ route('admin.faskes.index') }}" method="GET" class="search-filter-form d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
                 <input
                     type="text"
@@ -87,11 +87,11 @@
                 @endif
             </form>
 
-            <div class="d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
+            <div class="d-flex align-items-center ml-auto" style="gap: 8px; flex-wrap: wrap;">
                 <!-- Import CSV -->
                 <form action="{{ route('admin.faskes.import') }}" method="POST" enctype="multipart/form-data" class="d-inline-block m-0">
                     @csrf
-                    <label class="btn-admin btn-admin-secondary mb-0" style="cursor: pointer; padding: 6px 12px;">
+                    <label class="btn-admin btn-admin-secondary mb-0" style="cursor: pointer; padding: 6px 12px; white-space: nowrap;">
                         <span class="material-icons" style="font-size:16px; vertical-align:middle;">upload_file</span>
                         <span>Impor CSV</span>
                         <input type="file" name="csv_file" accept=".csv,.txt" style="display: none;" onchange="this.form.submit()">
@@ -99,17 +99,18 @@
                 </form>
 
                 <!-- Export CSV -->
-                <a href="{{ route('admin.faskes.export') }}" class="btn-admin btn-admin-secondary" style="padding: 6px 12px;">
+                <a href="{{ route('admin.faskes.export') }}" class="btn-admin btn-admin-secondary" style="padding: 6px 12px; white-space: nowrap;">
                     <span class="material-icons" style="font-size:16px; vertical-align:middle;">download</span>
                     <span>Ekspor CSV</span>
                 </a>
 
-                <a href="{{ route('admin.faskes.create') }}" class="btn-admin btn-admin-primary" style="padding: 6px 12px;">
+                <a href="{{ route('admin.faskes.create') }}" class="btn-admin btn-admin-primary" style="padding: 6px 12px; white-space: nowrap;">
                     <span class="material-icons" style="font-size:16px; vertical-align:middle;">add</span>
                     <span>Tambah Faskes</span>
                 </a>
             </div>
         </div>
+
 
         <div class="admin-table-wrapper">
             <table class="admin-table">
