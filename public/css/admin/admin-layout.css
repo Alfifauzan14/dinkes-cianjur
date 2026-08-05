@@ -374,7 +374,6 @@ label {
 }
 .swal2-popup { border-radius: 10px !important; font-family: 'Plus Jakarta Sans', sans-serif !important; }
 .swal2-title { font-size: 18px !important; font-weight: 700 !important; }
-
 /* ── Hide checkbox yang tidak diinginkan di SweetAlert2 ────────────────── */
 label.swal2-checkbox,
 .swal2-checkbox, .swal2-input, .swal2-file, .swal2-select, .swal2-textarea,
