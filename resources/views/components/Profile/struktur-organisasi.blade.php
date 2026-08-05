@@ -18,7 +18,7 @@
 
             <!-- Action Buttons -->
             <div class="struktur-actions">
-                <a href="{{ asset('uploads/profile/' . $profile->struktur_organisasi_image) }}" download class="struktur-btn struktur-btn-primary">
+                <a href="{{ asset('uploads/profile/' . $profile->struktur_organisasi_image) }}" download="sturkture-dinkes" class="struktur-btn struktur-btn-primary">
                     <span class="material-icons">file_download</span>
                     <span>Simpan Struktur Organisasi</span>
                 </a>

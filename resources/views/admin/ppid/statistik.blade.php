@@ -90,7 +90,7 @@
                                 <span class="badge badge-success mb-3 align-self-start stat-badge-num" style="padding: 4px 10px; font-weight: 700; border-radius: 4px;">KARTU {{ $idx + 1 }}</span>
                                 <div class="form-group">
                                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Angka / Jumlah</label>
-                                    <input type="number" name="stat_numbers[]" value="{{ $item['number'] }}" class="form-control form-control-sm" inputmode="numeric">
+                                    <input type="text" name="stat_numbers[]" value="{{ $item['number'] }}" class="form-control form-control-sm" inputmode="numeric">
                                 </div>
                                 <div class="form-group mb-0">
                                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Keterangan</label>
@@ -137,7 +137,7 @@
                 <span class="badge badge-success mb-3 align-self-start stat-badge-num" style="padding: 4px 10px; font-weight: 700; border-radius: 4px;">KARTU ${statIndex}</span>
                 <div class="form-group">
                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Angka / Jumlah</label>
-                    <input type="number" name="stat_numbers[]" class="form-control form-control-sm" inputmode="numeric">
+                    <input type="text" name="stat_numbers[]" class="form-control form-control-sm" inputmode="numeric">
                 </div>
                 <div class="form-group mb-0">
                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Keterangan</label>

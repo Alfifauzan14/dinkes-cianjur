@@ -38,7 +38,7 @@ class PpidController extends Controller
                 'page_title' => 'required|string|max:255',
                 'page_subtitle' => 'nullable|string|max:500',
                 'stat_numbers' => 'nullable|array',
-                'stat_numbers.*' => 'nullable|numeric',
+                'stat_numbers.*' => 'nullable|string',
                 'stat_descs' => 'nullable|array',
                 'stat_descs.*' => 'nullable|string|max:500',
             ];
