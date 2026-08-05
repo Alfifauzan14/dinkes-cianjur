@@ -90,7 +90,7 @@
                             <button type="button" class="remove-btn-absolute" onclick="removeAccordionField(this)" title="Hapus Item">
                                 <span class="material-icons" style="font-size:16px;">delete</span>
                             </button>
-                            <span class="badge badge-success mb-3">Item {{ (int)$index + 1 }}</span>
+                            <span class="badge badge-success mb-3">Item {{ $loop->iteration }}</span>
                             
                             <div class="form-group">
                                 <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Klasifikasi Informasi <span class="text-danger">*</span></label>

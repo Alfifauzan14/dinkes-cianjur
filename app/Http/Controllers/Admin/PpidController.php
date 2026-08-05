@@ -54,33 +54,24 @@ class PpidController extends Controller
                 'tautan_badge' => 'nullable|string|max:255',
                 'tautan_title' => 'nullable|string|max:255',
                 'tautan_subtitle' => 'nullable|string|max:500',
-                'tautan_1_label' => 'nullable|string|max:255',
-                'tautan_1_url' => 'nullable|string|max:500',
-                'tautan_2_label' => 'nullable|string|max:255',
-                'tautan_2_url' => 'nullable|string|max:500',
-                'tautan_3_label' => 'nullable|string|max:255',
-                'tautan_3_url' => 'nullable|string|max:500',
-                'tautan_4_label' => 'nullable|string|max:255',
-                'tautan_4_url' => 'nullable|string|max:500',
-                'tautan_5_label' => 'nullable|string|max:255',
-                'tautan_5_url' => 'nullable|string|max:500',
+                'tautan_items' => 'nullable|array',
+                'tautan_items.*.label' => 'required|string|max:255',
+                'tautan_items.*.url' => 'nullable|string|max:500',
+                'tautan_items.*.image_upload' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
+                'tautan_items.*.existing_image' => 'nullable|string',
             ];
         } elseif ($section === 'tatacara') {
             $rules = [
                 'tata_cara_badge' => 'nullable|string|max:255',
                 'tata_cara_heading' => 'nullable|string|max:255',
-                'tata_cara_card_1_title' => 'nullable|string|max:255',
-                'tata_cara_card_1_text' => 'nullable|string',
-                'tata_cara_card_2_title' => 'nullable|string|max:255',
-                'tata_cara_card_2_text' => 'nullable|string',
-                'tata_cara_card_3_title' => 'nullable|string|max:255',
-                'tata_cara_card_3_text' => 'nullable|string',
-                'tata_cara_card_4_title' => 'nullable|string|max:255',
-                'tata_cara_card_4_text' => 'nullable|string',
                 'btn_daftar_label' => 'nullable|string|max:255',
                 'btn_daftar_url' => 'nullable|string|max:500',
                 'btn_login_label' => 'nullable|string|max:255',
                 'btn_login_url' => 'nullable|string|max:500',
+                'tata_cara_image_upload' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
+                'tata_cara_items' => 'nullable|array',
+                'tata_cara_items.*.title' => 'required|string|max:255',
+                'tata_cara_items.*.text' => 'required|string',
             ];
         }
 
@@ -106,6 +97,39 @@ class PpidController extends Controller
                 $idx = $i - 1;
                 $data["stat_{$i}_number"] = $numbers[$idx] ?? '';
                 $data["stat_{$i}_desc"] = $descs[$idx] ?? '';
+            }
+
+            $ppid->update($data);
+        } elseif ($section === 'tautan') {
+            $data = $request->only(['tautan_badge', 'tautan_title', 'tautan_subtitle']);
+            $tautanItems = $request->input('tautan_items', []);
+            $processedTautan = [];
+
+            if ($request->has('tautan_items')) {
+                foreach ($tautanItems as $index => $itemData) {
+                    $imagePath = $itemData['existing_image'] ?? null;
+                    if ($request->hasFile("tautan_items.{$index}.image_upload")) {
+                        $file = $request->file("tautan_items.{$index}.image_upload");
+                        $imagePath = $file->store('ppid', 'public');
+                    }
+                    $processedTautan[] = [
+                        'label' => $itemData['label'] ?? '',
+                        'url' => $itemData['url'] ?? '#',
+                        'image' => $imagePath,
+                    ];
+                }
+            }
+            $data['tautan_items'] = $processedTautan;
+            $ppid->update($data);
+        } elseif ($section === 'tatacara') {
+            $data = $request->only(['tata_cara_badge', 'tata_cara_heading', 'btn_daftar_label', 'btn_daftar_url', 'btn_login_label', 'btn_login_url']);
+            $data['tata_cara_items'] = $request->input('tata_cara_items', []);
+
+            if ($request->hasFile('tata_cara_image_upload')) {
+                $data['tata_cara_image'] = $request->file('tata_cara_image_upload')->store('ppid', 'public');
+            }
+
+            $ppid->update($data);
             }
 
             $ppid->update($data);

@@ -23,6 +23,51 @@
         border-bottom: 1px solid var(--border-subtle);
         padding-bottom: 10px;
     }
+    .accordion-grid-layout {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    .accordion-card-field {
+        background: #F8FAFC;
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        padding: 20px;
+        position: relative;
+        transition: all 0.18s;
+    }
+    .accordion-card-field:focus-within {
+        border-color: #009966;
+        background: #ffffff;
+        box-shadow: var(--card-shadow);
+    }
+    .remove-btn-absolute {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        border: none;
+        background: #FEE2E2;
+        color: #DC2626;
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .remove-btn-absolute:hover {
+        background: #FCA5A5;
+    }
+    .preview-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        border: 1px solid var(--border-subtle);
+    }
 </style>
 @endsection
 
@@ -31,7 +76,7 @@
     <div class="col-12">
 
         <div class="custom-form-card">
-            <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form">
+            <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="section" value="tautan">
@@ -62,27 +107,49 @@
                     </div>
                 </div>
 
-                <div class="form-section-title mt-4">
-                    <span class="material-icons text-success">list</span>
-                    <span>Daftar 5 Tautan Publik</span>
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-2 mt-4" style="border-bottom: 1px solid var(--border-subtle);">
+                    <div class="form-section-title mb-0" style="border-bottom: none; padding-bottom: 0;">
+                        <span class="material-icons text-success">list</span>
+                        <span>Daftar Tautan Publik</span>
+                    </div>
+                    <button type="button" id="btn-add-tautan" class="btn btn-outline-success btn-sm">
+                        <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Baris Baru
+                    </button>
                 </div>
 
-                <div class="row">
-                    @foreach(range(1, 5) as $i)
-                        <div class="col-md-6 mb-3">
-                            <div class="card p-3" style="background: #F8FAFC; border: 1px solid var(--border-subtle); border-radius: 8px;">
-                                <span class="badge badge-success mb-3 align-self-start" style="padding: 4px 10px; font-weight: 700; border-radius: 4px;">TAUTAN {{ $i }}</span>
-                                <div class="form-group mb-2">
-                                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Label Tombol</label>
-                                    <input type="text" name="tautan_{{ $i }}_label" value="{{ old('tautan_'.$i.'_label', $ppid->{'tautan_'.$i.'_label'}) }}" class="form-control form-control-sm">
-                                </div>
-                                <div class="form-group mb-0">
-                                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Alamat URL Link</label>
-                                    <input type="text" name="tautan_{{ $i }}_url" value="{{ old('tautan_'.$i.'_url', $ppid->{'tautan_'.$i.'_url'}) }}" class="form-control form-control-sm">
-                                </div>
+                <div id="tautan-container" class="accordion-grid-layout">
+                    @forelse (old('tautan_items', $ppid->tautan_items ?? []) as $index => $item)
+                        <div class="accordion-card-field" data-index="{{ $index }}">
+                            <button type="button" class="remove-btn-absolute" onclick="removeTautanField(this)" title="Hapus Item">
+                                <span class="material-icons" style="font-size:16px;">delete</span>
+                            </button>
+                            <span class="badge badge-success mb-3">Tautan {{ $loop->iteration }}</span>
+                            
+                            <div class="form-group mb-2">
+                                <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Label Tombol <span class="text-danger">*</span></label>
+                                <input type="text" name="tautan_items[{{ $index }}][label]" value="{{ $item['label'] ?? '' }}" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Alamat URL Link</label>
+                                <input type="text" name="tautan_items[{{ $index }}][url]" value="{{ $item['url'] ?? '' }}" class="form-control form-control-sm">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Upload Ikon/Gambar (Opsional)</label>
+                                @if(!empty($item['image']))
+                                    <div class="mb-2">
+                                        <img src="{{ asset('storage/' . $item['image']) }}" class="preview-image" style="max-height: 50px;">
+                                    </div>
+                                    <input type="hidden" name="tautan_items[{{ $index }}][existing_image]" value="{{ $item['image'] }}">
+                                @endif
+                                <input type="file" name="tautan_items[{{ $index }}][image_upload]" class="form-control-file" style="font-size: 11.5px;" accept="image/*">
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="col-12 text-center py-5" id="empty-state-info">
+                            <span class="material-icons" style="font-size:48px; color:#D1D5DB; display:block; margin-bottom:12px;">link</span>
+                            <p class="text-muted">Belum ada item tautan ditambahkan. Silakan klik tombol "Tambah Baris Baru".</p>
+                        </div>
+                    @endforelse
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
@@ -97,7 +164,80 @@
 @endsection
 
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    const container = document.getElementById('tautan-container');
+    const btnAdd = document.getElementById('btn-add-tautan');
+    const emptyState = document.getElementById('empty-state-info');
+
+    if (btnAdd) {
+        btnAdd.addEventListener('click', function () {
+            if (emptyState) {
+                emptyState.remove();
+            }
+            const index = container.querySelectorAll('.accordion-card-field').length;
+            const newField = document.createElement('div');
+            newField.className = 'accordion-card-field';
+            newField.dataset.index = index;
+            newField.innerHTML = `
+                <button type="button" class="remove-btn-absolute" onclick="removeTautanField(this)" title="Hapus Item">
+                    <span class="material-icons" style="font-size:16px;">delete</span>
+                </button>
+                <span class="badge badge-success mb-3">Tautan Baru</span>
+                
+                <div class="form-group mb-2">
+                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Label Tombol <span class="text-danger">*</span></label>
+                    <input type="text" name="tautan_items[${index}][label]" class="form-control form-control-sm" placeholder="Label..." required>
+                </div>
+                <div class="form-group mb-2">
+                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Alamat URL Link</label>
+                    <input type="text" name="tautan_items[${index}][url]" class="form-control form-control-sm" placeholder="https://...">
+                </div>
+                <div class="form-group mb-0">
+                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Upload Ikon/Gambar (Opsional)</label>
+                    <input type="file" name="tautan_items[${index}][image_upload]" class="form-control-file" style="font-size: 11.5px;" accept="image/*">
+                </div>
+            `;
+            container.appendChild(newField);
+        });
+    }
+
+    function removeTautanField(button) {
+        Swal.fire({
+            title: 'Hapus Tautan ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const card = button.closest('.accordion-card-field');
+                card.remove();
+
+                // Re-index inputs
+                Array.from(container.querySelectorAll('.accordion-card-field')).forEach((child, idx) => {
+                    const labelInput = child.querySelector('input[name$="[label]"]');
+                    if (labelInput) labelInput.name = `tautan_items[${idx}][label]`;
+                    
+                    const urlInput = child.querySelector('input[name$="[url]"]');
+                    if (urlInput) urlInput.name = `tautan_items[${idx}][url]`;
+                    
+                    const imageInput = child.querySelector('input[type="file"]');
+                    if (imageInput) imageInput.name = `tautan_items[${idx}][image_upload]`;
+
+                    const existingImageInput = child.querySelector('input[name$="[existing_image]"]');
+                    if (existingImageInput) existingImageInput.name = `tautan_items[${idx}][existing_image]`;
+                    
+                    const badge = child.querySelector('.badge');
+                    if (badge && !badge.innerText.includes('Baru')) {
+                        badge.innerText = `Tautan ${idx + 1}`;
+                    }
+                });
+            }
+        });
+    }
+
     document.getElementById('ppid-form').addEventListener('submit', function() {
         const btn = document.getElementById('ppid-save-btn');
         btn.disabled = true;
