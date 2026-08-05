@@ -10,6 +10,32 @@
         </button>
     </div>
 
+    {{-- Tabs Filter Segmen --}}
+    <div class="px-4 pt-3 pb-0 bg-white" style="border-bottom: 1px solid #E2E8F0;">
+        <ul class="nav nav-tabs border-0" id="layanan-type-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link {{ request('type', '') === '' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type', '') === '' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index') }}">
+                    Semua
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('type') === 'Warga' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Warga' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Warga'])) }}">
+                    Warga
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('type') === 'Faskes' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Faskes' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Faskes'])) }}">
+                    Faskes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('type') === 'Nakes' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Nakes' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Nakes'])) }}">
+                    Nakes
+                </a>
+            </li>
+        </ul>
+    </div>
+
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
@@ -38,7 +64,7 @@
                             @if($layanan->type === 'Warga')
                                 <span class="badge" style="background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:3px;">Layanan Warga</span>
                             @elseif($layanan->type === 'Faskes')
-                                <span class="badge" style="background:#EDE9FE;color:#5B21B6;padding:4px 10px;border-radius:3px;">Layanan Faskes</span>
+                                <span class="badge" style="background:#FEF3C7;color:#92400E;padding:4px 10px;border-radius:3px;">Layanan Faskes</span>
                             @else
                                 <span class="badge" style="background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:3px;">Layanan Nakes</span>
                             @endif
@@ -53,8 +79,7 @@
                         <td class="text-center align-middle">
                             <div class="btn-action-group">
                                 <button type="button"
-                                    class="btn-action btn-edit-layanan"
-                                    style="background-color: #F59E0B; color: white; border: 1px solid #D97706;"
+                                    class="btn-action btn-action-edit btn-edit-layanan"
                                     title="Edit"
                                     data-id="{{ $layanan->id }}"
                                     data-name="{{ $layanan->name }}"
@@ -159,7 +184,7 @@
         <div class="modal-content">
             <form action="" method="POST" id="form-edit-layanan">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background:#007A52;color:#fff;border-radius:0;">
+                <div class="modal-header" style="background:#D97706;color:#fff;border-radius:0;">
                     <h5 class="modal-title" id="modalEditLayananLabel">
                         <span class="material-icons" style="vertical-align:middle;margin-right:6px;">edit</span>
                         Edit Layanan
@@ -204,7 +229,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-warning text-white">
                         <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>
@@ -223,7 +248,7 @@ document.querySelectorAll('.btn-edit-layanan').forEach(function(btn) {
         document.getElementById('edit_l_type').value = this.dataset.type;
         document.getElementById('edit_l_icon').value = this.dataset.icon;
         document.getElementById('edit_l_link').value = this.dataset.link;
-        document.getElementById('form-edit-layanan').action = '{{ url("admin/layanan-terpadu") }}/' + id;
+        document.getElementById('form-edit-layanan').action = '{{ route('admin.layanan.update', ['layanan_terpadu' => '__ID__']) }}'.replace('__ID__', id);
     });
 });
 </script>

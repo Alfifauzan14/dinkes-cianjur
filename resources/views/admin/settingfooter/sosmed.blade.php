@@ -1,9 +1,9 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 @section('title', 'Media Sosial')
 @section('header_title', 'Media Sosial')
 
 @section('content')
-@include('admin.partials.alerts')
+
 
 <div class="row">
     <div class="col-12">

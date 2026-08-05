@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 @section('title', 'Sebaran Puskesmas')
 @section('header_title', 'Sebaran Puskesmas')
 
@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-@include('admin.partials.alerts')
+
 
 <div class="row">
     <div class="col-12">

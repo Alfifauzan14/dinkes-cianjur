@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 
 @section('title', 'Kelola Faskes')
 @section('header_title', 'Kelola Fasilitas Kesehatan')
@@ -37,7 +37,7 @@
 @endsection
 
 @section('content')
-@include('admin.partials.alerts')
+
 
 <div class="card card-outline card-success">
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">

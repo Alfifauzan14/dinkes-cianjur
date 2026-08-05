@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 @section('title', 'Identitas Situs')
 @section('header_title', 'Identitas Situs')
 
@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-@include('admin.partials.alerts')
+
 
 <div class="row">
     <div class="col-12">

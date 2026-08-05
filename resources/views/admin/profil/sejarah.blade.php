@@ -1,9 +1,9 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 @section('title', 'Sejarah Instansi')
 @section('header_title', 'Sejarah Instansi')
 
 @section('content')
-@include('admin.partials.alerts')
+
 
 <div class="row">
     <div class="col-12">

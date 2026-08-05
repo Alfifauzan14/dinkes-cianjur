@@ -95,14 +95,14 @@
     background: #FFFFFF;
     border: 1px solid #E5E7EB;
     border-radius: 1px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
     cursor: pointer;
 }
 
 .lt-service-item:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
     transform: translateY(-1px);
 }
 
@@ -136,7 +136,7 @@
     border: 1px solid #E5E7EB;
     border-radius: 1px;
     padding: 40px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
 }
 
 .lt-logos-grid {

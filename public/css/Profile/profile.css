@@ -144,15 +144,14 @@
     justify-content: center;
     gap: 12px;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     transition: all 0.25s ease;
     box-sizing: border-box;
 }
 
 .stat-btn-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 153, 102, 0.25);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
 .stat-icon {
@@ -219,7 +218,6 @@
 .misi-item-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 153, 102, 0.2);
 }
 
 .misi-item-title {

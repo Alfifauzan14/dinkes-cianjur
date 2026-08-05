@@ -1,10 +1,10 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 
 @section('title', 'Edit Info Card')
 @section('header_title', 'Edit Info Card')
 
 @section('content')
-@include('admin.partials.alerts')
+
 
 <div class="card card-outline card-success">
     <div class="card-header d-flex align-items-center justify-content-between">

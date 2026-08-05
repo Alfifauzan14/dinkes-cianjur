@@ -1,10 +1,10 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 
 @section('title', 'Kelola Pagoda Sehat')
 @section('header_title', 'Kelola Pagoda Sehat')
 
 @section('content')
-@include('admin.partials.alerts')
+
 
 <div class="card card-outline card-success">
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
@@ -189,14 +189,14 @@ function saveNewOrder(type) {
         if (data.success) {
             location.reload();
         } else {
-            alert('Gagal menyimpan urutan.');
+            showAlert('error', 'Gagal menyimpan urutan.');
             saveBtn.disabled = false;
             saveBtn.innerHTML = '<span class="material-icons">save</span><span>Simpan Urutan</span>';
         }
     })
     .catch(function(error) {
         console.error('Error:', error);
-        alert('Terjadi kesalahan saat menyimpan urutan.');
+        showAlert('error', 'Terjadi kesalahan saat menyimpan urutan.');
         saveBtn.disabled = false;
         saveBtn.innerHTML = '<span class="material-icons">save</span><span>Simpan Urutan</span>';
     });

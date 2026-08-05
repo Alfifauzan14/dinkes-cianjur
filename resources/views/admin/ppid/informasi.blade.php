@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 @section('title', 'Informasi Publik (Accordion)')
 @section('header_title', 'Informasi Publik (Accordion)')
 
@@ -46,7 +46,7 @@
 @endsection
 
 @section('content')
-@include('admin.partials.alerts')
+
 
 <div class="row">
     <div class="col-12">

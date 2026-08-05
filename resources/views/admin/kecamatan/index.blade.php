@@ -1,11 +1,11 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 @section('title', 'Kecamatan')
 @section('header_title', 'Kelola Kecamatan')
 
 @section('content')
 <div class="row">
     <div class="col-12">
-        @include('admin.partials.alerts')
+
 
         <div class="d-flex align-items-center justify-content-between mb-4">
             <div>
