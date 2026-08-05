@@ -4,8 +4,8 @@
     <!-- Header Section -->
     <header class="faskes-header">
         <div class="faskes-header-container">
-            <h1 class="faskes-header-title">Fasilitas Kesehatan Kabupaten Cianjur</h1>
-            <p class="faskes-header-subtitle">Pusat data terpadu, indikator kinerja kesehatan, angka kecukupan faskes/nakes, publikasi profil tahunan, dan produk hukum daerah.</p>
+            <h1 class="faskes-header-title">{{ \App\Models\Setting::get('page_faskes_title', 'Fasilitas Kesehatan Kabupaten Cianjur') }}</h1>
+            <p class="faskes-header-subtitle">{{ \App\Models\Setting::get('page_faskes_subtitle', 'Pusat data terpadu, indikator kinerja kesehatan, angka kecukupan faskes/nakes, publikasi profil tahunan, dan produk hukum daerah.') }}</p>
         </div>
     </header>
 

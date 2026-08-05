@@ -7,8 +7,8 @@
     <!-- Header Banner -->
     <header class="berita-header">
         <div class="berita-header-container">
-            <h1 class="berita-header-title">{{ $headerSetting->title }}</h1>
-            <p class="berita-header-subtitle">{{ $headerSetting->subtitle }}</p>
+            <h1 class="berita-header-title">{{ \App\Models\Setting::get('page_berita_title', 'Rilis Berita & Informasi Terkini') }}</h1>
+            <p class="berita-header-subtitle">{{ \App\Models\Setting::get('page_berita_subtitle', 'Informasi seputar kesehatan terkini dan kegiatan yang dilaksanakan oleh Dinas Kesehatan Kabupaten Cianjur') }}</p>
         </div>
     </header>
 

@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex align-items-center" style="padding: 14px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         {{-- Search & Filter --}}
-        <form action="{{ route('admin.galeri.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+        <form action="{{ route('admin.galeri.index') }}" method="GET" class="d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari judul galeri..." style="width: 220px;">
             <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 150px;">
                 <option value="">Semua Kategori</option>
@@ -19,7 +19,7 @@
             @endif
         </form>
 
-        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahGaleri">
+        <button type="button" class="btn btn-sm btn-success ml-auto" data-toggle="modal" data-target="#modalTambahGaleri" style="white-space:nowrap;">
             <span class="material-icons" style="font-size:16px;">add_photo_alternate</span> Tambah Foto
         </button>
     </div>
@@ -145,7 +145,7 @@
         <div class="modal-content">
             <form action="" method="POST" id="form-edit-galeri" enctype="multipart/form-data">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background:#D97706;color:#fff;border-radius:0;">
+                <div class="modal-header" style="background:#007A52;color:#fff;border-radius:0;">
                     <h5 class="modal-title" id="modalEditGaleriLabel">
                         <span class="material-icons" style="vertical-align:middle;margin-right:6px;">edit</span>
                         Edit Galeri
@@ -173,7 +173,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning text-white">
+                    <button type="submit" class="btn btn-success">
                         <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>

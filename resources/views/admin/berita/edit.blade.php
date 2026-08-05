@@ -4,13 +4,12 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex align-items-center" style="padding: 12px 24px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
-            <span class="material-icons text-warning" style="font-size:16px;vertical-align:middle;">edit</span>
             Mengedit: <em>{{ Str::limit($berita->title, 50) }}</em>
         </span>
-        <a href="{{ route('admin.berita.index') }}" class="btn btn-sm btn-outline-secondary">
-            <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
+        <a href="{{ route('admin.berita.index') }}" class="btn btn-sm btn-outline-secondary ml-auto">
+            <span class="material-icons" style="font-size:15px; vertical-align:middle;">arrow_back</span> Kembali
         </a>
     </div>
 
@@ -96,7 +95,7 @@
                     </div>
 
                     <div class="d-flex flex-column mt-3" style="gap:8px;">
-                        <button type="submit" class="btn btn-warning btn-block text-white">
+                        <button type="submit" class="btn btn-success btn-block font-weight-bold">
                             <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                         </button>
                         <a href="{{ route('admin.berita.index') }}" class="btn btn-outline-secondary btn-block">Batal</a>

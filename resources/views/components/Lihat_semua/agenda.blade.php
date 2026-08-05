@@ -7,8 +7,8 @@
     <!-- Header Banner -->
     <header class="agenda-header">
         <div class="agenda-header-container">
-            <h1 class="agenda-header-title">{{ $headerSetting->title }}</h1>
-            <p class="agenda-header-subtitle">{{ $headerSetting->subtitle }}</p>
+            <h1 class="agenda-header-title">{{ \App\Models\Setting::get('page_agenda_title', 'Agenda Kesehatan') }}</h1>
+            <p class="agenda-header-subtitle">{{ \App\Models\Setting::get('page_agenda_subtitle', 'Kumpulan Agenda dan Acara yang dijadwalkan di Dinas Kesehatan Kabupaten Cianjur') }}</p>
         </div>
     </header>
 

@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,12 +22,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        try {
-            if (!app()->runningInConsole()) {
-                view()->share('site_settings', \App\Models\SettingFooter::first());
+        // Share site-wide settings with all views
+        View::composer('*', function (\Illuminate\View\View $view): void {
+            try {
+                if (Schema::hasTable('settings')) {
+                    $siteSettings = Setting::all()->pluck('value', 'key')->toArray();
+                } else {
+                    $siteSettings = [];
+                }
+            } catch (\Exception $e) {
+                $siteSettings = [];
             }
-        } catch (\Exception $e) {
-            // Silence exception if DB is not migrated yet during installation
-        }
+            $view->with('siteSettings', $siteSettings);
+        });
     }
 }

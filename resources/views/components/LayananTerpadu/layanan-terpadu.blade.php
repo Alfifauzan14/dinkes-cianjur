@@ -7,8 +7,8 @@
     <!-- Header Section -->
     <header class="lt-header">
         <div class="lt-header-container">
-            <h1 class="lt-header-title">{{ $headerSetting->title }}</h1>
-            <p class="lt-header-subtitle">{{ $headerSetting->subtitle }}</p>
+            <h1 class="lt-header-title">{{ \App\Models\Setting::get('page_layanan_title', 'Layanan Terpadu Kesehatan Kabupaten Cianjur') }}</h1>
+            <p class="lt-header-subtitle">{{ \App\Models\Setting::get('page_layanan_subtitle', 'Pusat pelayanan perizinan, rekomendasi medis, dan sertifikasi kesehatan secara cepat, transparan, dan terintegrasi.') }}</p>
         </div>
     </header>
 

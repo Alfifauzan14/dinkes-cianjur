@@ -7,8 +7,8 @@
     <!-- Header Section -->
     <header class="labkesda-header">
         <div class="labkesda-header-container">
-            <h1 class="labkesda-header-title">{{ $headerSetting->title }}</h1>
-            <p class="labkesda-header-subtitle">{{ $headerSetting->subtitle }}</p>
+            <h1 class="labkesda-header-title">{{ \App\Models\Setting::get('page_labkesda_title', 'Laboratorium Kesehatan Daerah') }}</h1>
+            <p class="labkesda-header-subtitle">{{ \App\Models\Setting::get('page_labkesda_subtitle', 'Fasilitas Lab Uji Terpadu Daerah untuk pengujian kesehatan masyarakat Kabupaten Cianjur.') }}</p>
         </div>
     </header>
 

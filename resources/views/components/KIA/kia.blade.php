@@ -4,8 +4,8 @@
     <!-- Header Section -->
     <header class="kia-header">
         <div class="kia-header-container">
-            <h1 class="kia-header-title">Kesehatan Ibu & Anak (KIA)</h1>
-            <p class="kia-header-subtitle">Pelayanan kesehatan komprehensif untuk ibu dan anak yang meliputi periode pra-konsepsi, kehamilan, persalinan, nifas, dan bayi.</p>
+            <h1 class="kia-header-title">{{ \App\Models\Setting::get('page_kia_title', 'Kesehatan Ibu & Anak (KIA)') }}</h1>
+            <p class="kia-header-subtitle">{{ \App\Models\Setting::get('page_kia_subtitle', 'Pelayanan kesehatan komprehensif untuk ibu dan anak yang meliputi periode pra-konsepsi, kehamilan, persalinan, nifas, dan bayi.') }}</p>
         </div>
     </header>
 
