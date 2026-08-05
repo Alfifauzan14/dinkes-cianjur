@@ -2,52 +2,22 @@
 @section('title', 'Indikator Utama')
 @section('header_title', 'Indikator Utama')
 
-@section('styles')
-<style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
-    .form-section-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #004F3B;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-bottom: 10px;
-    }
-</style>
-@endsection
-
 @section('content')
+@include('admin.partials.alerts')
+
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="material-icons text-success">bar_chart</span>
+                <span>Status &amp; Indikator Utama Kesehatan</span>
             </div>
-        @endif
 
-        <div class="custom-form-card">
-            <form action="{{ route('admin.satudata.statistik.update') }}" method="POST" id="statistik-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="indikator">
-
-                <div class="form-section-title">
-                    <span class="material-icons text-success">bar_chart</span>
-                    <span>Status &amp; Indikator Utama Kesehatan</span>
-                </div>
+            <div class="card-body">
+                <form action="{{ route('admin.satudata.statistik.update') }}" method="POST" id="statistik-form">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="indikator">
 
                 <div class="form-group">
                     <label for="status_badge">Label Status Data (Keterangan Pojok Kanan Atas)</label>
@@ -55,7 +25,7 @@
                     @error('status_badge') <span class="invalid-feedback">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="form-section-title mt-4">
+                <div style="font-size:15px;font-weight:700;color:#004F3B;margin:24px 0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #E2E8F0;padding-bottom:10px;">
                     <span class="material-icons text-success">widgets</span>
                     <span>Data 4 Kartu Indikator Utama</span>
                 </div>
@@ -144,6 +114,7 @@
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

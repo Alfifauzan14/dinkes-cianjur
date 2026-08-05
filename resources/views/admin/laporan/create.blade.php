@@ -4,91 +4,66 @@
 @section('header_title', 'Tambah Laporan Baru')
 
 @section('content')
-<div class="berita-admin-wrapper">
-    <div class="admin-card">
-        
-        <form action="{{ route('admin.laporan.store') }}" method="POST" enctype="multipart/form-data" class="admin-form" style="display: flex; flex-direction: column; gap: 20px;">
+@include('admin.partials.alerts')
+
+<div class="card card-outline card-success">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <span class="font-weight-bold text-muted" style="font-size:13px;">
+            <span class="material-icons text-success" style="font-size:16px;vertical-align:middle;">description</span>
+            Formulir Laporan Baru
+        </span>
+        <a href="{{ route('admin.laporan.index') }}" class="btn btn-sm btn-outline-secondary">
+            <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
+        </a>
+    </div>
+
+    <div class="card-body">
+        <form action="{{ route('admin.laporan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <!-- Judul Laporan -->
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
-                <label for="title" style="font-weight: 700; color: #1E293B;">Judul Laporan</label>
-                <input 
-                    type="text" 
-                    name="title" 
-                    id="title" 
-                    value="{{ old('title') }}" 
-                    class="form-control-input" 
-                    style="padding: 10px; border: 1px solid #CBD5E1; border-radius: 3px; font-family: inherit; font-size: 14px;"
-                    placeholder="Masukkan judul laporan..."
-                    required
-                >
-                @error('title')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+            <div class="form-group">
+                <label for="title">Judul Laporan <span class="text-danger">*</span></label>
+                <input type="text" name="title" id="title" value="{{ old('title') }}"
+                    class="form-control @error('title') is-invalid @enderror"
+                    placeholder="Masukkan judul laporan..." required>
+                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Kategori Laporan -->
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
-                <label for="category" style="font-weight: 700; color: #1E293B;">Kategori Laporan</label>
-                <select name="category" id="category" class="form-control-select" style="padding: 10px; border: 1px solid #CBD5E1; border-radius: 3px; font-family: inherit; font-size: 14px; background-color: #fff;" required>
+            <div class="form-group">
+                <label for="category">Kategori Laporan <span class="text-danger">*</span></label>
+                <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" style="max-width: 350px;" required>
                     <option value="" disabled selected>Pilih Kategori</option>
                     <option value="Laporan Kinerja" {{ old('category') == 'Laporan Kinerja' ? 'selected' : '' }}>Laporan Kinerja</option>
                     <option value="Laporan Keuangan" {{ old('category') == 'Laporan Keuangan' ? 'selected' : '' }}>Laporan Keuangan</option>
                     <option value="Informasi Publik" {{ old('category') == 'Informasi Publik' ? 'selected' : '' }}>Informasi Publik</option>
                 </select>
-                @error('category')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+                @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Tanggal Rilis -->
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
-                <label for="release_date" style="font-weight: 700; color: #1E293B;">Tanggal Rilis</label>
-                <input 
-                    type="date" 
-                    name="release_date" 
-                    id="release_date" 
-                    value="{{ old('release_date', date('Y-m-d')) }}" 
-                    class="form-control-input" 
-                    style="padding: 10px; border: 1px solid #CBD5E1; border-radius: 3px; font-family: inherit; font-size: 14px;"
-                    required
-                >
-                @error('release_date')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+            <div class="form-group">
+                <label for="release_date">Tanggal Rilis <span class="text-danger">*</span></label>
+                <input type="date" name="release_date" id="release_date" value="{{ old('release_date', date('Y-m-d')) }}"
+                    class="form-control @error('release_date') is-invalid @enderror" required>
+                @error('release_date') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Upload File PDF -->
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
-                <label for="file_document" style="font-weight: 700; color: #1E293B;">Dokumen Laporan (PDF)</label>
-                <input 
-                    type="file" 
-                    name="file_document" 
-                    id="file_document" 
-                    accept=".pdf"
-                    class="form-control-input" 
-                    style="padding: 10px; border: 1px solid #CBD5E1; border-radius: 3px; font-family: inherit; font-size: 14px; background-color: #F8FAFC;"
-                    required
-                >
-                <small style="color: #64748B;">Format file: .pdf | Ukuran maksimum: 10 MB</small>
-                @error('file_document')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+            <div class="form-group">
+                <label for="file_document">Dokumen Laporan (PDF) <span class="text-danger">*</span></label>
+                <input type="file" name="file_document" id="file_document" accept=".pdf"
+                    class="form-control @error('file_document') is-invalid @enderror" required>
+                <small class="form-text text-muted">Format file: .pdf | Ukuran maksimum: 10 MB</small>
+                @error('file_document') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Form Actions -->
-            <div class="form-actions" style="display: flex; gap: 10px; margin-top: 10px;">
-                <button type="submit" class="btn-admin btn-admin-primary" style="padding: 10px 20px; background-color: #009966; color: #fff; border: none; border-radius: 3px; font-weight: 700; cursor: pointer;">
-                    Simpan Laporan
-                </button>
-                <a href="{{ route('admin.laporan.index') }}" class="btn-admin btn-admin-secondary" style="padding: 10px 20px; background-color: #F1F5F9; color: #334155; border: 1px solid #E2E8F0; border-radius: 3px; text-decoration: none; font-weight: 600; text-align: center;">
-                    Batal
+            <div class="d-flex align-items-center justify-content-end" style="gap:10px;">
+                <a href="{{ route('admin.laporan.index') }}" class="btn btn-outline-secondary">
+                    <span class="material-icons" style="font-size:16px;vertical-align:middle;">close</span> Batal
                 </a>
+                <button type="submit" class="btn btn-success">
+                    <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Laporan
+                </button>
             </div>
-
         </form>
-
     </div>
 </div>
 @endsection

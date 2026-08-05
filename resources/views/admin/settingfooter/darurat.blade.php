@@ -2,52 +2,22 @@
 @section('title', 'Layanan Darurat')
 @section('header_title', 'Layanan Darurat')
 
-@section('styles')
-<style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
-    .form-section-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #004F3B;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-bottom: 10px;
-    }
-</style>
-@endsection
-
 @section('content')
+@include('admin.partials.alerts')
+
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="material-icons text-danger">emergency</span>
+                <span>Layanan Gawat Darurat (PSC 119)</span>
             </div>
-        @endif
 
-        <div class="custom-form-card">
-            <form action="{{ route('admin.settingfooter.update') }}" method="POST" id="setting-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="darurat">
-
-                <div class="form-section-title">
-                    <span class="material-icons text-danger">emergency</span>
-                    <span>Layanan Gawat Darurat (PSC 119)</span>
-                </div>
+            <div class="card-body">
+                <form action="{{ route('admin.settingfooter.update') }}" method="POST" id="setting-form">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="darurat">
 
                 <div class="form-group">
                     <label for="emergency_call">Nomor Emergency Call <span class="text-danger">*</span></label>
@@ -66,6 +36,7 @@
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

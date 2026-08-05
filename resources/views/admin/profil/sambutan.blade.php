@@ -2,52 +2,22 @@
 @section('title', 'Sambutan Pimpinan')
 @section('header_title', 'Sambutan Pimpinan')
 
-@section('styles')
-<style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
-    .form-section-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #004F3B;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-bottom: 10px;
-    }
-</style>
-@endsection
-
 @section('content')
+@include('admin.partials.alerts')
+
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="material-icons text-success">campaign</span>
+                <span>Sambutan Pimpinan</span>
             </div>
-        @endif
 
-        <div class="custom-form-card">
-            <form action="{{ route('admin.profil.update') }}" method="POST" enctype="multipart/form-data" id="profile-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="sambutan">
-
-                <div class="form-section-title">
-                    <span class="material-icons text-success">campaign</span>
-                    <span>Sambutan Pimpinan</span>
-                </div>
+            <div class="card-body">
+                <form action="{{ route('admin.profil.update') }}" method="POST" enctype="multipart/form-data" id="profile-form">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="sambutan">
 
                 <div class="row">
                     <div class="col-md-6">
@@ -125,6 +95,7 @@
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,174 @@
+/* ==========================================================================
+   PROGRAM KESEHATAN — ADMIN FORM STYLES
+   Selaras dengan tema AdminLTE (admin-layout.css)
+   ========================================================================== */
+
+.program-section {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.program-section:last-child { margin-bottom: 0; }
+
+.program-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: #FAFBFC;
+}
+.program-section-title .section-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--sidebar-accent-dim);
+    color: var(--brand-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.program-section-title h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+.program-section-title p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+.program-section-body { padding: 20px; }
+
+/* ── Icon Picker ──────────────────────────────────────────────────────── */
+.icon-picker-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+.icon-preview-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: var(--sidebar-accent-dim);
+    color: var(--brand-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 24px;
+    border: 2px solid rgba(0,153,102,0.2);
+    transition: all 0.18s;
+}
+
+/* ── Intervensi Repeater ──────────────────────────────────────────────── */
+.intervensi-item {
+    background: #F8FAFC;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    position: relative;
+    transition: border-color 0.18s;
+}
+.intervensi-item:focus-within {
+    border-color: var(--brand-green);
+    background: #FFFFFE;
+}
+.intervensi-item .remove-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: #FEE2E2;
+    color: #DC2626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.intervensi-item .remove-btn:hover { background: #FCA5A5; }
+.intervensi-icon-preview {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--sidebar-accent-dim);
+    color: var(--brand-green);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: 1px solid rgba(0,153,102,0.2);
+    vertical-align: middle;
+}
+
+/* ── Stat Mini Preview ────────────────────────────────────────────────── */
+.stat-card-mini {
+    background: #F8FAFC;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+.stat-card-mini .stat-num-preview {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--brand-green);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+.stat-card-mini .stat-label-preview {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* ── Content (Code Editor) ────────────────────────────────────────────── */
+.content-textarea {
+    font-family: 'Roboto Mono', 'Courier New', monospace !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    min-height: 200px;
+    background: #1E293B !important;
+    color: #E2E8F0 !important;
+    border-color: #334155 !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    resize: vertical;
+}
+.content-textarea:focus {
+    border-color: var(--brand-green) !important;
+    box-shadow: var(--input-focus-ring) !important;
+}
+.html-hint { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.html-tag-chip {
+    background: #1E293B;
+    color: #94A3B8;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-family: monospace;
+    cursor: pointer;
+    border: 1px solid #334155;
+    transition: all 0.15s;
+}
+.html-tag-chip:hover { background: #334155; color: #E2E8F0; }
+
+/* ── Char Counter ─────────────────────────────────────────────────────── */
+.char-counter {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    text-align: right;
+    margin-top: 4px;
+}

@@ -4,25 +4,6 @@
 
 @section('styles')
 <style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
-    .form-section-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #004F3B;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-bottom: 10px;
-    }
     .misi-grid-layout {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -65,27 +46,21 @@
 @endsection
 
 @section('content')
+@include('admin.partials.alerts')
+
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="material-icons text-success">flag</span>
+                <span>Visi Utama Instansi</span>
             </div>
-        @endif
 
-        <div class="custom-form-card">
-            <form action="{{ route('admin.profil.update') }}" method="POST" id="profile-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="visimisi">
-
-                <div class="form-section-title">
-                    <span class="material-icons text-success">flag</span>
-                    <span>Visi Utama Instansi</span>
-                </div>
+            <div class="card-body">
+                <form action="{{ route('admin.profil.update') }}" method="POST" id="profile-form">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="visimisi">
 
                 <div class="row">
                     <div class="col-md-6">
@@ -126,7 +101,7 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between mt-4 mb-3 pb-2" style="border-bottom: 1px solid var(--border-subtle);">
-                    <div class="form-section-title mb-0" style="border-bottom: none; padding-bottom: 0;">
+                    <div style="font-size:15px;font-weight:700;color:#004F3B;margin:24px 0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #E2E8F0;padding-bottom:10px;">
                         <span class="material-icons text-success">list_alt</span>
                         <span>Daftar Misi Instansi</span>
                     </div>
@@ -141,7 +116,7 @@
                             <button type="button" class="remove-btn-absolute" onclick="removeMisiField(this)" title="Hapus Item">
                                 <span class="material-icons" style="font-size:16px;">delete</span>
                             </button>
-                            <span class="badge badge-success mb-3">Misi Poin {{ $index + 1 }}</span>
+                            <span class="badge badge-success mb-3">Misi Poin {{ (int)$index + 1 }}</span>
                             <div class="form-group">
                                 <label style="font-size:11.5px; font-weight:700; color:#475569; margin-bottom:6px;">Judul Misi <span class="text-danger">*</span></label>
                                 <input type="text" name="misi[{{ $index }}][title]" 
@@ -161,6 +136,7 @@
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

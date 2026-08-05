@@ -53,7 +53,8 @@
                         <td class="text-center align-middle">
                             <div class="btn-action-group">
                                 <button type="button"
-                                    class="btn-action btn-action-edit btn-edit-layanan"
+                                    class="btn-action btn-edit-layanan"
+                                    style="background-color: #F59E0B; color: white; border: 1px solid #D97706;"
                                     title="Edit"
                                     data-id="{{ $layanan->id }}"
                                     data-name="{{ $layanan->name }}"
@@ -222,7 +223,7 @@ document.querySelectorAll('.btn-edit-layanan').forEach(function(btn) {
         document.getElementById('edit_l_type').value = this.dataset.type;
         document.getElementById('edit_l_icon').value = this.dataset.icon;
         document.getElementById('edit_l_link').value = this.dataset.link;
-        document.getElementById('form-edit-layanan').action = '{{ url("admin/layanan") }}/' + id;
+        document.getElementById('form-edit-layanan').action = '{{ url("admin/layanan-terpadu") }}/' + id;
     });
 });
 </script>

@@ -117,15 +117,20 @@ body.hold-transition.sidebar-mini {
     background-color: var(--sidebar-accent-dim) !important;
     border-left: 3px solid var(--sidebar-accent) !important;
 }
+.nav-treeview .nav-icon {
+    font-size: 14px !important;
+    margin-right: 10px !important;
+    color: rgba(255,255,255,0.4) !important;
+}
 
 /* ── Sidebar Expand Arrow ──────────────────────────────────────────────── */
-.nav-sidebar .nav-item > .nav-link > .right.fa-angle-left {
+.nav-sidebar .nav-item > .nav-link > .right.fa-angle-right {
     font-size: 12px !important;
     opacity: 0.5;
     transition: transform 0.2s ease, opacity 0.2s ease !important;
 }
-.nav-sidebar .nav-item.menu-open > .nav-link > .right.fa-angle-left {
-    transform: rotate(-90deg) !important;
+.nav-sidebar .nav-item.menu-open > .nav-link > .right.fa-angle-right {
+    transform: rotate(90deg) !important;
     opacity: 0.9 !important;
 }
 

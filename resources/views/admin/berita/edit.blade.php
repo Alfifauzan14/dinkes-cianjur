@@ -48,9 +48,9 @@
                             <div class="form-group">
                                 <label for="category">Kategori <span class="text-danger">*</span></label>
                                 <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
-                                    <option value="Kesehatan"  {{ old('category', $berita->category) == 'Kesehatan'  ? 'selected' : '' }}>Kesehatan</option>
-                                    <option value="Kegiatan"   {{ old('category', $berita->category) == 'Kegiatan'   ? 'selected' : '' }}>Kegiatan</option>
-                                    <option value="Pengumuman" {{ old('category', $berita->category) == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                                    @foreach($kategoris as $kat)
+                                        <option value="{{ $kat->nama }}" {{ old('category', $berita->category) == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                                    @endforeach
                                 </select>
                                 @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>

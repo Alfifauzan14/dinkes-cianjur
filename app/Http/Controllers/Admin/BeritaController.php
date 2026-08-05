@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -32,8 +33,10 @@ class BeritaController extends Controller
         }
 
         $beritas = $query->orderBy('created_at', 'desc')->paginate(10);
+        
+        $kategoris = Kategori::ofType('berita')->get();
 
-        return view('admin.berita.index', compact('beritas'));
+        return view('admin.berita.index', compact('beritas', 'kategoris'));
     }
 
     /**
@@ -41,7 +44,8 @@ class BeritaController extends Controller
      */
     public function create()
     {
-        return view('admin.berita.create');
+        $kategoris = Kategori::ofType('berita')->get();
+        return view('admin.berita.create', compact('kategoris'));
     }
 
     /**
@@ -85,7 +89,8 @@ class BeritaController extends Controller
      */
     public function edit(Berita $berita)
     {
-        return view('admin.berita.edit', compact('berita'));
+        $kategoris = Kategori::ofType('berita')->get();
+        return view('admin.berita.edit', compact('berita', 'kategoris'));
     }
 
     /**

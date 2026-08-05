@@ -4,25 +4,6 @@
 
 @section('styles')
 <style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
-    .form-section-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #004F3B;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-bottom: 10px;
-    }
     .dynamic-row-item {
         background: #F8FAFC;
         border: 1px solid var(--border-subtle);
@@ -39,27 +20,21 @@
 @endsection
 
 @section('content')
+@include('admin.partials.alerts')
+
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="material-icons text-success">show_chart</span>
+                <span>Pengaturan Grafik Tren Stunting</span>
             </div>
-        @endif
 
-        <div class="custom-form-card">
-            <form action="{{ route('admin.satudata.statistik.update') }}" method="POST" id="statistik-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="stunting">
-
-                <div class="form-section-title">
-                    <span class="material-icons text-success">show_chart</span>
-                    <span>Pengaturan Grafik Tren Stunting</span>
-                </div>
+            <div class="card-body">
+                <form action="{{ route('admin.satudata.statistik.update') }}" method="POST" id="statistik-form">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="stunting">
 
                 <div class="row">
                     <div class="col-md-6">
@@ -92,7 +67,7 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between mt-4 mb-3 pb-2" style="border-bottom: 1px solid var(--border-subtle);">
-                    <div class="form-section-title mb-0" style="border-bottom: none; padding-bottom: 0;">
+                    <div style="font-size:15px;font-weight:700;color:#004F3B;margin:24px 0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #E2E8F0;padding-bottom:10px;">
                         <span class="material-icons text-success">calendar_today</span>
                         <span>Data Batang Grafik Tahunan</span>
                     </div>
@@ -131,6 +106,7 @@
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>
