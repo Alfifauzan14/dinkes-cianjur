@@ -130,9 +130,6 @@ class PpidController extends Controller
             }
 
             $ppid->update($data);
-            }
-
-            $ppid->update($data);
         } else {
             $data = $request->only(array_filter(array_keys($rules), function ($key) {
                 return ! str_contains($key, '*');
