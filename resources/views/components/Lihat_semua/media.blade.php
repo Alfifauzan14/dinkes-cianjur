@@ -4,8 +4,8 @@
     <!-- Header Banner -->
     <header class="media-header">
         <div class="media-header-container">
-            <h1 class="media-header-title">Galeri Kegiatan</h1>
-            <p class="media-header-subtitle">Kumpulan dokumentasi foto dan video dari berbagai acara dan kegiatan Dinas Kesehatan Kota Cianjur</p>
+            <h1 class="media-header-title">{{ \App\Models\Setting::get('page_media_title', 'Galeri Kegiatan') }}</h1>
+            <p class="media-header-subtitle">{{ \App\Models\Setting::get('page_media_subtitle', 'Kumpulan dokumentasi foto dan video dari berbagai acara dan kegiatan Dinas Kesehatan Kota Cianjur') }}</p>
         </div>
     </header>
 

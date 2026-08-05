@@ -4,8 +4,8 @@
     <!-- Header Section -->
     <header class="profile-header">
         <div class="profile-header-container">
-            <h1 class="profile-header-title">Profil Dinas Kesehatan Kabupaten Cianjur</h1>
-            <p class="profile-header-subtitle">Mewujudkan Transformasi Pelayanan Kesehatan Masyarakat yang Profesional, Merata, dan Terintegrasi.</p>
+            <h1 class="profile-header-title">{{ \App\Models\Setting::get('page_profil_title', 'Profil Dinas Kesehatan Kabupaten Cianjur') }}</h1>
+            <p class="profile-header-subtitle">{{ \App\Models\Setting::get('page_profil_subtitle', 'Mewujudkan Transformasi Pelayanan Kesehatan Masyarakat yang Profesional, Merata, dan Terintegrasi.') }}</p>
         </div>
     </header>
 

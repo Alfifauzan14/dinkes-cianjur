@@ -3,8 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Dinas Kesehatan Kabupaten Cianjur - Mewujudkan masyarakat Cianjur yang sehat, mandiri, dan berkeadilan.">
-    <title>Dinas Kesehatan Kabupaten Cianjur</title>
+    @php
+        $siteName = \App\Models\Setting::get('header_site_name', 'Dinas Kesehatan Kabupaten Cianjur');
+        $siteTagline = \App\Models\Setting::get('header_tagline', 'Mewujudkan Masyarakat Cianjur yang Sehat');
+    @endphp
+    <meta name="description" content="{{ $siteName }} - {{ $siteTagline }}">
+    <title>{{ $siteName }}</title>
 
     {{-- Google Fonts: Plus Jakarta Sans --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

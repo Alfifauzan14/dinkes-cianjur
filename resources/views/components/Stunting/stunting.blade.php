@@ -4,8 +4,8 @@
     <!-- Header Section -->
     <header class="st-header">
         <div class="st-header-container">
-            <h1 class="st-header-title">Cianjur Bebas Stunting</h1>
-            <p class="st-header-subtitle">Program komprehensif untuk mencegah dan menurunkan angka stunting di Kabupaten Cianjur melalui intervensi gizi dan edukasi.</p>
+            <h1 class="st-header-title">{{ \App\Models\Setting::get('page_stunting_title', 'Cianjur Bebas Stunting') }}</h1>
+            <p class="st-header-subtitle">{{ \App\Models\Setting::get('page_stunting_subtitle', 'Program komprehensif untuk mencegah dan menurunkan angka stunting di Kabupaten Cianjur melalui intervensi gizi dan edukasi.') }}</p>
         </div>
     </header>
 

@@ -4,8 +4,8 @@
     <!-- Header Banner -->
     <header class="berita-header">
         <div class="berita-header-container">
-            <h1 class="berita-header-title">Rilis Berita & Informasi Terkini</h1>
-            <p class="berita-header-subtitle">Informasi seputar kesehatan terkini dan kegiatan yang dilaksanakan oleh Dinas Kesehatan Kabupaten Cianjur</p>
+            <h1 class="berita-header-title">{{ \App\Models\Setting::get('page_berita_title', 'Rilis Berita & Informasi Terkini') }}</h1>
+            <p class="berita-header-subtitle">{{ \App\Models\Setting::get('page_berita_subtitle', 'Informasi seputar kesehatan terkini dan kegiatan yang dilaksanakan oleh Dinas Kesehatan Kabupaten Cianjur') }}</p>
         </div>
     </header>
 
