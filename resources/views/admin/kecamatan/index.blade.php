@@ -5,14 +5,6 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
 
         <div class="d-flex align-items-center justify-content-between mb-4">
             <div>
@@ -52,7 +44,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn btn-sm btn-outline-danger" 
-                                                    onclick="if(confirm('Apakah Anda yakin ingin menghapus kecamatan ini?')) document.getElementById('del-kec-{{ $kec->id }}').submit();"
+                                                    onclick="confirmDelete('del-kec-{{ $kec->id }}')"
                                                     style="border-radius: 4px; padding: 4px 8px;">
                                                 <span class="material-icons" style="font-size: 15px; vertical-align: middle;">delete</span>
                                             </button>

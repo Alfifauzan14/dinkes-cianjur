@@ -67,14 +67,6 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
 
         <div class="custom-form-card">
             <form action="{{ route('admin.profil.update') }}" method="POST" id="profile-form">
@@ -196,32 +188,23 @@
     }
 
     function removeMisiField(button) {
-        Swal.fire({
-            title: 'Hapus Misi ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#dc3545',
-            confirmButtonText: 'Ya, Hapus',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const card = button.closest('.misi-card-field');
-                card.remove();
+        confirmAction('Hapus Misi ini?', 'Misi yang dihapus tidak dapat dikembalikan.', function() {
+            const card = button.closest('.misi-card-field');
+            card.remove();
 
-                // Re-index inputs
-                Array.from(container.querySelectorAll('.misi-card-field')).forEach((child, idx) => {
-                    const titleInput = child.querySelector('input');
-                    if (titleInput) titleInput.name = `misi[\${idx}][title]`;
-                    
-                    const descTextarea = child.querySelector('textarea');
-                    if (descTextarea) descTextarea.name = `misi[\${idx}][desc]`;
-                    
-                    const badge = child.querySelector('.badge');
-                    if (badge && !badge.innerText.includes('Baru')) {
-                        badge.innerText = `Misi Poin \${idx + 1}`;
-                    }
-                });
-            }
+            // Re-index inputs
+            Array.from(container.querySelectorAll('.misi-card-field')).forEach((child, idx) => {
+                const titleInput = child.querySelector('input');
+                if (titleInput) titleInput.name = `misi[\${idx}][title]`;
+                
+                const descTextarea = child.querySelector('textarea');
+                if (descTextarea) descTextarea.name = `misi[\${idx}][desc]`;
+                
+                const badge = child.querySelector('.badge');
+                if (badge && !badge.innerText.includes('Baru')) {
+                    badge.innerText = `Misi Poin \${idx + 1}`;
+                }
+            });
         });
     }
 

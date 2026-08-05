@@ -348,7 +348,7 @@ function removeIntervensi(btn) {
     if (document.querySelectorAll('.intervensi-item').length > 1) {
         item.remove();
     } else {
-        Swal.fire({ icon: 'info', title: 'Minimal 1 intervensi', text: 'Harus ada minimal satu item.', timer: 2000, showConfirmButton: false });
+        showAlert('info', 'Minimal 1 intervensi', 'Harus ada minimal satu item.');
     }
 }
 

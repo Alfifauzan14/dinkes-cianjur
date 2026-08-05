@@ -21,12 +21,6 @@
             </a>
         </div>
 
-        @if(session('success'))
-            <div class="admin-alert admin-alert-success">
-                <span class="material-icons">check_circle</span>
-                <span>{{ session('success') }}</span>
-            </div>
-        @endif
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
             <form action="{{ route('admin.labkesda.settings.update') }}" method="POST" class="admin-form">

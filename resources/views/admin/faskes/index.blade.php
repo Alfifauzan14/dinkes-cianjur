@@ -45,19 +45,7 @@
 @section('content')
 <div class="berita-admin-wrapper">
 
-    @if(session('success'))
-        <div class="admin-alert admin-alert-success">
-            <span class="material-icons">check_circle</span>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
-    @if(session('error'))
-        <div class="admin-alert admin-alert-danger" style="background:#FEE2E2; color:#B91C1C; padding:12px 16px; border-radius:6px; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-            <span class="material-icons">error</span>
-            <span>{{ session('error') }}</span>
-        </div>
-    @endif
 
     <div class="admin-card">
         <div class="card-header-actions d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px;">
@@ -162,10 +150,10 @@
                                     <a href="{{ route('admin.faskes.edit', $item->id) }}" class="btn-action-edit" title="Edit">
                                         <span class="material-icons">edit</span>
                                     </a>
-                                    <form action="{{ route('admin.faskes.destroy', $item->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $item->name }}?')">
+                                    <form action="{{ route('admin.faskes.destroy', $item->id) }}" method="POST" style="display:inline-block;" id="del-faskes-{{ $item->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-action-delete" title="Hapus">
+                                        <button type="button" onclick="confirmDelete('del-faskes-{{ $item->id }}')" class="btn-action-delete" title="Hapus">
                                             <span class="material-icons">delete</span>
                                         </button>
                                     </form>

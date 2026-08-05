@@ -217,7 +217,7 @@ document.querySelectorAll('.btn-edit-laporan').forEach(function(btn) {
         document.getElementById('edit_lap_category').value     = this.dataset.category;
         document.getElementById('edit_lap_release_date').value = this.dataset.release_date;
         document.getElementById('edit_lap_file_size').value    = this.dataset.file_size;
-        document.getElementById('form-edit-laporan').action = '{{ url("admin/laporan") }}/' + id;
+        document.getElementById('form-edit-laporan').action = '{{ route('admin.laporan.update', ['laporan' => '__ID__']) }}'.replace('__ID__', id);
     });
 });
 </script>

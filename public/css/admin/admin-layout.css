@@ -11,7 +11,7 @@
     --sidebar-text: rgba(255,255,255,0.72);
     --sidebar-text-muted: rgba(255,255,255,0.38);
     --card-bg: #ffffff;
-    --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 20px rgba(0,0,0,0.04);
+    --card-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     --border-subtle: #E8EEF3;
     --content-bg: #F4F7FA;
     --brand-green: #009966;
@@ -369,3 +369,5 @@ label {
 }
 .swal2-popup { border-radius: 10px !important; font-family: 'Plus Jakarta Sans', sans-serif !important; }
 .swal2-title { font-size: 18px !important; font-weight: 700 !important; }
+.swal2-checkbox, .swal2-input, .swal2-file, .swal2-select, .swal2-textarea,
+.swal2-popup input[type="checkbox"] { display: none !important; }

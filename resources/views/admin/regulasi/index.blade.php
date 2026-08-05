@@ -301,7 +301,7 @@ document.querySelectorAll('.btn-edit-regulasi').forEach(function(btn) {
         document.getElementById('edit_r_topic').value       = this.dataset.topic;
         document.getElementById('edit_r_year').value        = this.dataset.year;
         document.getElementById('edit_r_status').value      = this.dataset.status;
-        document.getElementById('form-edit-regulasi').action = '{{ url("admin/regulasi") }}/' + id;
+        document.getElementById('form-edit-regulasi').action = '{{ route('admin.regulasi.update', ['regulasi' => '__ID__']) }}'.replace('__ID__', id);
     });
 });
 </script>

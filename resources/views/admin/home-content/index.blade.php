@@ -10,12 +10,6 @@
 @section('content')
 <div class="berita-admin-wrapper">
 
-    @if(session('success'))
-        <div class="admin-alert admin-alert-success">
-            <span class="material-icons">check_circle</span>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
     <div class="admin-card">
         <div class="card-header-actions">

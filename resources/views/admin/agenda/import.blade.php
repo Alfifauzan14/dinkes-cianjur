@@ -9,22 +9,6 @@
 
 @section('content')
 <div class="agenda-admin-wrapper">
-    
-    @if($errors->any())
-        <div class="admin-alert admin-alert-danger" style="background-color: #FEF2F2; color: #991B1B; border: 1px solid #FCA5A5; padding: 16px; border-radius: 3px; margin-bottom: 20px;">
-            <div style="display: flex; align-items: flex-start; gap: 8px;">
-                <span class="material-icons" style="color: #EF4444; font-size: 20px;">error</span>
-                <div>
-                    <h5 style="margin: 0 0 6px 0; font-weight: 700;">Terdapat kesalahan pada berkas CSV:</h5>
-                    <ul style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6;">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-    @endif
 
     <div class="admin-card" style="margin-bottom: 24px;">
         <h3 style="margin-top: 0; margin-bottom: 12px; color: #004F3B; font-weight: 800; font-size: 18px;">Panduan Format Berkas CSV</h3>

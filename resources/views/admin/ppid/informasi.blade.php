@@ -67,14 +67,6 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
 
         <div class="custom-form-card">
             <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form">
@@ -179,35 +171,26 @@
     }
 
     function removeAccordionField(button) {
-        Swal.fire({
-            title: 'Hapus Informasi ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#dc3545',
-            confirmButtonText: 'Ya, Hapus',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const card = button.closest('.accordion-card-field');
-                card.remove();
+        confirmAction('Hapus Informasi ini?', 'Informasi yang dihapus tidak dapat dikembalikan.', function() {
+            const card = button.closest('.accordion-card-field');
+            card.remove();
 
-                // Re-index inputs
-                Array.from(container.querySelectorAll('.accordion-card-field')).forEach((child, idx) => {
-                    const select = child.querySelector('select');
-                    if (select) select.name = `accordion_items[\${idx}][category]`;
-                    
-                    const titleInput = child.querySelector('input');
-                    if (titleInput) titleInput.name = `accordion_items[\${idx}][title]`;
-                    
-                    const descTextarea = child.querySelector('textarea');
-                    if (descTextarea) descTextarea.name = `accordion_items[\${idx}][content]`;
-                    
-                    const badge = child.querySelector('.badge');
-                    if (badge && !badge.innerText.includes('Baru')) {
-                        badge.innerText = `Item \${idx + 1}`;
-                    }
-                });
-            }
+            // Re-index inputs
+            Array.from(container.querySelectorAll('.accordion-card-field')).forEach((child, idx) => {
+                const select = child.querySelector('select');
+                if (select) select.name = `accordion_items[\${idx}][category]`;
+                
+                const titleInput = child.querySelector('input');
+                if (titleInput) titleInput.name = `accordion_items[\${idx}][title]`;
+                
+                const descTextarea = child.querySelector('textarea');
+                if (descTextarea) descTextarea.name = `accordion_items[\${idx}][content]`;
+                
+                const badge = child.querySelector('.badge');
+                if (badge && !badge.innerText.includes('Baru')) {
+                    badge.innerText = `Item \${idx + 1}`;
+                }
+            });
         });
     }
 

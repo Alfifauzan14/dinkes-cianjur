@@ -10,12 +10,6 @@
 @section('content')
 <div class="berita-admin-wrapper">
 
-    @if(session('success'))
-        <div class="admin-alert admin-alert-success">
-            <span class="material-icons">check_circle</span>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
     <div class="admin-card">
         <div class="card-header-actions">
@@ -91,10 +85,10 @@
                                     <a href="{{ route('admin.pagodasehat.edit', $card->id) }}" class="btn-action-edit" title="Edit">
                                         <span class="material-icons">edit</span>
                                     </a>
-                                    <form action="{{ route('admin.pagodasehat.destroy', $card->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kartu ini?');" style="margin: 0; display: inline;">
+                                    <form action="{{ route('admin.pagodasehat.destroy', $card->id) }}" method="POST" style="margin: 0; display: inline;" id="del-pagoda-{{ $card->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-action-delete" title="Hapus">
+                                        <button type="button" onclick="confirmDelete('del-pagoda-{{ $card->id }}')" class="btn-action-delete" title="Hapus">
                                             <span class="material-icons">delete</span>
                                         </button>
                                     </form>
@@ -204,14 +198,14 @@ function saveNewOrder(type) {
         if (data.success) {
             location.reload();
         } else {
-            alert('Gagal menyimpan urutan.');
+            showAlert('error', 'Gagal menyimpan urutan.');
             saveBtn.disabled = false;
             saveBtn.innerHTML = '<span class="material-icons">save</span><span>Simpan Urutan</span>';
         }
     })
     .catch(function(error) {
         console.error('Error:', error);
-        alert('Terjadi kesalahan saat menyimpan urutan.');
+        showAlert('error', 'Terjadi kesalahan saat menyimpan urutan.');
         saveBtn.disabled = false;
         saveBtn.innerHTML = '<span class="material-icons">save</span><span>Simpan Urutan</span>';
     });

@@ -10,6 +10,32 @@
         </button>
     </div>
 
+    {{-- Tabs Filter Segmen --}}
+    <div class="px-4 pt-3 pb-0 bg-white" style="border-bottom: 1px solid #E2E8F0;">
+        <ul class="nav nav-tabs border-0" id="layanan-type-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link {{ request('type', '') === '' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type', '') === '' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index') }}">
+                    Semua
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('type') === 'Warga' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Warga' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Warga'])) }}">
+                    Warga
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('type') === 'Faskes' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Faskes' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Faskes'])) }}">
+                    Faskes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('type') === 'Nakes' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Nakes' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Nakes'])) }}">
+                    Nakes
+                </a>
+            </li>
+        </ul>
+    </div>
+
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
@@ -222,7 +248,7 @@ document.querySelectorAll('.btn-edit-layanan').forEach(function(btn) {
         document.getElementById('edit_l_type').value = this.dataset.type;
         document.getElementById('edit_l_icon').value = this.dataset.icon;
         document.getElementById('edit_l_link').value = this.dataset.link;
-        document.getElementById('form-edit-layanan').action = '{{ url("admin/layanan") }}/' + id;
+        document.getElementById('form-edit-layanan').action = '{{ route('admin.layanan.update', ['layanan_terpadu' => '__ID__']) }}'.replace('__ID__', id);
     });
 });
 </script>

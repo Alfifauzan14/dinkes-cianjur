@@ -87,7 +87,7 @@
     border: 1px solid #EAEAEA;
     border-radius: 1px;
     padding: 24px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     margin-bottom: 32px;
 }
