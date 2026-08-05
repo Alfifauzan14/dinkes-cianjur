@@ -133,7 +133,7 @@
                             <button type="button" class="remove-btn-absolute" onclick="removeMisiField(this)" title="Hapus Item">
                                 <span class="material-icons" style="font-size:16px;">delete</span>
                             </button>
-                            <span class="badge badge-success mb-3">Misi Poin {{ $index + 1 }}</span>
+                            <span class="badge badge-success mb-3">Misi Poin {{ (int)$index + 1 }}</span>
                             <div class="form-group">
                                 <label style="font-size:11.5px; font-weight:700; color:#475569; margin-bottom:6px;">Judul Misi <span class="text-danger">*</span></label>
                                 <input type="text" name="misi[{{ $index }}][title]" 

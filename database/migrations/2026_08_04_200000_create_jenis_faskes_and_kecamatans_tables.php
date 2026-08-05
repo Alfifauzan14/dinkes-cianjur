@@ -29,7 +29,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('jenis_faskes');
         Schema::dropIfExists('kecamatans');
-        
+
         Schema::table('faskes', function (Blueprint $table) {
             $table->enum('type', ['Rumah Sakit', 'Puskesmas'])->change();
         });

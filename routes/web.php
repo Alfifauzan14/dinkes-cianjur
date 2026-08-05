@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\GaleriController;
-use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\HeaderSettingController;
-use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
-use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\JenisFaskesController;
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\KecamatanController;
+use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
 use App\Http\Controllers\Admin\PagodaSehatController;
@@ -21,6 +21,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\FaskesController as PublicFaskesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IkmController;
 use App\Http\Controllers\LabkesdaController;
 use App\Http\Controllers\LayananTerpaduController;
 use App\Http\Controllers\MediaController;
@@ -47,8 +48,8 @@ Route::get('/satu-data/laporan', [SatuDataController::class, 'laporan'])->name('
 Route::get('/satu-data/regulasi', [SatuDataController::class, 'regulasi'])->name('satudata.regulasi');
 
 /* --- Indeks Kepuasan Masyarakat (IKM) --- */
-Route::get('/ikm', [App\Http\Controllers\IkmController::class, 'index'])->name('ikm');
-Route::post('/ikm', [App\Http\Controllers\IkmController::class, 'store'])->name('ikm.store');
+Route::get('/ikm', [IkmController::class, 'index'])->name('ikm');
+Route::post('/ikm', [IkmController::class, 'store'])->name('ikm.store');
 
 /* --- Labkesda & Faskes Routes --- */
 Route::get('/media', [MediaController::class, 'index'])->name('media');
@@ -178,7 +179,7 @@ Route::resource('/admin/jenis-faskes', JenisFaskesController::class, [
         'store' => 'admin.jenis-faskes.store',
         'update' => 'admin.jenis-faskes.update',
         'destroy' => 'admin.jenis-faskes.destroy',
-    ]
+    ],
 ])->middleware('auth');
 
 Route::resource('/admin/kecamatan', KecamatanController::class, [
@@ -187,7 +188,7 @@ Route::resource('/admin/kecamatan', KecamatanController::class, [
         'store' => 'admin.kecamatan.store',
         'update' => 'admin.kecamatan.update',
         'destroy' => 'admin.kecamatan.destroy',
-    ]
+    ],
 ])->middleware('auth');
 
 Route::resource('/admin/headers', HeaderSettingController::class, [
@@ -245,11 +246,11 @@ Route::resource('/admin/layanan-terpadu', AdminLayananTerpaduController::class, 
 
 Route::resource('/admin/program-kesehatan', App\Http\Controllers\Admin\ProgramKesehatanController::class, [
     'names' => [
-        'index'   => 'admin.program-kesehatan.index',
-        'create'  => 'admin.program-kesehatan.create',
-        'store'   => 'admin.program-kesehatan.store',
-        'edit'    => 'admin.program-kesehatan.edit',
-        'update'  => 'admin.program-kesehatan.update',
+        'index' => 'admin.program-kesehatan.index',
+        'create' => 'admin.program-kesehatan.create',
+        'store' => 'admin.program-kesehatan.store',
+        'edit' => 'admin.program-kesehatan.edit',
+        'update' => 'admin.program-kesehatan.update',
         'destroy' => 'admin.program-kesehatan.destroy',
     ],
 ])->middleware('auth');

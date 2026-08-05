@@ -41,6 +41,14 @@
 @section('content')
 <div class="row">
     <div class="col-12">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
+                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
 
         <div class="custom-form-card">
             <form action="{{ route('admin.satudata.statistik.update') }}" method="POST" id="statistik-form">
@@ -58,6 +66,10 @@
                     </button>
                 </div>
 
+                <div class="form-text text-muted mb-3" style="font-size: 12px;">
+                    <i class="fas fa-info-circle"></i> Lebar bar dihitung otomatis berdasarkan proporsi angka dari seluruh wilayah.
+                </div>
+
                 <div id="sebaran-rows-container">
                     @forelse($setting->sebaran_data ?? [] as $sebaran)
                         <div class="dynamic-row-item">
@@ -66,14 +78,14 @@
                                 <input type="text" name="sebaran_names[]" value="{{ $sebaran['name'] }}" class="form-control form-control-sm" required>
                             </div>
                             <div class="form-group mb-0" style="flex: 2; min-width: 120px;">
-                                <label style="font-size:11.5px; font-weight:700; color:#475569;">Label Nilai <span class="text-danger">*</span></label>
-                                <input type="text" name="sebaran_values[]" value="{{ $sebaran['value'] }}" class="form-control form-control-sm" required>
+                                <label style="font-size:11.5px; font-weight:700; color:#475569;">Jumlah (Angka) <span class="text-danger">*</span></label>
+                                <input type="number" min="0" name="sebaran_values[]" value="{{ $sebaran['value'] }}" class="form-control form-control-sm sebaran-value-input" required oninput="recalcSebaranWidth()">
                             </div>
                             <div class="form-group mb-0" style="flex: 1; min-width: 80px;">
-                                <label style="font-size:11.5px; font-weight:700; color:#475569;">Lebar Bar (%) <span class="text-danger">*</span></label>
-                                <input type="number" min="0" max="100" name="sebaran_widths[]" value="{{ $sebaran['width'] }}" class="form-control form-control-sm" required>
+                                <label style="font-size:11.5px; font-weight:700; color:#475569;">Lebar (%)</label>
+                                <input type="number" min="0" max="100" name="sebaran_widths[]" value="{{ $sebaran['width'] }}" class="form-control form-control-sm sebaran-width-display" readonly style="background:#E2E8F0;">
                             </div>
-                            <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
+                            <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeSebaranRow(this)">
                                 <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
                             </button>
                         </div>
@@ -98,6 +110,18 @@
 
 @section('scripts')
 <script>
+    function recalcSebaranWidth() {
+        const inputs = document.querySelectorAll('.sebaran-value-input');
+        let total = 0;
+        inputs.forEach(inp => { total += parseInt(inp.value) || 0; });
+        inputs.forEach(inp => {
+            const row = inp.closest('.dynamic-row-item');
+            const widthDisplay = row.querySelector('.sebaran-width-display');
+            const val = parseInt(inp.value) || 0;
+            widthDisplay.value = total > 0 ? Math.round((val / total) * 100) : '';
+        });
+    }
+
     function addSebaranRow() {
         const empty = document.getElementById('empty-state-sebaran');
         if (empty) empty.remove();
@@ -111,22 +135,33 @@
                 <input type="text" name="sebaran_names[]" class="form-control form-control-sm" required>
             </div>
             <div class="form-group mb-0" style="flex: 2; min-width: 120px;">
-                <label style="font-size:11.5px; font-weight:700; color:#475569;">Label Nilai</label>
-                <input type="text" name="sebaran_values[]" class="form-control form-control-sm" required>
+                <label style="font-size:11.5px; font-weight:700; color:#475569;">Jumlah (Angka)</label>
+                <input type="number" min="0" name="sebaran_values[]" class="form-control form-control-sm sebaran-value-input" required oninput="recalcSebaranWidth()">
             </div>
             <div class="form-group mb-0" style="flex: 1; min-width: 80px;">
-                <label style="font-size:11.5px; font-weight:700; color:#475569;">Lebar Bar (%)</label>
-                <input type="number" min="0" max="100" name="sebaran_widths[]" class="form-control form-control-sm" required>
+                <label style="font-size:11.5px; font-weight:700; color:#475569;">Lebar (%)</label>
+                <input type="number" min="0" max="100" name="sebaran_widths[]" class="form-control form-control-sm sebaran-width-display" readonly style="background:#E2E8F0;">
             </div>
-            <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
+            <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeSebaranRow(this)">
                 <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
             </button>
         `;
         container.appendChild(row);
+        recalcSebaranWidth();
     }
 
-    function removeRow(btn) {
+    function removeSebaranRow(btn) {
         btn.closest('.dynamic-row-item').remove();
+        recalcSebaranWidth();
+        const container = document.getElementById('sebaran-rows-container');
+        if (container.children.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-5 text-muted" id="empty-state-sebaran">
+                    <span class="material-icons" style="font-size:48px; color:#D1D5DB; display:block; margin-bottom:12px;">explore</span>
+                    <p>Belum ada data sebaran ditambahkan. Silakan klik tombol "Tambah Wilayah".</p>
+                </div>
+            `;
+        }
     }
 
     document.getElementById('statistik-form').addEventListener('submit', function() {

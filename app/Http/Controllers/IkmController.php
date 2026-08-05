@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\IkmRating;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class IkmController extends Controller
 {
@@ -20,15 +20,15 @@ class IkmController extends Controller
             'name' => 'nullable|string|max:255',
             'whatsapp' => 'nullable|numeric',
             'rating' => 'required|in:sangat_puas,puas,cukup,kurang',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
         ]);
 
         $ipAddress = $request->ip();
 
         // Cek apakah IP ini sudah submit dalam 7 hari terakhir
         $recentSubmission = IkmRating::where('ip_address', $ipAddress)
-                                     ->where('created_at', '>=', Carbon::now()->subDays(7))
-                                     ->first();
+            ->where('created_at', '>=', Carbon::now()->subDays(7))
+            ->first();
 
         if ($recentSubmission) {
             return redirect()->back()->with('error', 'Anda sudah memberikan penilaian dalam minggu ini. Terima kasih atas partisipasi Anda!');

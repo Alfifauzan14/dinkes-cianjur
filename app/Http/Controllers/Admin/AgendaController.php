@@ -30,7 +30,7 @@ class AgendaController extends Controller
         }
 
         $timeFilter = $request->input('time_filter', 'all');
-        $today = \Carbon\Carbon::today()->toDateString();
+        $today = Carbon::today()->toDateString();
         if ($timeFilter === 'upcoming') {
             $query->where('date', '>', $today);
         } elseif ($timeFilter === 'today') {

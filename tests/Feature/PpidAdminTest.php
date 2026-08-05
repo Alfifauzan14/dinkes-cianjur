@@ -63,7 +63,7 @@ class PpidAdminTest extends TestCase
                     'category' => 'serta-merta',
                     'content' => 'Content 2',
                 ],
-            ]
+            ],
         ]);
         $response->assertRedirect('/admin/ppid?section=informasi');
         $response->assertSessionHas('success', 'Konten halaman PPID berhasil diperbarui!');

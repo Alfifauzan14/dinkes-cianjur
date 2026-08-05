@@ -11,6 +11,7 @@ class StatistikSetting extends Model
 
     protected $fillable = [
         'status_badge',
+        'indikator_data',
         'stat_1_num',
         'stat_1_badge',
         'stat_1_caption',
@@ -32,6 +33,7 @@ class StatistikSetting extends Model
     ];
 
     protected $casts = [
+        'indikator_data' => 'array',
         'nakes_data' => 'array',
         'sebaran_data' => 'array',
     ];

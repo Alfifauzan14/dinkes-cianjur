@@ -50,18 +50,9 @@ class StatistikAdminTest extends TestCase
             ->put('/admin/satu-data/statistik', [
                 'section' => 'indikator',
                 'status_badge' => 'Data Diperbarui 2026',
-                'stat_1_num' => '50',
-                'stat_1_badge' => '100% Siap!',
-                'stat_1_caption' => 'Akreditasi Paripurna Terjamin',
-                'stat_2_num' => '10',
-                'stat_2_badge' => 'Mitra BPJS+',
-                'stat_2_caption' => '5 RSUD Pemda + 5 RS Swasta',
-                'stat_3_num' => '4,000',
-                'stat_3_badge' => 'Tersertifikasi Nasional',
-                'stat_3_caption' => 'Seluruh Nakes Terdaftar',
-                'stat_4_num' => '96.2%',
-                'stat_4_badge' => '+4.0% YoY',
-                'stat_4_caption' => 'Target Imunisasi Tercapai',
+                'indikator_names' => ['PUSKESMAS', 'RS RUJUKAN', 'SDM KESEHATAN', 'IMUNISASI'],
+                'indikator_nums' => ['50', '10', '4,000', '96.2%'],
+                'indikator_captions' => ['Akreditasi Paripurna Terjamin', '5 RSUD + 5 RS Swasta', 'Seluruh Nakes Terdaftar', 'Target Imunisasi Tercapai'],
             ]);
         $response->assertRedirect('/admin/satu-data/statistik?section=indikator');
 
@@ -101,8 +92,12 @@ class StatistikAdminTest extends TestCase
 
         $this->assertDatabaseHas('statistik_settings', [
             'id' => 1,
-            'stat_1_num' => '50',
-            'stat_1_caption' => 'Akreditasi Paripurna Terjamin',
+            'indikator_data' => json_encode([
+                ['name' => 'PUSKESMAS', 'num' => '50', 'caption' => 'Akreditasi Paripurna Terjamin'],
+                ['name' => 'RS RUJUKAN', 'num' => '10', 'caption' => '5 RSUD + 5 RS Swasta'],
+                ['name' => 'SDM KESEHATAN', 'num' => '4000', 'caption' => 'Seluruh Nakes Terdaftar'],
+                ['name' => 'IMUNISASI', 'num' => '96.2', 'caption' => 'Target Imunisasi Tercapai'],
+            ]),
         ]);
 
         $this->assertDatabaseHas('stunting_records', [
