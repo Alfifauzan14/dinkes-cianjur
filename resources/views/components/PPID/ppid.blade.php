@@ -125,17 +125,31 @@
                 <p class="tautan-subtitle">{{ $ppid->tautan_subtitle }}</p>
 
                 <div class="tautan-grid">
-                    @foreach(range(1,5) as $i)
-                        @php
-                            $label = $ppid->{'tautan_'.$i.'_label'};
-                            $url   = $ppid->{'tautan_'.$i.'_url'} ?: '#';
-                        @endphp
-                        @if($label)
-                        <a href="{{ $url }}" class="tautan-card">
+                    @php
+                        $tautanItems = $ppid->tautan_items;
+                        if (empty($tautanItems)) {
+                            // Fallback to old format if empty
+                            $tautanItems = [];
+                            foreach(range(1,5) as $i) {
+                                $l = $ppid->{'tautan_'.$i.'_label'};
+                                $u = $ppid->{'tautan_'.$i.'_url'} ?: '#';
+                                if ($l) {
+                                    $tautanItems[] = ['label' => $l, 'url' => $u, 'image' => null];
+                                }
+                            }
+                        }
+                    @endphp
+                    @foreach($tautanItems as $index => $item)
+                        @if(!empty($item['label']))
+                        <a href="{{ $item['url'] ?? '#' }}" class="tautan-card">
                             <div class="tautan-icon-wrap">
-                                <img src="{{ asset('Assets/ppdi/Rectangle '.($i + 94).'.png') }}" alt="{{ $label }}">
+                                @if(!empty($item['image']))
+                                    <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['label'] }}">
+                                @else
+                                    <img src="{{ asset('Assets/ppdi/Rectangle '.($index % 5 + 95).'.png') }}" alt="{{ $item['label'] }}">
+                                @endif
                             </div>
-                            <span class="tautan-card-text">{{ $label }}</span>
+                            <span class="tautan-card-text">{{ $item['label'] }}</span>
                         </a>
                         @endif
                     @endforeach
@@ -149,7 +163,11 @@
     <div class="tata-cara-section">
         <!-- Left Side: Doctor Image -->
         <div class="tata-cara-image-wrapper">
-            <img src="{{ asset('Assets/ppdi/doctor_landscape_illustration_1785205715145.png') }}" alt="Ilustrasi Tata Cara Permohonan" class="tata-cara-image">
+            @if(!empty($ppid->tata_cara_image))
+                <img src="{{ asset('storage/' . $ppid->tata_cara_image) }}" alt="Ilustrasi Tata Cara Permohonan" class="tata-cara-image">
+            @else
+                <img src="{{ asset('Assets/ppdi/doctor_landscape_illustration_1785205715145.png') }}" alt="Ilustrasi Tata Cara Permohonan" class="tata-cara-image">
+            @endif
         </div>
 
         <!-- Right Side: Content -->
@@ -158,15 +176,25 @@
             <h2 class="tata-cara-heading">{{ $ppid->tata_cara_heading }}</h2>
 
             <div class="tata-cara-grid">
-                @foreach(range(1,4) as $i)
-                    @php
-                        $cardTitle = $ppid->{'tata_cara_card_'.$i.'_title'};
-                        $cardText  = $ppid->{'tata_cara_card_'.$i.'_text'};
-                    @endphp
-                    @if($cardTitle)
+                @php
+                    $tataCaraItems = $ppid->tata_cara_items;
+                    if (empty($tataCaraItems)) {
+                        // Fallback
+                        $tataCaraItems = [];
+                        foreach(range(1,4) as $i) {
+                            $t = $ppid->{'tata_cara_card_'.$i.'_title'};
+                            $text = $ppid->{'tata_cara_card_'.$i.'_text'};
+                            if ($t) {
+                                $tataCaraItems[] = ['title' => $t, 'text' => $text];
+                            }
+                        }
+                    }
+                @endphp
+                @foreach($tataCaraItems as $item)
+                    @if(!empty($item['title']))
                     <div class="tata-cara-card">
-                        <h3 class="tata-cara-card-title">{{ $cardTitle }}</h3>
-                        <p class="tata-cara-card-text">{{ $cardText }}</p>
+                        <h3 class="tata-cara-card-title">{{ $item['title'] }}</h3>
+                        <p class="tata-cara-card-text">{{ $item['text'] }}</p>
                     </div>
                     @endif
                 @endforeach

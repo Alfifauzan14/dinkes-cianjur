@@ -34,10 +34,15 @@ class PpidSetting extends Model
         'accordion_5_title', 'accordion_5_content',
         'accordion_6_title', 'accordion_6_content',
         'accordion_items',
+        'tautan_items',
+        'tata_cara_items',
+        'tata_cara_image',
     ];
 
     protected $casts = [
         'accordion_items' => 'array',
+        'tautan_items' => 'array',
+        'tata_cara_items' => 'array',
     ];
 
     /**
@@ -110,6 +115,20 @@ class PpidSetting extends Model
                     ['title' => 'Regulasi PPID Pembantu', 'content' => 'Kumpulan undang-undang, peraturan pemerintah, peraturan menteri, serta keputusan bupati terkait keterbukaan informasi publik (KIP).', 'category' => 'serta-merta'],
                     ['title' => 'Tracking Pengaduan Masyarakat', 'content' => 'Lacak status laporan pengaduan masyarakat yang diajukan secara resmi ke Dinas Kesehatan Kabupaten Cianjur.', 'category' => 'setiap-saat'],
                 ],
+                'tautan_items' => [
+                    ['label' => 'BPJS Kesehatan', 'url' => '#', 'image' => null],
+                    ['label' => 'Pelayanan Pendaftaran Penduduk', 'url' => '#', 'image' => null],
+                    ['label' => 'Pelayanan Perizinan', 'url' => '#', 'image' => null],
+                    ['label' => 'Pelayanan Perizinan Trayek', 'url' => '#', 'image' => null],
+                    ['label' => 'Pelayanan Kearsipan dan Perpustakaan', 'url' => '#', 'image' => null],
+                ],
+                'tata_cara_items' => [
+                    ['title' => '1. Persiapan', 'text' => 'Silahkan lakukan persiapan terlebih dahulu sebelum melakukan permohonan informasi tentang apa yang anda butuhkan.'],
+                    ['title' => '2. Buat Akun Pemohon', 'text' => 'Silahkan buat akun pemohon terlebih dahulu. Jika sudah mempunyai akun, silahkan login melalui menu Layanan Informasi > E-PPID Online.'],
+                    ['title' => '3. Buat Tiket', 'text' => 'Silahkan buat tiket dan pilih permohonan informasi. Isi formulir dan upload formulir yang sudah anda isi sebelumnya.'],
+                    ['title' => '4. Selesai', 'text' => 'Permohonan anda berhasil dibuat. Anda akan mendapatkan nomor ID Tiket. Permohonan akan diproses 10 hari kerja + 7 hari kerja.'],
+                ],
+                'tata_cara_image' => null,
             ]
         );
     }
