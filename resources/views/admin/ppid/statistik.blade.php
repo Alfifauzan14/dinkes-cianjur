@@ -50,7 +50,7 @@
                                 <span class="badge badge-success mb-3 align-self-start" style="padding: 4px 10px; font-weight: 700; border-radius: 4px;">KARTU STATISTIK {{ $i }}</span>
                                 <div class="form-group">
                                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Angka / Jumlah</label>
-                                    <input type="text" name="stat_{{ $i }}_number" value="{{ old('stat_'.$i.'_number', $ppid->{'stat_'.$i.'_number'}) }}" class="form-control form-control-sm">
+                                    <input type="text" name="stat_{{ $i }}_number" value="{{ old('stat_'.$i.'_number', $ppid->{'stat_'.$i.'_number'}) }}" class="form-control form-control-sm" oninput="this.value = this.value.replace(/[^0-9.]/g, '')">
                                 </div>
                                 <div class="form-group mb-0">
                                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Keterangan</label>
