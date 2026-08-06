@@ -32,87 +32,28 @@
 
             <!-- 4 Stat Cards Row -->
             <div class="stat-cards-grid">
-                
-                <!-- Card 1: Puskesmas -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">PUSKESMAS</span>
-                        <span class="stat-card-badge badge-active">{{ $setting->stat_1_badge }}</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $setting->stat_1_num }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <span class="material-icons">local_hospital</span>
+                @php
+                    $cardIcons = ['local_hospital', 'corporate_fare', 'people', 'vaccines', 'medical_services', 'healing', 'monitor_health', 'biotech'];
+                @endphp
+                @foreach($setting->indikator_data ?? [] as $idx => $card)
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-label">{{ $card['name'] }}</span>
+                        </div>
+                        <div class="stat-card-body-wrap">
+                            <div class="stat-card-number">{{ $card['num'] }}</div>
+                            <div class="stat-card-icon-wrapper">
+                                <span class="material-icons">{{ $cardIcons[$idx] ?? 'indicator' }}</span>
+                            </div>
+                        </div>
+                        <div class="stat-card-caption caption-accent">
+                            <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>{{ $card['caption'] }}</span>
                         </div>
                     </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>{{ $setting->stat_1_caption }}</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: Rumah Sakit Rujukan -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">RUMAH SAKIT RUJUKAN</span>
-                        <span class="stat-card-badge badge-active">{{ $setting->stat_2_badge }}</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $setting->stat_2_num }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <span class="material-icons">corporate_fare</span>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>{{ $setting->stat_2_caption }}</span>
-                    </div>
-                </div>
-
-                <!-- Card 3: SDM Kesehatan -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">SDM KESEHATAN</span>
-                        <span class="stat-card-badge badge-active">{{ $setting->stat_3_badge }}</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $setting->stat_3_num }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <span class="material-icons">people</span>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>{{ $setting->stat_3_caption }}</span>
-                    </div>
-                </div>
-
-                <!-- Card 4: Cakupan Imunisasi -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">CAKUPAN IMUNISASI</span>
-                        <span class="stat-card-badge badge-active">{{ $setting->stat_4_badge }}</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $setting->stat_4_num }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <span class="material-icons">vaccines</span>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>{{ $setting->stat_4_caption }}</span>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
 
             <!-- Chart Card: Tren Penurunan Prevalensi Stunting -->
@@ -125,6 +66,25 @@
                     <div class="chart-header-right">
                         <span class="trend-badge">{{ $setting->stunting_trend_badge }}</span>
                     </div>
+                </div>
+
+                <!-- Year Range Filter Tabs -->
+                @php
+                    $allYears = $stuntingRecords->pluck('year')->sort()->values();
+                    $minYear = $allYears->first();
+                    $maxYear = $allYears->last();
+                    $activeFilter = request('range', 'all');
+                @endphp
+                <div class="chart-filter-tabs" style="display: flex; gap: 0; border-bottom: 2px solid #E2E8F0; margin-bottom: 20px;">
+                    <button type="button" class="chart-filter-tab {{ $activeFilter === 'all' ? 'active' : '' }}" data-range="all" onclick="filterByRange('all', this)">
+                        Semua ({{ $minYear }}–{{ $maxYear }})
+                    </button>
+                    <button type="button" class="chart-filter-tab {{ $activeFilter === '3' ? 'active' : '' }}" data-range="3" onclick="filterByRange('3', this)">
+                        3 Tahun Terakhir
+                    </button>
+                    <button type="button" class="chart-filter-tab {{ $activeFilter === '5' ? 'active' : '' }}" data-range="5" onclick="filterByRange('5', this)">
+                        5 Tahun Terakhir
+                    </button>
                 </div>
 
                 <!-- Split Dashboard Grid Layout -->
@@ -140,6 +100,7 @@
                                     $yMax = 10;
                                 }
                             @endphp
+<<<<<<< HEAD
                             <div class="chart-y-axis-labels">
                                 <div class="chart-y-axis-labels-item"><span>{{ $yMax }}%</span></div>
                                 <div class="chart-y-axis-labels-item"><span>{{ $yMax * 0.75 }}%</span></div>
@@ -160,6 +121,28 @@
                                 </div>
 
                                 <div class="chart-bars-wrapper">
+=======
+                            <div class="chart-y-axis-labels" style="display: flex; flex-direction: column; justify-content: space-between; height: 220px; margin-top: 10px; width: 32px; font-size: 11px; color: #94A3B8; font-weight: 700; text-align: right; flex-shrink: 0; position: relative; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif;">
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.75 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.5 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.25 }}%</span></div>
+                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>0%</span></div>
+                            </div>
+                            
+                            <!-- Scrollable Chart Area (Right) -->
+                            <div class="stunting-chart-container" style="flex-grow: 1; overflow-x: auto; position: relative; padding-left: 0; margin-top: 0;">
+                                <!-- Y-Axis Grid Lines -->
+                                <div class="chart-y-axis-grid" style="position: absolute; top: 10px; left: 0; right: 0; height: 220px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 1;">
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
+                                    <div class="grid-line" style="width: 100%; border-top: 1px solid #CBD5E1; position: relative;"></div>
+                                </div>
+
+                                <div class="chart-bars-wrapper" id="chart-bars-wrapper" style="position: relative; z-index: 2; height: 260px; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px; margin-bottom: 0;">
+>>>>>>> 8cc42116566a1cb2ea25039a7f11692c875931f5
                                     @foreach($stuntingRecords as $record)
                                         @php
                                             $heightPercent = $yMax > 0 ? ($record->rate / $yMax) * 100 : 0;
@@ -252,13 +235,39 @@
             </div>
 
             <script>
+            function filterByRange(range, btn) {
+                // Update active tab
+                document.querySelectorAll('.chart-filter-tab').forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+
+                const bars = document.querySelectorAll('.chart-bar-item');
+                const allYears = Array.from(bars).map(b => parseInt(b.dataset.year));
+                const maxYear = Math.max(...allYears);
+                let minShow;
+
+                if (range === 'all') {
+                    minShow = Math.min(...allYears);
+                } else {
+                    minShow = maxYear - parseInt(range) + 1;
+                }
+
+                bars.forEach(bar => {
+                    const year = parseInt(bar.dataset.year);
+                    bar.style.display = year >= minShow ? '' : 'none';
+                });
+
+                // Re-select first visible bar
+                const firstVisible = document.querySelector('.chart-bar-item:not([style*="display: none"])');
+                if (firstVisible) {
+                    updateStuntingDetail(firstVisible);
+                }
+            }
+
             function updateStuntingDetail(el) {
-                // Remove active classes
                 document.querySelectorAll('.chart-bar-item').forEach(b => {
                     b.classList.remove('bar-active-selected');
                 });
                 
-                // Add active class
                 el.classList.add('bar-active-selected');
 
                 const year     = el.dataset.year;
@@ -306,7 +315,14 @@
                 <div class="progress-card">
                     <div class="progress-card-header">
                         <div class="progress-card-title-area">
-                            <h3 class="progress-card-title">Distribusi Profesi Nakes ({{ $setting->stat_3_num }})</h3>
+                            @php
+                                $nakesTotal = 0;
+                                foreach ($setting->nakes_data ?? [] as $n) {
+                                    $cleaned = preg_replace('/[^0-9]/', '', strtok($n['value'] ?? '0', ' '));
+                                    $nakesTotal += (int) $cleaned;
+                                }
+                            @endphp
+                            <h3 class="progress-card-title">Distribusi Profesi Nakes ({{ number_format($nakesTotal, 0, ',', '.') }})</h3>
                             <p class="progress-card-subtitle">Terdaftar pada Portal E-SIP Dinkes</p>
                         </div>
                         <span class="progress-badge">Aktif SIP</span>
@@ -315,13 +331,18 @@
                     <div class="progress-list">
                         @if($setting->nakes_data)
                             @foreach($setting->nakes_data as $nakes)
+                                @php
+                                    $nWidth = $nakesTotal > 0
+                                        ? round(((int) ($nakes['value'] ?? 0) / $nakesTotal) * 100)
+                                        : 0;
+                                @endphp
                                 <div class="progress-item">
                                     <div class="progress-item-labels">
                                         <span class="progress-item-name">{{ $nakes['name'] }}</span>
-                                        <span class="progress-item-value">{{ $nakes['value'] }}</span>
+                                        <span class="progress-item-value">{{ number_format((int) ($nakes['value'] ?? 0), 0, ',', '.') }}</span>
                                     </div>
                                     <div class="progress-track-wrapper">
-                                        <div class="progress-bar-fill" @style(['width: ' . $nakes['width'] . '%'])></div>
+                                        <div class="progress-bar-fill" @style(['width: ' . $nWidth . '%'])></div>
                                     </div>
                                 </div>
                             @endforeach
@@ -333,8 +354,14 @@
                 <div class="progress-card">
                     <div class="progress-card-header">
                         <div class="progress-card-title-area">
+                            @php
+                                $sebaranTotal = 0;
+                                foreach ($setting->sebaran_data ?? [] as $s) {
+                                    $sebaranTotal += (int) ($s['value'] ?? 0);
+                                }
+                            @endphp
                             <h3 class="progress-card-title">Sebaran Puskesmas per Zonasi</h3>
-                            <p class="progress-card-subtitle">{{ $setting->stat_1_num }} Unit Wilayah Kerja Kabupaten</p>
+                            <p class="progress-card-subtitle">{{ number_format($sebaranTotal, 0, ',', '.') }} Unit Wilayah Kerja Kabupaten</p>
                         </div>
                         <span class="progress-badge">Aktif SIP</span>
                     </div>
@@ -342,13 +369,18 @@
                     <div class="progress-list">
                         @if($setting->sebaran_data)
                             @foreach($setting->sebaran_data as $sebaran)
+                                @php
+                                    $sWidth = $sebaranTotal > 0
+                                        ? round(((int) ($sebaran['value'] ?? 0) / $sebaranTotal) * 100)
+                                        : 0;
+                                @endphp
                                 <div class="progress-item">
                                     <div class="progress-item-labels">
                                         <span class="progress-item-name">{{ $sebaran['name'] }}</span>
-                                        <span class="progress-item-value">{{ $sebaran['value'] }}</span>
+                                        <span class="progress-item-value">{{ number_format((int) ($sebaran['value'] ?? 0), 0, ',', '.') }} Puskesmas</span>
                                     </div>
                                     <div class="progress-track-wrapper">
-                                        <div class="progress-bar-fill" @style(['width: ' . $sebaran['width'] . '%'])></div>
+                                        <div class="progress-bar-fill" @style(['width: ' . $sWidth . '%'])></div>
                                     </div>
                                 </div>
                             @endforeach

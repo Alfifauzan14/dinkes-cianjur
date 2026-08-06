@@ -21,44 +21,60 @@ class StatistikController extends Controller
             ['id' => 1],
             [
                 'status_badge' => 'Data Riil Semester I 2026',
-                'stat_1_num' => '47',
-                'stat_1_badge' => '100% Aktif!',
-                'stat_1_caption' => 'Seluruhnya Terakreditasi Paripurna',
-                'stat_2_num' => '8',
-                'stat_2_badge' => 'Mitra BPJS',
-                'stat_2_caption' => '4 RSUD Pemda + 4 RS Swasta',
-                'stat_3_num' => '3,820',
-                'stat_3_badge' => 'Tersertifikasi',
-                'stat_3_caption' => 'Dokter, Perawat, Bidan, & Apoteker',
-                'stat_4_num' => '94.8%',
-                'stat_4_badge' => '+3.2% YoY',
-                'stat_4_caption' => 'Target Nasional 2026: 95.0%',
+                'indikator_data' => [
+                    ['name' => 'PUSKESMAS', 'num' => '47', 'caption' => 'Seluruhnya Terakreditasi Paripurna'],
+                    ['name' => 'RUMAH SAKIT RUJUKAN', 'num' => '8', 'caption' => '4 RSUD Pemda + 4 RS Swasta'],
+                    ['name' => 'SDM KESEHATAN', 'num' => '3,820', 'caption' => 'Dokter, Perawat, Bidan, & Apoteker'],
+                    ['name' => 'CAKUPAN IMUNISASI', 'num' => '94.8%', 'caption' => 'Target Nasional 2026: 95.0%'],
+                ],
                 'stunting_title' => 'Tren Penurunan Prevalensi Stunting',
                 'stunting_subtitle' => 'Target Daerah Cianjur 2026: <10%',
                 'stunting_trend_badge' => 'Tren Positif',
                 'stunting_footer_note' => 'Penurunan sebesar -8.4% dalam 2 tahun melalui Program Pendampingan Keluarga Terpadu.',
                 'nakes_data' => [
-                    ['name' => 'Perawat Kesehatan', 'value' => '1,604 (42%)', 'width' => 42],
-                    ['name' => 'Bidan Desa & Puskesmas', 'value' => '1,184 (31%)', 'width' => 31],
-                    ['name' => 'Dokter Umum & Spesialis', 'value' => '573 (15%)', 'width' => 15],
-                    ['name' => 'Apoteker & Tenaga Kefarmasian', 'value' => '459 (12%)', 'width' => 12],
+                    ['name' => 'Perawat Kesehatan', 'value' => 1604, 'width' => 42],
+                    ['name' => 'Bidan Desa & Puskesmas', 'value' => 1184, 'width' => 31],
+                    ['name' => 'Dokter Umum & Spesialis', 'value' => 573, 'width' => 15],
+                    ['name' => 'Apoteker & Tenaga Kefarmasian', 'value' => 459, 'width' => 12],
                 ],
                 'sebaran_data' => [
-                    ['name' => 'Zonasi Selatan', 'value' => '17 Puskesmas (36%)', 'width' => 36],
-                    ['name' => 'Zonasi Utara', 'value' => '16 Puskesmas (34%)', 'width' => 34],
-                    ['name' => 'Zonasi Tengah', 'value' => '14 Puskesmas (30%)', 'width' => 30],
+                    ['name' => 'Zonasi Selatan', 'value' => 17, 'width' => 37],
+                    ['name' => 'Zonasi Utara', 'value' => 16, 'width' => 35],
+                    ['name' => 'Zonasi Tengah', 'value' => 14, 'width' => 30],
                 ],
             ]
         );
 
+        // Backfill indikator_data from old columns if empty
+        if (empty($setting->indikator_data)) {
+            $indikatorData = [];
+            for ($i = 1; $i <= 4; $i++) {
+                $indikatorData[] = [
+                    'name' => $setting->{"stat_{$i}_badge"} ?? '',
+                    'num' => $setting->{"stat_{$i}_num"} ?? '',
+                    'caption' => $setting->{"stat_{$i}_caption"} ?? '',
+                ];
+            }
+            $setting->update(['indikator_data' => $indikatorData]);
+            $setting->refresh();
+        }
+
+        // Sanitize num fields — strip non-numeric chars
+        $cleanedIndikator = array_map(function ($item) {
+            $item['num'] = preg_replace('/[^0-9.\-]/', '', $item['num'] ?? '');
+
+            return $item;
+        }, $setting->indikator_data ?? []);
+        $setting->indikator_data = $cleanedIndikator;
+
         $stuntingRecords = StuntingRecord::orderBy('year', 'asc')->get();
 
         $section = $request->query('section', 'indikator');
-        if (!in_array($section, ['indikator', 'stunting', 'nakes', 'sebaran'])) {
+        if (! in_array($section, ['indikator', 'stunting', 'nakes', 'sebaran'])) {
             $section = 'indikator';
         }
 
-        return view('admin.statistik.' . $section, compact('setting', 'stuntingRecords'));
+        return view('admin.statistik.'.$section, compact('setting', 'stuntingRecords'));
     }
 
     /**
@@ -72,18 +88,9 @@ class StatistikController extends Controller
         if ($section === 'indikator') {
             $rules = [
                 'status_badge' => 'required|string|max:100',
-                'stat_1_num' => 'required|string|max:50',
-                'stat_1_badge' => 'required|string|max:100',
-                'stat_1_caption' => 'required|string|max:255',
-                'stat_2_num' => 'required|string|max:50',
-                'stat_2_badge' => 'required|string|max:100',
-                'stat_2_caption' => 'required|string|max:255',
-                'stat_3_num' => 'required|string|max:50',
-                'stat_3_badge' => 'required|string|max:100',
-                'stat_3_caption' => 'required|string|max:255',
-                'stat_4_num' => 'required|string|max:50',
-                'stat_4_badge' => 'required|string|max:100',
-                'stat_4_caption' => 'required|string|max:255',
+                'indikator_names' => 'nullable|array',
+                'indikator_nums' => 'nullable|array',
+                'indikator_captions' => 'nullable|array',
             ];
         } elseif ($section === 'stunting') {
             $rules = [
@@ -119,8 +126,23 @@ class StatistikController extends Controller
         $setting = StatistikSetting::firstOrCreate(['id' => 1]);
 
         if ($section === 'indikator') {
-            $data = $request->only(array_keys($rules));
-            $setting->update($data);
+            $setting->update(['status_badge' => $request->input('status_badge')]);
+
+            $indikatorData = [];
+            if ($request->has('indikator_names')) {
+                foreach ($request->indikator_names as $index => $name) {
+                    if (! empty($name)) {
+                        $num = $request->indikator_nums[$index] ?? '';
+                        $num = preg_replace('/[^0-9.\-]/', '', $num);
+                        $indikatorData[] = [
+                            'name' => $name,
+                            'num' => $num,
+                            'caption' => $request->indikator_captions[$index] ?? '',
+                        ];
+                    }
+                }
+            }
+            $setting->update(['indikator_data' => $indikatorData]);
         } elseif ($section === 'stunting') {
             $data = $request->only(['stunting_title', 'stunting_subtitle', 'stunting_trend_badge', 'stunting_footer_note']);
             $setting->update($data);
@@ -166,31 +188,59 @@ class StatistikController extends Controller
             }
         } elseif ($section === 'nakes') {
             $nakesData = [];
+            $totalNum = 0;
+            $numValues = [];
+
             if ($request->has('nakes_names')) {
                 foreach ($request->nakes_names as $index => $name) {
                     if (! empty($name)) {
+                        $num = (int) ($request->nakes_values[$index] ?? 0);
+                        $numValues[] = $num;
+                        $totalNum += $num;
                         $nakesData[] = [
                             'name' => $name,
-                            'value' => $request->nakes_values[$index] ?? '',
-                            'width' => (int) ($request->nakes_widths[$index] ?? 0),
+                            'value' => $num,
+                            'width' => 0,
                         ];
                     }
                 }
             }
+
+            foreach ($nakesData as $i => &$item) {
+                $item['width'] = $totalNum > 0 && ($numValues[$i] ?? 0) > 0
+                    ? (int) round(($numValues[$i] / $totalNum) * 100)
+                    : 0;
+            }
+            unset($item);
+
             $setting->update(['nakes_data' => $nakesData]);
         } elseif ($section === 'sebaran') {
             $sebaranData = [];
+            $totalNum = 0;
+            $numValues = [];
+
             if ($request->has('sebaran_names')) {
                 foreach ($request->sebaran_names as $index => $name) {
                     if (! empty($name)) {
+                        $num = (int) ($request->sebaran_values[$index] ?? 0);
+                        $numValues[] = $num;
+                        $totalNum += $num;
                         $sebaranData[] = [
                             'name' => $name,
-                            'value' => $request->sebaran_values[$index] ?? '',
-                            'width' => (int) ($request->sebaran_widths[$index] ?? 0),
+                            'value' => $num,
+                            'width' => 0,
                         ];
                     }
                 }
             }
+
+            foreach ($sebaranData as $i => &$item) {
+                $item['width'] = $totalNum > 0 && ($numValues[$i] ?? 0) > 0
+                    ? (int) round(($numValues[$i] / $totalNum) * 100)
+                    : 0;
+            }
+            unset($item);
+
             $setting->update(['sebaran_data' => $sebaranData]);
         }
 
@@ -206,6 +256,23 @@ class StatistikController extends Controller
         $stuntingRecords = StuntingRecord::orderBy('year', 'asc')->get();
 
         return view('admin.statistik.import', compact('stuntingRecords'));
+    }
+
+    /**
+     * Extract percentage width from a value string like "17 Puskesmas (36%)" or "1,604 (42%)".
+     */
+    private static function extractWidthFromValue(string $value): int
+    {
+        // Match "(36%)" or "(36.5%)"
+        if (preg_match('/\((\d+(?:\.\d+)?)\s*%\)/', $value, $matches)) {
+            return (int) round((float) $matches[1]);
+        }
+        // Match standalone "36%"
+        if (preg_match('/(\d+(?:\.\d+)?)\s*%/', $value, $matches)) {
+            return (int) round((float) $matches[1]);
+        }
+
+        return 0;
     }
 
     /**

@@ -13,6 +13,7 @@ class JenisFaskesController extends Controller
     public function index(): View
     {
         $types = JenisFaskes::orderBy('name')->get();
+
         return view('admin.jenis_faskes.index', compact('types'));
     }
 
@@ -31,7 +32,7 @@ class JenisFaskesController extends Controller
     public function update(Request $request, JenisFaskes $jenisFaskes): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:100|unique:jenis_faskes,name,' . $jenisFaskes->id,
+            'name' => 'required|string|max:100|unique:jenis_faskes,name,'.$jenisFaskes->id,
         ]);
 
         $jenisFaskes->update($request->only('name'));

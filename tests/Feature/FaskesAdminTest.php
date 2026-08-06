@@ -96,7 +96,7 @@ class FaskesAdminTest extends TestCase
 
         // Prepare CSV File content
         $csvContent = "name,type,kecamatan,address,phone,jam_operasional,lat,lng,layanan,akreditasi\n"
-                    . "Klinik Harapan,Klinik Swasta,Cibeber,Jl. Cibeber No. 5,,,-6.85,107.15,General,Madya\n";
+                    ."Klinik Harapan,Klinik Swasta,Cibeber,Jl. Cibeber No. 5,,,-6.85,107.15,General,Madya\n";
 
         $tempFile = tempnam(sys_get_temp_dir(), 'faskes_test');
         file_put_contents($tempFile, $csvContent);

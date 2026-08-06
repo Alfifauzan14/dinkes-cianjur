@@ -18,7 +18,7 @@ class FaskesController extends Controller
         $query = Faskes::query();
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->input('search') . '%');
+            $query->where('name', 'like', '%'.$request->input('search').'%');
         }
 
         if ($request->filled('kecamatan') && $request->input('kecamatan') !== 'Semua') {

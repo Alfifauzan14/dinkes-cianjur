@@ -288,7 +288,7 @@
     top: 10px;
     left: 45px;
     right: 10px;
-    height: 255px; /* Increased from 165px */
+    height: 220px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -315,7 +315,7 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    height: 320px; /* Increased from 230px */
+    height: 260px;
     padding: 10px 10px 14px;
     border-bottom: 1px solid #E2E8F0;
     gap: 12px;
@@ -352,7 +352,7 @@
 .bar-track {
     width: 100%;
     max-width: 36px;
-    height: 165px;
+    height: 140px;
     display: flex;
     align-items: flex-end;
     background: #F8FAFC;
@@ -582,6 +582,41 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
+}
+
+/* ── Chart Filter Tabs ───────────────────────────────────────── */
+.chart-filter-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #E2E8F0;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.chart-filter-tab {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748B;
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.chart-filter-tab:hover {
+    color: #009966;
+    background-color: rgba(0, 153, 102, 0.04);
+}
+
+.chart-filter-tab.active {
+    color: #009966;
+    border-bottom-color: #009966;
+    font-weight: 700;
 }
 
 /* ── Split Dashboard Grid Layout ──────────────────────────────── */

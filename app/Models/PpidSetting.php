@@ -107,7 +107,7 @@ class PpidSetting extends Model
                 'accordion_5_content' => 'Kumpulan undang-undang, peraturan pemerintah, peraturan menteri, serta keputusan bupati terkait keterbukaan informasi publik (KIP).',
                 'accordion_6_title' => 'Tracking Pengaduan Masyarakat',
                 'accordion_6_content' => 'Lacak status laporan pengaduan masyarakat yang diajukan secara resmi ke Dinas Kesehatan Kabupaten Cianjur.',
-                'accordion_items'     => [
+                'accordion_items' => [
                     ['title' => 'Info Kepuasan Masyarakat', 'content' => 'Informasi mengenai Indeks Kepuasan Masyarakat (IKM) terhadap layanan Dinas Kesehatan Kabupaten Cianjur disajikan secara berkala untuk menjaga transparansi dan perbaikan berkelanjutan.', 'category' => 'berkala'],
                     ['title' => 'Permohonan Informasi', 'content' => 'Alur permohonan informasi publik secara online and offline. Anda dapat mengunduh formulir pengajuan informasi resmi di sini.', 'category' => 'setiap-saat'],
                     ['title' => 'Tracking Permohonan Informasi', 'content' => 'Masukkan nomor registrasi permohonan Anda untuk melacak status respon dan tindak lanjut dari petugas PPID Dinas Kesehatan.', 'category' => 'setiap-saat'],

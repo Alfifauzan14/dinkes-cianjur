@@ -13,6 +13,7 @@ class KecamatanController extends Controller
     public function index(): View
     {
         $kecamatans = Kecamatan::orderBy('name')->get();
+
         return view('admin.kecamatan.index', compact('kecamatans'));
     }
 
@@ -31,7 +32,7 @@ class KecamatanController extends Controller
     public function update(Request $request, Kecamatan $kecamatan): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:100|unique:kecamatans,name,' . $kecamatan->id,
+            'name' => 'required|string|max:100|unique:kecamatans,name,'.$kecamatan->id,
         ]);
 
         $kecamatan->update($request->only('name'));
