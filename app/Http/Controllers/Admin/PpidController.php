@@ -95,8 +95,8 @@ class PpidController extends Controller
 
             for ($i = 1; $i <= 10; $i++) {
                 $idx = $i - 1;
-                $data["stat_{$i}_number"] = $numbers[$idx] ?? '';
-                $data["stat_{$i}_desc"] = $descs[$idx] ?? '';
+                $data["stat_{$i}_number"] = $numbers[$idx] ?? $request->input("stat_{$i}_number") ?? '';
+                $data["stat_{$i}_desc"] = $descs[$idx] ?? $request->input("stat_{$i}_desc") ?? '';
             }
 
             $ppid->update($data);
