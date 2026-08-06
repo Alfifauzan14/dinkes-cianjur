@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Regulasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,13 +13,16 @@ class RegulasiController extends Controller
     public function index()
     {
         $regulasis = Regulasi::orderBy('year', 'desc')->orderBy('created_at', 'desc')->get();
+        $kategoris = Kategori::ofType('regulasi')->orderBy('nama')->get();
 
-        return view('admin.regulasi.index', compact('regulasis'));
+        return view('admin.regulasi.index', compact('regulasis', 'kategoris'));
     }
 
     public function create()
     {
-        return view('admin.regulasi.create');
+        $kategoris = Kategori::ofType('regulasi')->orderBy('nama')->get();
+
+        return view('admin.regulasi.create', compact('kategoris'));
     }
 
     public function store(Request $request)
@@ -69,7 +73,9 @@ class RegulasiController extends Controller
 
     public function edit(Regulasi $regulasi)
     {
-        return view('admin.regulasi.edit', compact('regulasi'));
+        $kategoris = Kategori::ofType('regulasi')->orderBy('nama')->get();
+
+        return view('admin.regulasi.edit', compact('regulasi', 'kategoris'));
     }
 
     public function update(Request $request, Regulasi $regulasi)

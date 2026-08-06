@@ -14,9 +14,9 @@
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari judul berita..." style="width: 220px;">
             <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 150px;">
                 <option value="">Semua Kategori</option>
-                <option value="Kesehatan"  {{ request('category') == 'Kesehatan'  ? 'selected' : '' }}>Kesehatan</option>
-                <option value="Kegiatan"   {{ request('category') == 'Kegiatan'   ? 'selected' : '' }}>Kegiatan</option>
-                <option value="Pengumuman" {{ request('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                @foreach($kategoris as $kat)
+                <option value="{{ $kat->nama }}" {{ request('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                @endforeach
             </select>
             <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
                 <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola

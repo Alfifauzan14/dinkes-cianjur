@@ -146,12 +146,9 @@
                                 <label for="tambah_r_category">Kategori <span class="text-danger">*</span></label>
                                  <select name="category" id="tambah_r_category" class="form-control" required>
                                      <option value="" disabled selected>Pilih Kategori</option>
-                                     <option value="Peraturan Bupati">Peraturan Bupati</option>
-                                     <option value="Keputusan Bupati">Keputusan Bupati</option>
-                                     <option value="Peraturan Menteri">Peraturan Menteri</option>
-                                     <option value="Undang-Undang">Undang-Undang</option>
-                                     <option value="Peraturan Daerah">Peraturan Daerah</option>
-                                     <option value="Surat Edaran">Surat Edaran</option>
+                                     @foreach($kategoris as $kat)
+                                     <option value="{{ $kat->nama }}" {{ old('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                                     @endforeach
                                  </select>
                                  <div class="mt-1">
                                      <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">

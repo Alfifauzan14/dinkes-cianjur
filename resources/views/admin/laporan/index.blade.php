@@ -106,9 +106,9 @@
                                 <label for="tambah_lap_category">Kategori Laporan <span class="text-danger">*</span></label>
                                 <select name="category" id="tambah_lap_category" class="form-control" required>
                                     <option value="" disabled selected>Pilih Kategori</option>
-                                    <option value="Laporan Kinerja">Laporan Kinerja</option>
-                                    <option value="Laporan Keuangan">Laporan Keuangan</option>
-                                    <option value="Informasi Publik">Informasi Publik</option>
+                                    @foreach($kategoris as $kat)
+                                    <option value="{{ $kat->nama }}" {{ old('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                                    @endforeach
                                 </select>
                                 <div class="mt-1">
                                     <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">

@@ -35,10 +35,9 @@
                         <label for="category">Kategori Regulasi <span class="text-danger">*</span></label>
                         <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
                             <option value="" disabled selected>Pilih Kategori</option>
-                            <option value="PERATURAN BUPATI" {{ old('category') == 'PERATURAN BUPATI' ? 'selected' : '' }}>PERATURAN BUPATI</option>
-                            <option value="KEPUTUSAN BUPATI" {{ old('category') == 'KEPUTUSAN BUPATI' ? 'selected' : '' }}>KEPUTUSAN BUPATI</option>
-                            <option value="UNDANG-UNDANG" {{ old('category') == 'UNDANG-UNDANG' ? 'selected' : '' }}>UNDANG-UNDANG</option>
-                            <option value="PERATURAN MENTERI" {{ old('category') == 'PERATURAN MENTERI' ? 'selected' : '' }}>PERATURAN MENTERI</option>
+                            @foreach($kategoris as $kat)
+                            <option value="{{ $kat->nama }}" {{ old('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                            @endforeach
                         </select>
                         @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>

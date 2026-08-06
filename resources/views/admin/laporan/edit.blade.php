@@ -32,12 +32,12 @@
 
             <div class="form-group">
                 <label for="category">Kategori Laporan <span class="text-danger">*</span></label>
-                <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" style="max-width: 350px;" required>
-                    <option value="" disabled>Pilih Kategori</option>
-                    <option value="Laporan Kinerja" {{ old('category', $laporan->category) == 'Laporan Kinerja' ? 'selected' : '' }}>Laporan Kinerja</option>
-                    <option value="Laporan Keuangan" {{ old('category', $laporan->category) == 'Laporan Keuangan' ? 'selected' : '' }}>Laporan Keuangan</option>
-                    <option value="Informasi Publik" {{ old('category', $laporan->category) == 'Informasi Publik' ? 'selected' : '' }}>Informasi Publik</option>
-                </select>
+                        <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" style="max-width: 350px;" required>
+                            <option value="" disabled>Pilih Kategori</option>
+                            @foreach($kategoris as $kat)
+                            <option value="{{ $kat->nama }}" {{ old('category', $laporan->category) == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                            @endforeach
+                        </select>
                 @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 

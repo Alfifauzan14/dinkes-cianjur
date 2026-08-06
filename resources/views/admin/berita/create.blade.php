@@ -25,9 +25,9 @@
                         <label for="category">Kategori <span class="text-danger">*</span></label>
                         <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
                             <option value="" disabled selected>Pilih Kategori</option>
-                            <option value="Kesehatan"  {{ old('category') == 'Kesehatan'  ? 'selected' : '' }}>Kesehatan</option>
-                            <option value="Kegiatan"   {{ old('category') == 'Kegiatan'   ? 'selected' : '' }}>Kegiatan</option>
-                            <option value="Pengumuman" {{ old('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                            @foreach($kategoris as $kat)
+                            <option value="{{ $kat->nama }}" {{ old('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                            @endforeach
                         </select>
                         <div class="mt-1">
                             <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
