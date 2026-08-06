@@ -9,8 +9,6 @@ class PpidSetting extends Model
     protected $table = 'ppid_settings';
 
     protected $fillable = [
-        'page_title',
-        'page_subtitle',
         'stat_1_number', 'stat_1_desc',
         'stat_2_number', 'stat_2_desc',
         'stat_3_number', 'stat_3_desc',
@@ -53,9 +51,6 @@ class PpidSetting extends Model
         return static::firstOrCreate(
             ['id' => 1],
             [
-                'page_title' => 'PPID Dinas Kesehatan Kabupaten Cianjur',
-                'page_subtitle' => 'Pusat layanan informasi publik, permohonan dokumen resmi, serta transparansi kinerja Dinas Kesehatan.',
-
                 'stat_1_number' => '0',
                 'stat_1_desc' => 'Jumlah total laporan & regulasi yang tersedia pada Dinas Kesehatan Kabupaten Cianjur.',
                 'stat_2_number' => '0',

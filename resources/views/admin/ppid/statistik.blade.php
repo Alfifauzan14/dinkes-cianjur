@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
-@section('title', 'Header & Statistik PPID')
-@section('header_title', 'Header & Statistik PPID')
+@section('title', 'Statistik PPID')
+@section('header_title', 'Statistik PPID')
 
 @section('content')
 
@@ -18,25 +18,6 @@
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="section" value="statistik">
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="page_title">Judul Halaman PPID <span class="text-danger">*</span></label>
-                            <input type="text" name="page_title" id="page_title" 
-                                value="{{ old('page_title', $ppid->page_title) }}" 
-                                class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="page_subtitle">Subjudul Halaman PPID <span class="text-danger">*</span></label>
-                            <input type="text" name="page_subtitle" id="page_subtitle" 
-                                value="{{ old('page_subtitle', $ppid->page_subtitle) }}" 
-                                class="form-control" required>
-                        </div>
-                    </div>
-                </div>
 
                 <div style="font-size:15px;font-weight:700;color:#004F3B;margin:24px 0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #E2E8F0;padding-bottom:10px;">
                     <span class="material-icons text-success">bar_chart</span>
