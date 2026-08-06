@@ -160,11 +160,11 @@
                 <span class="badge badge-success mb-3">Misi Poin Baru</span>
                 <div class="form-group">
                     <label style="font-size: 11.5px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Judul Misi <span class="text-danger">*</span></label>
-                    <input type="text" name="misi[\${index}][title]" class="form-control" placeholder="Contoh: Pemerataan Pelayanan" required>
+                    <input type="text" name="misi[${index}][title]" class="form-control" placeholder="Contoh: Pemerataan Pelayanan" required>
                 </div>
                 <div class="form-group mb-0">
                     <label style="font-size: 11.5px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Deskripsi Misi <span class="text-danger">*</span></label>
-                    <textarea name="misi[\${index}][desc]" rows="2" class="form-control" placeholder="Deskripsi..." required></textarea>
+                    <textarea name="misi[${index}][desc]" rows="2" class="form-control" placeholder="Deskripsi..." required></textarea>
                 </div>
             `;
             container.appendChild(newField);
@@ -187,14 +187,14 @@
                 // Re-index inputs
                 Array.from(container.querySelectorAll('.misi-card-field')).forEach((child, idx) => {
                     const titleInput = child.querySelector('input');
-                    if (titleInput) titleInput.name = `misi[\${idx}][title]`;
+                    if (titleInput) titleInput.name = `misi[${idx}][title]`;
                     
                     const descTextarea = child.querySelector('textarea');
-                    if (descTextarea) descTextarea.name = `misi[\${idx}][desc]`;
+                    if (descTextarea) descTextarea.name = `misi[${idx}][desc]`;
                     
                     const badge = child.querySelector('.badge');
                     if (badge && !badge.innerText.includes('Baru')) {
-                        badge.innerText = `Misi Poin \${idx + 1}`;
+                        badge.innerText = `Misi Poin ${idx + 1}`;
                     }
                 });
             }

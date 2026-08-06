@@ -135,7 +135,7 @@
                 <span class="badge badge-success mb-3">Item Baru</span>
                 <div class="form-group">
                     <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Klasifikasi Informasi <span class="text-danger">*</span></label>
-                    <select name="accordion_items[\${index}][category]" class="form-control" required>
+                    <select name="accordion_items[${index}][category]" class="form-control" required>
                         <option value="berkala">Informasi Berkala</option>
                         <option value="serta-merta">Informasi Serta Merta</option>
                         <option value="setiap-saat">Informasi Setiap Saat</option>
@@ -143,11 +143,11 @@
                 </div>
                 <div class="form-group">
                     <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Judul Informasi <span class="text-danger">*</span></label>
-                    <input type="text" name="accordion_items[\${index}][title]" class="form-control" placeholder="Judul..." required>
+                    <input type="text" name="accordion_items[${index}][title]" class="form-control" placeholder="Judul..." required>
                 </div>
                 <div class="form-group mb-0">
                     <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Detail Isi / Deskripsi <span class="text-danger">*</span></label>
-                    <textarea name="accordion_items[\${index}][content]" rows="3" class="form-control" placeholder="Isi deskripsi..." required></textarea>
+                    <textarea name="accordion_items[${index}][content]" rows="3" class="form-control" placeholder="Isi deskripsi..." required></textarea>
                 </div>
             `;
             container.appendChild(newField);
@@ -170,17 +170,17 @@
                 // Re-index inputs
                 Array.from(container.querySelectorAll('.accordion-card-field')).forEach((child, idx) => {
                     const select = child.querySelector('select');
-                    if (select) select.name = `accordion_items[\${idx}][category]`;
+                    if (select) select.name = `accordion_items[${idx}][category]`;
                     
                     const titleInput = child.querySelector('input');
-                    if (titleInput) titleInput.name = `accordion_items[\${idx}][title]`;
+                    if (titleInput) titleInput.name = `accordion_items[${idx}][title]`;
                     
                     const descTextarea = child.querySelector('textarea');
-                    if (descTextarea) descTextarea.name = `accordion_items[\${idx}][content]`;
+                    if (descTextarea) descTextarea.name = `accordion_items[${idx}][content]`;
                     
                     const badge = child.querySelector('.badge');
                     if (badge && !badge.innerText.includes('Baru')) {
-                        badge.innerText = `Item \${idx + 1}`;
+                        badge.innerText = `Item ${idx + 1}`;
                     }
                 });
             }

@@ -131,8 +131,8 @@
             </div>
             <div class="mb-0 pt-3" style="min-width: 100px;">
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="hl-year-new-\${count}" name="highlighted_year" value="" class="custom-control-input">
-                    <label class="custom-control-label font-weight-normal text-secondary" style="font-size: 12.5px; cursor:pointer;" for="hl-year-new-\${count}">Highlight</label>
+                    <input type="radio" id="hl-year-new-${count}" name="highlighted_year" value="" class="custom-control-input">
+                    <label class="custom-control-label font-weight-normal text-secondary" style="font-size: 12.5px; cursor:pointer;" for="hl-year-new-${count}">Highlight</label>
                 </div>
             </div>
             <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
