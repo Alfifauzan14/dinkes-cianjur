@@ -72,8 +72,9 @@
 }
 
 /* ── Ikon ────────────────────────────────────────────────────── */
-    width: 72px;
-    height: 72px;
+.card-icon-wrap {
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;

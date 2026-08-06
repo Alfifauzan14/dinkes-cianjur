@@ -100,7 +100,6 @@
                                     $yMax = 10;
                                 }
                             @endphp
-<<<<<<< HEAD
                             <div class="chart-y-axis-labels">
                                 <div class="chart-y-axis-labels-item"><span>{{ $yMax }}%</span></div>
                                 <div class="chart-y-axis-labels-item"><span>{{ $yMax * 0.75 }}%</span></div>
@@ -111,38 +110,16 @@
                             
                             <!-- Scrollable Chart Area (Right) -->
                             <div class="stunting-chart-container">
-                                <!-- Background Grid Lines -->
-                                <div class="chart-y-axis-grid">
-                                    <div class="grid-line-dashed"></div>
-                                    <div class="grid-line-dashed"></div>
-                                    <div class="grid-line-dashed"></div>
-                                    <div class="grid-line-dashed"></div>
-                                    <div class="grid-line-solid"></div>
-                                </div>
-
-                                <div class="chart-bars-wrapper">
-=======
-                            <div class="chart-y-axis-labels" style="display: flex; flex-direction: column; justify-content: space-between; height: 220px; margin-top: 10px; width: 32px; font-size: 11px; color: #94A3B8; font-weight: 700; text-align: right; flex-shrink: 0; position: relative; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif;">
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax }}%</span></div>
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.75 }}%</span></div>
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.5 }}%</span></div>
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.25 }}%</span></div>
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>0%</span></div>
-                            </div>
-                            
-                            <!-- Scrollable Chart Area (Right) -->
-                            <div class="stunting-chart-container" style="flex-grow: 1; overflow-x: auto; position: relative; padding-left: 0; margin-top: 0;">
                                 <!-- Y-Axis Grid Lines -->
-                                <div class="chart-y-axis-grid" style="position: absolute; top: 10px; left: 0; right: 0; height: 220px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 1;">
-                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
-                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
-                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
-                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
-                                    <div class="grid-line" style="width: 100%; border-top: 1px solid #CBD5E1; position: relative;"></div>
+                                <div class="chart-y-axis-grid">
+                                    <div class="grid-line"></div>
+                                    <div class="grid-line"></div>
+                                    <div class="grid-line"></div>
+                                    <div class="grid-line"></div>
+                                    <div class="grid-line grid-line-solid"></div>
                                 </div>
 
-                                <div class="chart-bars-wrapper" id="chart-bars-wrapper" style="position: relative; z-index: 2; height: 260px; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px; margin-bottom: 0;">
->>>>>>> 8cc42116566a1cb2ea25039a7f11692c875931f5
+                                <div class="chart-bars-wrapper" id="chart-bars-wrapper">
                                     @foreach($stuntingRecords as $record)
                                         @php
                                             $heightPercent = $yMax > 0 ? ($record->rate / $yMax) * 100 : 0;

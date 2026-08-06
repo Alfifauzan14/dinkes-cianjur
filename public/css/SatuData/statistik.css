@@ -276,18 +276,18 @@
 
 /* Stunting Chart Visual */
 .stunting-chart-container {
-    width: 100%;
-    margin-top: 24px;
+    flex-grow: 1;
     overflow-x: auto;
     position: relative;
-    padding-left: 45px;
+    padding-left: 0;
+    margin-top: 0;
 }
 
 .chart-y-axis-grid {
     position: absolute;
     top: 10px;
-    left: 45px;
-    right: 10px;
+    left: 0;
+    right: 0;
     height: 220px;
     display: flex;
     flex-direction: column;
@@ -300,6 +300,11 @@
     width: 100%;
     border-top: 1px dashed #E2E8F0;
     position: relative;
+}
+
+.grid-line-solid {
+    border-top-style: solid;
+    border-top-color: #CBD5E1;
 }
 
 .grid-line-label {
@@ -322,6 +327,7 @@
     min-width: 650px;
     position: relative;
     z-index: 2;
+    margin-bottom: 0;
 }
 
 .chart-bar-item {
@@ -934,5 +940,30 @@
     margin-top: 24px;
     padding-top: 16px;
     border-top: 1px solid #F1F5F9;
+}
+
+/* ── y-axis labels outside layout ── */
+.chart-y-axis-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 220px;
+    margin-top: 10px;
+    width: 32px;
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 700;
+    text-align: right;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.chart-y-axis-labels-item {
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: visible;
 }
 
