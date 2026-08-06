@@ -12,8 +12,8 @@
     <div class="admin-card">
         <div class="card-header-actions">
             <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Informasi Labkesda</div>
-                <div style="font-size: 13px; color: #6B7280; margin-top: 4px;">Atur alamat, jam operasional, dan kontak yang ditampilkan di halaman publik.</div>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Informasi Labkesda</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Atur alamat, jam operasional, dan kontak yang ditampilkan di halaman publik.</div>
             </div>
             <a href="{{ route('admin.labkesda.index') }}" class="btn-admin btn-admin-secondary">
                 <span class="material-icons">arrow_back</span>

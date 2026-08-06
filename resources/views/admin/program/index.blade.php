@@ -2,58 +2,75 @@
 @section('title', 'Kelola Program Kesehatan')
 @section('header_title', 'Kelola Program Kesehatan')
 
-@section('content')
-<div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-end" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-        <a href="{{ route('admin.program-kesehatan.create') }}" class="btn btn-sm btn-success">
-            <span class="material-icons" style="font-size:16px;">add</span> Tambah Program
-        </a>
-    </div>
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/labkesda.css') }}?v={{ time() }}">
+    <style>
+        .badge-draft { background:#F1F5F9; color:#475569; padding:4px 10px; border-radius:3px; font-size:12px; font-weight:700; }
+        .badge-published { background:#E6F7F0; color:#009966; padding:4px 10px; border-radius:3px; font-size:12px; font-weight:700; }
+    </style>
+@endsection
 
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0">
+@section('content')
+<div class="berita-admin-wrapper">
+    <div class="admin-card">
+        <div class="card-header-actions">
+            <div>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Program Kesehatan</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola informasi program kesehatan, panduan, serta intervensi yang terkait.</div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <a href="{{ route('admin.program-kesehatan.create') }}" class="btn-admin btn-admin-primary">
+                    <span class="material-icons" style="font-size:18px;">add</span>
+                    <span>Tambah Program</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-table-wrapper">
+            <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>Nama Program</th>
-                        <th style="width:230px;">Slug / URL</th>
-                        <th class="text-center" style="width:120px;">Jml. Intervensi</th>
-                        <th class="text-center" style="width:110px;">Status</th>
-                        <th class="text-center" style="width:100px;">Aksi</th>
+                        <th style="width: 50px; text-align: center;">#</th>
+                        <th style="text-align: center;">Nama Program</th>
+                        <th style="text-align: center;">Slug / URL</th>
+                        <th style="width: 140px; text-align: center;">Jml. Intervensi</th>
+                        <th style="width: 110px; text-align: center;">Status</th>
+                        <th style="width: 100px; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($programs as $program)
                     <tr>
-                        <td class="align-middle">
-                            <div class="font-weight-bold text-dark">{{ $program->title }}</div>
-                            <small class="text-muted">{{ Str::limit($program->subtitle, 70) }}</small>
+                        <td style="text-align: center; color: #94A3B8; font-size: 13px;">{{ $loop->iteration }}</td>
+                        <td style="text-align: center;">
+                            <div style="font-weight: 700; color: #111827;">{{ $program->title }}</div>
+                            <div style="font-size: 12px; color: #6B7280; margin-top: 2px; max-width: 300px; margin-left: auto; margin-right: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $program->subtitle }}</div>
                         </td>
-                        <td class="align-middle" style="font-size:13px;">
-                            <a href="{{ route('program.show', $program->slug) }}" target="_blank" class="text-success" style="text-decoration:none;font-family:monospace;">
+                        <td style="text-align: center;">
+                            <a href="{{ route('program.show', $program->slug) }}" target="_blank" style="color: #009966; text-decoration: none; font-family: monospace; font-size: 13px; background: #F8FAFC; padding: 2px 6px; border-radius: 3px; border: 1px solid #E2E8F0;">
                                 /program/{{ $program->slug }}
                             </a>
                         </td>
-                        <td class="text-center font-weight-bold text-secondary align-middle">
+                        <td style="text-align: center; font-weight: 700; color: #475569;">
                             {{ is_array($program->intervensi) ? count($program->intervensi) : 0 }}
                         </td>
-                        <td class="text-center align-middle">
+                        <td style="text-align: center;">
                             @if($program->status === 'published')
-                                <span class="badge" style="background:#DEF7EC;color:#03543F;padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700;">Published</span>
+                                <span class="badge-published">Published</span>
                             @else
-                                <span class="badge" style="background:#F1F5F9;color:#475569;padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700;">Draft</span>
+                                <span class="badge-draft">Draft</span>
                             @endif
                         </td>
-                        <td class="text-center align-middle">
-                            <div class="btn-action-group">
-                                <a href="{{ route('admin.program-kesehatan.edit', $program->id) }}" class="btn-action btn-action-edit" title="Edit">
-                                    <span class="material-icons" style="font-size:16px;">edit</span>
+                        <td style="text-align: center;">
+                            <div class="actions-cell" style="justify-content: center;">
+                                <a href="{{ route('admin.program-kesehatan.edit', $program->id) }}" class="btn-action-edit" title="Edit">
+                                    <span class="material-icons">edit</span>
                                 </a>
-                                <form action="{{ route('admin.program-kesehatan.destroy', $program->id) }}" method="POST" id="del-program-{{ $program->id }}" class="d-inline">
+                                <form action="{{ route('admin.program-kesehatan.destroy', $program->id) }}" method="POST" id="del-program-{{ $program->id }}" style="margin: 0; display: inline;">
                                     @csrf @method('DELETE')
-                                    <button type="button" class="btn-action btn-action-delete" title="Hapus"
+                                    <button type="button" class="btn-action-delete" title="Hapus"
                                         onclick="confirmDelete('del-program-{{ $program->id }}')">
-                                        <span class="material-icons" style="font-size:16px;">delete</span>
+                                        <span class="material-icons">delete</span>
                                     </button>
                                 </form>
                             </div>
@@ -61,19 +78,21 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center py-5 text-muted">
-                            <span class="material-icons" style="font-size:48px;display:block;margin-bottom:8px;color:#D1D5DB;">health_and_safety</span>
-                            Belum ada program kesehatan terdaftar.
+                        <td colspan="6" style="padding: 40px; text-align: center; color: #94A3B8;">
+                            <span class="material-icons" style="font-size: 40px; display: block; margin-bottom: 8px; color: #CBD5E1;">health_and_safety</span>
+                            Belum ada program kesehatan terdaftar. Klik <strong>"Tambah Program"</strong> untuk memulai.
                         </td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-    </div>
 
-    @if($programs->hasPages())
-    <div class="card-footer">{{ $programs->links() }}</div>
-    @endif
+        @if($programs->hasPages())
+        <div style="padding: 16px; border-top: 1px solid #E5E7EB;">
+            {{ $programs->links() }}
+        </div>
+        @endif
+    </div>
 </div>
 @endsection

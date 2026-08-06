@@ -20,8 +20,8 @@
     <div class="admin-card">
         <div class="card-header-actions">
             <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Daftar Info Card</div>
-                <div style="font-size: 13px; color: #6B7280; margin-top: 4px;">Edit kartu informasi di halaman beranda. Kartu tidak dapat ditambah atau dihapus.</div>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Info Card</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Edit kartu informasi di halaman beranda. Kartu tidak dapat ditambah atau dihapus.</div>
             </div>
         </div>
 
@@ -79,8 +79,8 @@
     <div class="admin-card" style="margin-top: 20px;">
         <div class="card-header-actions">
             <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Sosial Media Hero</div>
-                <div style="font-size: 13px; color: #6B7280; margin-top: 4px;">Edit link media sosial di halaman beranda. Kosongkan jika belum ada.</div>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Sosial Media Hero</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Edit link media sosial di halaman beranda. Kosongkan jika belum ada.</div>
             </div>
         </div>
 

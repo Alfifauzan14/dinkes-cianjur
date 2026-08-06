@@ -14,9 +14,10 @@
             </div>
         @endif
 
-        <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="card-header-actions mb-4 d-flex align-items-center justify-content-between">
             <div>
-                <p class="mb-0 text-muted" style="font-size:13px;">Ubah judul dan sub-judul header yang muncul di bagian atas halaman publik.</p>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Header Halaman</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Ubah judul dan sub-judul header yang muncul di bagian atas halaman publik.</div>
             </div>
         </div>
 

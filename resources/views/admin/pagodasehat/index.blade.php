@@ -20,8 +20,8 @@
     <div class="admin-card">
         <div class="card-header-actions">
             <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Daftar Kartu Pagoda Sehat</div>
-                <div style="font-size: 13px; color: #6B7280; margin-top: 4px;">Kelola kartu portal akses layanan kesehatan.</div>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Pagoda Sehat</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola kartu portal akses layanan kesehatan.</div>
             </div>
             <div style="display: flex; gap: 10px;">
                 <button type="button" id="btn-save-order" class="btn-admin btn-admin-primary" style="display: none; background-color: #004F3B;" onclick="saveNewOrder('pagodasehat')">

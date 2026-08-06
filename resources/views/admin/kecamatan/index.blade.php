@@ -14,9 +14,10 @@
             </div>
         @endif
 
-        <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="card-header-actions mb-4 d-flex align-items-center justify-content-between">
             <div>
-                <p class="mb-0 text-muted" style="font-size:13px;">Kelola daftar wilayah kecamatan di lingkungan Kabupaten Cianjur.</p>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Kecamatan</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola daftar wilayah kecamatan di lingkungan Kabupaten Cianjur.</div>
             </div>
             <button class="btn btn-success" data-toggle="modal" data-target="#modalTambahKecamatan">
                 <span class="material-icons" style="font-size:17px; vertical-align:middle; margin-right:4px;">add</span> Tambah Kecamatan

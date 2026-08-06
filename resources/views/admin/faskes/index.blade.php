@@ -60,8 +60,13 @@
     @endif
 
     <div class="admin-card">
-        <div class="card-header-actions d-flex align-items-center" style="gap: 16px; flex-wrap: wrap;">
-            <form action="{{ route('admin.faskes.index') }}" method="GET" class="search-filter-form d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
+        <div class="card-header-actions d-flex align-items-center justify-content-between" style="gap: 16px; flex-wrap: wrap;">
+            <div>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Fasilitas Kesehatan</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola data fasilitas kesehatan, lokasi, dan jenis pelayanan.</div>
+            </div>
+            <div class="d-flex align-items-center" style="gap: 16px; flex-wrap: wrap;">
+                <form action="{{ route('admin.faskes.index') }}" method="GET" class="search-filter-form d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
                 <input
                     type="text"
                     name="search"
@@ -110,6 +115,7 @@
                 </a>
             </div>
         </div>
+    </div>
 
 
         <div class="admin-table-wrapper">
