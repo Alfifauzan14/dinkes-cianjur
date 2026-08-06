@@ -70,6 +70,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.3s ease;
+}
+
+.ppid-stat-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
 }
 
 .ppid-stat-number {
@@ -303,8 +309,6 @@
     font-size: 16px;
     font-weight: 700;
     color: #009966; /* Hijau badge */
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
 }
 
 .tautan-title {
@@ -322,18 +326,31 @@
     line-height: 1.6;
 }
 
-.tautan-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+.tautan-marquee-container {
+    overflow: hidden;
     width: 100%;
+    position: relative;
+    padding: 10px 0 30px 0;
+}
+
+.tautan-marquee-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scrollRight 30s linear infinite;
+}
+
+.tautan-marquee-track:hover {
+    animation-play-state: paused;
 }
 
 .tautan-card {
+    flex: 0 0 240px; /* Fixed width for consistent loop */
+    height: 220px;
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 1px !important; /* Card luar: 1px */
-    padding: 32px 20px;
+    padding: 24px 20px;
     text-align: center;
     text-decoration: none;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
@@ -342,13 +359,22 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tautan-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     transform: translateY(-4px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .tautan-icon-wrap {
@@ -449,6 +475,12 @@
     padding: 20px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* shadow x0 y0 blur 35 */
     box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.tata-cara-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
 }
 
 .tata-cara-card-title {
@@ -537,9 +569,7 @@
         padding: 32px;
     }
 
-    .tautan-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+
 
     .tata-cara-section {
         flex-direction: column;
@@ -615,13 +645,10 @@
         font-size: 24px;
     }
 
-    .tautan-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
     .tautan-card {
-        padding: 24px 16px;
+        flex: 0 0 200px;
+        height: 180px;
+        padding: 20px 16px;
         gap: 12px;
     }
 

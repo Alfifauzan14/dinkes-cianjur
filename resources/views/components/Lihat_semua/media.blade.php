@@ -57,9 +57,9 @@
                         </div>
                     </div>
                 @empty
-                    <div style="grid-column: span 3; text-align: center; padding: 48px; color: #9CA3AF; background: #F9FAFB; border-radius: 6px; width: 100%;">
-                        <span class="material-icons" style="font-size: 48px; margin-bottom: 8px;">collections</span>
-                        <p style="font-weight: 600;">Belum ada dokumentasi galeri kegiatan.</p>
+                    <div class="media-empty-state">
+                        <span class="material-icons media-empty-icon">collections</span>
+                        <p class="media-empty-text">Belum ada dokumentasi galeri kegiatan.</p>
                     </div>
                 @endforelse
             </div>

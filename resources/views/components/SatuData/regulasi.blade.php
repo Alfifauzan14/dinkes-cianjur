@@ -5,12 +5,10 @@
         $headerSetting = \App\Models\HeaderSetting::getByKey('regulasi', 'Regulasi & Produk Hukum', 'Himpunan peraturan bupati dan keputusan kepala dinas kesehatan.');
     @endphp
     <!-- Banner Header Top Section -->
-    <header class="satudata-banner" style="background: linear-gradient(135deg, #004F3B 0%, #003326 100%); padding: 60px 24px; text-align: left; color: #FFFFFF;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 16px;">
-            <h1 style="font-size: 32px; font-weight: 800; margin: 0 0 8px 0; color: #FFFFFF;">{{ $headerSetting->title }}</h1>
-            <p style="font-size: 15px; color: rgba(255, 255, 255, 0.85); margin: 0; max-width: 800px;">
-                {{ $headerSetting->subtitle }}
-            </p>
+    <header class="satudata-banner">
+        <div class="satudata-banner-container">
+            <h1 class="satudata-banner-title">{{ $headerSetting->title }}</h1>
+            <p class="satudata-banner-subtitle">{{ $headerSetting->subtitle }}</p>
         </div>
     </header>
 
@@ -29,27 +27,17 @@
             </div>
 
             <!-- Live Search & Filter Bar -->
-            <div class="regulasi-filter-bar" style="margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; background: #FFFFFF; padding: 16px 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.04);">
-                <div style="position: relative; flex: 1; min-width: 260px;">
-                    <span class="material-icons" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6B7280; font-size: 20px;">search</span>
-                    <input type="text" id="regulasiSearchInput" placeholder="Cari nomor, judul, atau kata kunci..." style="width: 100%; padding: 10px 14px 10px 40px; border: 1px solid #E5E7EB; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box; transition: border-color 0.2s;" onfocus="this.style.borderColor='#009966'" onblur="this.style.borderColor='#E5E7EB'">
+            <div class="regulasi-filter-bar">
+                <div class="regulasi-search-wrapper">
+                    <span class="material-icons regulasi-search-icon">search</span>
+                    <input type="text" id="regulasiSearchInput" class="regulasi-search-input" placeholder="Cari nomor, judul, atau kata kunci...">
                 </div>
-                <div class="regulasi-topic-pills" style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button type="button" class="topic-pill-btn active" data-topic="all" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #009966; background: #009966; color: #FFFFFF; font-size: 13px; font-weight: 600; cursor: pointer;">
-                        Semua Topik
-                    </button>
-                    <button type="button" class="topic-pill-btn" data-topic="STUNTING" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #E5E7EB; background: #F9FAFB; color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;">
-                        Stunting
-                    </button>
-                    <button type="button" class="topic-pill-btn" data-topic="KIA" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #E5E7EB; background: #F9FAFB; color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;">
-                        KIA
-                    </button>
-                    <button type="button" class="topic-pill-btn" data-topic="GERMAS" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #E5E7EB; background: #F9FAFB; color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;">
-                        Germas
-                    </button>
-                    <button type="button" class="topic-pill-btn" data-topic="FASKES" style="padding: 8px 16px; border-radius: 9999px; border: 1px solid #E5E7EB; background: #F9FAFB; color: #374151; font-size: 13px; font-weight: 600; cursor: pointer;">
-                        Faskes
-                    </button>
+                <div class="regulasi-topic-pills">
+                    <button type="button" class="topic-pill-btn active" data-topic="all">Semua Topik</button>
+                    <button type="button" class="topic-pill-btn" data-topic="STUNTING">Stunting</button>
+                    <button type="button" class="topic-pill-btn" data-topic="KIA">KIA</button>
+                    <button type="button" class="topic-pill-btn" data-topic="GERMAS">Germas</button>
+                    <button type="button" class="topic-pill-btn" data-topic="FASKES">Faskes</button>
                 </div>
             </div>
 
@@ -62,16 +50,16 @@
                             @if($regulasi->cover_path)
                                 <img src="{{ asset('storage/' . $regulasi->cover_path) }}" alt="Cover {{ $regulasi->title }}" class="cover-img">
                             @else
-                                <div class="cover-img-fallback" style="width: 100%; height: 100%; background: linear-gradient(135deg, #004F3B 0%, #009966 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; color: #FFFFFF; font-weight: 700;">
+                                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #004F3B 0%, #009966 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; color: #FFFFFF; font-weight: 700;">
                                     <span class="material-icons" style="font-size: 40px; margin-bottom: 8px;">gavel</span>
-                                    <span style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">{{ $regulasi->category }}</span>
+                                    <span style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">{{ $regulasi->category }}</span>
                                 </div>
                             @endif
-                            <span class="cover-tag" style="text-transform: uppercase;">{{ $regulasi->topic }}</span>
+                            <span class="cover-tag">{{ $regulasi->topic }}</span>
                         </div>
                         <div class="regulasi-card-content">
                             <div class="meta-row">
-                                <span class="meta-category" style="text-transform: uppercase;">{{ $regulasi->category }}</span>
+                            <span class="meta-category">{{ $regulasi->category }}</span>
                                 <span class="meta-year">{{ $regulasi->year }}</span>
                             </div>
                             <h3 class="regulasi-card-title">{{ $regulasi->title }}</h3>
