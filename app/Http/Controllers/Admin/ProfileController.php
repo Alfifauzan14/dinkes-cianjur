@@ -94,11 +94,11 @@ class ProfileController extends Controller
         }
 
         $section = $request->query('section', 'sambutan');
-        if (!in_array($section, ['sambutan', 'visimisi', 'sejarah', 'struktur'])) {
+        if (! in_array($section, ['sambutan', 'visimisi', 'sejarah', 'struktur'])) {
             $section = 'sambutan';
         }
 
-        return view('admin.profil.' . $section, compact('profile'));
+        return view('admin.profil.'.$section, compact('profile'));
     }
 
     /**
@@ -147,7 +147,7 @@ class ProfileController extends Controller
         $profile = Profile::firstOrCreate(['id' => 1]);
 
         $data = $request->only(array_filter(array_keys($rules), function ($key) {
-            return !str_contains($key, '*');
+            return ! str_contains($key, '*');
         }));
 
         // Handle Kepala Dinas Image

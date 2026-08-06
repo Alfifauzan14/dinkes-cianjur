@@ -11,10 +11,10 @@ use Illuminate\View\View;
 class KategoriController extends Controller
 {
     private const TYPES = [
-        'berita'   => 'Berita',
-        'program'  => 'Program Kesehatan',
+        'berita' => 'Berita',
+        'program' => 'Program Kesehatan',
         'regulasi' => 'Regulasi',
-        'laporan'  => 'Laporan',
+        'laporan' => 'Laporan',
     ];
 
     public function index(): View
@@ -23,15 +23,15 @@ class KategoriController extends Controller
 
         return view('admin.kategori.index', [
             'kategoris' => $kategoris,
-            'types'     => self::TYPES,
+            'types' => self::TYPES,
         ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'nama'  => 'required|string|max:100',
-            'type'  => 'required|in:berita,program,regulasi,laporan',
+            'nama' => 'required|string|max:100',
+            'type' => 'required|in:berita,program,regulasi,laporan',
             'warna' => 'required|string|max:20',
         ]);
 
@@ -44,8 +44,8 @@ class KategoriController extends Controller
     public function update(Request $request, Kategori $kategori): RedirectResponse
     {
         $request->validate([
-            'nama'  => 'required|string|max:100',
-            'type'  => 'required|in:berita,program,regulasi,laporan',
+            'nama' => 'required|string|max:100',
+            'type' => 'required|in:berita,program,regulasi,laporan',
             'warna' => 'required|string|max:20',
         ]);
 

@@ -13,6 +13,7 @@ class HeaderSettingController extends Controller
     public function index(): View
     {
         $headers = HeaderSetting::orderBy('page_name')->get();
+
         return view('admin.header.index', compact('headers'));
     }
 

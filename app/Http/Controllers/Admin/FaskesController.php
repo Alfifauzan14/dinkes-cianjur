@@ -36,7 +36,7 @@ class FaskesController extends Controller
         }
 
         $faskes = $query->orderBy('type')->orderBy('name')->paginate(15);
-        
+
         // Fetch dynamic filter options from DB
         $kecamatans = Kecamatan::orderBy('name')->get();
         $types = JenisFaskes::orderBy('name')->get();
@@ -134,11 +134,11 @@ class FaskesController extends Controller
     public function exportCsv()
     {
         $faskes = Faskes::all();
-        $csvFileName = 'faskes_export_' . date('Ymd_His') . '.csv';
+        $csvFileName = 'faskes_export_'.date('Ymd_His').'.csv';
 
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+            'Content-Disposition' => 'attachment; filename="'.$csvFileName.'"',
             'Pragma' => 'no-cache',
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Expires' => '0',
@@ -146,7 +146,7 @@ class FaskesController extends Controller
 
         $callback = function () use ($faskes) {
             $file = fopen('php://output', 'w');
-            
+
             // Header Row
             fputcsv($file, [
                 'name',
@@ -158,7 +158,7 @@ class FaskesController extends Controller
                 'lat',
                 'lng',
                 'layanan',
-                'akreditasi'
+                'akreditasi',
             ]);
 
             foreach ($faskes as $row) {
@@ -172,7 +172,7 @@ class FaskesController extends Controller
                     $row->lat,
                     $row->lng,
                     $row->layanan,
-                    $row->akreditasi
+                    $row->akreditasi,
                 ]);
             }
 
@@ -197,8 +197,9 @@ class FaskesController extends Controller
         $fileHandle = fopen($filePath, 'r');
         $header = fgetcsv($fileHandle, 1000, ',');
 
-        if (!$header || count($header) < 6) {
+        if (! $header || count($header) < 6) {
             fclose($fileHandle);
+
             return redirect()->back()->with('error', 'Format CSV tidak valid. Harus mengandung kolom minimal: name, type, kecamatan, address, lat, lng.');
         }
 

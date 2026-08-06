@@ -25,15 +25,15 @@ return new class extends Migration
             // Program
             ['nama' => 'Gizi & Stunting',    'type' => 'program',  'warna' => '#7C3AED', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Imunisasi',           'type' => 'program',  'warna' => '#0284C7', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => 'Kesehatan Ibu & Anak','type' => 'program',  'warna' => '#DB2777', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => 'Kesehatan Ibu & Anak', 'type' => 'program',  'warna' => '#DB2777', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Penyakit Menular',    'type' => 'program',  'warna' => '#DC2626', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => 'Penyakit Tidak Menular','type'=> 'program', 'warna' => '#D97706', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => 'Kesehatan Lingkungan','type' => 'program',  'warna' => '#009966', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => 'Penyakit Tidak Menular', 'type' => 'program', 'warna' => '#D97706', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => 'Kesehatan Lingkungan', 'type' => 'program',  'warna' => '#009966', 'created_at' => now(), 'updated_at' => now()],
             // Regulasi
             ['nama' => 'Peraturan Daerah',    'type' => 'regulasi', 'warna' => '#1D4ED8', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Peraturan Bupati',    'type' => 'regulasi', 'warna' => '#0284C7', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Surat Edaran',        'type' => 'regulasi', 'warna' => '#D97706', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => 'Keputusan Kepala Dinas','type'=>'regulasi', 'warna' => '#7C3AED', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => 'Keputusan Kepala Dinas', 'type' => 'regulasi', 'warna' => '#7C3AED', 'created_at' => now(), 'updated_at' => now()],
             // Laporan
             ['nama' => 'Laporan Kinerja',     'type' => 'laporan',  'warna' => '#009966', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Laporan Keuangan',    'type' => 'laporan',  'warna' => '#0284C7', 'created_at' => now(), 'updated_at' => now()],

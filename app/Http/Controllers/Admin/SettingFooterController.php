@@ -34,11 +34,11 @@ class SettingFooterController extends Controller
         ]);
 
         $section = $request->query('section', 'identitas');
-        if (!in_array($section, ['identitas', 'kontak', 'darurat', 'sosmed'])) {
+        if (! in_array($section, ['identitas', 'kontak', 'darurat', 'sosmed'])) {
             $section = 'identitas';
         }
 
-        return view('admin.settingfooter.' . $section, compact('setting'));
+        return view('admin.settingfooter.'.$section, compact('setting'));
     }
 
     /**
