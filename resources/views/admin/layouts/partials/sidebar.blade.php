@@ -312,31 +312,10 @@
                     </a>
                     <ul class="nav nav-treeview pl-3">
                         <li class="nav-item">
-                            <a href="{{ route('admin.settingfooter.edit', ['section' => 'identitas']) }}"
-                               class="nav-link {{ request()->routeIs('admin.settingfooter.*') && request('section', 'identitas') === 'identitas' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">web</span>
-                                <p>Identitas Situs</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.settingfooter.edit', ['section' => 'kontak']) }}"
-                               class="nav-link {{ request()->routeIs('admin.settingfooter.*') && request('section') === 'kontak' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">contact_phone</span>
-                                <p>Informasi Kontak</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.settingfooter.edit', ['section' => 'darurat']) }}"
-                               class="nav-link {{ request()->routeIs('admin.settingfooter.*') && request('section') === 'darurat' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">emergency</span>
-                                <p>Layanan Darurat</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.settingfooter.edit', ['section' => 'sosmed']) }}"
-                               class="nav-link {{ request()->routeIs('admin.settingfooter.*') && request('section') === 'sosmed' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">share</span>
-                                <p>Media Sosial</p>
+                            <a href="{{ route('admin.settingfooter.edit') }}"
+                               class="nav-link {{ request()->routeIs('admin.settingfooter.*') ? 'active' : '' }}">
+                                <span class="material-icons nav-icon">settings</span>
+                                <p>Pengaturan Footer</p>
                             </a>
                         </li>
                         <li class="nav-item">
