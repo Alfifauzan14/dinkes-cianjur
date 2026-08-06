@@ -45,7 +45,11 @@ Route::get('/api/agenda-by-date', [HomeController::class, 'agendaByDate'])->name
 /* --- Satu Data Kesehatan Routes --- */
 Route::get('/satu-data/statistik', [SatuDataController::class, 'statistik'])->name('satudata.statistik');
 Route::get('/satu-data/laporan', [SatuDataController::class, 'laporan'])->name('satudata.laporan');
+Route::get('/satu-data/laporan/{laporan}/view', [SatuDataController::class, 'viewLaporan'])->name('satudata.laporan.view');
+Route::get('/satu-data/laporan/{laporan}/download', [SatuDataController::class, 'downloadLaporan'])->name('satudata.laporan.download');
 Route::get('/satu-data/regulasi', [SatuDataController::class, 'regulasi'])->name('satudata.regulasi');
+Route::get('/satu-data/regulasi/{regulasi}/view', [SatuDataController::class, 'viewRegulasi'])->name('satudata.regulasi.view');
+Route::get('/satu-data/regulasi/{regulasi}/download', [SatuDataController::class, 'downloadRegulasi'])->name('satudata.regulasi.download');
 
 /* --- Indeks Kepuasan Masyarakat (IKM) --- */
 Route::get('/ikm', [IkmController::class, 'index'])->name('ikm');

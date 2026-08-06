@@ -47,14 +47,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kategori">Kategori</label>
-                                <select name="kategori" id="kategori" class="form-control">
-                                    <option value="">-- Pilih Kategori --</option>
-                                    @foreach($kategoris as $kat)
-                                    <option value="{{ $kat->nama }}" {{ old('kategori', $program->kategori) == $kat->nama ? 'selected' : '' }}>
-                                        {{ $kat->nama }}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <select name="kategori" id="kategori" class="form-control">
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach($kategoris as $kat)
+                                <option value="{{ $kat->nama }}" {{ old('kategori', $program->kategori) == $kat->nama ? 'selected' : '' }}>
+                                    {{ $kat->nama }}
+                                </option>
+                                @endforeach
+                            </select>
+                            <div class="mt-1">
+                                <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
+                                    <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola Kategori
+                                </a>
+                            </div>
                             </div>
                         </div>
                     </div>

@@ -44,7 +44,6 @@ class PpidAdminTest extends TestCase
             'section' => 'statistik',
             'page_title' => 'PPID Baru',
             'page_subtitle' => 'Subtitle Baru',
-            'stat_1_number' => '100',
             'stat_1_desc' => 'Deskripsi 100',
         ]);
         $response->assertRedirect('/admin/ppid?section=statistik');
@@ -72,7 +71,6 @@ class PpidAdminTest extends TestCase
             'id' => 1,
             'page_title' => 'PPID Baru',
             'page_subtitle' => 'Subtitle Baru',
-            'stat_1_number' => '100',
             'stat_1_desc' => 'Deskripsi 100',
         ]);
 

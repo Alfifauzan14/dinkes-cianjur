@@ -110,6 +110,11 @@
                                     <option value="Laporan Keuangan">Laporan Keuangan</option>
                                     <option value="Informasi Publik">Informasi Publik</option>
                                 </select>
+                                <div class="mt-1">
+                                    <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
+                                        <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola Kategori
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -123,8 +128,9 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="tambah_lap_file">File Laporan (PDF) <span class="text-danger">*</span></label>
-                                <input type="file" name="file" id="tambah_lap_file" class="form-control" accept=".pdf,.doc,.docx" required>
-                                <small class="text-muted">Format: PDF, DOC, DOCX. Maks: 10MB.</small>
+                                <input type="file" name="file_document" id="tambah_lap_file" class="form-control" accept=".pdf" required>
+                                <small class="text-muted">Format file: .pdf | Ukuran maksimum: 10 MB</small>
+                                @error('file_document') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -188,8 +194,8 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="edit_lap_file">Ganti File <span class="text-muted" style="font-weight:400;">(opsional, kosongkan jika tidak diganti)</span></label>
-                                <input type="file" name="file" id="edit_lap_file" class="form-control" accept=".pdf,.doc,.docx">
-                                <small class="text-muted">Format: PDF, DOC, DOCX. Maks: 10MB.</small>
+                                <input type="file" name="file_document" id="edit_lap_file" class="form-control" accept=".pdf">
+                                <small class="text-muted">Format: .pdf. Kosongkan jika tidak diganti.</small>
                             </div>
                         </div>
                         <div class="col-md-4">

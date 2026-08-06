@@ -18,6 +18,9 @@
                 <option value="Kegiatan"   {{ request('category') == 'Kegiatan'   ? 'selected' : '' }}>Kegiatan</option>
                 <option value="Pengumuman" {{ request('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
             </select>
+            <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
+                <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola
+            </a>
             @if(request('search') || request('category'))
                 <a href="{{ route('admin.berita.index') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
             @endif

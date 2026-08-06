@@ -1,5 +1,6 @@
 @php
     $ppid = \App\Models\PpidSetting::instance();
+    $stats = \App\Services\PpidStatService::summary();
 @endphp
 <link rel="stylesheet" href="{{ asset('css/PPID/ppid.css') }}?v={{ time() }}">
 
@@ -20,17 +21,17 @@
         <div class="ppid-stats-container">
             <!-- Stat Card 1 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">{{ $ppid->stat_1_number }}</h3>
+                <h3 class="ppid-stat-number">{{ number_format($stats['count'], 0, ',', '.') }}</h3>
                 <p class="ppid-stat-desc">{{ $ppid->stat_1_desc }}</p>
             </div>
             <!-- Stat Card 2 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">{{ $ppid->stat_2_number }}</h3>
+                <h3 class="ppid-stat-number">{{ number_format($stats['views'], 0, ',', '.') }}</h3>
                 <p class="ppid-stat-desc">{{ $ppid->stat_2_desc }}</p>
             </div>
             <!-- Stat Card 3 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">{{ $ppid->stat_3_number }}</h3>
+                <h3 class="ppid-stat-number">{{ number_format($stats['downloads'], 0, ',', '.') }}</h3>
                 <p class="ppid-stat-desc">{{ $ppid->stat_3_desc }}</p>
             </div>
         </div>

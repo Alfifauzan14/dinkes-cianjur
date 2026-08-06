@@ -99,7 +99,7 @@
                             </div>
 
                             <div class="action-row">
-                                <a href="{{ asset('storage/' . $regulasi->file_path) }}" class="action-btn download-btn" target="_blank">
+                                <a href="{{ route('satudata.regulasi.download', $regulasi->id) }}" class="action-btn download-btn" target="_blank">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                         <polyline points="7 10 12 15 17 10"></polyline>
@@ -107,7 +107,7 @@
                                     </svg>
                                     <span>Unduh PDF</span>
                                 </a>
-                                <a href="{{ asset('storage/' . $regulasi->file_path) }}" class="action-btn preview-btn" target="_blank">
+                                <a href="{{ route('satudata.regulasi.view', $regulasi->id) }}" class="action-btn preview-btn" target="_blank">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                         <circle cx="12" cy="12" r="3"></circle>

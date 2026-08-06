@@ -16,5 +16,13 @@ class Regulasi extends Model
         'file_path',
         'file_size',
         'status',
+        'views',
+        'downloads',
+    ];
+
+    protected $casts = [
+        'year' => 'integer',
+        'views' => 'integer',
+        'downloads' => 'integer',
     ];
 }

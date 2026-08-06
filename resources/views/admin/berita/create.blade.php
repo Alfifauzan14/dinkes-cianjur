@@ -29,6 +29,11 @@
                             <option value="Kegiatan"   {{ old('category') == 'Kegiatan'   ? 'selected' : '' }}>Kegiatan</option>
                             <option value="Pengumuman" {{ old('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
                         </select>
+                        <div class="mt-1">
+                            <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
+                                <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola Kategori
+                            </a>
+                        </div>
                         @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>

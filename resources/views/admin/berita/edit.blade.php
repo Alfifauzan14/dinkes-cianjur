@@ -47,12 +47,17 @@
                         <div class="card-body" style="padding:14px;">
                             <div class="form-group">
                                 <label for="category">Kategori <span class="text-danger">*</span></label>
-                                <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
-                                    @foreach($kategoris as $kat)
-                                        <option value="{{ $kat->nama }}" {{ old('category', $berita->category) == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
-                                    @endforeach
-                                </select>
-                                @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
+                                @foreach($kategoris as $kat)
+                                    <option value="{{ $kat->nama }}" {{ old('category', $berita->category) == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                                @endforeach
+                            </select>
+                            <div class="mt-1">
+                                <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
+                                    <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola Kategori
+                                </a>
+                            </div>
+                            @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
                             <div class="form-group">
