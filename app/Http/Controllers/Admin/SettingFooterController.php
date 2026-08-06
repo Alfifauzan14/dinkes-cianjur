@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\SettingFooter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -105,6 +106,15 @@ class SettingFooterController extends Controller
         }
 
         $setting->update($data);
+
+        // Sync social media URLs to key-value system so the footer blade can read them
+        if ($section === 'sosmed') {
+            Setting::set('social_facebook', $request->input('social_facebook', ''));
+            Setting::set('social_instagram', $request->input('social_instagram', ''));
+            Setting::set('social_twitter', $request->input('social_twitter', ''));
+            Setting::set('social_youtube', $request->input('social_youtube', ''));
+            Setting::set('social_tiktok', $request->input('social_tiktok', ''));
+        }
 
         return redirect()->route('admin.settingfooter.edit', ['section' => $section])
             ->with('success', 'Pengaturan situs berhasil diperbarui!');
