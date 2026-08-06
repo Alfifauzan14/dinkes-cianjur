@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center" style="padding: 12px 24px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
             Mengedit: <em>{{ Str::limit($berita->title, 50) }}</em>
         </span>
@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="d-flex flex-column mt-3" style="gap:8px;">
-                        <button type="submit" class="btn btn-success btn-block font-weight-bold">
+                        <button type="submit" class="btn btn-success-dark btn-block font-weight-bold">
                             <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                         </button>
                         <a href="{{ route('admin.berita.index') }}" class="btn btn-outline-secondary btn-block">Batal</a>

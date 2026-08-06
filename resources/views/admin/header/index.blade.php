@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 @section('title', 'Header Halaman')
 @section('header_title', 'Kelola Header Halaman')
 
@@ -13,7 +13,13 @@
             </div>
         </div>
 
-        <div class="card" style="box-shadow: var(--card-shadow); border-radius: 8px; border: none;">
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex flex-wrap align-items-center" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="d-flex align-items-center" style="gap: 8px;">
+                    <span class="material-icons text-success">view_carousel</span>
+                    <span class="font-weight-bold" style="color: #1E293B;">Kelola Header Halaman</span>
+                </span>
+            </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -24,7 +30,7 @@
                                 <th style="width: 150px;">Page Key</th>
                                 <th>Judul Header (Title)</th>
                                 <th>Sub-Judul (Subtitle)</th>
-                                class="text-center" <th class="text-center" style="width: 100px; padding-right: 24px;">Aksi</th>
+                                <th class="text-center" style="width: 100px; padding-right: 24px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,7 +44,7 @@
                                     {{ $header->subtitle ?: '-' }}
                                 </td>
                                 <td class="text-center" style="padding-right: 24px; vertical-align: middle;">
-                                    <button class="btn btn-sm btn-outline-primary btn-edit-header" 
+                                    <button class="btn btn-sm btn-edit-outline btn-edit-header" 
                                             data-id="{{ $header->id }}" 
                                             data-name="{{ $header->page_name }}" 
                                             data-title="{{ $header->title }}" 
@@ -90,7 +96,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Perbarui Header</button>
+                    <button type="submit" class="btn btn-success-dark">Perbarui Header</button>
                 </div>
             </form>
         </div>

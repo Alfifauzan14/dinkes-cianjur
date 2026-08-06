@@ -261,3 +261,18 @@ Route::get('/admin/kategori', [KategoriController::class, 'index'])->middleware(
 Route::post('/admin/kategori', [KategoriController::class, 'store'])->middleware('auth')->name('admin.kategori.store');
 Route::put('/admin/kategori/{kategori}', [KategoriController::class, 'update'])->middleware('auth')->name('admin.kategori.update');
 Route::delete('/admin/kategori/{kategori}', [KategoriController::class, 'destroy'])->middleware('auth')->name('admin.kategori.destroy');
+
+/* --- Admin Manajemen Pengguna Routes --- */
+Route::resource('/admin/users', App\Http\Controllers\Admin\UserController::class, [
+    'names' => [
+        'index' => 'admin.users.index',
+        'create' => 'admin.users.create',
+        'store' => 'admin.users.store',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
+    ],
+])->middleware('auth');
+
+Route::post('/admin/users/{user}/reset-password', [App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->middleware('auth')->name('admin.users.reset-password');
+Route::post('/admin/users/{user}/toggle-active', [App\Http\Controllers\Admin\UserController::class, 'toggleActive'])->middleware('auth')->name('admin.users.toggle-active');

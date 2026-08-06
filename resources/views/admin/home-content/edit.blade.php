@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Edit Info Card')
 @section('header_title', 'Edit Info Card')
@@ -65,7 +65,7 @@
                 <a href="{{ route('admin.home-content.index') }}" class="btn btn-outline-secondary">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">close</span> Batal
                 </a>
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success-dark">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Perbarui
                 </button>
             </div>

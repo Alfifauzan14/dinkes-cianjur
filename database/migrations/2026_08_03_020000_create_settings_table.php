@@ -10,8 +10,21 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
+            $table->string('key')->nullable()->unique();
             $table->text('value')->nullable();
+            $table->string('site_name')->nullable();
+            $table->string('site_tagline')->nullable();
+            $table->string('site_logo')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('emergency_call')->nullable();
+            $table->string('emergency_title')->nullable();
+            $table->string('social_facebook')->nullable();
+            $table->string('social_instagram')->nullable();
+            $table->string('social_twitter')->nullable();
+            $table->string('social_youtube')->nullable();
+            $table->string('social_tiktok')->nullable();
             $table->timestamps();
         });
     }

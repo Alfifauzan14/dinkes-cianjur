@@ -203,6 +203,19 @@
                     </a>
                 </li>
 
+                {{-- ── MANAJEMEN PENGGUNA ────────────────────────── --}}
+                @if(Auth::user()->is_admin)
+                <li class="nav-header">PENGATURAN AKUN</li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+                        <span class="material-icons nav-icon">people</span>
+                        <p>Manajemen Pengguna</p>
+                    </a>
+                </li>
+                @endif
+
                 {{-- ── PENGATURAN ───────────────────────────────────── --}}
                 <li class="nav-header">PENGATURAN</li>
 

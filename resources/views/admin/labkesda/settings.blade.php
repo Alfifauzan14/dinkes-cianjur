@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Edit Kontak & Alamat Labkesda')
 @section('header_title', 'Edit Kontak & Alamat Labkesda')
@@ -39,7 +39,7 @@
 
 
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
             <span class="material-icons text-success" style="font-size:16px;vertical-align:middle;">contact_support</span>
             Informasi Labkesda
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-end" style="gap:10px;">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success-dark">
                             <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                         </button>
                     </div>

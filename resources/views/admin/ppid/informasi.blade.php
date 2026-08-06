@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 @section('title', 'Informasi Publik (Accordion)')
 @section('header_title', 'Informasi Publik (Accordion)')
 
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success px-4" id="ppid-save-btn">
+                    <button type="submit" class="btn btn-success-dark px-4" id="ppid-save-btn">
                         <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Informasi Publik
                     </button>
                 </div>

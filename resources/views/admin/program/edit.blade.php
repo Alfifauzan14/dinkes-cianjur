@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
             <span class="material-icons text-success" style="font-size:16px;vertical-align:middle;">health_and_safety</span>
             {{ Str::limit($program->title, 40) }}
@@ -267,36 +267,15 @@
                     <div class="section-icon"><span class="material-icons" style="font-size:18px;">article</span></div>
                     <div>
                         <h4>Artikel Edukasi / Detail Program <span style="font-size:11px;font-weight:400;color:var(--text-secondary);">(opsional)</span></h4>
-                        <p>Konten HTML yang tampil sebagai artikel di halaman program</p>
+                        <p>Konten artikel yang ditampilkan di halaman program</p>
                     </div>
                 </div>
                 <div class="program-section-body">
                     @php $contentVal = old('content', $program->content ?? ''); @endphp
                     <textarea name="content" id="content" rows="10"
-                        class="form-control content-textarea @error('content') is-invalid @enderror"
-                        placeholder="Ketik konten HTML di sini..."
-                        oninput="document.getElementById('content-count').textContent = this.value.length">{{ $contentVal }}</textarea>
+                        class="form-control @error('content') is-invalid @enderror"
+                        placeholder="Tulis artikel / detail program di sini (teks biasa).">{{ $contentVal }}</textarea>
                     @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    <div class="char-counter"><span id="content-count">{{ strlen($contentVal) }}</span> karakter</div>
-                    <div class="mt-3">
-                        <p style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">
-                            <span class="material-icons" style="font-size:14px;vertical-align:middle;">code</span>
-                            Tag HTML yang tersedia:
-                        </p>
-                        <div class="html-hint">
-                            @foreach([
-                                ["<h3 class='st-content-title'>Judul</h3>", 'Sub Judul'],
-                                ["<p class='st-content-text'>Paragraf</p>", 'Paragraf'],
-                                ["<ul class='st-content-list'>\n  <li>Item</li>\n</ul>", 'List'],
-                                ["<strong>teks tebal</strong>", 'Bold'],
-                                ["<br>", 'Baris Baru'],
-                            ] as $tag)
-                            <button type="button" class="html-tag-chip" onclick="insertTag('content', {{ json_encode($tag[0]) }})">
-                                {{ $tag[1] }}
-                            </button>
-                            @endforeach
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -305,7 +284,7 @@
                 <a href="{{ route('admin.program-kesehatan.index') }}" class="btn btn-outline-secondary">
                     <span class="material-icons" style="font-size:16px;">close</span> Batal
                 </a>
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success-dark">
                     <span class="material-icons" style="font-size:16px;">save</span> Simpan Perubahan
                 </button>
             </div>
@@ -364,13 +343,5 @@ document.getElementById('addIntervensiBtn').addEventListener('click', function()
         </div>
     </div>`);
 });
-function insertTag(id, tag) {
-    const ta = document.getElementById(id);
-    const s = ta.selectionStart, e = ta.selectionEnd;
-    ta.value = ta.value.substring(0,s) + tag + ta.value.substring(e);
-    ta.selectionStart = ta.selectionEnd = s + tag.length;
-    ta.focus();
-    document.getElementById('content-count').textContent = ta.value.length;
-}
 </script>
 @endsection

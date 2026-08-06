@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Kelola Pagoda Sehat')
 @section('header_title', 'Kelola Pagoda Sehat')
@@ -8,10 +8,13 @@
 
 <div class="card card-outline card-success">
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-        <div>
-            <div class="font-weight-bold text-dark" style="font-size: 18px;">Daftar Kartu Pagoda Sehat</div>
-            <div class="text-secondary" style="font-size: 13px; margin-top: 4px;">Kelola kartu portal akses layanan kesehatan.</div>
-        </div>
+        <span class="d-flex flex-column align-items-start" style="gap: 2px;">
+            <span class="d-flex align-items-center" style="gap: 8px;">
+                <span class="material-icons text-success">fitness_center</span>
+                <span class="font-weight-bold" style="color: #1E293B;">Kelola Pagoda Sehat</span>
+            </span>
+            <span class="text-secondary" style="font-size: 13px;">Kelola kartu portal akses layanan kesehatan.</span>
+        </span>
         <div class="d-flex flex-wrap align-items-center" style="gap: 8px;">
             <button type="button" id="btn-save-order" class="btn btn-sm btn-dark" style="display: none; background-color: #004F3B;" onclick="saveNewOrder('pagodasehat')">
                 <span class="material-icons" style="font-size:16px; vertical-align:middle;">save</span> Simpan Urutan

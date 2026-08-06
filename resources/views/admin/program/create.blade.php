@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
             <span class="material-icons text-success" style="font-size:16px;vertical-align:middle;">health_and_safety</span>
             Formulir Program Kesehatan
@@ -236,46 +236,14 @@
                     <div class="section-icon"><span class="material-icons" style="font-size:18px;">article</span></div>
                     <div>
                         <h4>Artikel Edukasi / Detail Program <span style="font-size:11px;font-weight:400;color:var(--text-secondary);">(opsional)</span></h4>
-                        <p>Konten HTML yang tampil sebagai artikel di halaman program</p>
+                        <p>Konten artikel yang ditampilkan di halaman program</p>
                     </div>
                 </div>
                 <div class="program-section-body">
                     <textarea name="content" id="content" rows="10"
-                        class="form-control content-textarea @error('content') is-invalid @enderror"
-                        placeholder="Ketik konten HTML di sini..."
-                        oninput="updateContentCounter(this)">{{ old('content') }}</textarea>
+                        class="form-control @error('content') is-invalid @enderror"
+                        placeholder="Tulis artikel / detail program di sini (teks biasa).">{{ old('content') }}</textarea>
                     @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    <div class="char-counter"><span id="content-count">0</span> karakter</div>
-                    <div class="mt-3">
-                        <p style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">
-                            <span class="material-icons" style="font-size:14px;vertical-align:middle;">code</span>
-                            Tag HTML yang tersedia — klik untuk menyisipkan:
-                        </p>
-                        <div class="html-hint">
-                            @foreach([
-                                ["<h3 class='st-content-title'>Judul</h3>", 'Sub Judul'],
-                                ["<p class='st-content-text'>Paragraf</p>", 'Paragraf'],
-                                ["<ul class='st-content-list'>\n  <li>Item</li>\n</ul>", 'List'],
-                                ["<strong>teks tebal</strong>", 'Bold'],
-                                ["<br>", 'Baris Baru'],
-                            ] as $tag)
-                            <button type="button" class="html-tag-chip" onclick="insertTag('content', {{ json_encode($tag[0]) }})">
-                                {{ $tag[1] }}
-                            </button>
-                            @endforeach
-                        </div>
-                        <details class="mt-3" style="font-size:12px;color:var(--text-secondary);">
-                            <summary style="cursor:pointer;font-weight:600;color:var(--brand-green);">Lihat Contoh HTML Lengkap</summary>
-                            <pre style="background:#1E293B;color:#94A3B8;padding:12px;border-radius:6px;margin-top:8px;font-size:12px;overflow:auto;">&lt;h3 class='st-content-title'&gt;Definisi Program&lt;/h3&gt;
-&lt;p class='st-content-text'&gt;Tuberkulosis (TB) adalah penyakit menular yang...&lt;/p&gt;
-
-&lt;h3 class='st-content-title'&gt;Tujuan Program&lt;/h3&gt;
-&lt;ul class='st-content-list'&gt;
-  &lt;li&gt;Menurunkan prevalensi TB di Cianjur&lt;/li&gt;
-  &lt;li&gt;Meningkatkan angka kesembuhan&lt;/li&gt;
-&lt;/ul&gt;</pre>
-                        </details>
-                    </div>
                 </div>
             </div>
 
@@ -368,24 +336,6 @@ document.getElementById('addIntervensiBtn').addEventListener('click', function()
     </div>`;
     document.getElementById('intervensiContainer').insertAdjacentHTML('beforeend', html);
 });
-
-// Insert HTML tag into textarea
-function insertTag(id, tag) {
-    const ta = document.getElementById(id);
-    const start = ta.selectionStart;
-    const end = ta.selectionEnd;
-    const before = ta.value.substring(0, start);
-    const after = ta.value.substring(end);
-    ta.value = before + tag + after;
-    ta.selectionStart = ta.selectionEnd = start + tag.length;
-    ta.focus();
-    updateContentCounter(ta);
-}
-
-// Content char counter
-function updateContentCounter(el) {
-    document.getElementById('content-count').textContent = el.value.length;
-}
 
 // Subtitle char counter
 document.getElementById('subtitle').addEventListener('input', function() {

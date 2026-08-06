@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Edit Info Card')
 @section('header_title', 'Edit Info Card')
@@ -8,7 +8,10 @@
 
 <div class="card card-outline card-success">
     <div class="card-header" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-        <div class="font-weight-bold text-dark" style="font-size: 18px;">Daftar Info Card</div>
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">dashboard_customize</span>
+            <span class="font-weight-bold" style="color: #1E293B; font-size: 16px;">Daftar Info Card</span>
+        </span>
         <div class="text-secondary" style="font-size: 13px; margin-top: 4px;">Edit kartu informasi di halaman beranda. Kartu tidak dapat ditambah atau dihapus.</div>
     </div>
 
@@ -97,7 +100,7 @@
             </div>
 
             <div style="display: flex; gap: 10px; margin-top: 10px;">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success-dark">
                     <span class="material-icons" style="font-size:16px; vertical-align:middle;">save</span> Simpan Link Sosial Media
                 </button>
             </div>

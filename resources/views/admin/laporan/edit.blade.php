@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Edit Laporan')
 @section('header_title', 'Edit Laporan')
@@ -69,7 +69,7 @@
                 <a href="{{ route('admin.laporan.index') }}" class="btn btn-outline-secondary">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">close</span> Batal
                 </a>
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success-dark">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                 </button>
             </div>

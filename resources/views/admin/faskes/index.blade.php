@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Kelola Faskes')
 @section('header_title', 'Kelola Fasilitas Kesehatan')
@@ -40,7 +40,12 @@
 
 
 <div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">local_hospital</span>
+            <span class="font-weight-bold" style="color: #1E293B;">Kelola Faskes</span>
+        </span>
+
         {{-- Search & Filter --}}
         <form action="{{ route('admin.faskes.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
             <input type="text" name="search" placeholder="Cari nama faskes..." value="{{ request('search') }}" class="form-control form-control-sm" style="width: 180px;">
@@ -61,7 +66,7 @@
             @endif
         </form>
 
-        <div class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+        <div class="d-flex flex-wrap align-items-center ml-auto" style="gap: 8px;">
             {{-- Import CSV --}}
             <form action="{{ route('admin.faskes.import') }}" method="POST" enctype="multipart/form-data" class="d-inline-block m-0">
                 @csrf

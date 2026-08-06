@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Edit Faskes')
 @section('header_title', 'Edit ' . $faske->name)
@@ -7,7 +7,7 @@
 
 
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
             <span class="material-icons text-warning" style="font-size:16px;vertical-align:middle;">local_hospital</span>
             Formulir Edit Faskes
@@ -131,7 +131,7 @@
                 <a href="{{ route('admin.faskes.index') }}" class="btn btn-outline-secondary">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">close</span> Batal
                 </a>
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success-dark">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Perbarui Faskes
                 </button>
             </div>

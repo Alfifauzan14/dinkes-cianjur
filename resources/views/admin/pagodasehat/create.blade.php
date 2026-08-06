@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Tambah Kartu Pagoda Sehat')
 @section('header_title', 'Tambah Kartu Pagoda Sehat')
@@ -7,7 +7,7 @@
 
 
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
             <span class="material-icons text-success" style="font-size:16px;vertical-align:middle;">dashboard</span>
             Formulir Kartu Pagoda Sehat Baru

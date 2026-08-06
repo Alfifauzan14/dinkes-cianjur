@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 @section('title', 'Jenis Faskes')
 @section('header_title', 'Kelola Jenis Faskes')
 
@@ -7,16 +7,20 @@
     <div class="col-12">
 
 
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <div>
-                <p class="mb-0 text-muted" style="font-size:13px;">Kelola daftar kategori atau jenis fasilitas kesehatan yang terdaftar.</p>
-            </div>
-            <button class="btn btn-success" data-toggle="modal" data-target="#modalTambahType">
-                <span class="material-icons" style="font-size:17px; vertical-align:middle; margin-right:4px;">add</span> Tambah Jenis Faskes
-            </button>
-        </div>
+        <p class="mb-4 text-muted" style="font-size:13px;">Kelola daftar kategori atau jenis fasilitas kesehatan yang terdaftar.</p>
 
-        <div class="card" style="box-shadow: var(--card-shadow); border-radius: 8px; border: none;">
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex flex-wrap align-items-center" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="d-flex align-items-center" style="gap: 8px;">
+                    <span class="material-icons text-success">science</span>
+                    <span class="font-weight-bold" style="color: #1E293B;">Kelola Jenis Faskes</span>
+                </span>
+                <div class="ml-auto">
+                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahType" style="white-space:nowrap;">
+                        <span class="material-icons" style="font-size:16px;">add</span> Tambah Jenis Faskes
+                    </button>
+                </div>
+            </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -34,7 +38,7 @@
                                 <td class="font-weight-bold text-dark" style="vertical-align: middle;">{{ $type->name }}</td>
                                 <td class="text-center" style="padding-right: 24px; vertical-align: middle;">
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-outline-primary btn-edit-type" 
+                                        <button class="btn btn-sm btn-edit-outline btn-edit-type" 
                                                 data-id="{{ $type->id }}" 
                                                 data-name="{{ $type->name }}" 
                                                 data-toggle="modal" data-target="#modalEditType"
@@ -117,7 +121,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Perbarui</button>
+                      <button type="submit" class="btn btn-success-dark">Perbarui</button>
                 </div>
             </form>
         </div>

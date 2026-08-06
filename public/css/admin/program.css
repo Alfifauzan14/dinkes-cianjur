@@ -134,24 +134,6 @@
     font-weight: 600;
 }
 
-/* ── Content (Code Editor) ────────────────────────────────────────────── */
-.content-textarea {
-    font-family: 'Roboto Mono', 'Courier New', monospace !important;
-    font-size: 13px !important;
-    line-height: 1.6 !important;
-    min-height: 200px;
-    background: #1E293B !important;
-    color: #E2E8F0 !important;
-    border-color: #334155 !important;
-    border-radius: 8px !important;
-    padding: 16px !important;
-    resize: vertical;
-}
-.content-textarea:focus {
-    border-color: var(--brand-green) !important;
-    box-shadow: var(--input-focus-ring) !important;
-}
-.html-hint { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .html-tag-chip {
     background: #1E293B;
     color: #94A3B8;

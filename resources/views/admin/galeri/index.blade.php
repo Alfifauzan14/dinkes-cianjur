@@ -4,7 +4,12 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center" style="padding: 14px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">photo_library</span>
+            <span class="font-weight-bold" style="color: #1E293B;">Kelola Galeri</span>
+        </span>
+
         {{-- Search & Filter --}}
         <form action="{{ route('admin.galeri.index') }}" method="GET" class="d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari judul galeri..." style="width: 220px;">
@@ -173,8 +178,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">
-                        <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
+                      <button type="submit" class="btn btn-success-dark">
+                          <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>
             </form>

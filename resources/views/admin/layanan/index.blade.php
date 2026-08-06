@@ -4,7 +4,11 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-end" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">home_work</span>
+            <span class="font-weight-bold" style="color: #1E293B;">Kelola Layanan Terpadu</span>
+        </span>
         <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahLayanan">
             <span class="material-icons" style="font-size:16px;">add</span> Tambah Layanan
         </button>
@@ -229,7 +233,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning text-white">
+                    <button type="submit" class="btn btn-success-dark">
                         <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>

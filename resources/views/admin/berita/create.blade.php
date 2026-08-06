@@ -1,10 +1,10 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 @section('title', 'Tulis Berita Baru')
 @section('header_title', 'Tulis Berita Baru')
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center" style="padding: 12px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
             <span class="material-icons text-success" style="font-size:16px; vertical-align:middle;">create</span>
             Formulir Penulisan Berita

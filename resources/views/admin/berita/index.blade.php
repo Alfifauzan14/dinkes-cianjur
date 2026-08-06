@@ -4,8 +4,12 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 16px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-        {{-- Search & Filter --}}
+    <div class="card-header d-flex flex-wrap align-items-center" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">newspaper</span>
+            <span class="font-weight-bold" style="color: #1E293B;">Kelola Berita</span>
+        </span>
+
         <form action="{{ route('admin.berita.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari judul berita..." style="width: 220px;">
             <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 150px;">
@@ -19,9 +23,11 @@
             @endif
         </form>
 
-        <a href="{{ route('admin.berita.create') }}" class="btn btn-sm btn-success">
-            <span class="material-icons" style="font-size:16px;">add</span> Tulis Berita
-        </a>
+        <div class="d-flex ml-auto" style="gap: 8px;">
+            <a href="{{ route('admin.berita.create') }}" class="btn btn-sm btn-success">
+                <span class="material-icons" style="font-size:16px;">add</span> Tulis Berita
+            </a>
+        </div>
     </div>
 
     <div class="card-body p-0">
