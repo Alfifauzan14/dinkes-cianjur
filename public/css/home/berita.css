@@ -108,7 +108,7 @@
 }
 
 .berita-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
@@ -224,4 +224,37 @@
     .berita-card-title {
         font-size: 18px;
     }
+    .berita-card-meta {
+        font-size: 12px;
+    }
+}
+
+/* --- Added from blade --- */
+.home-berita-img-fallback {
+    background-color: #065F46;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.3);
+    width: 100%;
+    height: 100%;
+}
+.home-berita-icon-lg { font-size: 48px; }
+.home-berita-icon-md { font-size: 36px; }
+
+.home-berita-empty {
+    grid-column: span 2;
+    text-align: center;
+    padding: 48px;
+    color: #9CA3AF;
+    width: 100%;
+}
+.home-berita-empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    display: block;
+}
+.home-berita-empty-text {
+    font-size: 15px;
+    font-weight: 600;
 }

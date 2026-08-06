@@ -20,15 +20,15 @@
                                 <img src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}">
                             @endif
                         @else
-                            <span class="material-icons" style="font-size: 48px; color: #CBD5E1;">help_outline</span>
+                            <span class="material-icons home-layanan-icon-lg">help_outline</span>
                         @endif
                     </div>
                     <h3 class="card-title">{{ $card->title }}</h3>
                     <p class="card-desc">{{ $card->description }}</p>
                 </a>
             @empty
-                <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #94A3B8;">
-                    <p>Belum ada kartu layanan.</p>
+                <div class="home-layanan-empty">
+                    <p class="card-desc">Belum ada layanan yang tersedia saat ini.</p>
                 </div>
             @endforelse
         </div>

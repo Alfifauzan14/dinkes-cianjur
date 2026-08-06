@@ -11,7 +11,7 @@
                     <span class="emergency-number">119</span>
                 </div>
                 <div class="emergency-close-badge">
-                    <span class="material-icons" style="font-size: 14px; font-weight: bold; color: inherit; display: block; line-height: 12px;">close</span>
+                    <span class="material-icons hero-close-icon">close</span>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
             
             <div class="search-container">
                 <div class="search-icon-wrapper">
-                    <span class="material-icons" style="font-size: 20px; color: #D1D1D1; display: block;">search</span>
+                    <span class="material-icons hero-search-icon">search</span>
                 </div>
                 <input type="text" class="search-input" placeholder="Cari Berita dan Informasi ...">
                 <button class="search-button">Cari</button>
@@ -34,7 +34,7 @@
         @foreach(($socialLinks ?? collect()) as $link)
             @if($link->url)
                 <a href="{{ $link->url }}" class="social-icon-link" aria-label="{{ ucfirst($link->platform) }}" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-{{ $link->platform === 'facebook' ? 'facebook-f' : $link->platform }}" style="font-size: 20px;"></i>
+                    <i class="fa-brands fa-{{ $link->platform === 'facebook' ? 'facebook-f' : $link->platform }} hero-social-icon"></i>
                 </a>
             @endif
         @endforeach

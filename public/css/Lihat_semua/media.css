@@ -183,12 +183,12 @@
     display: block;
     text-decoration: none;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .media-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     transform: translateY(-4px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
 .media-card-image {
@@ -378,4 +378,22 @@
         height: 36px;
         font-size: 13px;
     }
+}
+
+/* --- Added from blade --- */
+.media-empty-state {
+    grid-column: span 3;
+    text-align: center;
+    padding: 48px;
+    color: #9CA3AF;
+    background: #F9FAFB;
+    border-radius: 6px;
+    width: 100%;
+}
+.media-empty-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+.media-empty-text {
+    font-weight: 600;
 }

@@ -113,15 +113,15 @@
 }
 
 .prog-info-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     transform: translateY(-4px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
 .prog-info-number {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 48px; /* Judul 48px */
     font-weight: 800;
-    color: #009966; /* Sub judul/aksen */
+    color: #0F172A; /* Hitam/Charcoal */
     margin: 0 0 8px 0;
     line-height: 1;
 }
@@ -158,15 +158,15 @@
 }
 
 .prog-program-item:hover {
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
 }
 
 .prog-program-number {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 20px; /* Judul card 20px */
     font-weight: 700;
-    color: #004F3B;
+    color: #0F172A;
     margin: 0;
     line-height: 1.4;
 }

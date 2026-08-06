@@ -294,12 +294,12 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .timeline-content-card:hover {
-    transform: translateX(4px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
 }
 
 .card-left {
@@ -433,4 +433,44 @@
     .agenda-item-duration {
         width: 100%;
     }
+}
+
+/* --- Added from blade --- */
+.agenda-nav-link {
+    text-decoration: none;
+}
+.agenda-location-wrap {
+    margin-top: 4px;
+}
+.agenda-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+.agenda-desc-text {
+    font-size: 13px;
+    color: #6B7280;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+.agenda-meta-time {
+    font-size: 11px;
+    color: #9CA3AF;
+    font-weight: 500;
+    margin-top: 6px;
+    text-align: right;
+}
+.agenda-empty-state {
+    text-align: center;
+    padding: 48px;
+    color: #9CA3AF;
+    width: 100%;
+}
+.agenda-empty-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+    display: block;
+}
+.agenda-empty-text {
+    font-weight: 600;
 }

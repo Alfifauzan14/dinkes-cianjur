@@ -5,20 +5,21 @@
         $headerSetting = \App\Models\HeaderSetting::getByKey('laporan', 'Laporan Dinkes', 'Transparansi laporan akuntabilitas kinerja, keuangan, dan informasi publik.');
     @endphp
     <!-- Banner Header Top Section -->
-    <header class="satudata-banner" style="background: linear-gradient(135deg, #004F3B 0%, #003326 100%); padding: 60px 24px; text-align: left; color: #FFFFFF;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 16px;">
-            <h1 style="font-size: 32px; font-weight: 800; margin: 0 0 8px 0; color: #FFFFFF;">{{ $headerSetting->title }}</h1>
-            <p style="font-size: 15px; color: rgba(255, 255, 255, 0.85); margin: 0; max-width: 800px;">
-                {{ $headerSetting->subtitle }}
-            </p>
+    <header class="satudata-banner">
+        <div class="satudata-banner-container">
+            <h1 class="satudata-banner-title">{{ $headerSetting->title }}</h1>
+            <p class="satudata-banner-subtitle">{{ $headerSetting->subtitle }}</p>
         </div>
     </header>
 
     <main class="laporan-main">
         <div class="laporan-container">
-            
-            <!-- Page Title -->
-            <h1 class="laporan-title">Laporan Publik Resmi</h1>
+
+            <!-- Page Subheader -->
+            <div class="laporan-page-header">
+                <span class="laporan-category-tag">Satu Data Kesehatan</span>
+                <h2 class="laporan-title">Laporan Publik Resmi</h2>
+            </div>
 
             <!-- Filter Tabs -->
             <div class="laporan-tabs">
@@ -32,7 +33,7 @@
             <div class="laporan-grid">
                 @forelse($laporans as $laporan)
                     <div class="laporan-card" data-category="{{ $laporan->category }}">
-                        <div class="card-left">
+                        <div class="card-body">
                             <div class="doc-icon-wrapper">
                                 <svg class="doc-svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -43,39 +44,38 @@
                                 </svg>
                             </div>
                             <div class="doc-info">
-                                <span class="doc-category" style="text-transform: uppercase;">{{ $laporan->category }}</span>
+                                <span class="doc-category">{{ $laporan->category }}</span>
                                 <h3 class="doc-title">{{ $laporan->title }}</h3>
                                 <span class="doc-meta">{{ $laporan->release_date->format('d M Y') }} • PDF • {{ $laporan->file_size }}</span>
                             </div>
                         </div>
-                        <div class="card-right">
-                            <a href="{{ asset('storage/' . $laporan->file_path) }}" class="download-btn" title="Unduh Dokumen" target="_blank">
-                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <div class="laporan-action-row">
+                            <a href="{{ asset('storage/' . $laporan->file_path) }}" class="laporan-preview-btn" target="_blank" title="Buka di Tab Baru">
+                                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <span>Pratinjau</span>
+                            </a>
+                            <a href="{{ asset('storage/' . $laporan->file_path) }}" class="laporan-download-btn" download title="Unduh Dokumen">
+                                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                     <polyline points="7 10 12 15 17 10"></polyline>
                                     <line x1="12" y1="15" x2="12" y2="3"></line>
                                 </svg>
+                                <span>Unduh PDF</span>
                             </a>
                         </div>
                     </div>
                 @empty
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #64748B; background: #fff; border: 1px solid #E2E8F0; border-radius: 3px;">
+                    <div class="laporan-empty-state">
                         Belum ada dokumen laporan yang diunggah.
                     </div>
                 @endforelse
             </div>
 
-            <!-- Footer Action Link Button -->
-            <div class="laporan-footer-action">
-                <a href="#" class="view-all-btn" id="reset-filter-link">
-                    <span>Tampilkan Semua Dokumen</span>
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
-            </div>
 
+            
         </div>
     </main>
 </div>

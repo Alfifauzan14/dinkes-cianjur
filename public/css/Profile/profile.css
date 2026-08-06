@@ -150,8 +150,8 @@
 }
 
 .stat-btn-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
 }
 
 .stat-icon {
@@ -216,8 +216,8 @@
 }
 
 .misi-item-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
 }
 
 .misi-item-title {
@@ -565,6 +565,27 @@
     font-weight: 700;
     color: #009966;
 }
+
+/* ── Struktur Organisasi Specific ──────────────────────────────────────── */
+.struktur-organisasi-section { max-width: 1000px; margin: 0 auto; }
+.struktur-header-wrap { text-align: left; margin-bottom: 24px; }
+.struktur-subtitle { display: block; color: #009966; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.struktur-title { font-size: 32px; font-weight: 800; color: #111827; margin: 0; letter-spacing: -0.5px; }
+.struktur-card-container { background: #FFFFFF; border: 1px solid #E2E8F0; padding: 32px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); margin-bottom: 24px; }
+.struktur-image-wrap { text-align: center; border-radius: 12px; background-color: #F8FAFC; padding: 20px; border: 1px dashed #CBD5E1; }
+.struktur-img-main { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.struktur-empty-wrap { padding: 80px 20px; color: #94A3B8; }
+.struktur-empty-icon { font-size: 80px; color: #E2E8F0; margin-bottom: 16px; }
+.struktur-empty-title { font-size: 18px; font-weight: 600; margin: 0 0 8px 0; color: #64748B; }
+.struktur-empty-desc { font-size: 14px; margin: 0; color: #94A3B8; }
+.struktur-bottom-actions { background: #FFFFFF; padding: 24px 32px; border-radius: 4px; border: 1px solid #F1F5F9; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); margin-bottom: 24px; }
+.struktur-info-text { text-align: center; margin-bottom: 24px; }
+.struktur-info-p { margin: 0; font-size: 14.5px; color: #475569; line-height: 1.7; }
+.struktur-info-strong { color: #009966; }
+.struktur-buttons { display: flex; gap: 16px; justify-content: center; }
+.struktur-btn-primary { display: inline-flex; align-items: center; justify-content: center; background-color: #00CC88; color: white; padding: 12px 24px; border-radius: 4px; font-size: 15px; font-weight: 700; text-decoration: none; transition: background-color 0.2s; }
+.struktur-btn-outline { display: inline-flex; align-items: center; justify-content: center; background-color: #FFFFFF; color: #00CC88; border: 1px solid #E2E8F0; padding: 12px 24px; border-radius: 4px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.struktur-btn-icon { font-size: 20px; margin-right: 8px; }
 
 /* ── Struktur Action Buttons ─────────────────────────────────── */
 .struktur-actions {

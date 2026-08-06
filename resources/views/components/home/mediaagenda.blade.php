@@ -46,9 +46,9 @@
                         </div>
                     </div>
                 @else
-                    <div style="grid-column: span 2; text-align: center; padding: 48px; color: #9CA3AF; background: #F3F4F6; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; border-radius: 12px; height: 350px;">
-                        <span class="material-icons" style="font-size: 48px; margin-bottom: 8px;">collections</span>
-                        <p style="font-weight: 600;">Belum ada dokumentasi galeri kegiatan.</p>
+                    <div class="home-media-empty">
+                        <span class="material-icons home-media-empty-icon">collections</span>
+                        <p class="home-media-empty-text">Belum ada dokumentasi galeri kegiatan.</p>
                     </div>
                 @endif
 
@@ -107,7 +107,7 @@
                             </svg>
                         </a>
                     @else
-                        <span class="date-nav-btn disabled" aria-hidden="true" style="opacity: 0.3; cursor: not-allowed;">
+                        <span class="date-nav-btn disabled" aria-hidden="true">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M9 18l6-6-6-6" />
                             </svg>
@@ -145,9 +145,9 @@
                             </div>
                         </div>
                     @empty
-                        <div style="text-align: center; padding: 48px; color: #9CA3AF; width: 100%;">
-                            <span class="material-icons" style="font-size: 48px; margin-bottom: 8px;">event_busy</span>
-                            <p style="font-weight: 600;">Belum ada agenda kegiatan mendatang.</p>
+                        <div class="home-agenda-empty">
+                            <span class="material-icons home-media-empty-icon">event_busy</span>
+                            <p class="home-media-empty-text">Belum ada agenda kegiatan mendatang.</p>
                         </div>
                     @endforelse
                 </div>
@@ -240,9 +240,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 } else {
                     timelineHtml += `
-                        <div style="text-align: center; padding: 48px; color: #9CA3AF; width: 100%;">
-                            <span class="material-icons" style="font-size: 48px; margin-bottom: 8px;">event_busy</span>
-                            <p style="font-weight: 600;">Belum ada agenda kegiatan mendatang.</p>
+                        <div class="home-agenda-empty">
+                            <span class="material-icons home-media-empty-icon">event_busy</span>
+                            <p class="home-media-empty-text">Belum ada agenda kegiatan mendatang.</p>
                         </div>
                     `;
                 }

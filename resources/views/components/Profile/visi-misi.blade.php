@@ -1,5 +1,5 @@
 <!-- Visi Section Card -->
-<div class="visi-card-container" style="margin-bottom: 32px;">
+<div class="visi-card-container visi-card-margin">
     <span class="visi-badge">Visi Kami</span>
     
     <h2 class="visi-title">"{{ $profile ? $profile->visi_title : 'Mewujudkan Masyarakat Kabupaten Cianjur yang Sehat, Mandiri, Berkeadilan, dan Berdaya Saing.' }}"</h2>
@@ -11,12 +11,12 @@
     <!-- Bottom Stats Cards -->
     <div class="stats-cards-grid">
         <div class="stat-btn-card">
-            <span class="material-icons stat-icon" style="color: #009966;">favorite</span>
+            <span class="material-icons stat-icon stat-icon-color">favorite</span>
             <span class="stat-btn-text">{{ $profile ? $profile->stat_1_text : '47 Puskesmas Rujukan' }}</span>
         </div>
 
         <div class="stat-btn-card">
-            <span class="material-icons stat-icon" style="color: #009966;">place</span>
+            <span class="material-icons stat-icon stat-icon-color">place</span>
             <span class="stat-btn-text">{{ $profile ? $profile->stat_2_text : '32 Kecamatan Terjangkau' }}</span>
         </div>
     </div>

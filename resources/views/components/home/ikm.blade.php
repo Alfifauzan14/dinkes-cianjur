@@ -22,22 +22,22 @@
             <!-- Right Side: Form Card -->
             <div class="ikm-right">
                 @if(session('success'))
-                    <div style="background: #F0FDF4; border: 1px solid #BBF7D0; color: #166534; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                        <span class="material-icons" style="font-size: 18px;">check_circle</span>
+                    <div class="ikm-alert-success">
+                        <span class="material-icons ikm-alert-icon">check_circle</span>
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if(session('error'))
-                    <div style="background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                        <span class="material-icons" style="font-size: 18px;">error</span>
+                    <div class="ikm-alert-error">
+                        <span class="material-icons ikm-alert-icon">error</span>
                         {{ session('error') }}
                     </div>
                 @endif
 
                 @if($errors->any())
-                    <div style="background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 13px;">
-                        <ul style="margin: 0; padding-left: 16px;">
+                    <div class="ikm-alert-error-sm">
+                        <ul class="ikm-alert-list">
                             @foreach($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
