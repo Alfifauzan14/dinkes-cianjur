@@ -39,7 +39,6 @@ class SettingFooterAdminTest extends TestCase
         $admin = User::factory()->create();
 
         $response = $this->actingAs($admin)->put('/admin/setting-footer', [
-            'site_name' => 'Nama Dinas Baru',
             'site_tagline' => 'Tagline Dinas Baru',
             'address' => 'Jl. Baru No. 12',
             'phone' => '08123456789',
@@ -57,7 +56,6 @@ class SettingFooterAdminTest extends TestCase
 
         $this->assertDatabaseHas('settings', [
             'id' => 1,
-            'site_name' => 'Nama Dinas Baru',
             'site_tagline' => 'Tagline Dinas Baru',
             'address' => 'Jl. Baru No. 12',
             'phone' => '08123456789',

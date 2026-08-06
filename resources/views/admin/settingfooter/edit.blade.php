@@ -49,11 +49,6 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label for="site_name">Nama Instansi / Website <span class="text-danger">*</span></label>
-                                <input type="text" name="site_name" id="site_name" value="{{ old('site_name', $setting->site_name) }}" class="form-control @error('site_name') is-invalid @enderror" required>
-                                @error('site_name') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group">
                                 <label for="site_tagline">Slogan / Tagline Instansi <span class="text-danger">*</span></label>
                                 <input type="text" name="site_tagline" id="site_tagline" value="{{ old('site_tagline', $setting->site_tagline) }}" class="form-control @error('site_tagline') is-invalid @enderror" required>
                                 @error('site_tagline') <span class="invalid-feedback">{{ $message }}</span> @enderror

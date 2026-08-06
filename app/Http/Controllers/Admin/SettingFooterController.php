@@ -16,7 +16,6 @@ class SettingFooterController extends Controller
     public function edit(Request $request): View
     {
         $setting = SettingFooter::firstOrCreate(['id' => 1], [
-            'site_name' => 'Dinas Kesehatan Kabupaten Cianjur',
             'site_tagline' => 'Mewujudkan masyarakat Cianjur yang sehat, mandiri, dan berkeadilan.',
             'site_logo' => null,
             'address' => 'Jl. Pangeran No. 105, Cianjur, Jawa Barat.',
@@ -37,7 +36,6 @@ class SettingFooterController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $rules = [
-            'site_name' => 'required|string|max:255',
             'site_tagline' => 'required|string|max:255',
             'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'address' => 'required|string|max:255',
