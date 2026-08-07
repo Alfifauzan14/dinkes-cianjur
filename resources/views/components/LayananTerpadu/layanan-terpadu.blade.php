@@ -13,26 +13,26 @@
     </header>
 
     <!-- Filter & Search Section -->
-    <div class="lt-filter-bar" style="max-width: 1200px; margin: 24px auto 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
-        <div style="position: relative; flex: 1; min-width: 280px;">
-            <span class="material-icons" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #64748B; font-size: 20px;">search</span>
-            <input type="text" id="layananSearchInput" placeholder="Cari layanan perizinan, sertifikat, atau rekomendasi..." style="width: 100%; padding: 12px 16px 12px 42px; border: 1px solid #E2E8F0; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: border-color 0.2s;" onfocus="this.style.borderColor='#009966'" onblur="this.style.borderColor='#E2E2E8F0'">
+    <div class="lt-filter-bar">
+        <div class="lt-search-wrapper">
+            <span class="material-icons lt-search-icon">search</span>
+            <input type="text" id="layananSearchInput" class="lt-search-input" placeholder="Cari layanan perizinan, sertifikat, atau rekomendasi...">
         </div>
 
-        <div class="lt-category-tabs" style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button type="button" class="lt-tab-btn active" data-type="all" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; border: 1px solid #009966; background: #009966; color: #FFFFFF; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+        <div class="lt-category-tabs">
+            <button type="button" class="lt-tab-btn active" data-type="all">
                 <span class="material-icons" style="font-size: 18px;">groups</span>
                 <span>Semua Layanan</span>
             </button>
-            <button type="button" class="lt-tab-btn" data-type="warga" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; border: 1px solid #E2E8F0; background: #FFFFFF; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+            <button type="button" class="lt-tab-btn" data-type="warga">
                 <span class="material-icons" style="font-size: 18px;">person</span>
                 <span>Untuk Warga</span>
             </button>
-            <button type="button" class="lt-tab-btn" data-type="faskes" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; border: 1px solid #E2E8F0; background: #FFFFFF; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+            <button type="button" class="lt-tab-btn" data-type="faskes">
                 <span class="material-icons" style="font-size: 18px;">local_hospital</span>
                 <span>Untuk Faskes</span>
             </button>
-            <button type="button" class="lt-tab-btn" data-type="nakes" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; border: 1px solid #E2E8F0; background: #FFFFFF; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+            <button type="button" class="lt-tab-btn" data-type="nakes">
                 <span class="material-icons" style="font-size: 18px;">medical_services</span>
                 <span>Untuk Nakes</span>
             </button>
@@ -212,15 +212,9 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             tabBtns.forEach(b => {
                 b.classList.remove('active');
-                b.style.background = '#FFFFFF';
-                b.style.color = '#475569';
-                b.style.borderColor = '#E2E8F0';
             });
 
             this.classList.add('active');
-            this.style.background = '#009966';
-            this.style.color = '#FFFFFF';
-            this.style.borderColor = '#009966';
 
             activeType = this.getAttribute('data-type');
             filterLayanan();
