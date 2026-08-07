@@ -234,11 +234,11 @@
     }
     
     .ikm-left {
-        order: 2;
+        order: 1;
     }
     
     .ikm-right {
-        order: 1;
+        order: 2;
     }
     
     .ikm-illustration {
@@ -249,6 +249,10 @@
 @media (max-width: 640px) {
     .ikm-section {
         padding: 50px 16px;
+    }
+    
+    .ikm-container {
+        padding: 0;
     }
     
     .ikm-title {
@@ -267,5 +271,40 @@
     .rating-btn-group {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
+    }
+    
+    .ikm-bg-shape {
+        width: 100%;
+        max-width: 360px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ikm-left {
+        min-height: 300px;
+    }
+    
+    .ikm-illustration {
+        max-width: 260px;
+    }
+    
+    .ikm-form-card {
+        padding: 20px;
+        gap: 16px;
+    }
+    
+    .form-label {
+        font-size: 14px;
+    }
+    
+    .rating-btn {
+        font-size: 14px;
+        height: 42px;
+    }
+    
+    .form-input,
+    .form-textarea,
+    .submit-btn {
+        font-size: 14px;
     }
 }

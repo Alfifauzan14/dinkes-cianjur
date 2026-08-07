@@ -197,6 +197,7 @@
     }
     .mobile-toggle {
         display: block;
+        order: -1;
     }
     .emergency-floating-btn {
         bottom: 20px;
