@@ -15,10 +15,13 @@
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari judul galeri..." style="width: 220px;">
             <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 150px;">
                 <option value="">Semua Kategori</option>
-                <option value="PROGRAM"  {{ request('category') == 'PROGRAM'  ? 'selected' : '' }}>PROGRAM</option>
-                <option value="KEGIATAN" {{ request('category') == 'KEGIATAN' ? 'selected' : '' }}>KEGIATAN</option>
-                <option value="NASIONAL" {{ request('category') == 'NASIONAL' ? 'selected' : '' }}>NASIONAL</option>
+                @foreach($kategoris as $kat)
+                <option value="{{ $kat->nama }}" {{ request('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                @endforeach
             </select>
+            <a href="{{ route('admin.kategori.index', ['type' => 'galeri']) }}" class="btn btn-sm btn-outline-success">
+                <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola Kategori
+            </a>
             @if(request('search') || request('category'))
                 <a href="{{ route('admin.galeri.index') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
             @endif
@@ -55,7 +58,12 @@
                         </td>
                         <td class="font-weight-bold text-dark align-middle">{{ $galeri->title }}</td>
                         <td class="align-middle">
-                            <span class="badge" style="background:#E0F2FE;color:#0369A1;padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700;">
+                            @php
+                                $katData = $kategoris->firstWhere('nama', $galeri->category);
+                                $bgColor = $katData ? $katData->warna . '20' : '#E0F2FE';
+                                $textColor = $katData ? $katData->warna : '#0369A1';
+                            @endphp
+                            <span class="badge" style="background:{{ $bgColor }};color:{{ $textColor }};padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700;">
                                 {{ $galeri->category }}
                             </span>
                         </td>
@@ -120,9 +128,9 @@
                     <div class="form-group">
                         <label for="tambah_g_category">Kategori <span class="text-danger">*</span></label>
                         <select name="category" id="tambah_g_category" class="form-control" required>
-                            <option value="PROGRAM">PROGRAM</option>
-                            <option value="KEGIATAN">KEGIATAN</option>
-                            <option value="NASIONAL">NASIONAL</option>
+                            @foreach($kategoris as $kat)
+                            <option value="{{ $kat->nama }}" {{ old('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group mb-0">
@@ -165,9 +173,9 @@
                     <div class="form-group">
                         <label for="edit_g_category">Kategori <span class="text-danger">*</span></label>
                         <select name="category" id="edit_g_category" class="form-control" required>
-                            <option value="PROGRAM">PROGRAM</option>
-                            <option value="KEGIATAN">KEGIATAN</option>
-                            <option value="NASIONAL">NASIONAL</option>
+                            @foreach($kategoris as $kat)
+                            <option value="{{ $kat->nama }}">{{ $kat->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group mb-0">

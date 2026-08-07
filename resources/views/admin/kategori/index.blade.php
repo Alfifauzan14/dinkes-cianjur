@@ -72,6 +72,7 @@
                     @if($key === 'berita') <span class="material-icons" style="font-size:15px;">newspaper</span>
                     @elseif($key === 'program') <span class="material-icons" style="font-size:15px;">health_and_safety</span>
                     @elseif($key === 'regulasi') <span class="material-icons" style="font-size:15px;">gavel</span>
+                    @elseif($key === 'galeri') <span class="material-icons" style="font-size:15px;">photo_library</span>
                     @else <span class="material-icons" style="font-size:15px;">description</span>
                     @endif
                     {{ $label }}
