@@ -26,11 +26,11 @@
     <div class="col-12">
         <div class="card card-outline card-success">
             <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-                <span>
+                <span class="d-flex align-items-center" style="gap: 8px;">
                     <span class="material-icons text-success">explore</span>
-                    <span>Sebaran Puskesmas per Zonasi Wilayah</span>
+                    <span class="font-weight-bold card-title-label">Sebaran Puskesmas per Zonasi Wilayah</span>
                 </span>
-                <button type="button" class="btn btn-outline-success btn-sm" onclick="addSebaranRow()">
+                <button type="button" class="btn btn-outline-success btn-sm ml-auto" onclick="addSebaranRow()">
                     <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Wilayah
                 </button>
             </div>

@@ -283,8 +283,13 @@ html, body {
     }
     
     .profile-header {
-        padding: 40px 20px;
+        padding: 40px 0;
         text-align: left;
+    }
+
+    .profile-header-container {
+        padding: 0 16px;
+        box-sizing: border-box;
     }
     
     .profile-header-title {
@@ -297,34 +302,99 @@ html, body {
     }
     
     .profile-content {
-        padding: 40px 16px;
+        padding: 40px 0;
+    }
+
+    .profile-container {
+        padding: 0 16px;
+        box-sizing: border-box;
     }
     
     .visi-card-container {
+        width: 100%;
+        box-sizing: border-box;
         padding: 30px 16px;
     }
-    
-    .visi-title {
-        font-size: 24px;
-        letter-spacing: -0.5px;
+
+    .visi-badge {
+        font-size: 16px;
+        margin-bottom: 16px;
+        text-align: center;
     }
-    
+
+    .visi-title {
+        font-size: 22px;
+        letter-spacing: -0.5px;
+        line-height: 1.4;
+        width: 100%;
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    .visi-desc {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 28px;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
     .stats-cards-grid {
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
-    
+
     .stat-btn-card {
-        padding: 16px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 14px 16px;
+    }
+
+    .stat-btn-text {
+        font-size: 14px;
     }
 
     .misi-card-container {
+        width: 100%;
+        box-sizing: border-box;
         padding: 30px 16px;
+        margin-top: 32px;
+    }
+
+    .misi-badge {
+        font-size: 16px;
+        margin-bottom: 24px;
+        text-align: center;
     }
 
     .misi-two-col-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 24px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .misi-item-card {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 24px;
+        border: 1px solid #EAEAEA;
+        max-width: 100%;
+    }
+
+    .misi-item-title {
+        font-size: 17px;
+        margin-bottom: 4px;
+    }
+
+    .misi-item-desc {
+        font-size: 14px;
+        line-height: 1.6;
     }
 
 }
@@ -580,20 +650,20 @@ html, body {
 .struktur-header-wrap { text-align: left; margin-bottom: 24px; }
 .struktur-subtitle { display: block; color: #009966; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
 .struktur-title { font-size: 32px; font-weight: 800; color: #111827; margin: 0; letter-spacing: -0.5px; }
-.struktur-card-container { background: #FFFFFF; border: 1px solid #E2E8F0; padding: 32px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); margin-bottom: 24px; }
-.struktur-image-wrap { text-align: center; border-radius: 12px; background-color: #F8FAFC; padding: 20px; border: 1px dashed #CBD5E1; }
-.struktur-img-main { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.struktur-card-container { background: #FFFFFF; border: 1px solid #E2E8F0; padding: 32px; border-radius: 1px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); margin-bottom: 24px; }
+.struktur-image-wrap { text-align: center; border-radius: 3px; background-color: #F8FAFC; padding: 20px; border: 1px dashed #CBD5E1; }
+.struktur-img-main { max-width: 100%; height: auto; border-radius: 3px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
 .struktur-empty-wrap { padding: 80px 20px; color: #94A3B8; }
 .struktur-empty-icon { font-size: 80px; color: #E2E8F0; margin-bottom: 16px; }
 .struktur-empty-title { font-size: 18px; font-weight: 600; margin: 0 0 8px 0; color: #64748B; }
 .struktur-empty-desc { font-size: 14px; margin: 0; color: #94A3B8; }
-.struktur-bottom-actions { background: #FFFFFF; padding: 24px 32px; border-radius: 4px; border: 1px solid #F1F5F9; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); margin-bottom: 24px; }
+.struktur-bottom-actions { background: #FFFFFF; padding: 24px 32px; border-radius: 1px; border: 1px solid #F1F5F9; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); margin-bottom: 24px; }
 .struktur-info-text { text-align: center; margin-bottom: 24px; }
 .struktur-info-p { margin: 0; font-size: 14.5px; color: #475569; line-height: 1.7; }
 .struktur-info-strong { color: #009966; }
 .struktur-buttons { display: flex; gap: 16px; justify-content: center; }
-.struktur-btn-primary { display: inline-flex; align-items: center; justify-content: center; background-color: #00CC88; color: white; padding: 12px 24px; border-radius: 4px; font-size: 15px; font-weight: 700; text-decoration: none; transition: background-color 0.2s; }
-.struktur-btn-outline { display: inline-flex; align-items: center; justify-content: center; background-color: #FFFFFF; color: #00CC88; border: 1px solid #E2E8F0; padding: 12px 24px; border-radius: 4px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.struktur-btn-primary { display: inline-flex; align-items: center; justify-content: center; background-color: #00CC88; color: white; padding: 12px 24px; border-radius: 3px; font-size: 15px; font-weight: 700; text-decoration: none; transition: background-color 0.2s; }
+.struktur-btn-outline { display: inline-flex; align-items: center; justify-content: center; background-color: #FFFFFF; color: #00CC88; border: 1px solid #E2E8F0; padding: 12px 24px; border-radius: 3px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
 .struktur-btn-icon { font-size: 20px; margin-right: 8px; }
 
 /* ── Struktur Action Buttons ─────────────────────────────────── */
@@ -648,45 +718,100 @@ html, body {
     box-shadow: 0 4px 12px rgba(0, 153, 102, 0.15);
 }
 
-/* ── Struktur Section Responsive ──────────────────────────────── */
+/* ── Struktur Organisasi Responsive ──────────────────────────── */
 @media (max-width: 1024px) {
-    .struktur-section {
-        padding: 40px;
-    }
-
-    .struktur-title {
-        font-size: 36px;
-    }
-}
-
-@media (max-width: 768px) {
-    .struktur-section {
+    .struktur-card-container {
         padding: 24px;
     }
 
     .struktur-title {
         font-size: 28px;
     }
+}
 
-    .struktur-empty-state {
-        padding: 40px 20px;
-    }
-
-    .struktur-legend {
-        gap: 16px;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .struktur-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .struktur-btn {
+@media (max-width: 768px) {
+    .struktur-organisasi-section {
         width: 100%;
-        max-width: 300px;
+        box-sizing: border-box;
+    }
+
+    .struktur-header-wrap {
+        margin-bottom: 20px;
+    }
+
+    .struktur-subtitle {
+        font-size: 14px;
+    }
+
+    .struktur-title {
+        font-size: 24px;
+    }
+
+    .struktur-card-container {
+        padding: 16px;
+        border-radius: 1px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .struktur-image-wrap {
+        padding: 12px;
+        box-sizing: border-box;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .struktur-img-main {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .struktur-empty-wrap {
+        padding: 40px 16px;
+    }
+
+    .struktur-empty-icon {
+        font-size: 56px;
+    }
+
+    .struktur-empty-title {
+        font-size: 16px;
+    }
+
+    .struktur-empty-desc {
+        font-size: 13px;
+    }
+
+    .struktur-bottom-actions {
+        padding: 20px 16px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .struktur-info-p {
+        text-align: left;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .struktur-buttons {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .struktur-btn-primary,
+    .struktur-btn-outline {
+        width: 100%;
+        box-sizing: border-box;
         justify-content: center;
+        text-align: center;
+    }
+
+    .struktur-btn-icon {
+        font-size: 18px;
+        margin-right: 6px;
     }
 }
 

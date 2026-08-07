@@ -83,7 +83,11 @@
                 <!-- Content Article Details (Optional, only shows if populated) -->
                 @if($program->content)
                     <div class="prog-content-card">
-                        {!! $program->content !!}
+                        @if(Str::contains($program->content, ['<p>', '<h3>', '<ul>', '<div>', '<br>']))
+                            {!! $program->content !!}
+                        @else
+                            {!! nl2br(e($program->content)) !!}
+                        @endif
                     </div>
                 @endif
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Galeri;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -29,7 +30,9 @@ class GaleriController extends Controller
 
         $galeris = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return view('admin.galeri.index', compact('galeris'));
+        $kategoris = Kategori::ofType('galeri')->orderBy('nama')->get();
+
+        return view('admin.galeri.index', compact('galeris', 'kategoris'));
     }
 
     /**
@@ -37,7 +40,9 @@ class GaleriController extends Controller
      */
     public function create()
     {
-        return view('admin.galeri.create');
+        $kategoris = Kategori::ofType('galeri')->orderBy('nama')->get();
+
+        return view('admin.galeri.create', compact('kategoris'));
     }
 
     /**
@@ -76,7 +81,9 @@ class GaleriController extends Controller
      */
     public function edit(Galeri $galeri)
     {
-        return view('admin.galeri.edit', compact('galeri'));
+        $kategoris = Kategori::ofType('galeri')->orderBy('nama')->get();
+
+        return view('admin.galeri.edit', compact('galeri', 'kategoris'));
     }
 
     /**

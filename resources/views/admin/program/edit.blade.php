@@ -27,12 +27,15 @@
             
             <div class="card card-success card-outline card-outline-tabs shadow-sm">
                 <div class="card-header p-0 border-bottom-0">
-                    <div class="d-flex justify-content-between align-items-center px-4 pt-3 pb-2">
-                        <h5 class="m-0" style="font-size: 18px; font-weight: 700; color: #004F3B;">Formulir Edit Program</h5>
-                        <a href="{{ route('admin.program-kesehatan.index') }}" class="btn btn-outline-secondary" style="padding: 6px 16px; font-weight: 500; border: 1px solid #CBD5E1 !important; border-radius: 4px; color: #475569;">
-                            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">arrow_back</span> Kembali
-                        </a>
-                    </div>
+                <div class="d-flex justify-content-between align-items-center px-4 pt-3 pb-2">
+                    <span class="d-flex align-items-center" style="gap: 8px;">
+                        <span class="material-icons text-success">health_and_safety</span>
+                        <span class="font-weight-bold card-title-label">Formulir Edit Program Kesehatan</span>
+                    </span>
+                    <a href="{{ route('admin.program-kesehatan.index') }}" class="btn btn-sm btn-outline-secondary">
+                        <span class="material-icons" style="font-size: 16px; vertical-align: middle;">arrow_back</span> Kembali
+                    </a>
+                </div>
                     <ul class="nav nav-tabs px-4" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="pill" href="#pane-dasar" role="tab">
@@ -294,33 +297,16 @@
                         {{-- === SECTION 4: Artikel Edukasi === --}}
                         <div class="tab-pane fade" id="pane-edukasi" role="tabpanel">
                             <div class="mb-4">
-                                <h6 class="font-weight-bold mb-1" style="font-size: 15px;">Detail Artikel Edukasi</h6>
-                                <p class="text-muted mb-0" style="font-size: 13px;">Konten HTML bebas yang akan ditampilkan di bagian bawah halaman program.</p>
+                                <h6 class="font-weight-bold mb-1" style="font-size: 15px;">Detail Artikel Edukasi / Konten Program</h6>
+                                <p class="text-muted mb-0" style="font-size: 13px;">Tuliskan deskripsi atau artikel lengkap mengenai program kesehatan ini (cukup tuliskan teks/paragraf biasa, tidak perlu kode HTML).</p>
                             </div>
                             
                             <div class="form-group">
                                 <textarea name="content" id="content" rows="14"
-                                    class="form-control @error('content') is-invalid @enderror"
-                                    placeholder="Ketik konten HTML di sini..."
-                                    style="font-family: monospace; font-size: 13.5px; background: #fafafa;">{{ old('content', $program->content) }}</textarea>
+                                     class="form-control @error('content') is-invalid @enderror"
+                                     placeholder="Tuliskan artikel atau deskripsi program di sini..."
+                                     style="font-size: 14px; line-height: 1.6;">{{ old('content', $program->content) }}</textarea>
                                 @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                            
-                            <div class="bg-light p-3 rounded border">
-                                <p class="mb-2 font-weight-bold" style="font-size: 13px; color: #475569;">Bantuan Format HTML (Klik untuk memasukkan):</p>
-                                <div>
-                                    @foreach([
-                                        ["<h3 class='st-content-title'>Judul Topik</h3>", 'Sub Judul'],
-                                        ["<p class='st-content-text'>Tulis paragraf disini...</p>", 'Paragraf'],
-                                        ["<ul class='st-content-list'>\n  <li>Poin 1</li>\n  <li>Poin 2</li>\n</ul>", 'Daftar Bullet'],
-                                        ["<strong>teks tebal</strong>", 'Teks Tebal'],
-                                        ["<br>", 'Garis Baru'],
-                                    ] as $tag)
-                                    <button type="button" class="btn btn-sm btn-outline-secondary mb-1 mr-1" style="font-size:12px;" onclick="insertTag('content', {{ json_encode($tag[0]) }})">
-                                        {{ $tag[1] }}
-                                    </button>
-                                    @endforeach
-                                </div>
                             </div>
                         </div>
                     </div>

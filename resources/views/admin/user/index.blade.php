@@ -8,7 +8,7 @@
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
             <span class="material-icons text-success">people</span>
-            <span class="font-weight-bold" style="color: #1E293B;">Daftar Pengguna</span>
+            <span class="font-weight-bold card-title-label">Daftar Pengguna</span>
         </span>
         <div class="d-flex" style="gap: 8px;">
             <a href="{{ route('admin.users.create') }}" class="btn btn-sm btn-success">
@@ -51,33 +51,35 @@
                                 @endif
                             </td>
                             <td class="text-center align-middle" style="white-space:nowrap;">
-                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-action-edit" title="Edit">
-                                    <span class="material-icons" style="font-size:16px;">edit</span>
-                                </a>
-                                <button type="button" class="btn btn-sm btn-action-edit" title="Reset Password" data-toggle="modal" data-target="#modalResetPassword{{ $user->id }}">
-                                    <span class="material-icons" style="font-size:16px;">lock_reset</span>
-                                </button>
-                                @if($user->is_active)
-                                    <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" class="d-inline">
-                                        @csrf @method('POST')
-                                        <button type="submit" class="btn btn-sm btn-warning" title="Nonaktifkan" onclick="return confirm('Nonaktifkan {{ $user->name }}?')">
-                                            <span class="material-icons" style="font-size:16px;">block</span>
-                                        </button>
-                                    </form>
-                                @else
-                                    <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" class="d-inline">
-                                        @csrf @method('POST')
-                                        <button type="submit" class="btn btn-sm btn-success" title="Aktifkan" onclick="return confirm('Aktifkan {{ $user->name }}?')">
-                                            <span class="material-icons" style="font-size:16px;">check_circle</span>
-                                        </button>
-                                    </form>
-                                @endif
-                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus pengguna {{ $user->name }}? Tindakan ini tidak dapat dibatalkan.')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-action-delete" title="Hapus">
-                                        <span class="material-icons" style="font-size:16px;">delete</span>
+                                <div class="btn-action-group" style="justify-content: center;">
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn-action btn-action-edit" title="Edit">
+                                        <span class="material-icons">edit</span>
+                                    </a>
+                                    <button type="button" class="btn-action btn-action-view" title="Reset Password" data-toggle="modal" data-target="#modalResetPassword{{ $user->id }}">
+                                        <span class="material-icons">lock_reset</span>
                                     </button>
-                                </form>
+                                    @if($user->is_active)
+                                        <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" class="d-inline">
+                                            @csrf @method('POST')
+                                            <button type="submit" class="btn-action btn-action-warning" title="Nonaktifkan" onclick="return confirm('Nonaktifkan {{ $user->name }}?')">
+                                                <span class="material-icons">block</span>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" class="d-inline">
+                                            @csrf @method('POST')
+                                            <button type="submit" class="btn-action btn-action-success" title="Aktifkan" onclick="return confirm('Aktifkan {{ $user->name }}?')">
+                                                <span class="material-icons">check_circle</span>
+                                            </button>
+                                        </form>
+                                    @endif
+                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus pengguna {{ $user->name }}? Tindakan ini tidak dapat dibatalkan.')">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="btn-action btn-action-delete" title="Hapus">
+                                            <span class="material-icons">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
 

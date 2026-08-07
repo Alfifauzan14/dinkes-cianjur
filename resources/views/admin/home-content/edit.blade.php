@@ -12,7 +12,7 @@
             <span class="material-icons text-warning" style="font-size:16px;vertical-align:middle;">edit</span>
             Formulir Edit Info Card
         </span>
-        <a href="{{ route('admin.home-content.index') }}" class="btn btn-sm btn-outline-secondary">
+        <a href="{{ route('admin.home-content.index') }}" class="btn btn-sm btn-outline-secondary ml-auto">
             <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
         </a>
     </div>
@@ -40,9 +40,9 @@
 
             <div class="form-group">
                 <label>Pilih Ikon</label>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div class="icon-picker-container">
                     @foreach($icons as $iconName)
-                        <label class="icon-option" style="cursor: pointer; border: 2px solid #E5E7EB; border-radius: 6px; padding: 10px; display: inline-flex; flex-direction: column; align-items: center; gap: 6px; width: 90px; background: #FFFFFF;">
+                        <label class="icon-option {{ old('icon_name', $card->icon_name) === $iconName ? 'selected' : '' }}">
                             <input
                                 type="radio"
                                 name="icon_name"
@@ -54,7 +54,7 @@
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 @include('admin.home-content.icon', ['icon' => $iconName])
                             </svg>
-                            <span style="font-size: 12px; color: #374151; text-transform: capitalize;">{{ $iconName }}</span>
+                            <span class="icon-label-text">{{ $iconName }}</span>
                         </label>
                     @endforeach
                 </div>
@@ -76,10 +76,59 @@
 
 @section('scripts')
 <style>
+    .icon-picker-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 12px;
+        max-height: 260px;
+        overflow-y: auto;
+        padding: 12px;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        background: #F8FAFC;
+    }
+    .icon-option {
+        cursor: pointer;
+        border: 2px solid #E2E8F0;
+        border-radius: 8px;
+        padding: 12px 8px;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        background: #FFFFFF;
+        text-align: center;
+        min-height: 76px;
+        transition: all 0.15s ease-in-out;
+        position: relative;
+        margin-bottom: 0 !important;
+    }
+    .icon-option:hover {
+        border-color: #009966;
+        background: #F0FDF4;
+    }
     .icon-option.selected,
     .icon-option:has(.icon-radio:checked) {
         border-color: #009966 !important;
-        background: #E6F7F0 !important;
+        background-color: #E6F7F0 !important;
+        box-shadow: 0 0 0 2px rgba(0, 153, 102, 0.15) !important;
+    }
+    .icon-option.selected .icon-label-text,
+    .icon-option:has(.icon-radio:checked) .icon-label-text {
+        color: #004F3B !important;
+        font-weight: 700 !important;
+    }
+    .icon-label-text {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: #475569;
+        text-transform: capitalize;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        line-height: 1.2;
     }
 </style>
 <script>
@@ -87,14 +136,10 @@ document.querySelectorAll('.icon-option').forEach(function(option) {
     option.addEventListener('click', function() {
         document.querySelectorAll('.icon-option').forEach(function(opt) {
             opt.classList.remove('selected');
-            opt.style.borderColor = '#E5E7EB';
-            opt.style.background = '#FFFFFF';
         });
         this.classList.add('selected');
-        this.style.borderColor = '#009966';
-        this.style.background = '#E6F7F0';
         var radio = this.querySelector('.icon-radio');
-        radio.checked = true;
+        if (radio) radio.checked = true;
     });
 });
 </script>

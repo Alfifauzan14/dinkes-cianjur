@@ -33,9 +33,9 @@
             <div class="form-group">
                 <label for="category">Kategori <span class="text-danger">*</span></label>
                 <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" style="max-width: 300px;" required>
-                    <option value="PROGRAM" {{ old('category', $galeri->category) == 'PROGRAM' ? 'selected' : '' }}>PROGRAM</option>
-                    <option value="KEGIATAN" {{ old('category', $galeri->category) == 'KEGIATAN' ? 'selected' : '' }}>KEGIATAN</option>
-                    <option value="NASIONAL" {{ old('category', $galeri->category) == 'NASIONAL' ? 'selected' : '' }}>NASIONAL</option>
+                    @foreach($kategoris as $kat)
+                    <option value="{{ $kat->nama }}" {{ old('category', $galeri->category) == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                    @endforeach
                 </select>
                 @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>

@@ -15,6 +15,7 @@ class KategoriController extends Controller
         'program' => 'Program Kesehatan',
         'regulasi' => 'Regulasi',
         'laporan' => 'Laporan',
+        'galeri' => 'Galeri',
     ];
 
     public function index(): View
@@ -31,7 +32,7 @@ class KategoriController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:100',
-            'type' => 'required|in:berita,program,regulasi,laporan',
+            'type' => 'required|in:berita,program,regulasi,laporan,galeri',
             'warna' => 'required|string|max:20',
         ]);
 
@@ -45,7 +46,7 @@ class KategoriController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:100',
-            'type' => 'required|in:berita,program,regulasi,laporan',
+            'type' => 'required|in:berita,program,regulasi,laporan,galeri',
             'warna' => 'required|string|max:20',
         ]);
 

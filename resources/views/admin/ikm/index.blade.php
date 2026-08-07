@@ -78,7 +78,7 @@
             <div class="card-header" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
                 <span class="d-flex align-items-center" style="gap: 8px;">
                     <span class="material-icons text-success">rate_review</span>
-                    <span class="font-weight-bold" style="color: #1E293B;">Daftar Masukan IKM</span>
+                    <span class="font-weight-bold card-title-label">Daftar Masukan IKM</span>
                 </span>
             </div>
             <div class="card-body">

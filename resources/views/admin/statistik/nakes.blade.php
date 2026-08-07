@@ -26,11 +26,11 @@
     <div class="col-12">
         <div class="card card-outline card-success">
             <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-                <span>
+                <span class="d-flex align-items-center" style="gap: 8px;">
                     <span class="material-icons text-success">people</span>
-                    <span>Distribusi Profesi Tenaga Kesehatan (Nakes)</span>
+                    <span class="font-weight-bold card-title-label">Distribusi Profesi Tenaga Kesehatan (Nakes)</span>
                 </span>
-                <button type="button" class="btn btn-outline-success btn-sm" onclick="addNakesRow()">
+                <button type="button" class="btn btn-outline-success btn-sm ml-auto" onclick="addNakesRow()">
                     <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Profesi
                 </button>
             </div>

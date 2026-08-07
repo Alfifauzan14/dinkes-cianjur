@@ -7,30 +7,40 @@
 <style>
     .icon-picker-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 10px;
-        margin-top: 4px;
-    }
-    .icon-picker-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 12px;
+        max-height: 260px;
+        overflow-y: auto;
         padding: 12px;
         border: 1px solid #E2E8F0;
-        border-radius: 6px;
+        border-radius: 8px;
+        background: #F8FAFC;
+    }
+    .icon-picker-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        padding: 12px 8px;
+        border: 2px solid #E2E8F0;
+        border-radius: 8px;
         cursor: pointer;
         background: #FFFFFF;
         text-align: center;
-        transition: all 0.15s ease;
+        min-height: 80px;
+        transition: all 0.15s ease-in-out;
+        margin-bottom: 0 !important;
     }
     .icon-picker-item:hover {
         border-color: #009966;
+        background: #F0FDF4;
     }
     .icon-picker-item.selected,
     .icon-picker-item:has(input:checked) {
-        border-color: #009966;
-        background-color: #E6F7F0;
+        border-color: #009966 !important;
+        background-color: #E6F7F0 !important;
+        box-shadow: 0 0 0 2px rgba(0, 153, 102, 0.15) !important;
     }
     .icon-circle {
         width: 40px;
@@ -98,10 +108,10 @@
 
 
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-        <span class="font-weight-bold text-muted" style="font-size:13px;">
-            <span class="material-icons text-success" style="font-size:16px;vertical-align:middle;">science</span>
-            Formulir Layanan Labkesda Baru
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">science</span>
+            <span class="font-weight-bold card-title-label">Tambah Layanan Labkesda Baru</span>
         </span>
         <a href="{{ route('admin.labkesda.index') }}" class="btn btn-sm btn-outline-secondary">
             <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali

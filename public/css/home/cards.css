@@ -71,12 +71,12 @@
 @media (max-width: 768px) {
     .info-cards-section {
         margin-top: -40px;
-        padding: 0 20px;
+        padding: 0 16px;
     }
 
     .info-cards-container {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 16px;
     }
 
     .info-card {
@@ -84,7 +84,7 @@
         flex-direction: row;
         align-items: center;
         gap: 16px;
-        padding: 16px 20px;
+        padding: 18px 20px;
     }
 
     .info-card-icon {
@@ -92,4 +92,33 @@
         flex-shrink: 0;
     }
 
+    .info-card-title {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    .info-card-desc {
+        font-size: 14px;
+    }
+
+}
+
+@media (max-width: 400px) {
+    .info-cards-section {
+        padding: 0 12px;
+    }
+
+    .info-cards-container {
+        gap: 14px;
+    }
+
+    .info-card {
+        padding: 15px 16px;
+        gap: 12px;
+    }
+
+    .info-card-icon svg {
+        width: 18px;
+        height: 18px;
+    }
 }

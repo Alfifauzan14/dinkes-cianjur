@@ -33,11 +33,12 @@
                         <small>Administrator Dinkes Cianjur</small>
                     </p>
                 </li>
-                <li class="user-footer">
-                    <a href="{{ route('admin.profil.edit') }}" class="btn btn-default btn-flat">Edit Profil</a>
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline float-right">
+                <li class="user-footer d-flex justify-content-center">
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-flat">Logout</button>
+                        <button type="submit" class="btn btn-danger btn-flat">
+                            <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                        </button>
                     </form>
                 </li>
             </ul>
