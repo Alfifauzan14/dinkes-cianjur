@@ -56,14 +56,21 @@
                             <input type="text" id="ppid-search-input" class="search-input-field" placeholder="Cari Informasi....">
                         </div>
 
-                        <!-- Category select dropdown -->
+                        <!-- Category custom dropdown -->
                         <div class="category-select-wrap">
-                            <select id="ppid-category-select" class="category-select-field">
-                                <option value="semua">Semua Kategori</option>
-                                <option value="berkala">Informasi Berkala</option>
-                                <option value="serta-merta">Informasi Serta Merta</option>
-                                <option value="setiap-saat">Informasi Setiap Saat</option>
-                            </select>
+                            <input type="hidden" id="ppid-category-select" value="semua">
+                            <div class="ppid-custom-select" id="ppidCategoryDropdown">
+                                <button type="button" class="ppid-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
+                                    <span class="ppid-custom-select-label">Semua Kategori</span>
+                                    <svg class="ppid-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                                <ul class="ppid-custom-select-list" role="listbox">
+                                    <li class="ppid-custom-option selected" data-value="semua" role="option">Semua Kategori</li>
+                                    <li class="ppid-custom-option" data-value="berkala" role="option">Informasi Berkala</li>
+                                    <li class="ppid-custom-option" data-value="serta-merta" role="option">Informasi Serta Merta</li>
+                                    <li class="ppid-custom-option" data-value="setiap-saat" role="option">Informasi Setiap Saat</li>
+                                </ul>
+                            </div>
                         </div>
 
                         <!-- Button -->
@@ -290,6 +297,49 @@
             }
         }
 
+        // Custom Select Logic (PPID Category)
+        const ppidDropdown = document.getElementById('ppidCategoryDropdown');
+        if (ppidDropdown) {
+            const btn = ppidDropdown.querySelector('.ppid-custom-select-btn');
+            const list = ppidDropdown.querySelector('.ppid-custom-select-list');
+            const label = ppidDropdown.querySelector('.ppid-custom-select-label');
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = ppidDropdown.classList.contains('open');
+                ppidDropdown.classList.toggle('open', !isOpen);
+                btn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+            });
+
+            list.querySelectorAll('.ppid-custom-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const val = opt.dataset.value;
+                    categorySelect.value = val;
+                    label.textContent = opt.textContent.trim();
+
+                    list.querySelectorAll('.ppid-custom-option').forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+
+                    ppidDropdown.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+
+                    filterItems();
+                });
+            });
+
+            document.addEventListener('click', () => {
+                ppidDropdown.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    ppidDropdown.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
         // Trigger filters
         if (searchForm) {
             searchForm.addEventListener('submit', (e) => {
@@ -299,9 +349,6 @@
         }
         if (searchInput) {
             searchInput.addEventListener('input', filterItems);
-        }
-        if (categorySelect) {
-            categorySelect.addEventListener('change', filterItems);
         }
 
         window.addEventListener('resize', () => {
