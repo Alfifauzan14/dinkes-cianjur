@@ -227,7 +227,7 @@ document.querySelectorAll('.btn-edit-layanan').forEach(function(btn) {
         document.getElementById('edit_l_type').value = this.dataset.type;
         document.getElementById('edit_l_icon').value = this.dataset.icon;
         document.getElementById('edit_l_link').value = this.dataset.link;
-        document.getElementById('form-edit-layanan').action = '{{ url("admin/layanan") }}/' + id;
+        document.getElementById('form-edit-layanan').action = '{{ route('admin.layanan.update', ['layanan_terpadu' => '__ID__']) }}'.replace('__ID__', id);
     });
 });
 </script>

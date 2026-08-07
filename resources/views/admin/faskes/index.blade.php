@@ -170,10 +170,10 @@
                                     <a href="{{ route('admin.faskes.edit', $item->id) }}" class="btn-action btn-action-edit" title="Edit">
                                         <span class="material-icons">edit</span>
                                     </a>
-                                    <form action="{{ route('admin.faskes.destroy', $item->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $item->name }}?')">
+                                    <form action="{{ route('admin.faskes.destroy', $item->id) }}" method="POST" id="del-faskes-{{ $item->id }}" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-action btn-action-delete" title="Hapus">
+                                        <button type="button" class="btn-action btn-action-delete" title="Hapus" onclick="confirmDelete('del-faskes-{{ $item->id }}')">
                                             <span class="material-icons">delete</span>
                                         </button>
                                     </form>

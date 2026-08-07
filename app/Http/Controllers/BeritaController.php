@@ -77,7 +77,7 @@ class BeritaController extends Controller
         }
 
         $beritas = $beritasQuery->paginate(6)->withQueryString();
-        
+
         $kategoris = Kategori::ofType('berita')->get();
 
         return view('berita', compact('featuredBerita', 'beritas', 'recentBeritas', 'kategoris'));

@@ -80,10 +80,10 @@
                                     <a href="{{ route('admin.labkesda.edit', $category->id) }}" class="btn-action btn-action-edit" title="Edit">
                                         <span class="material-icons">edit</span>
                                     </a>
-                                    <form action="{{ route('admin.labkesda.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus layanan ini beserta seluruh itemnya?');" style="margin: 0; display: inline;">
+                                    <form action="{{ route('admin.labkesda.destroy', $category->id) }}" method="POST" id="del-labkesda-{{ $category->id }}" style="margin: 0; display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-action btn-action-delete" title="Hapus">
+                                        <button type="button" class="btn-action btn-action-delete" title="Hapus" onclick="confirmDelete('del-labkesda-{{ $category->id }}')">
                                             <span class="material-icons">delete</span>
                                         </button>
                                     </form>

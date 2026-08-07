@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
             'is_admin' => 'boolean',
         ]);
 
@@ -85,7 +85,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return back()->with('success', 'Password untuk ' . $user->name . ' berhasil direset.');
+        return back()->with('success', 'Password untuk '.$user->name.' berhasil direset.');
     }
 
     public function toggleActive(User $user)
@@ -104,7 +104,7 @@ class UserController extends Controller
 
         $status = $user->is_active ? 'diaktifkan' : 'dinonaktifkan';
 
-        return back()->with('success', 'Pengguna ' . $user->name . ' berhasil ' . $status . '.');
+        return back()->with('success', 'Pengguna '.$user->name.' berhasil '.$status.'.');
     }
 
     public function destroy(User $user)
