@@ -170,6 +170,7 @@
                                 <p>Tren Stunting</p>
                             </a>
                         </li>
+                        {{-- HIDDEN: Distribusi Nakes
                         <li class="nav-item">
                             <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'nakes']) }}"
                                class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'nakes' ? 'active' : '' }}">
@@ -177,6 +178,9 @@
                                 <p>Distribusi Nakes</p>
                             </a>
                         </li>
+                        --}}
+
+                        {{-- HIDDEN: Sebaran Puskesmas
                         <li class="nav-item">
                             <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'sebaran']) }}"
                                class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'sebaran' ? 'active' : '' }}">
@@ -184,6 +188,7 @@
                                 <p>Sebaran Puskesmas</p>
                             </a>
                         </li>
+                        --}}
                     </ul>
                 </li>
 

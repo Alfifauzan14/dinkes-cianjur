@@ -1,7 +1,13 @@
 <link rel="stylesheet" href="{{ asset('css/Stunting/stunting.css') }}?v={{ time() }}">
 
+@php
+    $latestRecord = \App\Models\StuntingRecord::orderBy('year', 'desc')->first();
+    $prevRecord = $latestRecord ? \App\Models\StuntingRecord::where('year', '<', $latestRecord->year)->orderBy('year', 'desc')->first() : null;
+    $latestChange = $latestRecord && $prevRecord ? \App\Models\StuntingRecord::calculateRate($latestRecord->balita_stunting, $prevRecord->balita_stunting) : null;
+    $totalYears = \App\Models\StuntingRecord::count();
+@endphp
+
 <div class="st-page-wrapper">
-    <!-- Header Section -->
     <header class="st-header">
         <div class="st-header-container">
             <h1 class="st-header-title">{{ \App\Models\Setting::get('page_stunting_title', 'Cianjur Bebas Stunting') }}</h1>
@@ -9,33 +15,36 @@
         </div>
     </header>
 
-    <!-- Main Content Section -->
     <main class="st-content">
         <div class="st-container">
 
-            <!-- Data Stunting Section -->
             <div class="st-category-section">
                 <div class="st-title-section">
                     <h2 class="st-main-title">Data Stunting Terkini</h2>
-                    <p class="st-main-subtitle">Angka prevalensi stunting di Kabupaten Cianjur berdasarkan data terbaru.</p>
+                    <p class="st-main-subtitle">Jumlah balita stunting di Kabupaten Cianjur berdasarkan data terbaru.</p>
                 </div>
                 <div class="st-info-grid">
                     <div class="st-info-card">
-                        <p class="st-info-number">12.5%</p>
-                        <p class="st-info-label">Prevalensi Stunting</p>
+                        <p class="st-info-number">{{ $latestRecord ? number_format($latestRecord->balita_stunting) : '—' }}</p>
+                        <p class="st-info-label">Balita Stunting ({{ $latestRecord ? $latestRecord->year : '—' }})</p>
                     </div>
                     <div class="st-info-card">
-                        <p class="st-info-number">3,200</p>
-                        <p class="st-info-label">Balita Terpantau</p>
+                        @if($latestChange !== null)
+                            <p class="st-info-number" style="color: {{ $latestChange < 0 ? '#16A34A' : '#DC2626' }}">
+                                {{ $latestChange > 0 ? '+' : '' }}{{ $latestChange }}%
+                            </p>
+                        @else
+                            <p class="st-info-number">—</p>
+                        @endif
+                        <p class="st-info-label">Change YoY</p>
                     </div>
                     <div class="st-info-card">
-                        <p class="st-info-number">2,800</p>
-                        <p class="st-info-label">Keluarga Penerima Manfaat</p>
+                        <p class="st-info-number">{{ $totalYears }}</p>
+                        <p class="st-info-label">Tahun Data</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Program Intervensi -->
             <div class="st-category-section">
                 <div class="st-title-section">
                     <h2 class="st-main-title">Program Intervensi</h2>
@@ -68,7 +77,6 @@
                 </div>
             </div>
 
-            <!-- Content Section -->
             <div class="st-content-card">
                 <h3 class="st-content-title">Apa itu Stunting?</h3>
                 <p class="st-content-text">Stunting adalah kondisi gagal tumbuh pada anak balita (bayi di bawah lima tahun) akibat kekurangan gizi kronis sehingga anak terlalu pendek untuk usianya. Kekurangan gizi terjadi sejak bayi dalam kandungan hingga awal kehidupan anak (1000 Hari Pertama Kehidupan).</p>

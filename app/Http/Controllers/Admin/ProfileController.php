@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faskes;
+use App\Models\Kecamatan;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -98,7 +100,10 @@ class ProfileController extends Controller
             $section = 'sambutan';
         }
 
-        return view('admin.profil.'.$section, compact('profile'));
+        $puskesmasCount = Faskes::where('type', 'Puskesmas')->count();
+        $kecamatanCount = Kecamatan::count();
+
+        return view('admin.profil.'.$section, compact('profile', 'puskesmasCount', 'kecamatanCount'));
     }
 
     /**

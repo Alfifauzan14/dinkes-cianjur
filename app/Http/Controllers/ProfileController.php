@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faskes;
+use App\Models\Kecamatan;
 use App\Models\Profile;
 use Illuminate\View\View;
 
@@ -23,8 +25,10 @@ class ProfileController extends Controller
     public function visiMisi(): View
     {
         $profile = Profile::first();
+        $puskesmasCount = Faskes::where('type', 'Puskesmas')->count();
+        $kecamatanCount = Kecamatan::count();
 
-        return view('visi-misi', compact('profile'));
+        return view('visi-misi', compact('profile', 'puskesmasCount', 'kecamatanCount'));
     }
 
     /**

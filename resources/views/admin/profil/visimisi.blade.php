@@ -83,19 +83,21 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="stat_1_text">Statistik 1 (Kiri) <span class="text-danger">*</span></label>
-                            <input type="text" name="stat_1_text" id="stat_1_text" 
-                                value="{{ old('stat_1_text', $profile->stat_1_text) }}" 
-                                class="form-control @error('stat_1_text') is-invalid @enderror" required>
-                            @error('stat_1_text') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                            <input type="hidden" name="stat_1_text" value="{{ $puskesmasCount }} Puskesmas">
+                            <div class="form-control bg-light" style="cursor: default;">
+                                <span class="material-icons text-success" style="font-size: 18px; vertical-align: middle; margin-right: 6px;">favorite</span>
+                                {{ $puskesmasCount }} Puskesmas
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="stat_2_text">Statistik 2 (Kanan) <span class="text-danger">*</span></label>
-                            <input type="text" name="stat_2_text" id="stat_2_text" 
-                                value="{{ old('stat_2_text', $profile->stat_2_text) }}" 
-                                class="form-control @error('stat_2_text') is-invalid @enderror" required>
-                            @error('stat_2_text') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                            <input type="hidden" name="stat_2_text" value="{{ $kecamatanCount }} Kecamatan">
+                            <div class="form-control bg-light" style="cursor: default;">
+                                <span class="material-icons text-success" style="font-size: 18px; vertical-align: middle; margin-right: 6px;">place</span>
+                                {{ $kecamatanCount }} Kecamatan
+                            </div>
                         </div>
                     </div>
                 </div>

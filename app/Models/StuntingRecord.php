@@ -13,29 +13,24 @@ class StuntingRecord extends Model
         'year',
         'rate',
         'is_highlighted',
-        'total_balita',
         'balita_stunting',
-        'wilayah_terendah',
-        'wilayah_tertinggi',
-        'catatan',
     ];
 
     protected $casts = [
         'is_highlighted' => 'boolean',
         'rate' => 'float',
-        'total_balita' => 'integer',
         'balita_stunting' => 'integer',
     ];
 
     /**
-     * Calculate prevalence rate from raw data.
+     * Calculate year-over-year change rate.
      */
-    public static function calculateRate(int $totalBalita, int $balitaStunting): float
+    public static function calculateRate(?int $current, ?int $previous): float
     {
-        if ($totalBalita === 0) {
+        if ($previous === 0 || $previous === null || $current === null) {
             return 0.0;
         }
 
-        return round(($balitaStunting / $totalBalita) * 100, 1);
+        return round(($current - $previous) / $previous * 100, 1);
     }
 }
