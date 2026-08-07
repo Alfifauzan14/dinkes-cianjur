@@ -51,10 +51,10 @@
 
 @section('content')
 {{-- Header row --}}
-<div class="d-flex align-items-center justify-content-between mb-4">
+<div class="card-header-actions mb-4 d-flex align-items-center justify-content-between">
     <div>
-        <h2 class="mb-0" style="font-size:18px;font-weight:700;color:var(--text-primary);">Kategori</h2>
-        <p class="mb-0 mt-1" style="font-size:13px;color:var(--text-secondary);">Kelola kategori untuk Berita, Program Kesehatan, Regulasi, dan Laporan.</p>
+        <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Kategori</div>
+        <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola kategori untuk Berita, Program Kesehatan, Regulasi, dan Laporan.</div>
     </div>
     <button class="btn btn-success" data-toggle="modal" data-target="#modalTambahKategori">
         <span class="material-icons" style="font-size:17px;">add</span> Tambah Kategori
