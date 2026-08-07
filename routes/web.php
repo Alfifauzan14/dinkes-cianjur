@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\RegulasiController;
 use App\Http\Controllers\Admin\SettingFooterController;
 use App\Http\Controllers\Admin\StatistikController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
@@ -268,7 +269,7 @@ Route::put('/admin/kategori/{kategori}', [KategoriController::class, 'update'])-
 Route::delete('/admin/kategori/{kategori}', [KategoriController::class, 'destroy'])->middleware('auth')->name('admin.kategori.destroy');
 
 /* --- Admin Manajemen Pengguna Routes --- */
-Route::resource('/admin/users', App\Http\Controllers\Admin\UserController::class, [
+Route::resource('/admin/users', UserController::class, [
     'names' => [
         'index' => 'admin.users.index',
         'create' => 'admin.users.create',
@@ -279,5 +280,5 @@ Route::resource('/admin/users', App\Http\Controllers\Admin\UserController::class
     ],
 ])->middleware('auth');
 
-Route::post('/admin/users/{user}/reset-password', [App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->middleware('auth')->name('admin.users.reset-password');
-Route::post('/admin/users/{user}/toggle-active', [App\Http\Controllers\Admin\UserController::class, 'toggleActive'])->middleware('auth')->name('admin.users.toggle-active');
+Route::post('/admin/users/{user}/reset-password', [UserController::class, 'resetPassword'])->middleware('auth')->name('admin.users.reset-password');
+Route::post('/admin/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->middleware('auth')->name('admin.users.toggle-active');
