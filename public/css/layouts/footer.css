@@ -260,8 +260,8 @@
     }
 
     .footer-brand {
-        text-align: center;
-        align-items: center;
+        text-align: left;
+        align-items: flex-start;
     }
 
     .footer-logo-img {
@@ -271,15 +271,14 @@
 
     .footer-tagline {
         margin-top: 0;
-        text-align: center;
+        text-align: left;
     }
 
     .footer-emergency-btn {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-        margin: 0 auto;
+        display: inline-flex;
+        width: auto;
+        justify-content: flex-start;
+        text-align: left;
     }
 
     .footer-social-icons {
