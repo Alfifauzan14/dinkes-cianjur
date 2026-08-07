@@ -282,11 +282,11 @@
     }
 
     .footer-social-icons {
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .footer-social-desc {
-        text-align: center;
+        text-align: left;
     }
 
     .footer-copyright {
