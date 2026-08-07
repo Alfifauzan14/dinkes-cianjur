@@ -42,23 +42,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    @media (max-width: 768px) {
-        .struktur-bottom-actions {
-            flex-direction: column;
-            align-items: stretch;
-            text-align: center;
-        }
-        .struktur-buttons {
-            justify-content: center;
-        }
-    }
-    .btn-download:hover {
-        background-color: #00B377 !important;
-    }
-    .btn-print:hover {
-        background-color: #F8FAFC !important;
-        border-color: #00CC88 !important;
-    }
-</style>
