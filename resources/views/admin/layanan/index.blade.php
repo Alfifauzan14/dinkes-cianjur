@@ -2,60 +2,41 @@
 @section('title', 'Kelola Layanan Terpadu')
 @section('header_title', 'Kelola Layanan Terpadu')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/labkesda.css') }}?v={{ time() }}">
+@endsection
+
 @section('content')
-<div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-        <span class="d-flex align-items-center" style="gap: 8px;">
-            <span class="material-icons text-success">home_work</span>
-            <span class="font-weight-bold" style="color: #1E293B;">Kelola Layanan Terpadu</span>
-        </span>
-        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahLayanan">
-            <span class="material-icons" style="font-size:16px;">add</span> Tambah Layanan
-        </button>
-    </div>
+<div class="berita-admin-wrapper">
+    <div class="admin-card">
+        <div class="card-header-actions">
+            <div>
+                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Layanan Terpadu</div>
+                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola tautan dan akses portal layanan terpadu.</div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button type="button" class="btn-admin btn-admin-primary" data-toggle="modal" data-target="#modalTambahLayanan">
+                    <span class="material-icons" style="font-size:18px;">add</span>
+                    <span>Tambah Layanan</span>
+                </button>
+            </div>
+        </div>
 
-    {{-- Tabs Filter Segmen --}}
-    <div class="px-4 pt-3 pb-0 bg-white" style="border-bottom: 1px solid #E2E8F0;">
-        <ul class="nav nav-tabs border-0" id="layanan-type-tabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link {{ request('type', '') === '' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type', '') === '' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index') }}">
-                    Semua
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request('type') === 'Warga' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Warga' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Warga'])) }}">
-                    Warga
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request('type') === 'Faskes' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Faskes' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Faskes'])) }}">
-                    Faskes
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request('type') === 'Nakes' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('type') === 'Nakes' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.layanan.index', array_merge(request()->except('page'), ['type' => 'Nakes'])) }}">
-                    Nakes
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0">
+        <div class="admin-table-wrapper">
+            <table class="admin-table">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width:70px;">Icon</th>
+                        <th style="width: 70px; text-align: center;">Icon</th>
                         <th>Nama Layanan</th>
-                        <th style="width:160px;">Segmen Penerima</th>
-                        <th style="width:240px;">Link Tautan</th>
-                        <th class="text-center" style="width:100px;">Aksi</th>
+                        <th style="width: 160px; text-align: center;">Segmen Penerima</th>
+                        <th style="width: 240px;">Link Tautan</th>
+                        <th style="width: 100px; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($layanans as $layanan)
                     <tr>
-                        <td class="text-center align-middle">
+                        <td style="text-align: center;">
                             <div style="width:38px;height:38px;background:#E6F7F0;color:#009966;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;">
                                 @php
                                     $iconMap = ['users'=>'people','smile'=>'sentiment_satisfied_alt','chat'=>'chat','desktop'=>'desktop_windows','bag'=>'shopping_bag','globe'=>'language','file'=>'description'];
@@ -63,27 +44,31 @@
                                 <span class="material-icons" style="font-size:20px;">{{ $iconMap[$layanan->icon] ?? 'help_outline' }}</span>
                             </div>
                         </td>
-                        <td class="font-weight-bold text-dark align-middle">{{ $layanan->name }}</td>
-                        <td class="align-middle">
+                        <td>
+                            <div style="font-weight: 700; color: #111827;">{{ $layanan->name }}</div>
+                        </td>
+                        <td style="text-align: center;">
                             @if($layanan->type === 'Warga')
-                                <span class="badge" style="background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:3px;">Layanan Warga</span>
+                                <span style="background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Warga</span>
                             @elseif($layanan->type === 'Faskes')
-                                <span class="badge" style="background:#FEF3C7;color:#92400E;padding:4px 10px;border-radius:3px;">Layanan Faskes</span>
+                                <span style="background:#EDE9FE;color:#5B21B6;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Faskes</span>
                             @else
-                                <span class="badge" style="background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:3px;">Layanan Nakes</span>
+                                <span style="background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Nakes</span>
                             @endif
                         </td>
-                        <td class="align-middle" style="font-size:13px;color:#475569;">
+                        <td>
                             @if($layanan->link)
-                                <a href="{{ $layanan->link }}" target="_blank" class="text-success" style="word-break:break-all;text-decoration:none;">{{ Str::limit($layanan->link, 38) }}</a>
+                                <a href="{{ $layanan->link }}" target="_blank" style="color:#009966;font-size:13px;text-decoration:none;word-break:break-all;background:#F8FAFC;padding:2px 6px;border-radius:3px;border:1px solid #E2E8F0;">
+                                    {{ Str::limit($layanan->link, 38) }}
+                                </a>
                             @else
-                                <span class="text-muted font-italic">Tidak ada tautan</span>
+                                <span style="color:#94A3B8;font-size:13px;font-style:italic;">Tidak ada tautan</span>
                             @endif
                         </td>
-                        <td class="text-center align-middle">
-                            <div class="btn-action-group">
+                        <td style="text-align: center;">
+                            <div class="actions-cell" style="justify-content: center;">
                                 <button type="button"
-                                    class="btn-action btn-action-edit btn-edit-layanan"
+                                    class="btn-action-edit btn-edit-layanan"
                                     title="Edit"
                                     data-id="{{ $layanan->id }}"
                                     data-name="{{ $layanan->name }}"
@@ -91,13 +76,13 @@
                                     data-icon="{{ $layanan->icon }}"
                                     data-link="{{ $layanan->link ?? '' }}"
                                     data-toggle="modal" data-target="#modalEditLayanan">
-                                    <span class="material-icons" style="font-size:16px;">edit</span>
+                                    <span class="material-icons">edit</span>
                                 </button>
-                                <form action="{{ route('admin.layanan.destroy', $layanan->id) }}" method="POST" id="del-layanan-{{ $layanan->id }}" class="d-inline">
+                                <form action="{{ route('admin.layanan.destroy', $layanan->id) }}" method="POST" id="del-layanan-{{ $layanan->id }}" style="margin: 0; display: inline;">
                                     @csrf @method('DELETE')
-                                    <button type="button" class="btn-action btn-action-delete" title="Hapus"
+                                    <button type="button" class="btn-action-delete" title="Hapus"
                                         onclick="confirmDelete('del-layanan-{{ $layanan->id }}')">
-                                        <span class="material-icons" style="font-size:16px;">delete</span>
+                                        <span class="material-icons">delete</span>
                                     </button>
                                 </form>
                             </div>
@@ -105,9 +90,9 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center py-5 text-muted">
-                            <span class="material-icons" style="font-size:48px;display:block;margin-bottom:8px;color:#D1D5DB;">widgets</span>
-                            Belum ada data layanan terpadu.
+                        <td colspan="5" style="padding: 40px; text-align: center; color: #94A3B8;">
+                            <span class="material-icons" style="font-size: 40px; display: block; margin-bottom: 8px; color: #CBD5E1;">widgets</span>
+                            Belum ada data layanan terpadu. Klik <strong>"Tambah Layanan"</strong> untuk memulai.
                         </td>
                     </tr>
                     @endforelse
@@ -188,7 +173,7 @@
         <div class="modal-content">
             <form action="" method="POST" id="form-edit-layanan">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background:#D97706;color:#fff;border-radius:0;">
+                <div class="modal-header" style="background:#007A52;color:#fff;border-radius:0;">
                     <h5 class="modal-title" id="modalEditLayananLabel">
                         <span class="material-icons" style="vertical-align:middle;margin-right:6px;">edit</span>
                         Edit Layanan
@@ -233,7 +218,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success-dark">
+                    <button type="submit" class="btn btn-success">
                         <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>
@@ -252,7 +237,7 @@ document.querySelectorAll('.btn-edit-layanan').forEach(function(btn) {
         document.getElementById('edit_l_type').value = this.dataset.type;
         document.getElementById('edit_l_icon').value = this.dataset.icon;
         document.getElementById('edit_l_link').value = this.dataset.link;
-        document.getElementById('form-edit-layanan').action = '{{ route('admin.layanan.update', ['layanan_terpadu' => '__ID__']) }}'.replace('__ID__', id);
+        document.getElementById('form-edit-layanan').action = '{{ url("admin/layanan") }}/' + id;
     });
 });
 </script>
