@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ asset('css/layouts/navbar.css') }}?v={{ time() }}">
 
 <div class="dinkes-navbar-wrapper">
+    <!-- Overlay untuk efek gelap -->
+    <div class="navbar-overlay"></div>
+    
     <nav class="dinkes-navbar {{ Request::is('/') ? '' : 'navbar-white' }}">
         <div class="dinkes-navbar-container">
             <div class="navbar-brand">
@@ -9,6 +12,10 @@
             </div>
 
             <ul class="navbar-menu">
+                <li class="menu-header-mobile">
+                    <span class="menu-title-mobile">Menu Utama</span>
+                    <button class="menu-close-mobile"><span class="material-icons">close</span></button>
+                </li>
                 <li><a href="/" class="menu-item {{ Request::is('/') ? 'active' : '' }}">Beranda</a></li>
 
                 <li class="dropdown">
@@ -87,3 +94,56 @@
         </div>
     </nav>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        const dropdowns = document.querySelectorAll('.dropdown');
+        const overlay = document.querySelector('.navbar-overlay');
+        const closeBtn = document.querySelector('.menu-close-mobile');
+
+        function toggleMenu() {
+            navbarMenu.classList.toggle('active');
+            if(overlay) overlay.classList.toggle('active');
+            if (navbarMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden'; // prevent background scrolling
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        if (mobileToggle && navbarMenu) {
+            mobileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+        }
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                toggleMenu();
+            });
+        }
+
+        // Toggle dropdowns on mobile
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    // Prevent closing if clicking inside the menu
+                    if (e.target.closest('.dropdown-menu')) return;
+                    
+                    e.preventDefault();
+                    this.classList.toggle('open');
+                }
+            });
+        });
+    });
+</script>
