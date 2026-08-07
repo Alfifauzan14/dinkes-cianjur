@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Tambah Foto Galeri')
 @section('header_title', 'Tambah Foto Galeri Baru')

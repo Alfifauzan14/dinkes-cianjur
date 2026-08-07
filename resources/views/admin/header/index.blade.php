@@ -7,19 +7,10 @@
     <div class="col-12">
 
 
-        <div class="card-header-actions mb-4 d-flex align-items-center justify-content-between">
-            <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Header Halaman</div>
-                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Ubah judul dan sub-judul header yang muncul di bagian atas halaman publik.</div>
-            </div>
-        </div>
-
         <div class="card card-outline card-success">
-            <div class="card-header d-flex flex-wrap align-items-center" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-                <span class="d-flex align-items-center" style="gap: 8px;">
-                    <span class="material-icons text-success">view_carousel</span>
-                    <span class="font-weight-bold" style="color: #1E293B;">Kelola Header Halaman</span>
-                </span>
+            <div class="card-header d-flex align-items-center" style="gap: 8px;">
+                <span class="material-icons text-success">view_carousel</span>
+                <span class="font-weight-bold card-title-label">Kelola Header Halaman</span>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">

@@ -7,7 +7,7 @@
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
             <span class="material-icons text-success">gavel</span>
-            <span class="font-weight-bold" style="color: #1E293B;">Kelola Regulasi</span>
+            <span class="font-weight-bold card-title-label">Kelola Regulasi</span>
         </span>
         <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahRegulasi">
             <span class="material-icons" style="font-size:16px;">add</span> Tambah Regulasi

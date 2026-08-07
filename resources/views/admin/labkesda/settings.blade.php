@@ -8,28 +8,29 @@
 @endsection
 
 @section('content')
-<div class="berita-admin-wrapper">
-    <div class="admin-card">
-        <div class="card-header-actions">
-            <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Informasi Labkesda</div>
-                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Atur alamat, jam operasional, dan kontak yang ditampilkan di halaman publik.</div>
-            </div>
-            <a href="{{ route('admin.labkesda.index') }}" class="btn-admin btn-admin-secondary">
-                <span class="material-icons">arrow_back</span>
-                <span>Kembali</span>
-            </a>
-        </div>
+<div class="card card-outline card-success">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">contact_support</span>
+            <span class="font-weight-bold card-title-label">Kelola Informasi Labkesda</span>
+        </span>
+        <a href="{{ route('admin.labkesda.index') }}" class="btn btn-sm btn-outline-secondary">
+            <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
+        </a>
+    </div>
+
+    <div class="card-body">
 
         @if(session('success'))
-            <div class="admin-alert admin-alert-success">
+            <div class="alert alert-success d-flex align-items-center" style="gap:8px; margin-bottom:16px;">
                 <span class="material-icons">check_circle</span>
                 <span>{{ session('success') }}</span>
             </div>
         @endif
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-            <form action="{{ route('admin.labkesda.settings.update') }}" method="POST" class="admin-form">
+        <div class="row">
+            <div class="col-md-7">
+            <form action="{{ route('admin.labkesda.settings.update') }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -40,7 +41,7 @@
                         name="alamat"
                         id="alamat"
                         value="{{ old('alamat', $settings->alamat) }}"
-                        class="form-control-input"
+                        class="form-control"
                         placeholder="Contoh: Jl. Pasir Gede Raya No. 12, Cianjur"
                     >
                     @error('alamat')
@@ -55,7 +56,7 @@
                         name="jam_operasional"
                         id="jam_operasional"
                         value="{{ old('jam_operasional', $settings->jam_operasional) }}"
-                        class="form-control-input"
+                        class="form-control"
                         placeholder="Contoh: Senin - Jumat, 07.30 - 15.30 WIB"
                     >
                     @error('jam_operasional')
@@ -70,7 +71,7 @@
                         name="kontak"
                         id="kontak"
                         value="{{ old('kontak', $settings->kontak) }}"
-                        class="form-control-input"
+                        class="form-control"
                         placeholder="Contoh: (0263) 2638891 / 0812-3456-7891"
                     >
                     @error('kontak')
@@ -78,35 +79,41 @@
                     @enderror
                 </div>
 
-                <div class="form-actions" style="display: flex; gap: 10px; margin-top: 10px;">
-                    <button type="submit" class="btn-admin btn-admin-primary">
-                        <span class="material-icons">save</span>
-                        Simpan Perubahan
+                <div class="d-flex justify-content-end" style="margin-top: 12px;">
+                    <button type="submit" class="btn btn-success">
+                        <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>
             </form>
+            </div>
 
-            <div class="settings-preview">
-                <div class="settings-preview-title">Preview Tampilan Publik</div>
-                <div class="settings-preview-item">
-                    <span class="material-icons">location_on</span>
-                    <div>
-                        <div style="font-size: 11px; font-weight: 700; color: #6B7280; text-transform: uppercase;">Alamat</div>
-                        <div style="margin-top: 2px;">{{ $settings->alamat ?: 'Belum diisi' }}</div>
+            <div class="col-md-5">
+                <div class="card bg-light border">
+                    <div class="card-header" style="background:#F9FAFB;">
+                        <h6 class="font-weight-bold mb-0" style="font-size:13px; color:#374151;">Preview Tampilan Publik</h6>
                     </div>
-                </div>
-                <div class="settings-preview-item">
-                    <span class="material-icons">schedule</span>
-                    <div>
-                        <div style="font-size: 11px; font-weight: 700; color: #6B7280; text-transform: uppercase;">Jam Operasional</div>
-                        <div style="margin-top: 2px;">{{ $settings->jam_operasional ?: 'Belum diisi' }}</div>
-                    </div>
-                </div>
-                <div class="settings-preview-item">
-                    <span class="material-icons">phone</span>
-                    <div>
-                        <div style="font-size: 11px; font-weight: 700; color: #6B7280; text-transform: uppercase;">Kontak</div>
-                        <div style="margin-top: 2px;">{{ $settings->kontak ?: 'Belum diisi' }}</div>
+                    <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+                        <div class="d-flex align-items-start" style="gap:10px;">
+                            <span class="material-icons text-success">location_on</span>
+                            <div>
+                                <div style="font-size: 11px; font-weight: 700; color: #6B7280; text-transform: uppercase;">Alamat</div>
+                                <div style="margin-top: 2px; font-size:13px;">{{ $settings->alamat ?: 'Belum diisi' }}</div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start" style="gap:10px;">
+                            <span class="material-icons text-success">schedule</span>
+                            <div>
+                                <div style="font-size: 11px; font-weight: 700; color: #6B7280; text-transform: uppercase;">Jam Operasional</div>
+                                <div style="margin-top: 2px; font-size:13px;">{{ $settings->jam_operasional ?: 'Belum diisi' }}</div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start" style="gap:10px;">
+                            <span class="material-icons text-success">phone</span>
+                            <div>
+                                <div style="font-size: 11px; font-weight: 700; color: #6B7280; text-transform: uppercase;">Kontak</div>
+                                <div style="margin-top: 2px; font-size:13px;">{{ $settings->kontak ?: 'Belum diisi' }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

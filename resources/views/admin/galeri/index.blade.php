@@ -7,7 +7,7 @@
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
             <span class="material-icons text-success">photo_library</span>
-            <span class="font-weight-bold" style="color: #1E293B;">Kelola Galeri</span>
+            <span class="font-weight-bold card-title-label">Kelola Galeri</span>
         </span>
 
         {{-- Search & Filter --}}

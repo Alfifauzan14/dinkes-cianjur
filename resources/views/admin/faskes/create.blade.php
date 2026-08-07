@@ -12,7 +12,7 @@
             <span class="material-icons text-success" style="font-size:16px;vertical-align:middle;">local_hospital</span>
             Formulir Faskes Baru
         </span>
-        <a href="{{ route('admin.faskes.index') }}" class="btn btn-sm btn-outline-secondary">
+        <a href="{{ route('admin.faskes.index') }}" class="btn btn-sm btn-outline-secondary ml-auto">
             <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
         </a>
     </div>

@@ -43,83 +43,84 @@
 @endsection
 
 @section('content')
-<div class="berita-admin-wrapper">
 
-    @if(session('success'))
-        <div class="admin-alert admin-alert-success">
-            <span class="material-icons">check_circle</span>
-            <span>{{ session('success') }}</span>
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" style="gap:8px; margin-bottom:16px;">
+        <span class="material-icons">check_circle</span>
+        <span>{{ session('success') }}</span>
+        <button type="button" class="close ml-auto" data-dismiss="alert"><span>&times;</span></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" style="gap:8px; margin-bottom:16px;">
+        <span class="material-icons">error</span>
+        <span>{{ session('error') }}</span>
+        <button type="button" class="close ml-auto" data-dismiss="alert"><span>&times;</span></button>
+    </div>
+@endif
+
+<div class="card card-outline card-success">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">local_hospital</span>
+            <span class="font-weight-bold card-title-label">Kelola Fasilitas Kesehatan</span>
+        </span>
+        <div class="d-flex align-items-center ml-auto" style="gap: 8px; flex-wrap: wrap;">
+            <!-- Import CSV -->
+            <form action="{{ route('admin.faskes.import') }}" method="POST" enctype="multipart/form-data" class="d-inline-block m-0">
+                @csrf
+                <label class="btn btn-sm btn-outline-secondary mb-0" style="cursor: pointer; white-space: nowrap;">
+                    <span class="material-icons" style="font-size:16px; vertical-align:middle;">upload_file</span>
+                    <span>Import CSV</span>
+                    <input type="file" name="file" class="d-none" onchange="this.form.submit()" accept=".csv">
+                </label>
+            </form>
+            <!-- Export CSV -->
+            <a href="{{ route('admin.faskes.export') }}" class="btn btn-sm btn-outline-secondary" style="white-space: nowrap;">
+                <span class="material-icons" style="font-size:16px; vertical-align:middle;">download</span>
+                <span>Export CSV</span>
+            </a>
+            <!-- Tambah Faskes -->
+            <a href="{{ route('admin.faskes.create') }}" class="btn btn-sm btn-success" style="white-space: nowrap;">
+                <span class="material-icons" style="font-size:16px; vertical-align:middle;">add</span>
+                <span>Tambah Faskes</span>
+            </a>
         </div>
-    @endif
+    </div>
 
-    @if(session('error'))
-        <div class="admin-alert admin-alert-danger" style="background:#FEE2E2; color:#B91C1C; padding:12px 16px; border-radius:6px; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-            <span class="material-icons">error</span>
-            <span>{{ session('error') }}</span>
-        </div>
-    @endif
-
-    <div class="admin-card">
-        <div class="card-header-actions d-flex align-items-center justify-content-between" style="gap: 16px; flex-wrap: wrap;">
-            <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Fasilitas Kesehatan</div>
-                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola data fasilitas kesehatan, lokasi, dan jenis pelayanan.</div>
-            </div>
-            <div class="d-flex align-items-center" style="gap: 16px; flex-wrap: wrap;">
-                <form action="{{ route('admin.faskes.index') }}" method="GET" class="search-filter-form d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
+    <div class="card-body p-0">
+        {{-- Search & Filter Bar --}}
+        <div style="padding: 14px 20px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
+            <form action="{{ route('admin.faskes.index') }}" method="GET" class="d-flex align-items-center flex-wrap" style="gap: 10px;">
                 <input
                     type="text"
                     name="search"
                     placeholder="Cari nama faskes..."
                     value="{{ request('search') }}"
-                    class="form-control-input"
-                    style="width: 180px; padding: 6px 12px; border: 1px solid #D1D5DB; border-radius: 4px;"
+                    class="form-control form-control-sm"
+                    style="width: 220px;"
                 >
-                <select name="kecamatan" class="form-control-select" onchange="this.form.submit()" style="padding: 6px 12px; border: 1px solid #D1D5DB; border-radius: 4px;">
+                <select name="kecamatan" class="form-control form-control-sm" onchange="this.form.submit()" style="width: 180px;">
                     <option value="Semua">Semua Kecamatan</option>
                     @foreach($kecamatans as $kec)
                         <option value="{{ $kec->name }}" {{ request('kecamatan') == $kec->name ? 'selected' : '' }}>{{ $kec->name }}</option>
                     @endforeach
                 </select>
-                <select name="type" class="form-control-select" onchange="this.form.submit()" style="padding: 6px 12px; border: 1px solid #D1D5DB; border-radius: 4px;">
+                <select name="type" class="form-control form-control-sm" onchange="this.form.submit()" style="width: 160px;">
                     <option value="Semua">Semua Jenis</option>
                     @foreach($types as $t)
                         <option value="{{ $t->name }}" {{ request('type') == $t->name ? 'selected' : '' }}>{{ $t->name }}</option>
                     @endforeach
                 </select>
                 @if(request('search') || request('kecamatan', 'Semua') !== 'Semua' || request('type', 'Semua') !== 'Semua')
-                    <a href="{{ route('admin.faskes.index') }}" class="btn-admin btn-admin-secondary">Reset</a>
+                    <a href="{{ route('admin.faskes.index') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
                 @endif
             </form>
-
-            <div class="d-flex align-items-center ml-auto" style="gap: 8px; flex-wrap: wrap;">
-                <!-- Import CSV -->
-                <form action="{{ route('admin.faskes.import') }}" method="POST" enctype="multipart/form-data" class="d-inline-block m-0">
-                    @csrf
-                    <label class="btn-admin btn-admin-secondary mb-0" style="cursor: pointer; padding: 6px 12px; white-space: nowrap;">
-                        <span class="material-icons" style="font-size:16px; vertical-align:middle;">upload_file</span>
-                        <span>Impor CSV</span>
-                        <input type="file" name="csv_file" accept=".csv,.txt" style="display: none;" onchange="this.form.submit()">
-                    </label>
-                </form>
-
-                <!-- Export CSV -->
-                <a href="{{ route('admin.faskes.export') }}" class="btn-admin btn-admin-secondary" style="padding: 6px 12px; white-space: nowrap;">
-                    <span class="material-icons" style="font-size:16px; vertical-align:middle;">download</span>
-                    <span>Ekspor CSV</span>
-                </a>
-
-                <a href="{{ route('admin.faskes.create') }}" class="btn-admin btn-admin-primary" style="padding: 6px 12px; white-space: nowrap;">
-                    <span class="material-icons" style="font-size:16px; vertical-align:middle;">add</span>
-                    <span>Tambah Faskes</span>
-                </a>
-            </div>
         </div>
-    </div>
 
-
-        <div class="admin-table-wrapper">
-            <table class="admin-table">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
                 <thead>
                     <tr>
                         <th style="width: 50px; text-align: center;">No</th>
@@ -165,14 +166,14 @@
                                 @endif
                             </td>
                             <td style="text-align: center;">
-                                <div class="actions-cell" style="justify-content: center;">
-                                    <a href="{{ route('admin.faskes.edit', $item->id) }}" class="btn-action-edit" title="Edit">
+                                <div class="btn-action-group" style="justify-content: center;">
+                                    <a href="{{ route('admin.faskes.edit', $item->id) }}" class="btn-action btn-action-edit" title="Edit">
                                         <span class="material-icons">edit</span>
                                     </a>
                                     <form action="{{ route('admin.faskes.destroy', $item->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $item->name }}?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-action-delete" title="Hapus">
+                                        <button type="submit" class="btn-action btn-action-delete" title="Hapus">
                                             <span class="material-icons">delete</span>
                                         </button>
                                     </form>
