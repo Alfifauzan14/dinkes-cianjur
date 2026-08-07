@@ -318,36 +318,6 @@
         gap: 20px;
     }
 
-    .history-card-container {
-        padding: 30px 16px;
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-        gap: 20px;
-    }
-
-    .history-logo-wrap {
-        display: none;
-    }
-
-    .history-body {
-        text-align: left;
-    }
-
-    .history-title {
-        font-size: 24px;
-        text-align: left;
-    }
-
-    .history-badge {
-        font-size: 16px;
-        margin-bottom: 12px;
-    }
-
-    .history-text {
-        font-size: 15px;
-        text-align: left;
-    }
 }
 
 /* ── History Section ──────────────────────────────────────────── */
@@ -708,6 +678,40 @@
         width: 100%;
         max-width: 300px;
         justify-content: center;
+    }
+}
+
+/* ── History Section Responsive (MUST be after base styles) ──── */
+@media (max-width: 768px) {
+    .history-card-container {
+        padding: 30px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 20px;
+    }
+
+    .history-logo-wrap {
+        display: none;
+    }
+
+    .history-body {
+        text-align: left;
+    }
+
+    .history-title {
+        font-size: 24px;
+        text-align: left;
+    }
+
+    .history-badge {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .history-text {
+        font-size: 15px;
+        text-align: left;
     }
 }
 
