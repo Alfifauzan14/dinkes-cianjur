@@ -153,6 +153,7 @@ class StatistikController extends Controller
                             [
                                 'balita_stunting' => $balitaStunt,
                                 'is_highlighted' => $isHighlighted,
+                                'rate' => 0.0,
                             ]
                         );
 

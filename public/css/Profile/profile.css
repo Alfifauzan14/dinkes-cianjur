@@ -3,9 +3,16 @@
    Font      : Plus Jakarta Sans
    BG Header : #065F46
    Radius    : 1px (Card/Btn/Stats: 3px)
-================================================================ */
+=============================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
 
 .profile-page-wrapper {
     width: 100%;
@@ -13,7 +20,9 @@
     background-color: #FFFFFF;
     font-family: 'Plus Jakarta Sans', sans-serif;
     box-sizing: border-box;
-    padding-top: 103px; /* Pushing content below the fixed navbar */
+    padding-top: 103px;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 /* ── Header Section ──────────────────────────────────────────── */
@@ -275,22 +284,28 @@
     
     .profile-header {
         padding: 40px 20px;
+        text-align: left;
     }
     
     .profile-header-title {
-        font-size: 32px;
+        font-size: 28px;
+        letter-spacing: -0.3px;
+    }
+
+    .profile-header-subtitle {
+        font-size: 14px;
     }
     
     .profile-content {
-        padding: 40px 20px;
+        padding: 40px 16px;
     }
     
     .visi-card-container {
-        padding: 40px 20px;
+        padding: 30px 16px;
     }
     
     .visi-title {
-        font-size: 28px;
+        font-size: 24px;
         letter-spacing: -0.5px;
     }
     
@@ -304,7 +319,7 @@
     }
 
     .misi-card-container {
-        padding: 40px 20px;
+        padding: 30px 16px;
     }
 
     .misi-two-col-grid {
@@ -312,12 +327,6 @@
         gap: 20px;
     }
 
-    .history-card-container {
-        padding: 40px 20px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 24px;
-    }
 }
 
 /* ── History Section ──────────────────────────────────────────── */
@@ -678,6 +687,40 @@
         width: 100%;
         max-width: 300px;
         justify-content: center;
+    }
+}
+
+/* ── History Section Responsive (MUST be after base styles) ──── */
+@media (max-width: 768px) {
+    .history-card-container {
+        padding: 30px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 20px;
+    }
+
+    .history-logo-wrap {
+        display: none;
+    }
+
+    .history-body {
+        text-align: left;
+    }
+
+    .history-title {
+        font-size: 24px;
+        text-align: left;
+    }
+
+    .history-badge {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .history-text {
+        font-size: 15px;
+        text-align: left;
     }
 }
 

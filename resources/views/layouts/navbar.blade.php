@@ -86,4 +86,114 @@
             </button>
         </div>
     </nav>
+
+    {{-- Mobile Menu Drawer --}}
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu-drawer">
+        <div class="mobile-drawer-header">
+            <div class="navbar-brand">
+                <img src="{{ asset('Assets/layouts/Nav/logo_pemkab_cropped.png') }}" alt="Logo Pemkab" style="height: 36px;">
+                <img src="{{ asset('Assets/layouts/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinkes" style="height: 36px;">
+            </div>
+            <button class="mobile-drawer-close" aria-label="Close navigation">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <ul class="mobile-drawer-menu">
+            <li><a href="/" class="mobile-menu-link {{ Request::is('/') ? 'active' : '' }}">Beranda</a></li>
+
+            <li class="mobile-dropdown">
+                <div class="mobile-dropdown-toggle">
+                    <span>Profil</span>
+                    <span class="material-icons mobile-chevron">expand_more</span>
+                </div>
+                <ul class="mobile-submenu">
+                    <li><a href="{{ route('profil.tentang') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">info</span> Tentang Dinkes</a></li>
+                    <li><a href="{{ route('profil.visi-misi') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">flag</span> Visi & Misi</a></li>
+                    <li><a href="{{ route('profil.struktur-organisasi') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">account_tree</span> Struktur Organisasi</a></li>
+                </ul>
+            </li>
+
+            <li class="mobile-dropdown">
+                <div class="mobile-dropdown-toggle">
+                    <span>Program Kesehatan</span>
+                    <span class="material-icons mobile-chevron">expand_more</span>
+                </div>
+                <ul class="mobile-submenu">
+                    @foreach(\App\Models\ProgramKesehatan::where('status', 'published')->get() as $prog)
+                        <li><a href="{{ route('program.show', $prog->slug) }}"><span class="material-icons" style="font-size: 16px; color: #009966;">health_and_safety</span> {{ $prog->title }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+
+            <li class="mobile-dropdown">
+                <div class="mobile-dropdown-toggle">
+                    <span>Program Terpadu</span>
+                    <span class="material-icons mobile-chevron">expand_more</span>
+                </div>
+                <ul class="mobile-submenu">
+                    <li><a href="{{ url('/layanan-terpadu') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">widgets</span> Layanan Terpadu</a></li>
+                </ul>
+            </li>
+
+            <li class="mobile-dropdown">
+                <div class="mobile-dropdown-toggle">
+                    <span>Fasilitas Kesehatan</span>
+                    <span class="material-icons mobile-chevron">expand_more</span>
+                </div>
+                <ul class="mobile-submenu">
+                    <li><a href="{{ route('faskes') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">local_hospital</span> Info Puskesmas & RS</a></li>
+                    <li><a href="{{ url('/labkesda') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">biotech</span> Labkesda</a></li>
+                </ul>
+            </li>
+
+            <li class="mobile-dropdown">
+                <div class="mobile-dropdown-toggle">
+                    <span>Satu Data</span>
+                    <span class="material-icons mobile-chevron">expand_more</span>
+                </div>
+                <ul class="mobile-submenu">
+                    <li><a href="{{ route('satudata.statistik') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">bar_chart</span> Dashboard Statistik</a></li>
+                    <li><a href="{{ route('satudata.laporan') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">description</span> Laporan PDF</a></li>
+                    <li><a href="{{ route('satudata.regulasi') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">gavel</span> Regulasi & Hukum</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{{ route('ppid') }}" class="mobile-menu-link {{ Request::is('ppid') ? 'active' : '' }}">PPID</a></li>
+        </ul>
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.querySelector('.mobile-toggle');
+        const closeBtn = document.querySelector('.mobile-drawer-close');
+        const overlay = document.querySelector('.mobile-menu-overlay');
+        const drawer = document.querySelector('.mobile-menu-drawer');
+
+        function openMenu() {
+            drawer.classList.add('open');
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            drawer.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if (toggleBtn) toggleBtn.addEventListener('click', openMenu);
+        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+        if (overlay) overlay.addEventListener('click', closeMenu);
+
+        // Mobile dropdown toggles
+        const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.classList.toggle('open');
+            });
+        });
+    });
+</script>
