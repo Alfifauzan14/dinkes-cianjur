@@ -37,27 +37,57 @@
             </div>
 
             <!-- Filter Card -->
-            <form action="{{ url('/faskes') }}" method="GET" class="faskes-filter-card">
+            <form action="{{ url('/faskes') }}" method="GET" class="faskes-filter-card" id="faskesFilterForm">
                 <div class="faskes-filter-section">
                     <div class="faskes-search-wrap">
-                        <input type="text" name="search" class="faskes-search-input" placeholder="Cari nama Puskesmas..." value="{{ request('search') }}">
+                        <input type="text" name="search" class="faskes-search-input" placeholder="Cari nama Puskesmas..." value="{{ request('search') }}" autocomplete="off">
                         <button type="submit" class="faskes-search-btn">Cari</button>
                     </div>
+
+                    {{-- Kecamatan custom dropdown --}}
                     <div class="faskes-filter-wrap">
-                        <select name="kecamatan" class="faskes-select" onchange="this.form.submit()">
-                            <option value="Semua" {{ request('kecamatan', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Wilayah...</option>
-                            @foreach($kecamatans as $kec)
-                                <option value="{{ $kec->name }}" {{ request('kecamatan') == $kec->name ? 'selected' : '' }}>{{ $kec->name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="hidden" name="kecamatan" id="kecamatanValue" value="{{ request('kecamatan', 'Semua') }}">
+                        <div class="faskes-custom-select" id="kecamatanDropdown">
+                            <button type="button" class="faskes-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
+                                <span class="faskes-custom-select-label">
+                                    @if(request('kecamatan') && request('kecamatan') !== 'Semua')
+                                        {{ request('kecamatan') }}
+                                    @else
+                                        Semua Wilayah
+                                    @endif
+                                </span>
+                                <svg class="faskes-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <ul class="faskes-custom-select-list" role="listbox">
+                                <li class="faskes-custom-option {{ request('kecamatan', 'Semua') === 'Semua' ? 'selected' : '' }}" data-value="Semua" role="option">Semua Wilayah</li>
+                                @foreach($kecamatans as $kec)
+                                    <li class="faskes-custom-option {{ request('kecamatan') === $kec->name ? 'selected' : '' }}" data-value="{{ $kec->name }}" role="option">{{ $kec->name }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
+
+                    {{-- Type custom dropdown --}}
                     <div class="faskes-filter-wrap">
-                        <select name="type" class="faskes-select" onchange="this.form.submit()">
-                            <option value="Semua" {{ request('type', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Layanan...</option>
-                            @foreach($types as $t)
-                                <option value="{{ $t->name }}" {{ request('type') == $t->name ? 'selected' : '' }}>{{ $t->name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="hidden" name="type" id="typeValue" value="{{ request('type', 'Semua') }}">
+                        <div class="faskes-custom-select" id="typeDropdown">
+                            <button type="button" class="faskes-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
+                                <span class="faskes-custom-select-label">
+                                    @if(request('type') && request('type') !== 'Semua')
+                                        {{ request('type') }}
+                                    @else
+                                        Semua Layanan
+                                    @endif
+                                </span>
+                                <svg class="faskes-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                            <ul class="faskes-custom-select-list" role="listbox">
+                                <li class="faskes-custom-option {{ request('type', 'Semua') === 'Semua' ? 'selected' : '' }}" data-value="Semua" role="option">Semua Layanan</li>
+                                @foreach($types as $t)
+                                    <li class="faskes-custom-option {{ request('type') === $t->name ? 'selected' : '' }}" data-value="{{ $t->name }}" role="option">{{ $t->name }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -221,6 +251,74 @@
             document.getElementById('faskesMap').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     }
+</script>
+
+<script>
+// ── Custom Dropdown Logic ───────────────────────────────────────
+(function () {
+    function initCustomSelect(dropdownId, hiddenInputId) {
+        const wrap   = document.getElementById(dropdownId);
+        if (!wrap) return;
+        const btn    = wrap.querySelector('.faskes-custom-select-btn');
+        const list   = wrap.querySelector('.faskes-custom-select-list');
+        const label  = wrap.querySelector('.faskes-custom-select-label');
+        const hidden = document.getElementById(hiddenInputId);
+        const form   = document.getElementById('faskesFilterForm');
+
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = wrap.classList.contains('open');
+            // Close all dropdowns first
+            document.querySelectorAll('.faskes-custom-select').forEach(function (d) {
+                d.classList.remove('open');
+                d.querySelector('.faskes-custom-select-btn').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                wrap.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        list.querySelectorAll('.faskes-custom-option').forEach(function (opt) {
+            opt.addEventListener('click', function () {
+                const val = opt.dataset.value;
+                // Update hidden input
+                hidden.value = val;
+                // Update label
+                label.textContent = opt.textContent.trim();
+                // Update selected state
+                list.querySelectorAll('.faskes-custom-option').forEach(function (o) { o.classList.remove('selected'); });
+                opt.classList.add('selected');
+                // Close
+                wrap.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                // Submit form
+                form.submit();
+            });
+        });
+    }
+
+    initCustomSelect('kecamatanDropdown', 'kecamatanValue');
+    initCustomSelect('typeDropdown', 'typeValue');
+
+    // Close dropdowns on outside click
+    document.addEventListener('click', function () {
+        document.querySelectorAll('.faskes-custom-select').forEach(function (d) {
+            d.classList.remove('open');
+            d.querySelector('.faskes-custom-select-btn').setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.faskes-custom-select').forEach(function (d) {
+                d.classList.remove('open');
+                d.querySelector('.faskes-custom-select-btn').setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+})();
 </script>
 
 @include('layouts.footer')
