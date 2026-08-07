@@ -78,7 +78,7 @@
             <div class="card-header" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
                 <span class="d-flex align-items-center" style="gap: 8px;">
                     <span class="material-icons text-success">link</span>
-                    <span class="font-weight-bold" style="color: #1E293B;">Pengaturan Seksi Tautan PPID</span>
+                    <span class="font-weight-bold card-title-label">Pengaturan Seksi Tautan PPID</span>
                 </span>
             </div>
             <div class="card-body">
@@ -138,11 +138,14 @@
                                 <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Upload Ikon/Gambar (Opsional)</label>
                                 @if(!empty($item['image']))
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $item['image']) }}" class="preview-image" style="max-height: 50px;">
+                                        <img src="{{ asset('storage/' . $item['image']) }}" class="preview-image" style="max-height: 50px; border-radius: 4px; border: 1px solid #E2E8F0;">
                                     </div>
                                     <input type="hidden" name="tautan_items[{{ $index }}][existing_image]" value="{{ $item['image'] }}">
                                 @endif
-                                <input type="file" name="tautan_items[{{ $index }}][image_upload]" class="form-control-file" style="font-size: 11.5px;" accept="image/*">
+                                <div class="custom-file" style="font-size: 11.5px;">
+                                    <input type="file" name="tautan_items[{{ $index }}][image_upload]" class="custom-file-input" accept="image/*" onchange="previewFile(this)">
+                                    <label class="custom-file-label" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">Pilih gambar...</label>
+                                </div>
                             </div>
                         </div>
                     @empty
@@ -196,7 +199,10 @@
                 </div>
                 <div class="form-group mb-0">
                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Upload Ikon/Gambar (Opsional)</label>
-                    <input type="file" name="tautan_items[${index}][image_upload]" class="form-control-file" style="font-size: 11.5px;" accept="image/*">
+                    <div class="custom-file" style="font-size: 11.5px;">
+                        <input type="file" name="tautan_items[${index}][image_upload]" class="custom-file-input" accept="image/*" onchange="previewFile(this)">
+                        <label class="custom-file-label" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">Pilih gambar...</label>
+                    </div>
                 </div>
             `;
             container.appendChild(newField);
@@ -237,6 +243,13 @@
                 });
             }
         });
+    }
+
+    function previewFile(input) {
+        if (input.files && input.files[0]) {
+            const fileName = input.files[0].name;
+            input.nextElementSibling.innerText = fileName;
+        }
     }
 
     document.getElementById('ppid-form').addEventListener('submit', function() {

@@ -94,18 +94,18 @@
                         <div class="chart-flex-container">
                              <!-- Y-Axis Static Labels (Left) -->
                             @php
-                                $maxRateValue = $stuntingRecords->max('rate') ?: 1;
-                                $yMax = ceil($maxRateValue / 5) * 5;
-                                if ($yMax < 10) {
-                                    $yMax = 10;
+                                $maxRateValue = $stuntingRecords->max('balita_stunting') ?: 1;
+                                $yMax = ceil($maxRateValue / 5000) * 5000;
+                                if ($yMax < 5000) {
+                                    $yMax = 5000;
                                 }
                             @endphp
                             <div class="chart-y-axis-labels">
-                                <div class="chart-y-axis-labels-item"><span>{{ $yMax }}%</span></div>
-                                <div class="chart-y-axis-labels-item"><span>{{ $yMax * 0.75 }}%</span></div>
-                                <div class="chart-y-axis-labels-item"><span>{{ $yMax * 0.5 }}%</span></div>
-                                <div class="chart-y-axis-labels-item"><span>{{ $yMax * 0.25 }}%</span></div>
-                                <div class="chart-y-axis-labels-item"><span>0%</span></div>
+                                <div class="chart-y-axis-labels-item"><span>{{ number_format($yMax) }}</span></div>
+                                <div class="chart-y-axis-labels-item"><span>{{ number_format($yMax * 0.75) }}</span></div>
+                                <div class="chart-y-axis-labels-item"><span>{{ number_format($yMax * 0.5) }}</span></div>
+                                <div class="chart-y-axis-labels-item"><span>{{ number_format($yMax * 0.25) }}</span></div>
+                                <div class="chart-y-axis-labels-item"><span>0</span></div>
                             </div>
                             
                             <!-- Scrollable Chart Area (Right) -->
@@ -122,22 +122,17 @@
                                 <div class="chart-bars-wrapper" id="chart-bars-wrapper">
                                     @foreach($stuntingRecords as $record)
                                         @php
-                                            $heightPercent = $yMax > 0 ? ($record->rate / $yMax) * 100 : 0;
+                                            $heightPercent = $yMax > 0 ? ($record->balita_stunting / $yMax) * 100 : 0;
                                         @endphp
                                         <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
                                              role="button"
                                              tabindex="0"
                                              aria-label="Detail stunting tahun {{ $record->year }}"
                                              data-year="{{ $record->year }}"
-                                             data-rate="{{ $record->rate }}"
-                                             data-total="{{ $record->total_balita ?? '' }}"
                                              data-stunting="{{ $record->balita_stunting ?? '' }}"
-                                             data-terendah="{{ $record->wilayah_terendah ?? '' }}"
-                                             data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
-                                             data-catatan="{{ $record->catatan ?? '' }}"
                                              onclick="updateStuntingDetail(this)"
                                              onkeydown="if(event.key==='Enter')updateStuntingDetail(this)">
-                                            <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ $record->rate }}%</span>
+                                            <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ number_format($record->balita_stunting) }}</span>
                                             <div class="bar-track">
                                                 <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%'])></div>
                                             </div>
@@ -168,37 +163,10 @@
                                 <span id="detail-year" class="detail-year-badge">2026</span>
                             </div>
 
-                            <div class="detail-rate-box">
-                                <span class="detail-rate-label">PREVALENSI STUNTING</span>
-                                <span id="detail-rate" class="detail-rate-val">9.8%</span>
-                            </div>
-
                             <div class="detail-stats-grid">
                                 <div class="detail-stat-item">
-                                    <span class="detail-stat-label">Total Balita Diukur</span>
-                                    <span id="detail-total" class="detail-stat-val">—</span>
-                                </div>
-                                <div class="detail-stat-item">
-                                    <span class="detail-stat-label">Kondisi Stunting</span>
+                                    <span class="detail-stat-label">Jumlah Bayi Stunting</span>
                                     <span id="detail-stunting" class="detail-stat-val detail-stat-val-danger">—</span>
-                                </div>
-                            </div>
-
-                            <div class="detail-list">
-                                <div class="detail-list-row">
-                                    <span class="detail-list-label">Prevalensi Terendah</span>
-                                    <span id="detail-terendah" class="detail-list-val">—</span>
-                                </div>
-                                <div class="detail-list-row">
-                                    <span class="detail-list-label">Prevalensi Tertinggi</span>
-                                    <span id="detail-tertinggi" class="detail-list-val">—</span>
-                                </div>
-                            </div>
-
-                            <div class="detail-note-box">
-                                <div class="info-row">
-                                    <span class="material-icons">info</span>
-                                    <span id="detail-catatan">—</span>
                                 </div>
                             </div>
                         </div>
@@ -248,25 +216,14 @@
                 el.classList.add('bar-active-selected');
 
                 const year     = el.dataset.year;
-                const rate     = el.dataset.rate;
-                const total    = el.dataset.total;
                 const stunting = el.dataset.stunting;
-                const terendah = el.dataset.terendah;
-                const tertinggi= el.dataset.tertinggi;
-                const catatan  = el.dataset.catatan;
 
                 const detailCard = document.getElementById('stunting-detail-card');
                 detailCard.style.opacity = '0.5';
 
                 setTimeout(() => {
                     document.getElementById('detail-year').textContent = year;
-                    document.getElementById('detail-rate').textContent = rate + '%';
-                    
-                    document.getElementById('detail-total').textContent = total ? Number(total).toLocaleString('id-ID') : '—';
                     document.getElementById('detail-stunting').textContent = stunting ? Number(stunting).toLocaleString('id-ID') + ' Balita' : '—';
-                    document.getElementById('detail-terendah').textContent = terendah || '—';
-                    document.getElementById('detail-tertinggi').textContent = tertinggi || '—';
-                    document.getElementById('detail-catatan').textContent = catatan || 'Tidak ada catatan tambahan untuk tahun ini.';
                     
                     detailCard.style.opacity = '1';
                 }, 120);

@@ -21,7 +21,7 @@
 
 /* ── Banner Header Top Section ────────────────────────────────── */
 .satudata-banner {
-    background: radial-gradient(circle at top right, rgba(0, 153, 102, 0.15) 0%, transparent 60%), linear-gradient(135deg, #004F3B 0%, #003326 100%);
+    background-color: #006045;
     position: relative;
     overflow: hidden;
     color: #FFFFFF;

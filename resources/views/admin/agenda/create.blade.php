@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('title', 'Tambah Agenda')
 @section('header_title', 'Tambah Agenda Baru')

@@ -7,7 +7,7 @@
     <div class="card-header d-flex flex-wrap align-items-center" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
             <span class="material-icons text-success">newspaper</span>
-            <span class="font-weight-bold" style="color: #1E293B;">Kelola Berita</span>
+            <span class="font-weight-bold card-title-label">Kelola Berita</span>
         </span>
 
         <form action="{{ route('admin.berita.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">

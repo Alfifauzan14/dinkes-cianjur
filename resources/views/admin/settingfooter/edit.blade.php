@@ -31,9 +31,11 @@
 <div class="row">
     <div class="col-12">
         <div class="card card-outline card-success">
-            <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-                <span class="material-icons text-success">settings</span>
-                <span>Pengaturan Footer Website</span>
+            <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="d-flex align-items-center" style="gap: 8px;">
+                    <span class="material-icons text-success">settings</span>
+                    <span class="font-weight-bold card-title-label">Pengaturan Footer Website</span>
+                </span>
             </div>
 
             <div class="card-body">

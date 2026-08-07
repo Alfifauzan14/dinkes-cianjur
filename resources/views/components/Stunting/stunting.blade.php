@@ -3,7 +3,7 @@
 @php
     $latestRecord = \App\Models\StuntingRecord::orderBy('year', 'desc')->first();
     $prevRecord = $latestRecord ? \App\Models\StuntingRecord::where('year', '<', $latestRecord->year)->orderBy('year', 'desc')->first() : null;
-    $latestChange = $latestRecord && $prevRecord ? \App\Models\StuntingRecord::calculateRate($latestRecord->balita_stunting, $prevRecord->balita_stunting) : null;
+    $latestChange = ($latestRecord && $prevRecord) ? $latestRecord->balita_stunting - $prevRecord->balita_stunting : null;
     $totalYears = \App\Models\StuntingRecord::count();
 @endphp
 
@@ -31,12 +31,12 @@
                     <div class="st-info-card">
                         @if($latestChange !== null)
                             <p class="st-info-number" style="color: {{ $latestChange < 0 ? '#16A34A' : '#DC2626' }}">
-                                {{ $latestChange > 0 ? '+' : '' }}{{ $latestChange }}%
+                                {{ $latestChange > 0 ? '+' : '' }}{{ number_format($latestChange) }} bayi
                             </p>
                         @else
                             <p class="st-info-number">—</p>
                         @endif
-                        <p class="st-info-label">Change YoY</p>
+                        <p class="st-info-label">Perubahan vs Tahun Sebelumnya</p>
                     </div>
                     <div class="st-info-card">
                         <p class="st-info-number">{{ $totalYears }}</p>

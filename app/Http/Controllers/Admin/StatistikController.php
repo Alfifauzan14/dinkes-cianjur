@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class StatistikController extends Controller
 {
@@ -27,7 +28,7 @@ class StatistikController extends Controller
                     ['name' => 'SDM KESEHATAN', 'num' => '3,820', 'caption' => 'Dokter, Perawat, Bidan, & Apoteker'],
                     ['name' => 'CAKUPAN IMUNISASI', 'num' => '94.8%', 'caption' => 'Target Nasional 2026: 95.0%'],
                 ],
-                'stunting_title' => 'Tren Jumlah Balita Stunting',
+                'stunting_title' => 'Tren Penurunan Prevalensi Stunting',
                 'stunting_subtitle' => 'Kabupaten Cianjur 2014–2024',
                 'nakes_data' => [
                     ['name' => 'Perawat Kesehatan', 'value' => 1604, 'width' => 42],
@@ -43,6 +44,7 @@ class StatistikController extends Controller
             ]
         );
 
+        // Backfill indikator_data from old columns if empty
         if (empty($setting->indikator_data)) {
             $indikatorData = [];
             for ($i = 1; $i <= 4; $i++) {
@@ -56,6 +58,7 @@ class StatistikController extends Controller
             $setting->refresh();
         }
 
+        // Sanitize num fields — strip non-numeric chars
         $cleanedIndikator = array_map(function ($item) {
             $item['num'] = preg_replace('/[^0-9.\-]/', '', $item['num'] ?? '');
 
@@ -83,7 +86,7 @@ class StatistikController extends Controller
 
         if ($section === 'indikator') {
             $rules = [
-                'status_badge' => 'nullable|string|max:100',
+                'status_badge' => 'required|string|max:100',
                 'indikator_names' => 'nullable|array',
                 'indikator_nums' => 'nullable|array',
                 'indikator_captions' => 'nullable|array',
@@ -115,7 +118,7 @@ class StatistikController extends Controller
         $setting = StatistikSetting::firstOrCreate(['id' => 1]);
 
         if ($section === 'indikator') {
-            $setting->update(['status_badge' => $request->input('status_badge') ?: null]);
+            $setting->update(['status_badge' => $request->input('status_badge')]);
 
             $indikatorData = [];
             if ($request->has('indikator_names')) {
@@ -136,6 +139,7 @@ class StatistikController extends Controller
             $data = $request->only(['stunting_title', 'stunting_subtitle']);
             $setting->update($data);
 
+            // Process Stunting Trend records
             $submittedYears = [];
             if ($request->has('stunting_years')) {
                 foreach ($request->stunting_years as $index => $year) {
@@ -158,10 +162,10 @@ class StatistikController extends Controller
                 }
             }
 
+            // Delete records not in the submitted list
             StuntingRecord::whereNotIn('year', $submittedYears)->delete();
 
-            self::recalculateRates();
-
+            // Ensure correct highlight
             if (! empty($request->highlighted_year)) {
                 StuntingRecord::where('year', '!=', (int) $request->highlighted_year)->update(['is_highlighted' => false]);
                 StuntingRecord::where('year', (int) $request->highlighted_year)->update(['is_highlighted' => true]);
@@ -239,15 +243,32 @@ class StatistikController extends Controller
     }
 
     /**
+     * Extract percentage width from a value string like "17 Puskesmas (36%)" or "1,604 (42%)".
+     */
+    private static function extractWidthFromValue(string $value): int
+    {
+        // Match "(36%)" or "(36.5%)"
+        if (preg_match('/\((\d+(?:\.\d+)?)\s*%\)/', $value, $matches)) {
+            return (int) round((float) $matches[1]);
+        }
+        // Match standalone "36%"
+        if (preg_match('/(\d+(?:\.\d+)?)\s*%/', $value, $matches)) {
+            return (int) round((float) $matches[1]);
+        }
+
+        return 0;
+    }
+
+    /**
      * Download a blank CSV template for stunting data.
      */
-    public function downloadTemplate(): \Symfony\Component\HttpFoundation\StreamedResponse
+    public function downloadTemplate(): StreamedResponse
     {
-        $headers = ['Content-Type' => 'text/csv', 'Content-Disposition' => 'attachment; filename="template_stunting_cianjur.csv"'];
-        $columns = ['jumlah_balita_stunting', 'tahun'];
+        $headers = ['Content-Type' => 'text/csv', 'Content-Disposition' => 'attachment; filename="template_stunting.csv"'];
+        $columns = ['year', 'balita_stunting'];
         $examples = [
-            ['26687', '2014'],
-            ['26062', '2024'],
+            ['2024', '4254'],
+            ['2025', '3800'],
         ];
 
         $callback = function () use ($columns, $examples) {
@@ -269,23 +290,23 @@ class StatistikController extends Controller
     {
         $request->validate([
             'csv_file' => 'required|file|mimes:csv,txt|max:4096',
-            'import_type' => 'required|in:government,template',
         ]);
 
         $file = $request->file('csv_file');
         $handle = fopen($file->getRealPath(), 'r');
         $header = fgetcsv($handle);
 
+        $isGovernmentFormat = in_array('kode_kabupaten_kota', $header);
+
         $imported = 0;
         $errors = [];
         $rowNum = 1;
 
-        if ($request->import_type === 'government') {
-            // Both government CSV and template use the same format
-            while (($row = fgetcsv($handle)) !== false) {
-                $rowNum++;
-                $data = array_combine($header, $row);
+        while (($row = fgetcsv($handle)) !== false) {
+            $rowNum++;
+            $data = array_combine($header, $row);
 
+            if ($isGovernmentFormat) {
                 $kode = trim($data['kode_kabupaten_kota'] ?? '');
                 if ($kode !== '3203') {
                     continue;
@@ -306,25 +327,21 @@ class StatistikController extends Controller
                 );
 
                 $imported++;
-            }
-        } else {
-            // Template format: jumlah_balita_stunting,tahun (no kode_kabupaten_kota)
-            while (($row = fgetcsv($handle)) !== false) {
-                $rowNum++;
-                $data = array_combine($header, $row);
+            } else {
+                if (empty($data['year']) || ! is_numeric($data['year'])) {
+                    $errors[] = "Baris {$rowNum}: Kolom 'year' wajib diisi dengan angka.";
 
-                $tahun = (int) ($data['tahun'] ?? 0);
-                $jumlah = (int) ($data['jumlah_balita_stunting'] ?? 0);
-
-                if ($tahun === 0 || $jumlah < 0) {
-                    $errors[] = "Baris {$rowNum}: Data tidak valid (tahun={$tahun}, jumlah={$jumlah}).";
+                    continue;
+                }
+                if (empty($data['balita_stunting']) || ! is_numeric($data['balita_stunting'])) {
+                    $errors[] = "Baris {$rowNum}: Kolom 'balita_stunting' wajib diisi dengan angka.";
 
                     continue;
                 }
 
                 StuntingRecord::updateOrCreate(
-                    ['year' => $tahun],
-                    ['balita_stunting' => $jumlah]
+                    ['year' => (int) $data['year']],
+                    ['balita_stunting' => (int) $data['balita_stunting']]
                 );
 
                 $imported++;
@@ -332,13 +349,6 @@ class StatistikController extends Controller
         }
 
         fclose($handle);
-
-        self::recalculateRates();
-
-        if (StuntingRecord::where('is_highlighted', true)->count() > 1) {
-            $lastHighlighted = StuntingRecord::where('is_highlighted', true)->orderBy('year', 'desc')->first();
-            StuntingRecord::where('id', '!=', $lastHighlighted->id)->update(['is_highlighted' => false]);
-        }
 
         $message = "Berhasil mengimpor {$imported} baris data stunting.";
         if (! empty($errors)) {
@@ -350,32 +360,5 @@ class StatistikController extends Controller
         }
 
         return redirect()->route('admin.satudata.statistik.import')->with('success', $message);
-    }
-
-    /**
-     * Recalculate year-over-year rates for all stunting records.
-     */
-    private static function recalculateRates(): void
-    {
-        $records = StuntingRecord::orderBy('year', 'asc')->get();
-        $previous = null;
-
-        foreach ($records as $record) {
-            $rate = self::calculateYearOverYear($record->balita_stunting, $previous);
-            $record->update(['rate' => $rate]);
-            $previous = $record->balita_stunting;
-        }
-    }
-
-    /**
-     * Calculate year-over-year change percentage.
-     */
-    private static function calculateYearOverYear(?int $current, ?int $previous): float
-    {
-        if ($previous === null || $previous === 0 || $current === null) {
-            return 0.0;
-        }
-
-        return round(($current - $previous) / $previous * 100, 1);
     }
 }

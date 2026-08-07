@@ -60,9 +60,10 @@ class StatistikAdminTest extends TestCase
         $response = $this->actingAs($admin)
             ->put('/admin/satu-data/statistik', [
                 'section' => 'stunting',
-                'stunting_title' => 'Tren Jumlah Balita Stunting',
+                'stunting_title' => 'Tren Penurunan Prevalensi Stunting',
                 'stunting_subtitle' => 'Kabupaten Cianjur 2014-2024',
                 'stunting_years' => ['2024', '2025', '2026'],
+                'stunting_total_balita' => ['44100', '43000', '42000'],
                 'stunting_balita_stunt' => ['4254', '3800', '3200'],
                 'highlighted_year' => '2026',
             ]);

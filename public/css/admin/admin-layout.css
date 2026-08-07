@@ -371,6 +371,11 @@ label {
 .btn-action-delete:hover { background-color: #FCA5A5 !important; border-color: #F87171 !important; color: #991B1B !important; }
 .btn-action-view   { color: #0284C7 !important; background-color: #E0F2FE !important; border-color: #BAE6FD !important; }
 .btn-action-view:hover   { background-color: #BAE6FD !important; border-color: #7DD3FC !important; color: #0369A1 !important; }
+.btn-action-warning { color: #D97706 !important; background-color: #FEF3C7 !important; border-color: #FDE68A !important; }
+.btn-action-warning:hover { background-color: #FDE68A !important; border-color: #FCD34D !important; color: #78350F !important; }
+.btn-action-success { color: #059669 !important; background-color: #D1FAE5 !important; border-color: #A7F3D0 !important; }
+.btn-action-success:hover { background-color: #A7F3D0 !important; border-color: #6EE7B7 !important; color: #064E3B !important; }
+
 
 /* ── Edit / Save update buttons ─────────────────────────────────────────── */
 .btn-success-dark   { background-color: #007A52 !important; border-color: #007A52 !important; color: #ffffff !important; }
@@ -390,3 +395,129 @@ label {
 label.swal2-checkbox,
 .swal2-checkbox, .swal2-input, .swal2-file, .swal2-select, .swal2-textarea,
 .swal2-popup input[type="checkbox"] { display: none !important; }
+
+/* ── Pagination Bootstrap — Warna Hijau Konsisten ──────────────────────── */
+.pagination {
+    display: flex !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+    border-radius: 6px !important;
+    margin: 0 !important;
+    gap: 4px !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.pagination .page-item {
+    display: inline-block !important;
+    margin: 0 !important;
+}
+.pagination .page-item .page-link {
+    color: var(--brand-green) !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    background-color: #FFFFFF !important;
+    transition: all 0.18s ease !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04) !important;
+}
+.pagination .page-item .page-link:hover {
+    background-color: #E6F7F0 !important;
+    border-color: var(--brand-green) !important;
+    color: var(--brand-green) !important;
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--brand-green) !important;
+    border-color: var(--brand-green) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+.pagination .page-item.disabled .page-link {
+    color: #9CA3AF !important;
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+}
+.pagination-wrapper,
+.card-footer {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 16px 20px !important;
+    background: #FFFFFF !important;
+    border-top: 1px solid #E2E8F0 !important;
+    margin-top: 16px !important;
+    border-radius: 0 0 8px 8px !important;
+}
+.pagination-wrapper nav,
+.card-footer nav {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+/* ── Modal Header — Standar Hijau #009966 ──────────────────────────────── */
+.modal-header-green,
+.modal .modal-header[style*="background:#009966"],
+.modal .modal-header[style*="background: #009966"],
+.modal .modal-header[style*="background:#007A52"],
+.modal .modal-header[style*="background: #007A52"] {
+    background-color: #009966 !important;
+    color: #ffffff !important;
+}
+.modal .modal-header {
+    background-color: #009966 !important;
+    color: #ffffff !important;
+    border-radius: 0 !important;
+}
+.modal .modal-header .modal-title {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+}
+.modal .modal-header .close,
+.modal .modal-header button.close {
+    color: #ffffff !important;
+    opacity: 0.8 !important;
+    text-shadow: none !important;
+}
+.modal .modal-header .close:hover {
+    opacity: 1 !important;
+    color: #ffffff !important;
+}
+
+/* ── Card Header — Judul Bold Konsisten & Tombol Rata Kanan ────────────── */
+.card-header::after,
+.card-header::before,
+.card-header-actions::after,
+.card-header-actions::before {
+    display: none !important;
+    content: none !important;
+}
+.card-header.d-flex,
+.card-header-actions {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+.card-header.d-flex > a.btn,
+.card-header.d-flex > button.btn,
+.card-header.d-flex > .btn {
+    margin-left: auto !important;
+}
+.card-header .card-title-label {
+    font-weight: 700 !important;
+    color: #1E293B !important;
+    font-size: 14.5px !important;
+}
+

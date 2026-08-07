@@ -6,7 +6,7 @@
 @section('content')
 <div class="card card-outline card-success">
     <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-        <span class="font-weight-bold" style="color: #1E293B;">Edit Pengguna — {{ $user->name }}</span>
+        <span class="font-weight-bold card-title-label">Edit Pengguna — {{ $user->name }}</span>
         <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-secondary">
             <span class="material-icons" style="font-size:16px;">arrow_back</span> Kembali
         </a>

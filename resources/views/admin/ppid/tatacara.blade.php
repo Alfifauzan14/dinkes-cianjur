@@ -78,7 +78,7 @@
             <div class="card-header" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
                 <span class="d-flex align-items-center" style="gap: 8px;">
                     <span class="material-icons text-success">playlist_add_check</span>
-                    <span class="font-weight-bold" style="color: #1E293B;">Tata Cara Permohonan Informasi</span>
+                    <span class="font-weight-bold card-title-label">Tata Cara Permohonan Informasi</span>
                 </span>
             </div>
             <div class="card-body">
@@ -103,11 +103,14 @@
                             <label for="tata_cara_image_upload">Ilustrasi Gambar Tata Cara (Opsional)</label>
                             @if(!empty($ppid->tata_cara_image))
                                 <div class="mb-2">
-                                    <img src="{{ asset('storage/' . $ppid->tata_cara_image) }}" class="preview-image" style="max-height: 100px;">
+                                    <img src="{{ asset('storage/' . $ppid->tata_cara_image) }}" class="preview-image" style="max-height: 100px; border-radius: 4px; border: 1px solid #E2E8F0;">
                                 </div>
                             @endif
-                            <input type="file" name="tata_cara_image_upload" id="tata_cara_image_upload" class="form-control-file" accept="image/*">
-                            <small class="text-muted">Biarkan kosong jika tidak ingin mengubah ilustrasi gambar saat ini.</small>
+                            <div class="custom-file" style="font-size: 13px;">
+                                <input type="file" name="tata_cara_image_upload" id="tata_cara_image_upload" class="custom-file-input" accept="image/*" onchange="previewFile(this)">
+                                <label class="custom-file-label" for="tata_cara_image_upload">Pilih gambar ilustrasi...</label>
+                            </div>
+                            <small class="text-muted d-block mt-2">Biarkan kosong jika tidak ingin mengubah ilustrasi gambar saat ini.</small>
                         </div>
                     </div>
                 </div>
@@ -255,6 +258,13 @@
                 });
             }
         });
+    }
+
+    function previewFile(input) {
+        if (input.files && input.files[0]) {
+            const fileName = input.files[0].name;
+            input.nextElementSibling.innerText = fileName;
+        }
     }
 
     document.getElementById('ppid-form').addEventListener('submit', function() {

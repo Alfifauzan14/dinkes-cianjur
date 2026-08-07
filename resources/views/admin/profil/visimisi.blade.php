@@ -51,9 +51,11 @@
 <div class="row">
     <div class="col-12">
         <div class="card card-outline card-success">
-            <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-                <span class="material-icons text-success">flag</span>
-                <span>Visi Utama Instansi</span>
+            <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="d-flex align-items-center" style="gap: 8px;">
+                    <span class="material-icons text-success">flag</span>
+                    <span class="font-weight-bold card-title-label">Visi Utama Instansi</span>
+                </span>
             </div>
 
             <div class="card-body">
@@ -83,20 +85,20 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="stat_1_text">Statistik 1 (Kiri) <span class="text-danger">*</span></label>
-                            <input type="hidden" name="stat_1_text" value="{{ $puskesmasCount }} Puskesmas">
+                            <input type="hidden" name="stat_1_text" value="{{ $puskesmasCount }} Puskesmas Rujukan">
                             <div class="form-control bg-light" style="cursor: default;">
                                 <span class="material-icons text-success" style="font-size: 18px; vertical-align: middle; margin-right: 6px;">favorite</span>
-                                {{ $puskesmasCount }} Puskesmas
+                                {{ $puskesmasCount }} Puskesmas Rujukan
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="stat_2_text">Statistik 2 (Kanan) <span class="text-danger">*</span></label>
-                            <input type="hidden" name="stat_2_text" value="{{ $kecamatanCount }} Kecamatan">
+                            <input type="hidden" name="stat_2_text" value="{{ $kecamatanCount }} Kecamatan Terjangkau">
                             <div class="form-control bg-light" style="cursor: default;">
                                 <span class="material-icons text-success" style="font-size: 18px; vertical-align: middle; margin-right: 6px;">place</span>
-                                {{ $kecamatanCount }} Kecamatan
+                                {{ $kecamatanCount }} Kecamatan Terjangkau
                             </div>
                         </div>
                     </div>
