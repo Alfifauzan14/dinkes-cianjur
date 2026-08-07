@@ -275,9 +275,11 @@
     }
 
     .footer-emergency-btn {
+        display: flex;
         width: 100%;
         justify-content: center;
         text-align: center;
+        margin: 0 auto;
     }
 
     .footer-social-icons {
