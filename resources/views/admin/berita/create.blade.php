@@ -1,10 +1,10 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 @section('title', 'Tulis Berita Baru')
 @section('header_title', 'Tulis Berita Baru')
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center" style="padding: 12px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="font-weight-bold text-muted" style="font-size:13px;">
             <span class="material-icons text-success" style="font-size:16px; vertical-align:middle;">create</span>
             Formulir Penulisan Berita
@@ -25,10 +25,15 @@
                         <label for="category">Kategori <span class="text-danger">*</span></label>
                         <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
                             <option value="" disabled selected>Pilih Kategori</option>
-                            <option value="Kesehatan"  {{ old('category') == 'Kesehatan'  ? 'selected' : '' }}>Kesehatan</option>
-                            <option value="Kegiatan"   {{ old('category') == 'Kegiatan'   ? 'selected' : '' }}>Kegiatan</option>
-                            <option value="Pengumuman" {{ old('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                            @foreach($kategoris as $kat)
+                            <option value="{{ $kat->nama }}" {{ old('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                            @endforeach
                         </select>
+                        <div class="mt-1">
+                            <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
+                                <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola Kategori
+                            </a>
+                        </div>
                         @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>

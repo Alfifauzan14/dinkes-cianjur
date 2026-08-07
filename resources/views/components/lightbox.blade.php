@@ -125,12 +125,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 90vw;
-    max-height: 80vh;
+    max-width: 95vw;
+    max-height: 95vh;
 }
 .lightbox-image {
-    max-width: 88vw;
-    max-height: 80vh;
+    max-width: 95vw;
+    max-height: 95vh;
     object-fit: contain;
     border-radius: 3px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.5);

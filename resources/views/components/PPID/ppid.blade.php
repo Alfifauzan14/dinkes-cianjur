@@ -1,5 +1,6 @@
 @php
     $ppid = \App\Models\PpidSetting::instance();
+    $stats = \App\Services\PpidStatService::summary();
 @endphp
 <link rel="stylesheet" href="{{ asset('css/PPID/ppid.css') }}?v={{ time() }}">
 
@@ -20,17 +21,17 @@
         <div class="ppid-stats-container">
             <!-- Stat Card 1 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">{{ $ppid->stat_1_number }}</h3>
+                <h3 class="ppid-stat-number">{{ number_format($stats['count'], 0, ',', '.') }}</h3>
                 <p class="ppid-stat-desc">{{ $ppid->stat_1_desc }}</p>
             </div>
             <!-- Stat Card 2 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">{{ $ppid->stat_2_number }}</h3>
+                <h3 class="ppid-stat-number">{{ number_format($stats['views'], 0, ',', '.') }}</h3>
                 <p class="ppid-stat-desc">{{ $ppid->stat_2_desc }}</p>
             </div>
             <!-- Stat Card 3 -->
             <div class="ppid-stat-card">
-                <h3 class="ppid-stat-number">{{ $ppid->stat_3_number }}</h3>
+                <h3 class="ppid-stat-number">{{ number_format($stats['downloads'], 0, ',', '.') }}</h3>
                 <p class="ppid-stat-desc">{{ $ppid->stat_3_desc }}</p>
             </div>
         </div>
@@ -71,7 +72,7 @@
                 </div>
 
                 <!-- Accordion Items -->
-                <div class="accordion-container" style="margin-top: 32px;">
+                <div class="accordion-container accordion-container-margin">
                     @php
                         $items = $ppid->accordion_items;
                         if (empty($items)) {
@@ -104,15 +105,15 @@
                             </div>
                         </div>
                     @empty
-                        <div class="no-results-msg" style="text-align: center; padding: 40px 20px; color: #64748B;">
-                            <span class="material-icons" style="font-size: 48px; color: #CBD5E1; display: block; margin-bottom: 12px;">info</span>
+                        <div class="no-results-msg ppid-empty-state">
+                            <span class="material-icons ppid-empty-icon">info</span>
                             Tidak ada informasi publik yang ditemukan.
                         </div>
                     @endforelse
                     
                     {{-- Message shown when client-side filter returns empty --}}
-                    <div id="no-filter-results" class="no-results-msg" style="display: none; text-align: center; padding: 40px 20px; color: #64748B;">
-                        <span class="material-icons" style="font-size: 48px; color: #CBD5E1; display: block; margin-bottom: 12px;">search_off</span>
+                    <div id="no-filter-results" class="no-results-msg ppid-empty-state-hidden">
+                        <span class="material-icons ppid-empty-icon">search_off</span>
                         Tidak ada informasi publik yang cocok dengan pencarian Anda.
                     </div>
                 </div>
@@ -124,35 +125,39 @@
                 <h2 class="tautan-title">{{ $ppid->tautan_title }}</h2>
                 <p class="tautan-subtitle">{{ $ppid->tautan_subtitle }}</p>
 
-                <div class="tautan-grid">
-                    @php
-                        $tautanItems = $ppid->tautan_items;
-                        if (empty($tautanItems)) {
-                            // Fallback to old format if empty
-                            $tautanItems = [];
-                            foreach(range(1,5) as $i) {
-                                $l = $ppid->{'tautan_'.$i.'_label'};
-                                $u = $ppid->{'tautan_'.$i.'_url'} ?: '#';
-                                if ($l) {
-                                    $tautanItems[] = ['label' => $l, 'url' => $u, 'image' => null];
+                <div class="tautan-marquee-container">
+                    <div class="tautan-marquee-track">
+                        @php
+                            $tautanItems = $ppid->tautan_items;
+                            if (empty($tautanItems)) {
+                                // Fallback to old format if empty
+                                $tautanItems = [];
+                                foreach(range(1,5) as $i) {
+                                    $l = $ppid->{'tautan_'.$i.'_label'};
+                                    $u = $ppid->{'tautan_'.$i.'_url'} ?: '#';
+                                    if ($l) {
+                                        $tautanItems[] = ['label' => $l, 'url' => $u, 'image' => null];
+                                    }
                                 }
                             }
-                        }
-                    @endphp
-                    @foreach($tautanItems as $index => $item)
-                        @if(!empty($item['label']))
-                        <a href="{{ $item['url'] ?? '#' }}" class="tautan-card">
-                            <div class="tautan-icon-wrap">
-                                @if(!empty($item['image']))
-                                    <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['label'] }}">
-                                @else
-                                    <img src="{{ asset('Assets/ppdi/Rectangle '.($index % 5 + 95).'.png') }}" alt="{{ $item['label'] }}">
-                                @endif
-                            </div>
-                            <span class="tautan-card-text">{{ $item['label'] }}</span>
-                        </a>
-                        @endif
-                    @endforeach
+                            // Quadruple items to make infinite marquee loop perfectly seamless
+                            $marqueeItems = array_merge($tautanItems, $tautanItems, $tautanItems, $tautanItems);
+                        @endphp
+                        @foreach($marqueeItems as $index => $item)
+                            @if(!empty($item['label']))
+                            <a href="{{ $item['url'] ?? '#' }}" class="tautan-card">
+                                <div class="tautan-icon-wrap">
+                                    @if(!empty($item['image']))
+                                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['label'] }}">
+                                    @else
+                                        <img src="{{ asset('Assets/ppdi/Rectangle '.($index % 5 + 95).'.png') }}" alt="{{ $item['label'] }}">
+                                    @endif
+                                </div>
+                                <span class="tautan-card-text">{{ $item['label'] }}</span>
+                            </a>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

@@ -35,10 +35,6 @@ class PpidController extends Controller
 
         if ($section === 'statistik') {
             $rules = [
-                'page_title' => 'required|string|max:255',
-                'page_subtitle' => 'nullable|string|max:500',
-                'stat_numbers' => 'nullable|array',
-                'stat_numbers.*' => 'nullable|string',
                 'stat_descs' => 'nullable|array',
                 'stat_descs.*' => 'nullable|string|max:500',
             ];
@@ -85,18 +81,11 @@ class PpidController extends Controller
                 'accordion_items' => $request->input('accordion_items', []),
             ]);
         } elseif ($section === 'statistik') {
-            $numbers = $request->input('stat_numbers', []);
-            $descs = $request->input('stat_descs', []);
-
-            $data = [
-                'page_title' => $request->input('page_title'),
-                'page_subtitle' => $request->input('page_subtitle'),
-            ];
+            $data = [];
 
             for ($i = 1; $i <= 10; $i++) {
-                $idx = $i - 1;
-                $data["stat_{$i}_number"] = $numbers[$idx] ?? '';
-                $data["stat_{$i}_desc"] = $descs[$idx] ?? '';
+                $data["stat_{$i}_number"] = $request->input("stat_{$i}_number") ?? '';
+                $data["stat_{$i}_desc"] = $request->input("stat_{$i}_desc", '');
             }
 
             $ppid->update($data);

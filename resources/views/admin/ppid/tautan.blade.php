@@ -74,17 +74,18 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-
-        <div class="custom-form-card">
-            <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="tautan">
-
-                <div class="form-section-title">
+        <div class="card card-outline card-success">
+            <div class="card-header" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="d-flex align-items-center" style="gap: 8px;">
                     <span class="material-icons text-success">link</span>
-                    <span>Pengaturan Seksi Tautan PPID</span>
-                </div>
+                    <span class="font-weight-bold" style="color: #1E293B;">Pengaturan Seksi Tautan PPID</span>
+                </span>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="tautan">
 
                 <div class="row">
                     <div class="col-md-4">
@@ -153,7 +154,7 @@
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success px-4" id="ppid-save-btn">
+                    <button type="submit" class="btn btn-success-dark px-4" id="ppid-save-btn">
                         <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Tautan
                     </button>
                 </div>
@@ -161,10 +162,10 @@
         </div>
     </div>
 </div>
+</div>
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const container = document.getElementById('tautan-container');
     const btnAdd = document.getElementById('btn-add-tautan');

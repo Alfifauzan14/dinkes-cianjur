@@ -24,8 +24,8 @@
                     @if($berita->image)
                         <img src="{{ asset('uploads/berita/' . $berita->image) }}" alt="{{ $berita->title }}" class="berita-card-image" loading="lazy">
                     @else
-                        <div class="berita-card-image" style="background-color: #065F46; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); width: 100%; height: 100%;">
-                            <span class="material-icons" style="font-size: 48px;">image</span>
+                        <div class="berita-card-image home-berita-img-fallback">
+                            <span class="material-icons home-berita-icon-lg">image</span>
                         </div>
                     @endif
                     <div class="berita-card-overlay"></div>
@@ -35,9 +35,9 @@
                     </div>
                 </a>
             @empty
-                <div style="grid-column: span 2; text-align: center; padding: 48px; color: #9CA3AF; width: 100%;">
-                    <span class="material-icons" style="font-size: 48px; margin-bottom: 12px; display: block;">newspaper</span>
-                    <p style="font-size: 15px; font-weight: 600;">Belum ada rilis berita terbaru.</p>
+                <div class="home-berita-empty">
+                    <span class="material-icons home-berita-empty-icon">newspaper</span>
+                    <p class="home-berita-empty-text">Belum ada rilis berita terbaru.</p>
                 </div>
             @endforelse
         </div>
@@ -50,8 +50,8 @@
                         @if($berita->image)
                             <img src="{{ asset('uploads/berita/' . $berita->image) }}" alt="{{ $berita->title }}" class="berita-card-image" loading="lazy">
                         @else
-                            <div class="berita-card-image" style="background-color: #065F46; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); width: 100%; height: 100%;">
-                                <span class="material-icons" style="font-size: 36px;">image</span>
+                            <div class="berita-card-image home-berita-img-fallback">
+                                <span class="material-icons home-berita-icon-md">image</span>
                             </div>
                         @endif
                         <div class="berita-card-overlay"></div>

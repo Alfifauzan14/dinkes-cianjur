@@ -45,7 +45,11 @@ Route::get('/api/agenda-by-date', [HomeController::class, 'agendaByDate'])->name
 /* --- Satu Data Kesehatan Routes --- */
 Route::get('/satu-data/statistik', [SatuDataController::class, 'statistik'])->name('satudata.statistik');
 Route::get('/satu-data/laporan', [SatuDataController::class, 'laporan'])->name('satudata.laporan');
+Route::get('/satu-data/laporan/{laporan}/view', [SatuDataController::class, 'viewLaporan'])->name('satudata.laporan.view');
+Route::get('/satu-data/laporan/{laporan}/download', [SatuDataController::class, 'downloadLaporan'])->name('satudata.laporan.download');
 Route::get('/satu-data/regulasi', [SatuDataController::class, 'regulasi'])->name('satudata.regulasi');
+Route::get('/satu-data/regulasi/{regulasi}/view', [SatuDataController::class, 'viewRegulasi'])->name('satudata.regulasi.view');
+Route::get('/satu-data/regulasi/{regulasi}/download', [SatuDataController::class, 'downloadRegulasi'])->name('satudata.regulasi.download');
 
 /* --- Indeks Kepuasan Masyarakat (IKM) --- */
 Route::get('/ikm', [IkmController::class, 'index'])->name('ikm');
@@ -262,3 +266,18 @@ Route::get('/admin/kategori', [KategoriController::class, 'index'])->middleware(
 Route::post('/admin/kategori', [KategoriController::class, 'store'])->middleware('auth')->name('admin.kategori.store');
 Route::put('/admin/kategori/{kategori}', [KategoriController::class, 'update'])->middleware('auth')->name('admin.kategori.update');
 Route::delete('/admin/kategori/{kategori}', [KategoriController::class, 'destroy'])->middleware('auth')->name('admin.kategori.destroy');
+
+/* --- Admin Manajemen Pengguna Routes --- */
+Route::resource('/admin/users', App\Http\Controllers\Admin\UserController::class, [
+    'names' => [
+        'index' => 'admin.users.index',
+        'create' => 'admin.users.create',
+        'store' => 'admin.users.store',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
+    ],
+])->middleware('auth');
+
+Route::post('/admin/users/{user}/reset-password', [App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->middleware('auth')->name('admin.users.reset-password');
+Route::post('/admin/users/{user}/toggle-active', [App\Http\Controllers\Admin\UserController::class, 'toggleActive'])->middleware('auth')->name('admin.users.toggle-active');

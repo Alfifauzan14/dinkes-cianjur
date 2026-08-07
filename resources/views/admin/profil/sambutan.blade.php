@@ -2,44 +2,22 @@
 @section('title', 'Sambutan Pimpinan')
 @section('header_title', 'Sambutan Pimpinan')
 
-@section('styles')
-<style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
-    .form-section-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #004F3B;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-bottom: 10px;
-    }
-</style>
-@endsection
-
 @section('content')
+
+
 <div class="row">
     <div class="col-12">
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="material-icons text-success">campaign</span>
+                <span>Sambutan Pimpinan</span>
+            </div>
 
-        <div class="custom-form-card">
-            <form action="{{ route('admin.profil.update') }}" method="POST" enctype="multipart/form-data" id="profile-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="sambutan">
-
-                <div class="form-section-title">
-                    <span class="material-icons text-success">campaign</span>
-                    <span>Sambutan Pimpinan</span>
-                </div>
+            <div class="card-body">
+                <form action="{{ route('admin.profil.update') }}" method="POST" enctype="multipart/form-data" id="profile-form">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="sambutan">
 
                 <div class="row">
                     <div class="col-md-6">
@@ -112,11 +90,12 @@
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success px-4" id="profile-save-btn">
+                    <button type="submit" class="btn btn-success-dark px-4" id="profile-save-btn">
                         <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Sambutan
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,13 +13,16 @@ class LaporanController extends Controller
     public function index()
     {
         $laporans = Laporan::orderBy('release_date', 'desc')->get();
+        $kategoris = Kategori::ofType('laporan')->orderBy('nama')->get();
 
-        return view('admin.laporan.index', compact('laporans'));
+        return view('admin.laporan.index', compact('laporans', 'kategoris'));
     }
 
     public function create()
     {
-        return view('admin.laporan.create');
+        $kategoris = Kategori::ofType('laporan')->orderBy('nama')->get();
+
+        return view('admin.laporan.create', compact('kategoris'));
     }
 
     public function store(Request $request)
@@ -56,7 +60,9 @@ class LaporanController extends Controller
 
     public function edit(Laporan $laporan)
     {
-        return view('admin.laporan.edit', compact('laporan'));
+        $kategoris = Kategori::ofType('laporan')->orderBy('nama')->get();
+
+        return view('admin.laporan.edit', compact('laporan', 'kategoris'));
     }
 
     public function update(Request $request, Laporan $laporan)

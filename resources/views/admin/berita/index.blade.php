@@ -4,25 +4,33 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center" style="padding: 14px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
-        {{-- Search & Filter --}}
-        <form action="{{ route('admin.berita.index') }}" method="GET" class="d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
+    <div class="card-header d-flex flex-wrap align-items-center" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">newspaper</span>
+            <span class="font-weight-bold" style="color: #1E293B;">Kelola Berita</span>
+        </span>
+
+        <form action="{{ route('admin.berita.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
             <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari judul berita..." style="width: 220px;">
-            <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 160px;">
+            <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 150px;">
                 <option value="">Semua Kategori</option>
-                <option value="Kesehatan"  {{ request('category') == 'Kesehatan'  ? 'selected' : '' }}>Kesehatan</option>
-                <option value="Kegiatan"   {{ request('category') == 'Kegiatan'   ? 'selected' : '' }}>Kegiatan</option>
-                <option value="Pengumuman" {{ request('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                @foreach($kategoris as $kat)
+                <option value="{{ $kat->nama }}" {{ request('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                @endforeach
             </select>
+            <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
+                <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola
+            </a>
             @if(request('search') || request('category'))
                 <a href="{{ route('admin.berita.index') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
             @endif
         </form>
 
-        {{-- Tombol Tulis Berita: push ke kanan penuh --}}
-        <a href="{{ route('admin.berita.create') }}" class="btn btn-sm btn-success ml-auto" style="white-space: nowrap;">
-            <span class="material-icons" style="font-size:16px; vertical-align:middle;">add</span> Tulis Berita
-        </a>
+        <div class="d-flex ml-auto" style="gap: 8px;">
+            <a href="{{ route('admin.berita.create') }}" class="btn btn-sm btn-success">
+                <span class="material-icons" style="font-size:16px;">add</span> Tulis Berita
+            </a>
+        </div>
     </div>
 
     <div class="card-body p-0">
@@ -58,10 +66,11 @@
                         </td>
                         <td class="align-middle">
                             @php
-                                $catColors = ['Kesehatan'=>['bg'=>'#DEF7EC','color'=>'#03543F'],'Kegiatan'=>['bg'=>'#E0F2FE','color'=>'#0369A1'],'Pengumuman'=>['bg'=>'#EDE9FE','color'=>'#5B21B6']];
-                                $cat = $catColors[$berita->category] ?? ['bg'=>'#F1F5F9','color'=>'#475569'];
+                                $katData = isset($kategoris) ? $kategoris->firstWhere('nama', $berita->category) : null;
+                                $bgColor = $katData ? $katData->warna . '20' : '#E5E7EB';
+                                $textColor = $katData ? $katData->warna : '#6B7280';
                             @endphp
-                            <span class="badge" style="padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700;" @style(['background: ' . $cat['bg'], 'color: ' . $cat['color']])>
+                            <span class="badge" style="padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700; background-color: {{ $bgColor }}; color: {{ $textColor }};">
                                 {{ $berita->category }}
                             </span>
                         </td>

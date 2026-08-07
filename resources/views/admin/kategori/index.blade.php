@@ -245,8 +245,8 @@
                 </div>
                 <div class="modal-footer" style="padding: 16px 24px;">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">
-                        <span class="material-icons" style="font-size:16px;">save</span> Simpan Perubahan
+                      <button type="submit" class="btn btn-success-dark">
+                          <span class="material-icons" style="font-size:16px;">save</span> Simpan Perubahan
                     </button>
                 </div>
             </form>

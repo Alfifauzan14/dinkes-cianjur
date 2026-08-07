@@ -40,13 +40,13 @@
                         <div class="stat-card-header">
                             <span class="stat-card-label">{{ $card['name'] }}</span>
                         </div>
-                        <div class="stat-card-body-wrap" style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
-                            <div class="stat-card-number" style="margin: 0;">{{ $card['num'] }}</div>
-                            <div class="stat-card-icon-wrapper" style="color: #009966; background-color: #E6F7F0; width: 44px; height: 44px; border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                <span class="material-icons" style="font-size: 22px;">{{ $cardIcons[$idx] ?? 'indicator' }}</span>
+                        <div class="stat-card-body-wrap">
+                            <div class="stat-card-number">{{ $card['num'] }}</div>
+                            <div class="stat-card-icon-wrapper">
+                                <span class="material-icons">{{ $cardIcons[$idx] ?? 'indicator' }}</span>
                             </div>
                         </div>
-                        <div class="stat-card-caption caption-accent" style="margin-top: 8px;">
+                        <div class="stat-card-caption caption-accent">
                             <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
@@ -91,7 +91,7 @@
                 <div class="stunting-dashboard-grid">
                     <!-- Left Column: Visual Chart -->
                     <div class="stunting-chart-column">
-                        <div class="chart-flex-container" style="display: flex; position: relative; align-items: flex-start; gap: 12px; margin-top: 12px;">
+                        <div class="chart-flex-container">
                              <!-- Y-Axis Static Labels (Left) -->
                             @php
                                 $maxRateValue = $stuntingRecords->max('rate') ?: 1;
@@ -100,26 +100,26 @@
                                     $yMax = 10;
                                 }
                             @endphp
-                            <div class="chart-y-axis-labels" style="display: flex; flex-direction: column; justify-content: space-between; height: 220px; margin-top: 10px; width: 32px; font-size: 11px; color: #94A3B8; font-weight: 700; text-align: right; flex-shrink: 0; position: relative; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif;">
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax }}%</span></div>
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.75 }}%</span></div>
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.5 }}%</span></div>
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>{{ $yMax * 0.25 }}%</span></div>
-                                <div style="height: 0; display: flex; align-items: center; justify-content: flex-end; overflow: visible;"><span>0%</span></div>
+                            <div class="chart-y-axis-labels">
+                                <div class="chart-y-axis-labels-item"><span>{{ $yMax }}%</span></div>
+                                <div class="chart-y-axis-labels-item"><span>{{ $yMax * 0.75 }}%</span></div>
+                                <div class="chart-y-axis-labels-item"><span>{{ $yMax * 0.5 }}%</span></div>
+                                <div class="chart-y-axis-labels-item"><span>{{ $yMax * 0.25 }}%</span></div>
+                                <div class="chart-y-axis-labels-item"><span>0%</span></div>
                             </div>
                             
                             <!-- Scrollable Chart Area (Right) -->
-                            <div class="stunting-chart-container" style="flex-grow: 1; overflow-x: auto; position: relative; padding-left: 0; margin-top: 0;">
+                            <div class="stunting-chart-container">
                                 <!-- Y-Axis Grid Lines -->
-                                <div class="chart-y-axis-grid" style="position: absolute; top: 10px; left: 0; right: 0; height: 220px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 1;">
-                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
-                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
-                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
-                                    <div class="grid-line" style="width: 100%; border-top: 1px dashed #E2E8F0; position: relative;"></div>
-                                    <div class="grid-line" style="width: 100%; border-top: 1px solid #CBD5E1; position: relative;"></div>
+                                <div class="chart-y-axis-grid">
+                                    <div class="grid-line"></div>
+                                    <div class="grid-line"></div>
+                                    <div class="grid-line"></div>
+                                    <div class="grid-line"></div>
+                                    <div class="grid-line grid-line-solid"></div>
                                 </div>
 
-                                <div class="chart-bars-wrapper" id="chart-bars-wrapper" style="position: relative; z-index: 2; height: 260px; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px; margin-bottom: 0;">
+                                <div class="chart-bars-wrapper" id="chart-bars-wrapper">
                                     @foreach($stuntingRecords as $record)
                                         @php
                                             $heightPercent = $yMax > 0 ? ($record->rate / $yMax) * 100 : 0;
@@ -144,7 +144,7 @@
                                             <span class="bar-year {{ $record->is_highlighted ? 'bar-year-active' : '' }}">
                                                 {{ $record->year }}
                                                 @if($record->is_highlighted)
-                                                    <span class="bar-year-tag" style="display: block; font-size: 10px; font-weight: 700;">(Saat Ini)</span>
+                                                    <span class="bar-year-tag-current">(Saat Ini)</span>
                                                 @endif
                                             </span>
                                         </div>
@@ -154,8 +154,8 @@
                         </div>
                         
                         <!-- Click-to-Detail Hint -->
-                        <div class="chart-click-hint" style="margin-top: 16px; font-size: 13px; color: #64748B; display: flex; align-items: center; gap: 6px; padding-left: 44px;">
-                            <span class="material-icons" style="font-size: 16px; color: #009966;">touch_app</span>
+                        <div class="chart-click-hint">
+                            <span class="material-icons">touch_app</span>
                             <span>Arahkan kursor atau klik batang grafik untuk melihat rincian data tahunan di panel samping.</span>
                         </div>
                     </div>
@@ -180,7 +180,7 @@
                                 </div>
                                 <div class="detail-stat-item">
                                     <span class="detail-stat-label">Kondisi Stunting</span>
-                                    <span id="detail-stunting" class="detail-stat-val" style="color: #DC2626;">—</span>
+                                    <span id="detail-stunting" class="detail-stat-val detail-stat-val-danger">—</span>
                                 </div>
                             </div>
 
@@ -196,8 +196,8 @@
                             </div>
 
                             <div class="detail-note-box">
-                                <div style="display: flex; gap: 6px; align-items: flex-start;">
-                                    <span class="material-icons" style="font-size: 16px; color: #009966; margin-top: 2px;">info</span>
+                                <div class="info-row">
+                                    <span class="material-icons">info</span>
                                     <span id="detail-catatan">—</span>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@
                 </div>
 
                 <!-- Footer Note -->
-                <div class="chart-footer-note" style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #F1F5F9;">
+                <div class="chart-footer-note">
                     {!! $setting->stunting_footer_note !!}
                 </div>
             </div>

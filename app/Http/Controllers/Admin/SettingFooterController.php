@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\SettingFooter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,13 +13,9 @@ use Illuminate\View\View;
 
 class SettingFooterController extends Controller
 {
-    /**
-     * Show the form for editing the site settings.
-     */
     public function edit(Request $request): View
     {
         $setting = SettingFooter::firstOrCreate(['id' => 1], [
-            'site_name' => 'Dinas Kesehatan Kabupaten Cianjur',
             'site_tagline' => 'Mewujudkan masyarakat Cianjur yang sehat, mandiri, dan berkeadilan.',
             'site_logo' => null,
             'address' => 'Jl. Pangeran No. 105, Cianjur, Jawa Barat.',
@@ -33,48 +30,25 @@ class SettingFooterController extends Controller
             'social_tiktok' => 'https://tiktok.com',
         ]);
 
-        $section = $request->query('section', 'identitas');
-        if (! in_array($section, ['identitas', 'kontak', 'darurat', 'sosmed'])) {
-            $section = 'identitas';
-        }
-
-        return view('admin.settingfooter.'.$section, compact('setting'));
+        return view('admin.settingfooter.edit', compact('setting'));
     }
 
-    /**
-     * Update the site settings in storage.
-     */
     public function update(Request $request): RedirectResponse
     {
-        $section = $request->input('section', 'identitas');
-        $rules = [];
-
-        if ($section === 'identitas') {
-            $rules = [
-                'site_name' => 'required|string|max:255',
-                'site_tagline' => 'required|string|max:255',
-                'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
-            ];
-        } elseif ($section === 'kontak') {
-            $rules = [
-                'address' => 'required|string|max:255',
-                'phone' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-            ];
-        } elseif ($section === 'darurat') {
-            $rules = [
-                'emergency_call' => 'required|string|max:255',
-                'emergency_title' => 'required|string|max:255',
-            ];
-        } elseif ($section === 'sosmed') {
-            $rules = [
-                'social_facebook' => 'nullable|url|max:255',
-                'social_instagram' => 'nullable|url|max:255',
-                'social_twitter' => 'nullable|url|max:255',
-                'social_youtube' => 'nullable|url|max:255',
-                'social_tiktok' => 'nullable|url|max:255',
-            ];
-        }
+        $rules = [
+            'site_tagline' => 'required|string|max:255',
+            'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'address' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'emergency_call' => 'required|string|max:255',
+            'emergency_title' => 'required|string|max:255',
+            'social_facebook' => 'nullable|url|max:255',
+            'social_instagram' => 'nullable|url|max:255',
+            'social_twitter' => 'nullable|url|max:255',
+            'social_youtube' => 'nullable|url|max:255',
+            'social_tiktok' => 'nullable|url|max:255',
+        ];
 
         $request->validate($rules);
 
@@ -82,8 +56,7 @@ class SettingFooterController extends Controller
 
         $data = $request->only(array_keys($rules));
 
-        // Handle Site Logo Upload
-        if ($section === 'identitas' && $request->hasFile('site_logo')) {
+        if ($request->hasFile('site_logo')) {
             $image = $request->file('site_logo');
             $imageName = 'logo_'.time().'_'.Str::random(8).'.'.$image->getClientOriginalExtension();
 
@@ -92,7 +65,6 @@ class SettingFooterController extends Controller
                 File::makeDirectory($destinationPath, 0755, true, true);
             }
 
-            // Hapus gambar lama jika ada
             if ($setting->site_logo) {
                 $oldImagePath = public_path('uploads/settings/'.$setting->site_logo);
                 if (File::exists($oldImagePath)) {
@@ -106,7 +78,13 @@ class SettingFooterController extends Controller
 
         $setting->update($data);
 
-        return redirect()->route('admin.settingfooter.edit', ['section' => $section])
-            ->with('success', 'Pengaturan situs berhasil diperbarui!');
+        Setting::set('social_facebook', $request->input('social_facebook', ''));
+        Setting::set('social_instagram', $request->input('social_instagram', ''));
+        Setting::set('social_twitter', $request->input('social_twitter', ''));
+        Setting::set('social_youtube', $request->input('social_youtube', ''));
+        Setting::set('social_tiktok', $request->input('social_tiktok', ''));
+
+        return redirect()->route('admin.settingfooter.edit')
+            ->with('success', 'Pengaturan footer berhasil diperbarui!');
     }
 }

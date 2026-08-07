@@ -4,7 +4,11 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-end" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">gavel</span>
+            <span class="font-weight-bold" style="color: #1E293B;">Kelola Regulasi</span>
+        </span>
         <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahRegulasi">
             <span class="material-icons" style="font-size:16px;">add</span> Tambah Regulasi
         </button>
@@ -134,21 +138,23 @@
                     </div>
                     <div class="form-group">
                         <label for="tambah_r_description">Deskripsi Singkat <span class="text-muted" style="font-weight:400;">(opsional)</span></label>
-                        <textarea name="description" id="tambah_r_description" class="form-control" rows="2" placeholder="Ringkasan isi regulasi..."></textarea>
+                                 <textarea name="description" id="tambah_r_description" class="form-control" rows="2" placeholder="Ringkasan isi regulasi..." required>{{ old('description') }}</textarea>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="tambah_r_category">Kategori <span class="text-danger">*</span></label>
-                                <select name="category" id="tambah_r_category" class="form-control" required>
-                                    <option value="" disabled selected>Pilih Kategori</option>
-                                    <option value="Peraturan Bupati">Peraturan Bupati</option>
-                                    <option value="Keputusan Bupati">Keputusan Bupati</option>
-                                    <option value="Peraturan Menteri">Peraturan Menteri</option>
-                                    <option value="Undang-Undang">Undang-Undang</option>
-                                    <option value="Peraturan Daerah">Peraturan Daerah</option>
-                                    <option value="Surat Edaran">Surat Edaran</option>
-                                </select>
+                                 <select name="category" id="tambah_r_category" class="form-control" required>
+                                     <option value="" disabled selected>Pilih Kategori</option>
+                                     @foreach($kategoris as $kat)
+                                     <option value="{{ $kat->nama }}" {{ old('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                                     @endforeach
+                                 </select>
+                                 <div class="mt-1">
+                                     <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
+                                         <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola Kategori
+                                     </a>
+                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -177,14 +183,14 @@
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="tambah_r_file">File PDF Regulasi <span class="text-danger">*</span></label>
-                                <input type="file" name="file" id="tambah_r_file" class="form-control" accept=".pdf" required>
+                                 <input type="file" name="file_document" id="tambah_r_file" class="form-control" accept=".pdf" required>
                                 <small class="text-muted">Format: PDF. Maks: 10MB.</small>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="tambah_r_cover">Cover / Thumbnail <span class="text-muted" style="font-weight:400;">(opsional)</span></label>
-                                <input type="file" name="cover" id="tambah_r_cover" class="form-control" accept="image/*">
+                                 <input type="file" name="file_cover" id="tambah_r_cover" class="form-control" accept="image/*">
                                 <small class="text-muted">Format: JPG, PNG. Maks: 2MB.</small>
                             </div>
                         </div>
@@ -265,14 +271,14 @@
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="edit_r_file">Ganti File PDF <span class="text-muted" style="font-weight:400;">(opsional)</span></label>
-                                <input type="file" name="file" id="edit_r_file" class="form-control" accept=".pdf">
+                                 <input type="file" name="file_document" id="edit_r_file" class="form-control" accept=".pdf">
                                 <small class="text-muted">Kosongkan jika tidak ingin mengganti file.</small>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="edit_r_cover">Ganti Cover <span class="text-muted" style="font-weight:400;">(opsional)</span></label>
-                                <input type="file" name="cover" id="edit_r_cover" class="form-control" accept="image/*">
+                                 <input type="file" name="file_cover" id="edit_r_cover" class="form-control" accept="image/*">
                                 <small class="text-muted">Kosongkan jika tidak ingin mengganti.</small>
                             </div>
                         </div>
@@ -280,7 +286,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success-dark">
                         <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>

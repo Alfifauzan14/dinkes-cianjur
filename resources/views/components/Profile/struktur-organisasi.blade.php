@@ -1,44 +1,64 @@
 <!-- Struktur Organisasi Section -->
-<div id="struktur-organisasi" class="struktur-section">
-    <div class="struktur-header">
+<div class="struktur-organisasi-section">
+    <div class="struktur-header-wrap">
         <span class="struktur-subtitle">Profil Organisasi</span>
         <h2 class="struktur-title">Struktur organisasi</h2>
     </div>
 
-    @if($profile && $profile->struktur_organisasi_image)
-        @if(file_exists(public_path('uploads/profile/' . $profile->struktur_organisasi_image)))
-            <div class="struktur-image-wrapper">
-                <img src="{{ asset('uploads/profile/' . $profile->struktur_organisasi_image) }}" alt="Struktur Organisasi Dinas Kesehatan Kabupaten Cianjur" class="struktur-image">
-            </div>
-
-            <!-- Keterangan -->
-            <div class="struktur-description">
-                <p>Struktur organisasi disusun <strong>sesuai Peraturan Bupati Cianjur Nomor 85 Tahun 2021</strong> tentang Tugas dan Fungsi serta Tata Kerja Unit Organisasi di Lingkungan Dinas Kesehatan Kabupaten Cianjur, yang berkedudukan di bawah dan bertanggung jawab kepada Bupati Cianjur melalui Sekretaris Daerah.</p>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="struktur-actions">
-                <a href="{{ asset('uploads/profile/' . $profile->struktur_organisasi_image) }}" download="sturkture-dinkes" class="struktur-btn struktur-btn-primary">
-                    <span class="material-icons">file_download</span>
-                    <span>Simpan Struktur Organisasi</span>
-                </a>
-                <button type="button" class="struktur-btn struktur-btn-outline" onclick="window.print()">
-                    <span class="material-icons">print</span>
-                    <span>Cetak Halaman</span>
-                </button>
-            </div>
-        @else
-            <div class="struktur-empty-state">
-                <span class="material-icons struktur-empty-icon">account_tree</span>
-                <p class="struktur-empty-text">Struktur Organisasi tidak tersedia</p>
-                <p class="struktur-empty-subtext">Gambar struktur organisasi belum ditemukan di server.</p>
-            </div>
-        @endif
-    @else
-        <div class="struktur-empty-state">
-            <span class="material-icons struktur-empty-icon">account_tree</span>
-            <p class="struktur-empty-text">Struktur Organisasi tidak tersedia</p>
-            <p class="struktur-empty-subtext">Belum ada gambar struktur organisasi yang diunggah melalui halaman admin.</p>
+    <div class="struktur-card-container">
+        <div class="struktur-image-wrap">
+            @if($profile && $profile->struktur_organisasi_image)
+                @if(file_exists(public_path('uploads/profile/' . $profile->struktur_organisasi_image)))
+                    <img src="{{ asset('uploads/profile/' . $profile->struktur_organisasi_image) }}" alt="Bagan Struktur Organisasi Dinkes Cianjur" class="struktur-img-main lightbox-trigger">
+                @else
+                    <img src="{{ asset('images/' . $profile->struktur_organisasi_image) }}" alt="Bagan Struktur Organisasi Dinkes Cianjur" class="struktur-img-main lightbox-trigger">
+                @endif
+            @else
+                <!-- Default placeholder structure image if not uploaded -->
+                <div class="struktur-empty-wrap">
+                    <span class="material-icons struktur-empty-icon">account_tree</span>
+                    <p class="struktur-empty-title">Bagan Struktur Organisasi Belum Diunggah</p>
+                    <p class="struktur-empty-desc">Struktur organisasi Dinas Kesehatan Kabupaten Cianjur.</p>
+                </div>
+            @endif
         </div>
-    @endif
+    </div>
+
+    <div class="struktur-bottom-actions">
+        <div class="struktur-info-text">
+            <p class="struktur-info-p">
+                Struktur organisasi disusun <strong class="struktur-info-strong">sesuai Peraturan Bupati Cianjur Nomor 85 Tahun 2021</strong> tentang Tugas dan Fungsi serta Tata Kerja Unit Organisasi di Lingkungan Dinas Kesehatan Kabupaten Cianjur, yang berkedudukan di bawah dan bertanggung jawab kepada Bupati Cianjur melalui Sekretaris Daerah.
+            </p>
+        </div>
+        <div class="struktur-buttons">
+            @if($profile && $profile->struktur_organisasi_image)
+                <a href="{{ file_exists(public_path('uploads/profile/' . $profile->struktur_organisasi_image)) ? asset('uploads/profile/' . $profile->struktur_organisasi_image) : asset('images/' . $profile->struktur_organisasi_image) }}" download="Struktur_Organisasi_Dinkes.png" class="struktur-btn-primary">
+                    <span class="material-icons struktur-btn-icon">file_download</span> Simpan Struktur Organisasi
+                </a>
+            @endif
+            <button onclick="window.print()" class="struktur-btn-outline">
+                <span class="material-icons struktur-btn-icon">print</span> Cetak Halaman
+            </button>
+        </div>
+    </div>
 </div>
+
+<style>
+    @media (max-width: 768px) {
+        .struktur-bottom-actions {
+            flex-direction: column;
+            align-items: stretch;
+            text-align: center;
+        }
+        .struktur-buttons {
+            justify-content: center;
+        }
+    }
+    .btn-download:hover {
+        background-color: #00B377 !important;
+    }
+    .btn-print:hover {
+        background-color: #F8FAFC !important;
+        border-color: #00CC88 !important;
+    }
+</style>

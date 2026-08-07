@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+﻿@extends('admin.layouts.admin')
 
 @section('title', 'Dashboard')
 @section('header_title', 'Dashboard')
@@ -258,7 +258,7 @@
     {{-- Recent Berita --}}
     <div class="col-lg-6 col-12">
         <div class="card card-success card-outline h-100">
-            <div class="card-header d-flex align-items-center" style="padding:14px 20px;">
+            <div class="card-header d-flex align-items-center" style="padding:16px 20px;">
                 <h3 class="card-title mb-0 d-flex align-items-center" style="gap:8px;font-size:14px;font-weight:700;">
                     <span class="material-icons" style="font-size:18px;color:#009966;">newspaper</span>
                     Berita Terbaru
@@ -294,7 +294,7 @@
     {{-- Upcoming Agenda --}}
     <div class="col-lg-6 col-12">
         <div class="card card-info card-outline h-100">
-            <div class="card-header d-flex align-items-center" style="padding:14px 20px;">
+            <div class="card-header d-flex align-items-center" style="padding:16px 20px;">
                 <h3 class="card-title mb-0 d-flex align-items-center" style="gap:8px;font-size:14px;font-weight:700;">
                     <span class="material-icons" style="font-size:18px;color:#17a2b8;">event</span>
                     Agenda Mendatang

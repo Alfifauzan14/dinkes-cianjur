@@ -408,3 +408,36 @@
         gap: 4px;
     }
 }
+
+/* --- Added from blade --- */
+.home-media-empty {
+    grid-column: span 2;
+    text-align: center;
+    padding: 48px;
+    color: #9CA3AF;
+    background: #F3F4F6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 12px;
+    height: 350px;
+}
+.home-media-empty-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+.home-media-empty-text {
+    font-weight: 600;
+}
+.home-agenda-empty {
+    text-align: center;
+    padding: 48px;
+    color: #9CA3AF;
+    width: 100%;
+}
+.date-nav-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}

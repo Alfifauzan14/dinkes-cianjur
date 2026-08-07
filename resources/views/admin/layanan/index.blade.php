@@ -4,7 +4,11 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-end" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">home_work</span>
+            <span class="font-weight-bold" style="color: #1E293B;">Kelola Layanan Terpadu</span>
+        </span>
         <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahLayanan">
             <span class="material-icons" style="font-size:16px;">add</span> Tambah Layanan
         </button>
@@ -64,7 +68,7 @@
                             @if($layanan->type === 'Warga')
                                 <span class="badge" style="background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:3px;">Layanan Warga</span>
                             @elseif($layanan->type === 'Faskes')
-                                <span class="badge" style="background:#EDE9FE;color:#5B21B6;padding:4px 10px;border-radius:3px;">Layanan Faskes</span>
+                                <span class="badge" style="background:#FEF3C7;color:#92400E;padding:4px 10px;border-radius:3px;">Layanan Faskes</span>
                             @else
                                 <span class="badge" style="background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:3px;">Layanan Nakes</span>
                             @endif
@@ -184,7 +188,7 @@
         <div class="modal-content">
             <form action="" method="POST" id="form-edit-layanan">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background:#007A52;color:#fff;border-radius:0;">
+                <div class="modal-header" style="background:#D97706;color:#fff;border-radius:0;">
                     <h5 class="modal-title" id="modalEditLayananLabel">
                         <span class="material-icons" style="vertical-align:middle;margin-right:6px;">edit</span>
                         Edit Layanan
@@ -229,7 +233,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success-dark">
                         <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>
