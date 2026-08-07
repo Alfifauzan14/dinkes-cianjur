@@ -104,6 +104,7 @@
     .sambutan-visual {
         min-height: 400px;
         justify-content: center;
+        order: -1;
     }
 
     .sambutan-photo {

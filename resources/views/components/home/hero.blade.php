@@ -3,19 +3,19 @@
 <section class="hero-section">
     <div class="hero-overlay"></div>
 
-    <div class="hero-container">
-        <div class="emergency-bubble-wrapper">
+    <div class="emergency-bubble-wrapper">
         <div class="emergency-bubble">
-                <div class="emergency-bubble-content">
-                    <span class="emergency-label">Kontak darurat</span>
-                    <span class="emergency-number">119</span>
-                </div>
-                <div class="emergency-close-badge">
-                    <span class="material-icons hero-close-icon">close</span>
-                </div>
+            <div class="emergency-bubble-content">
+                <span class="emergency-label">Kontak darurat</span>
+                <span class="emergency-number">119</span>
+            </div>
+            <div class="emergency-close-badge">
+                <span class="material-icons hero-close-icon">close</span>
             </div>
         </div>
+    </div>
 
+    <div class="hero-container">
         <div class="hero-content">
             <h3 class="hero-subtitle">PORTAL RESMI DINAS KESEHATAN KABUPATEN CIANJUR</h3>
             <h1 class="hero-title">Mewujudkan Cianjur Sehat Mandiri</h1>
