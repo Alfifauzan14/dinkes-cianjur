@@ -275,7 +275,7 @@
     
     .profile-header {
         padding: 40px 20px;
-        text-align: center;
+        text-align: left;
     }
     
     .profile-header-title {
@@ -321,24 +321,22 @@
     .history-card-container {
         padding: 30px 16px;
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
         gap: 20px;
     }
 
     .history-logo-wrap {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
+        display: none;
     }
 
     .history-body {
-        text-align: center;
+        text-align: left;
     }
 
     .history-title {
         font-size: 24px;
-        text-align: center;
+        text-align: left;
     }
 
     .history-badge {
@@ -348,7 +346,7 @@
 
     .history-text {
         font-size: 15px;
-        text-align: center;
+        text-align: left;
     }
 }
 
