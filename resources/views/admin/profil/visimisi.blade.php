@@ -83,20 +83,20 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="stat_1_text">Statistik 1 (Kiri) <span class="text-danger">*</span></label>
-                            <input type="hidden" name="stat_1_text" value="{{ $puskesmasCount }} Puskesmas">
+                            <input type="hidden" name="stat_1_text" value="{{ $puskesmasCount }} Puskesmas Rujukan">
                             <div class="form-control bg-light" style="cursor: default;">
                                 <span class="material-icons text-success" style="font-size: 18px; vertical-align: middle; margin-right: 6px;">favorite</span>
-                                {{ $puskesmasCount }} Puskesmas
+                                {{ $puskesmasCount }} Puskesmas Rujukan
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="stat_2_text">Statistik 2 (Kanan) <span class="text-danger">*</span></label>
-                            <input type="hidden" name="stat_2_text" value="{{ $kecamatanCount }} Kecamatan">
+                            <input type="hidden" name="stat_2_text" value="{{ $kecamatanCount }} Kecamatan Terjangkau">
                             <div class="form-control bg-light" style="cursor: default;">
                                 <span class="material-icons text-success" style="font-size: 18px; vertical-align: middle; margin-right: 6px;">place</span>
-                                {{ $kecamatanCount }} Kecamatan
+                                {{ $kecamatanCount }} Kecamatan Terjangkau
                             </div>
                         </div>
                     </div>
