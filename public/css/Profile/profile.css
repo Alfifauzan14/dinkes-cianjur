@@ -275,22 +275,28 @@
     
     .profile-header {
         padding: 40px 20px;
+        text-align: center;
     }
     
     .profile-header-title {
-        font-size: 32px;
+        font-size: 28px;
+        letter-spacing: -0.3px;
+    }
+
+    .profile-header-subtitle {
+        font-size: 14px;
     }
     
     .profile-content {
-        padding: 40px 20px;
+        padding: 40px 16px;
     }
     
     .visi-card-container {
-        padding: 40px 20px;
+        padding: 30px 16px;
     }
     
     .visi-title {
-        font-size: 28px;
+        font-size: 24px;
         letter-spacing: -0.5px;
     }
     
@@ -304,7 +310,7 @@
     }
 
     .misi-card-container {
-        padding: 40px 20px;
+        padding: 30px 16px;
     }
 
     .misi-two-col-grid {
@@ -313,10 +319,36 @@
     }
 
     .history-card-container {
-        padding: 40px 20px;
+        padding: 30px 16px;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 24px;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .history-logo-wrap {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+    }
+
+    .history-body {
+        text-align: center;
+    }
+
+    .history-title {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .history-badge {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .history-text {
+        font-size: 15px;
+        text-align: center;
     }
 }
 
