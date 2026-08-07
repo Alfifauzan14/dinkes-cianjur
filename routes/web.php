@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\GaleriController;
-use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\HeaderSettingController;
-use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
-use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\JenisFaskesController;
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\KecamatanController;
+use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
 use App\Http\Controllers\Admin\PagodaSehatController;
@@ -21,6 +21,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\FaskesController as PublicFaskesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IkmController;
 use App\Http\Controllers\LabkesdaController;
 use App\Http\Controllers\LayananTerpaduController;
 use App\Http\Controllers\MediaController;
@@ -44,11 +45,15 @@ Route::get('/api/agenda-by-date', [HomeController::class, 'agendaByDate'])->name
 /* --- Satu Data Kesehatan Routes --- */
 Route::get('/satu-data/statistik', [SatuDataController::class, 'statistik'])->name('satudata.statistik');
 Route::get('/satu-data/laporan', [SatuDataController::class, 'laporan'])->name('satudata.laporan');
+Route::get('/satu-data/laporan/{laporan}/view', [SatuDataController::class, 'viewLaporan'])->name('satudata.laporan.view');
+Route::get('/satu-data/laporan/{laporan}/download', [SatuDataController::class, 'downloadLaporan'])->name('satudata.laporan.download');
 Route::get('/satu-data/regulasi', [SatuDataController::class, 'regulasi'])->name('satudata.regulasi');
+Route::get('/satu-data/regulasi/{regulasi}/view', [SatuDataController::class, 'viewRegulasi'])->name('satudata.regulasi.view');
+Route::get('/satu-data/regulasi/{regulasi}/download', [SatuDataController::class, 'downloadRegulasi'])->name('satudata.regulasi.download');
 
 /* --- Indeks Kepuasan Masyarakat (IKM) --- */
-Route::get('/ikm', [App\Http\Controllers\IkmController::class, 'index'])->name('ikm');
-Route::post('/ikm', [App\Http\Controllers\IkmController::class, 'store'])->name('ikm.store');
+Route::get('/ikm', [IkmController::class, 'index'])->name('ikm');
+Route::post('/ikm', [IkmController::class, 'store'])->name('ikm.store');
 
 /* --- Labkesda & Faskes Routes --- */
 Route::get('/media', [MediaController::class, 'index'])->name('media');
@@ -178,7 +183,7 @@ Route::resource('/admin/jenis-faskes', JenisFaskesController::class, [
         'store' => 'admin.jenis-faskes.store',
         'update' => 'admin.jenis-faskes.update',
         'destroy' => 'admin.jenis-faskes.destroy',
-    ]
+    ],
 ])->middleware('auth');
 
 Route::resource('/admin/kecamatan', KecamatanController::class, [
@@ -187,7 +192,7 @@ Route::resource('/admin/kecamatan', KecamatanController::class, [
         'store' => 'admin.kecamatan.store',
         'update' => 'admin.kecamatan.update',
         'destroy' => 'admin.kecamatan.destroy',
-    ]
+    ],
 ])->middleware('auth');
 
 Route::resource('/admin/headers', HeaderSettingController::class, [
@@ -206,9 +211,9 @@ Route::put('/admin/profil', [AdminProfileController::class, 'update'])->middlewa
 
 Route::get('/admin/satu-data/statistik', [StatistikController::class, 'edit'])->middleware('auth')->name('admin.satudata.statistik.edit');
 Route::put('/admin/satu-data/statistik', [StatistikController::class, 'update'])->middleware('auth')->name('admin.satudata.statistik.update');
-// Route::get('/admin/satu-data/statistik/import', [StatistikController::class, 'importForm'])->middleware('auth')->name('admin.satudata.statistik.import');
-// Route::post('/admin/satu-data/statistik/import', [StatistikController::class, 'importCsv'])->middleware('auth')->name('admin.satudata.statistik.import.post');
-// Route::get('/admin/satu-data/statistik/template', [StatistikController::class, 'downloadTemplate'])->middleware('auth')->name('admin.satudata.statistik.template');
+Route::get('/admin/satu-data/statistik/import', [StatistikController::class, 'importForm'])->middleware('auth')->name('admin.satudata.statistik.import');
+Route::post('/admin/satu-data/statistik/import', [StatistikController::class, 'importCsv'])->middleware('auth')->name('admin.satudata.statistik.import.post');
+Route::get('/admin/satu-data/statistik/template', [StatistikController::class, 'downloadTemplate'])->middleware('auth')->name('admin.satudata.statistik.template');
 
 Route::resource('/admin/satu-data/laporan', LaporanController::class, [
     'names' => [
@@ -245,11 +250,11 @@ Route::resource('/admin/layanan-terpadu', AdminLayananTerpaduController::class, 
 
 Route::resource('/admin/program-kesehatan', App\Http\Controllers\Admin\ProgramKesehatanController::class, [
     'names' => [
-        'index'   => 'admin.program-kesehatan.index',
-        'create'  => 'admin.program-kesehatan.create',
-        'store'   => 'admin.program-kesehatan.store',
-        'edit'    => 'admin.program-kesehatan.edit',
-        'update'  => 'admin.program-kesehatan.update',
+        'index' => 'admin.program-kesehatan.index',
+        'create' => 'admin.program-kesehatan.create',
+        'store' => 'admin.program-kesehatan.store',
+        'edit' => 'admin.program-kesehatan.edit',
+        'update' => 'admin.program-kesehatan.update',
         'destroy' => 'admin.program-kesehatan.destroy',
     ],
 ])->middleware('auth');
@@ -261,3 +266,18 @@ Route::get('/admin/kategori', [KategoriController::class, 'index'])->middleware(
 Route::post('/admin/kategori', [KategoriController::class, 'store'])->middleware('auth')->name('admin.kategori.store');
 Route::put('/admin/kategori/{kategori}', [KategoriController::class, 'update'])->middleware('auth')->name('admin.kategori.update');
 Route::delete('/admin/kategori/{kategori}', [KategoriController::class, 'destroy'])->middleware('auth')->name('admin.kategori.destroy');
+
+/* --- Admin Manajemen Pengguna Routes --- */
+Route::resource('/admin/users', App\Http\Controllers\Admin\UserController::class, [
+    'names' => [
+        'index' => 'admin.users.index',
+        'create' => 'admin.users.create',
+        'store' => 'admin.users.store',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
+    ],
+])->middleware('auth');
+
+Route::post('/admin/users/{user}/reset-password', [App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->middleware('auth')->name('admin.users.reset-password');
+Route::post('/admin/users/{user}/toggle-active', [App\Http\Controllers\Admin\UserController::class, 'toggleActive'])->middleware('auth')->name('admin.users.toggle-active');

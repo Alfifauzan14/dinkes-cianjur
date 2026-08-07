@@ -3,189 +3,139 @@
 @section('title', 'Edit Faskes')
 @section('header_title', 'Edit ' . $faske->name)
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/berita.css') }}?v={{ time() }}">
-@endsection
-
 @section('content')
-<div class="berita-admin-wrapper">
-    <div class="admin-card">
 
-        <form action="{{ route('admin.faskes.update', $faske->id) }}" method="POST" class="admin-form">
+
+<div class="card card-outline card-success">
+    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="font-weight-bold text-muted" style="font-size:13px;">
+            <span class="material-icons text-warning" style="font-size:16px;vertical-align:middle;">local_hospital</span>
+            Formulir Edit Faskes
+        </span>
+        <a href="{{ route('admin.faskes.index') }}" class="btn btn-sm btn-outline-secondary ml-auto">
+            <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
+        </a>
+    </div>
+
+    <div class="card-body">
+        <form action="{{ route('admin.faskes.update', $faske->id) }}" method="POST">
             @csrf
             @method('PUT')
 
-            <!-- Nama Faskes -->
             <div class="form-group">
-                <label for="name">Nama Faskes</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value="{{ old('name', $faske->name) }}"
-                    class="form-control-input"
-                    placeholder="Contoh: RSUD Cianjur / Puskesmas Cianjur Kota"
-                    required
-                >
-                @error('name')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+                <label for="name">Nama Faskes <span class="text-danger">*</span></label>
+                <input type="text" name="name" id="name" value="{{ old('name', $faske->name) }}"
+                    class="form-control @error('name') is-invalid @enderror"
+                    placeholder="Contoh: RSUD Cianjur / Puskesmas Cianjur Kota" required>
+                @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Jenis & Kecamatan -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="form-group">
-                    <label for="type">Jenis Faskes</label>
-                    <select name="type" id="type" class="form-control-select" required>
-                        @foreach($types as $t)
-                            <option value="{{ $t->name }}" {{ old('type', $faske->type) == $t->name ? 'selected' : '' }}>{{ $t->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('type')
-                        <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                    @enderror
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="type">Jenis Faskes <span class="text-danger">*</span></label>
+                        <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" required>
+                            @foreach($types as $t)
+                                <option value="{{ $t->name }}" {{ old('type', $faske->type) == $t->name ? 'selected' : '' }}>{{ $t->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('type') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="kecamatan">Kecamatan</label>
-                    <select name="kecamatan" id="kecamatan" class="form-control-select" required>
-                        @foreach($kecamatans as $kec)
-                            <option value="{{ $kec->name }}" {{ old('kecamatan', $faske->kecamatan) == $kec->name ? 'selected' : '' }}>{{ $kec->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('kecamatan')
-                        <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                    @enderror
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="kecamatan">Kecamatan <span class="text-danger">*</span></label>
+                        <select name="kecamatan" id="kecamatan" class="form-control @error('kecamatan') is-invalid @enderror" required>
+                            @foreach($kecamatans as $kec)
+                                <option value="{{ $kec->name }}" {{ old('kecamatan', $faske->kecamatan) == $kec->name ? 'selected' : '' }}>{{ $kec->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('kecamatan') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
             </div>
 
-            <!-- Alamat -->
             <div class="form-group">
-                <label for="address">Alamat Lengkap</label>
-                <textarea
-                    name="address"
-                    id="address"
-                    class="form-textarea"
-                    rows="2"
-                    placeholder="Contoh: Jl. Pangeran No.105, Bojongherang, Kec. Cianjur"
-                    required
-                >{{ old('address', $faske->address) }}</textarea>
-                @error('address')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+                <label for="address">Alamat Lengkap <span class="text-danger">*</span></label>
+                <textarea name="address" id="address" rows="2"
+                    class="form-control @error('address') is-invalid @enderror"
+                    placeholder="Contoh: Jl. Pangeran No.105, Bojongherang, Kec. Cianjur" required>{{ old('address', $faske->address) }}</textarea>
+                @error('address') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Telepon & Jam Operasional -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="form-group">
-                    <label for="phone">No. Telepon</label>
-                    <input
-                        type="text"
-                        name="phone"
-                        id="phone"
-                        value="{{ old('phone', $faske->phone) }}"
-                        class="form-control-input"
-                        placeholder="(0263) XXXXXXX"
-                    >
-                    @error('phone')
-                        <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                    @enderror
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="phone">No. Telepon</label>
+                        <input type="text" name="phone" id="phone" value="{{ old('phone', $faske->phone) }}"
+                            class="form-control @error('phone') is-invalid @enderror" placeholder="(0263) XXXXXXX">
+                        @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="jam_operasional">Jam Operasional</label>
-                    <input
-                        type="text"
-                        name="jam_operasional"
-                        id="jam_operasional"
-                        value="{{ old('jam_operasional', $faske->jam_operasional) }}"
-                        class="form-control-input"
-                        placeholder="Contoh: Senin - Jumat, 08.00 - 15.00"
-                    >
-                    @error('jam_operasional')
-                        <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                    @enderror
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="jam_operasional">Jam Operasional</label>
+                        <input type="text" name="jam_operasional" id="jam_operasional" value="{{ old('jam_operasional', $faske->jam_operasional) }}"
+                            class="form-control @error('jam_operasional') is-invalid @enderror"
+                            placeholder="Contoh: Senin - Jumat, 08.00 - 15.00">
+                        @error('jam_operasional') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
             </div>
 
-            <!-- Latitude & Longitude -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="form-group">
-                    <label for="lat">Latitude</label>
-                    <input
-                        type="number"
-                        name="lat"
-                        id="lat"
-                        value="{{ old('lat', $faske->lat) }}"
-                        class="form-control-input"
-                        step="any"
-                        placeholder="-6.8106523"
-                        required
-                    >
-                    @error('lat')
-                        <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                    @enderror
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="lat">Latitude <span class="text-danger">*</span></label>
+                        <input type="number" step="any" name="lat" id="lat" value="{{ old('lat', $faske->lat) }}"
+                            class="form-control @error('lat') is-invalid @enderror" placeholder="-6.8106523" required>
+                        @error('lat') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="lng">Longitude</label>
-                    <input
-                        type="number"
-                        name="lng"
-                        id="lng"
-                        value="{{ old('lng', $faske->lng) }}"
-                        class="form-control-input"
-                        step="any"
-                        placeholder="107.1411331"
-                        required
-                    >
-                    @error('lng')
-                        <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                    @enderror
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="lng">Longitude <span class="text-danger">*</span></label>
+                        <input type="number" step="any" name="lng" id="lng" value="{{ old('lng', $faske->lng) }}"
+                            class="form-control @error('lng') is-invalid @enderror" placeholder="107.1411331" required>
+                        @error('lng') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
             </div>
 
-            <!-- Layanan & Akreditasi -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="form-group">
-                    <label for="layanan">Layanan</label>
-                    <input
-                        type="text"
-                        name="layanan"
-                        id="layanan"
-                        value="{{ old('layanan', $faske->layanan) }}"
-                        class="form-control-input"
-                        placeholder="Contoh: Rawat Inap, IGD, Poli Umum"
-                    >
-                    @error('layanan')
-                        <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                    @enderror
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="layanan">Layanan</label>
+                        <input type="text" name="layanan" id="layanan" value="{{ old('layanan', $faske->layanan) }}"
+                            class="form-control @error('layanan') is-invalid @enderror"
+                            placeholder="Contoh: Rawat Inap, IGD, Poli Umum">
+                        @error('layanan') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="akreditasi">Akreditasi</label>
-                    <select name="akreditasi" id="akreditasi" class="form-control-select">
-                        <option value="">-- Pilih Akreditasi --</option>
-                        <option value="Paripurna" {{ old('akreditasi', $faske->akreditasi) == 'Paripurna' ? 'selected' : '' }}>Paripurna</option>
-                        <option value="Madya" {{ old('akreditasi', $faske->akreditasi) == 'Madya' ? 'selected' : '' }}>Madya</option>
-                        <option value="Pratama" {{ old('akreditasi', $faske->akreditasi) == 'Pratama' ? 'selected' : '' }}>Pratama</option>
-                        <option value="Belum Terakreditasi" {{ old('akreditasi', $faske->akreditasi) == 'Belum Terakreditasi' ? 'selected' : '' }}>Belum Terakreditasi</option>
-                    </select>
-                    @error('akreditasi')
-                        <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                    @enderror
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="akreditasi">Akreditasi</label>
+                        <select name="akreditasi" id="akreditasi" class="form-control @error('akreditasi') is-invalid @enderror">
+                            <option value="">-- Pilih Akreditasi --</option>
+                            <option value="Paripurna" {{ old('akreditasi', $faske->akreditasi) == 'Paripurna' ? 'selected' : '' }}>Paripurna</option>
+                            <option value="Madya" {{ old('akreditasi', $faske->akreditasi) == 'Madya' ? 'selected' : '' }}>Madya</option>
+                            <option value="Pratama" {{ old('akreditasi', $faske->akreditasi) == 'Pratama' ? 'selected' : '' }}>Pratama</option>
+                            <option value="Belum Terakreditasi" {{ old('akreditasi', $faske->akreditasi) == 'Belum Terakreditasi' ? 'selected' : '' }}>Belum Terakreditasi</option>
+                        </select>
+                        @error('akreditasi') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
             </div>
 
-            <!-- Tombol Aksi -->
-            <div style="display: flex; gap: 16px; margin-top: 12px;">
-                <button type="submit" class="btn-admin btn-admin-primary">
-                    <span class="material-icons">save</span>
-                    <span>Perbarui Faskes</span>
-                </button>
-                <a href="{{ route('admin.faskes.index') }}" class="btn-admin btn-admin-secondary">
-                    <span>Batal</span>
+            <div class="d-flex align-items-center justify-content-end" style="gap:10px;">
+                <a href="{{ route('admin.faskes.index') }}" class="btn btn-outline-secondary">
+                    <span class="material-icons" style="font-size:16px;vertical-align:middle;">close</span> Batal
                 </a>
+                <button type="submit" class="btn btn-success-dark">
+                    <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Perbarui Faskes
+                </button>
             </div>
-
         </form>
-
     </div>
 </div>
 @endsection

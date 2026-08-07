@@ -16,7 +16,7 @@
 
 /* ── Header Section ──────────────────────────────────────────── */
 .faskes-header {
-    background-color: #065F46;
+    background-color: #006045;
     padding: 60px 0;
     text-align: left;
     box-sizing: border-box;
@@ -87,7 +87,7 @@
     border: 1px solid #EAEAEA;
     border-radius: 1px;
     padding: 24px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     margin-bottom: 32px;
 }
@@ -306,7 +306,7 @@
 
 .faskes-card:hover {
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
 }
 
 /* ── Card Header ─────────────────────────────────────────────── */

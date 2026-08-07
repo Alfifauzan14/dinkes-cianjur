@@ -29,14 +29,6 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
 
         <div class="custom-form-card">
             <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form">
@@ -68,27 +60,50 @@
                     </div>
                 </div>
 
-                <div class="form-section-title mt-4">
-                    <span class="material-icons text-success">bar_chart</span>
-                    <span>Data 3 Kartu Statistik PPID</span>
+                <div class="d-flex align-items-center justify-content-between mt-4 mb-3 pb-2" style="border-bottom: 1px solid var(--border-subtle);">
+                    <div class="form-section-title mb-0" style="border-bottom: none; padding-bottom: 0;">
+                        <span class="material-icons text-success">bar_chart</span>
+                        <span>Data Kartu Statistik PPID</span>
+                    </div>
+                    <button type="button" class="btn btn-outline-success btn-sm" onclick="addStatCard()">
+                        <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Kartu
+                    </button>
                 </div>
 
-                <div class="row">
-                    @foreach([1, 2, 3] as $i)
-                        <div class="col-md-4 mb-3">
-                            <div class="card p-3" style="background: #F8FAFC; border: 1px solid var(--border-subtle); border-radius: 8px;">
-                                <span class="badge badge-success mb-3 align-self-start" style="padding: 4px 10px; font-weight: 700; border-radius: 4px;">KARTU STATISTIK {{ $i }}</span>
+                <div id="stat-cards-container" class="row">
+                    @php
+                        $statData = [];
+                        for ($i = 1; $i <= 10; $i++) {
+                            $num = $ppid->{"stat_{$i}_number"} ?? '';
+                            $desc = $ppid->{"stat_{$i}_desc"} ?? '';
+                            if ($num !== '' || $desc !== '') {
+                                $statData[] = ['number' => $num, 'desc' => $desc];
+                            }
+                        }
+                    @endphp
+                    @forelse($statData as $idx => $item)
+                        <div class="col-md-4 mb-3 stat-card-item">
+                            <div class="card p-3" style="background: #F8FAFC; border: 1px solid var(--border-subtle); border-radius: 8px; position:relative;">
+                                <button type="button" class="btn btn-sm text-danger position-absolute" style="top:8px; right:8px; padding:0;" onclick="removeStatCard(this)" title="Hapus Kartu">
+                                    <span class="material-icons" style="font-size:18px;">delete</span>
+                                </button>
+                                <span class="badge badge-success mb-3 align-self-start stat-badge-num" style="padding: 4px 10px; font-weight: 700; border-radius: 4px;">KARTU {{ $idx + 1 }}</span>
                                 <div class="form-group">
                                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Angka / Jumlah</label>
-                                    <input type="text" name="stat_{{ $i }}_number" value="{{ old('stat_'.$i.'_number', $ppid->{'stat_'.$i.'_number'}) }}" class="form-control form-control-sm" oninput="this.value = this.value.replace(/[^0-9.]/g, '')">
+                                    <input type="text" name="stat_numbers[]" value="{{ $item['number'] }}" class="form-control form-control-sm" inputmode="numeric">
                                 </div>
                                 <div class="form-group mb-0">
                                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Keterangan</label>
-                                    <input type="text" name="stat_{{ $i }}_desc" value="{{ old('stat_'.$i.'_desc', $ppid->{'stat_'.$i.'_desc'}) }}" class="form-control form-control-sm">
+                                    <input type="text" name="stat_descs[]" value="{{ $item['desc'] }}" class="form-control form-control-sm">
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="col-12 text-center py-4 text-muted" id="empty-state-stat">
+                            <span class="material-icons" style="font-size:48px; color:#D1D5DB; display:block; margin-bottom:12px;">bar_chart</span>
+                            <p>Belum ada kartu statistik. Silakan klik "Tambah Kartu".</p>
+                        </div>
+                    @endforelse
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
@@ -104,6 +119,59 @@
 
 @section('scripts')
 <script>
+    let statIndex = {{ count($statData) }};
+
+    function addStatCard() {
+        const empty = document.getElementById('empty-state-stat');
+        if (empty) empty.remove();
+
+        const container = document.getElementById('stat-cards-container');
+        statIndex++;
+        const col = document.createElement('div');
+        col.className = 'col-md-4 mb-3 stat-card-item';
+        col.innerHTML = `
+            <div class="card p-3" style="background: #F8FAFC; border: 1px solid var(--border-subtle); border-radius: 8px; position:relative;">
+                <button type="button" class="btn btn-sm text-danger position-absolute" style="top:8px; right:8px; padding:0;" onclick="removeStatCard(this)" title="Hapus Kartu">
+                    <span class="material-icons" style="font-size:18px;">delete</span>
+                </button>
+                <span class="badge badge-success mb-3 align-self-start stat-badge-num" style="padding: 4px 10px; font-weight: 700; border-radius: 4px;">KARTU ${statIndex}</span>
+                <div class="form-group">
+                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Angka / Jumlah</label>
+                    <input type="text" name="stat_numbers[]" class="form-control form-control-sm" inputmode="numeric">
+                </div>
+                <div class="form-group mb-0">
+                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Keterangan</label>
+                    <input type="text" name="stat_descs[]" class="form-control form-control-sm">
+                </div>
+            </div>
+        `;
+        container.appendChild(col);
+        renumberStatCards();
+    }
+
+    function removeStatCard(btn) {
+        btn.closest('.stat-card-item').remove();
+        renumberStatCards();
+        const container = document.getElementById('stat-cards-container');
+        if (container.querySelectorAll('.stat-card-item').length === 0) {
+            container.innerHTML = `
+                <div class="col-12 text-center py-4 text-muted" id="empty-state-stat">
+                    <span class="material-icons" style="font-size:48px; color:#D1D5DB; display:block; margin-bottom:12px;">bar_chart</span>
+                    <p>Belum ada kartu statistik. Silakan klik "Tambah Kartu".</p>
+                </div>
+            `;
+        }
+    }
+
+    function renumberStatCards() {
+        const cards = document.querySelectorAll('#stat-cards-container .stat-card-item');
+        cards.forEach((card, i) => {
+            const badge = card.querySelector('.stat-badge-num');
+            if (badge) badge.textContent = 'KARTU ' + (i + 1);
+        });
+        statIndex = cards.length;
+    }
+
     document.getElementById('ppid-form').addEventListener('submit', function() {
         const btn = document.getElementById('ppid-save-btn');
         btn.disabled = true;

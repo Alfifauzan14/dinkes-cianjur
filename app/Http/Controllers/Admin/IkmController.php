@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\IkmRating;
-use Illuminate\Http\Request;
 
 class IkmController extends Controller
 {
     public function index()
     {
         $ratings = IkmRating::latest()->get();
-        
+
         $stats = [
             'total' => $ratings->count(),
             'sangat_puas' => $ratings->where('rating', 'sangat_puas')->count(),

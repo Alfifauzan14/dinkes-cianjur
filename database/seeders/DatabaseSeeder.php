@@ -35,9 +35,21 @@ class DatabaseSeeder extends Seeder
         // Seeder pengaturan situs
         $this->call(SettingSeeder::class);
 
-        // Seeder faskes untuk testing
-        $this->call(FaskesSeeder::class);
+        // Seeder header situs
+        $this->call(HeaderSettingSeeder::class);
 
+        // Seeder jenis faskes & kecamatan
+        $this->call(JenisFaskesAndKecamatanSeeder::class);
+
+        // Seeder Pagoda Sehat
+        $this->call(PagodaSehatSeeder::class);
+
+        // Seeder home content (info cards & social links)
+        $this->call(HomeInfoCardSeeder::class);
+        $this->call(HomeSocialLinkSeeder::class);
+
+        // Seeder data faskes lengkap
+        $this->call(FaskesSeeder::class);
         // Pastikan User Admin ada
         User::updateOrCreate(
             ['email' => 'admin@dinkes.go.id'],

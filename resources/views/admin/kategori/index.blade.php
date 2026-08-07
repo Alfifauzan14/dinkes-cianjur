@@ -50,41 +50,39 @@
 @endsection
 
 @section('content')
-{{-- Header row --}}
-<div class="card-header-actions mb-4 d-flex align-items-center justify-content-between">
-    <div>
-        <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Kategori</div>
-        <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola kategori untuk Berita, Program Kesehatan, Regulasi, dan Laporan.</div>
+<div class="card card-outline card-success">
+    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">category</span>
+            <span class="font-weight-bold card-title-label">Kelola Kategori</span>
+        </span>
+        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahKategori">
+            <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Kategori
+        </button>
     </div>
-    <button class="btn btn-success" data-toggle="modal" data-target="#modalTambahKategori">
-        <span class="material-icons" style="font-size:17px;">add</span> Tambah Kategori
-    </button>
-</div>
 
-{{-- Type tabs --}}
-@php $activeType = request('type', 'berita'); @endphp
-<div style="border-bottom: 1px solid var(--border-subtle); margin-bottom: 0;">
-    <div class="d-flex align-items-end" style="gap: 4px;">
-        @foreach($types as $key => $label)
-        <a href="{{ route('admin.kategori.index', ['type' => $key]) }}"
-           class="type-tab {{ $activeType === $key ? 'active' : '' }}">
-            @if($key === 'berita') <span class="material-icons" style="font-size:15px;">newspaper</span>
-            @elseif($key === 'program') <span class="material-icons" style="font-size:15px;">health_and_safety</span>
-            @elseif($key === 'regulasi') <span class="material-icons" style="font-size:15px;">gavel</span>
-            @else <span class="material-icons" style="font-size:15px;">description</span>
-            @endif
-            {{ $label }}
-            <span style="background:var(--border-subtle);color:var(--text-secondary);padding:2px 7px;border-radius:12px;font-size:11px;">
-                {{ ($kategoris[$key] ?? collect())->count() }}
-            </span>
-        </a>
-        @endforeach
-    </div>
-</div>
-
-{{-- Table card --}}
-<div class="card" style="border-radius: 0 8px 8px 8px !important;">
     <div class="card-body p-0">
+        {{-- Type tabs --}}
+        @php $activeType = request('type', 'berita'); @endphp
+        <div style="border-bottom: 1px solid var(--border-subtle); padding: 12px 20px 0; margin-bottom: 0;">
+            <div class="d-flex align-items-end" style="gap: 4px;">
+                @foreach($types as $key => $label)
+                <a href="{{ route('admin.kategori.index', ['type' => $key]) }}"
+                   class="type-tab {{ $activeType === $key ? 'active' : '' }}">
+                    @if($key === 'berita') <span class="material-icons" style="font-size:15px;">newspaper</span>
+                    @elseif($key === 'program') <span class="material-icons" style="font-size:15px;">health_and_safety</span>
+                    @elseif($key === 'regulasi') <span class="material-icons" style="font-size:15px;">gavel</span>
+                    @else <span class="material-icons" style="font-size:15px;">description</span>
+                    @endif
+                    {{ $label }}
+                    <span style="background:var(--border-subtle);color:var(--text-secondary);padding:2px 7px;border-radius:12px;font-size:11px;">
+                        {{ ($kategoris[$key] ?? collect())->count() }}
+                    </span>
+                </a>
+                @endforeach
+            </div>
+        </div>
+
         <div class="table-responsive">
             <table class="table mb-0">
                 <thead>
@@ -245,8 +243,8 @@
                 </div>
                 <div class="modal-footer" style="padding: 16px 24px;">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">
-                        <span class="material-icons" style="font-size:16px;">save</span> Simpan Perubahan
+                      <button type="submit" class="btn btn-success-dark">
+                          <span class="material-icons" style="font-size:16px;">save</span> Simpan Perubahan
                     </button>
                 </div>
             </form>

@@ -2,28 +2,21 @@
 @section('title', 'Kelola Layanan Terpadu')
 @section('header_title', 'Kelola Layanan Terpadu')
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/labkesda.css') }}?v={{ time() }}">
-@endsection
-
 @section('content')
-<div class="berita-admin-wrapper">
-    <div class="admin-card">
-        <div class="card-header-actions">
-            <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Layanan Terpadu</div>
-                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola tautan dan akses portal layanan terpadu.</div>
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <button type="button" class="btn-admin btn-admin-primary" data-toggle="modal" data-target="#modalTambahLayanan">
-                    <span class="material-icons" style="font-size:18px;">add</span>
-                    <span>Tambah Layanan</span>
-                </button>
-            </div>
-        </div>
+<div class="card card-outline card-success">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">widgets</span>
+            <span class="font-weight-bold card-title-label">Kelola Layanan Terpadu</span>
+        </span>
+        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahLayanan">
+            <span class="material-icons" style="font-size:16px;">add</span> Tambah Layanan
+        </button>
+    </div>
 
-        <div class="admin-table-wrapper">
-            <table class="admin-table">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
                 <thead>
                     <tr>
                         <th style="width: 70px; text-align: center;">Icon</th>
@@ -45,30 +38,30 @@
                             </div>
                         </td>
                         <td>
-                            <div style="font-weight: 700; color: #111827;">{{ $layanan->name }}</div>
+                            <div class="font-weight-bold text-dark">{{ $layanan->name }}</div>
                         </td>
-                        <td style="text-align: center;">
+                        <td class="text-center align-middle">
                             @if($layanan->type === 'Warga')
-                                <span style="background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Warga</span>
+                                <span class="badge" style="background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Warga</span>
                             @elseif($layanan->type === 'Faskes')
-                                <span style="background:#EDE9FE;color:#5B21B6;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Faskes</span>
+                                <span class="badge" style="background:#EDE9FE;color:#5B21B6;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Faskes</span>
                             @else
-                                <span style="background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Nakes</span>
+                                <span class="badge" style="background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:3px;font-size:12px;font-weight:700;">Layanan Nakes</span>
                             @endif
                         </td>
-                        <td>
+                        <td class="align-middle">
                             @if($layanan->link)
                                 <a href="{{ $layanan->link }}" target="_blank" style="color:#009966;font-size:13px;text-decoration:none;word-break:break-all;background:#F8FAFC;padding:2px 6px;border-radius:3px;border:1px solid #E2E8F0;">
                                     {{ Str::limit($layanan->link, 38) }}
                                 </a>
                             @else
-                                <span style="color:#94A3B8;font-size:13px;font-style:italic;">Tidak ada tautan</span>
+                                <span class="text-muted" style="font-size:13px;font-style:italic;">Tidak ada tautan</span>
                             @endif
                         </td>
-                        <td style="text-align: center;">
-                            <div class="actions-cell" style="justify-content: center;">
+                        <td class="text-center align-middle">
+                            <div class="btn-action-group">
                                 <button type="button"
-                                    class="btn-action-edit btn-edit-layanan"
+                                    class="btn-action btn-action-edit btn-edit-layanan"
                                     title="Edit"
                                     data-id="{{ $layanan->id }}"
                                     data-name="{{ $layanan->name }}"
@@ -80,7 +73,7 @@
                                 </button>
                                 <form action="{{ route('admin.layanan.destroy', $layanan->id) }}" method="POST" id="del-layanan-{{ $layanan->id }}" style="margin: 0; display: inline;">
                                     @csrf @method('DELETE')
-                                    <button type="button" class="btn-action-delete" title="Hapus"
+                                    <button type="button" class="btn-action btn-action-delete" title="Hapus"
                                         onclick="confirmDelete('del-layanan-{{ $layanan->id }}')">
                                         <span class="material-icons">delete</span>
                                     </button>
@@ -90,9 +83,10 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" style="padding: 40px; text-align: center; color: #94A3B8;">
-                            <span class="material-icons" style="font-size: 40px; display: block; margin-bottom: 8px; color: #CBD5E1;">widgets</span>
-                            Belum ada data layanan terpadu. Klik <strong>"Tambah Layanan"</strong> untuk memulai.
+                        <td colspan="5" class="text-center" style="padding: 48px; color: #94A3B8;">
+                            <span class="material-icons" style="font-size: 48px; display: block; margin-bottom: 12px; color: #CBD5E1;">widgets</span>
+                            <p style="font-size: 15px; font-weight: 600;">Belum ada data layanan terpadu.</p>
+                            <p class="text-muted" style="font-size: 13px;">Klik <strong>"Tambah Layanan"</strong> untuk memulai.</p>
                         </td>
                     </tr>
                     @endforelse
@@ -102,15 +96,13 @@
     </div>
 </div>
 
-{{-- ======================================== --}}
-{{-- MODAL: TAMBAH LAYANAN                    --}}
-{{-- ======================================== --}}
+{{-- MODAL: TAMBAH LAYANAN --}}
 <div class="modal fade" id="modalTambahLayanan" tabindex="-1" role="dialog" aria-labelledby="modalTambahLayananLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="{{ route('admin.layanan.store') }}" method="POST">
                 @csrf
-                <div class="modal-header" style="background:#009966;color:#fff;border-radius:0;">
+                <div class="modal-header">
                     <h5 class="modal-title" id="modalTambahLayananLabel">
                         <span class="material-icons" style="vertical-align:middle;margin-right:6px;">add_circle</span>
                         Tambah Layanan Baru
@@ -165,15 +157,13 @@
     </div>
 </div>
 
-{{-- ======================================== --}}
-{{-- MODAL: EDIT LAYANAN                      --}}
-{{-- ======================================== --}}
+{{-- MODAL: EDIT LAYANAN --}}
 <div class="modal fade" id="modalEditLayanan" tabindex="-1" role="dialog" aria-labelledby="modalEditLayananLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="" method="POST" id="form-edit-layanan">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background:#007A52;color:#fff;border-radius:0;">
+                <div class="modal-header">
                     <h5 class="modal-title" id="modalEditLayananLabel">
                         <span class="material-icons" style="vertical-align:middle;margin-right:6px;">edit</span>
                         Edit Layanan

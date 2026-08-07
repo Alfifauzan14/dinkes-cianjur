@@ -18,11 +18,11 @@ class PpidController extends Controller
         $ppid = PpidSetting::instance();
 
         $section = $request->query('section', 'informasi');
-        if (!in_array($section, ['informasi', 'statistik', 'tautan', 'tatacara'])) {
+        if (! in_array($section, ['informasi', 'statistik', 'tautan', 'tatacara'])) {
             $section = 'informasi';
         }
 
-        return view('admin.ppid.' . $section, compact('ppid'));
+        return view('admin.ppid.'.$section, compact('ppid'));
     }
 
     /**
@@ -35,21 +35,15 @@ class PpidController extends Controller
 
         if ($section === 'statistik') {
             $rules = [
-                'page_title' => 'required|string|max:255',
-                'page_subtitle' => 'nullable|string|max:500',
-                'stat_1_number' => 'nullable|string|max:50',
-                'stat_1_desc' => 'nullable|string',
-                'stat_2_number' => 'nullable|string|max:50',
-                'stat_2_desc' => 'nullable|string',
-                'stat_3_number' => 'nullable|string|max:50',
-                'stat_3_desc' => 'nullable|string',
+                'stat_descs' => 'nullable|array',
+                'stat_descs.*' => 'nullable|string|max:500',
             ];
         } elseif ($section === 'informasi') {
             $rules = [
-                'accordion_items'            => 'nullable|array',
-                'accordion_items.*.title'    => 'required|string|max:255',
+                'accordion_items' => 'nullable|array',
+                'accordion_items.*.title' => 'required|string|max:255',
                 'accordion_items.*.category' => 'required|string|in:berkala,serta-merta,setiap-saat',
-                'accordion_items.*.content'  => 'required|string',
+                'accordion_items.*.content' => 'required|string',
             ];
         } elseif ($section === 'tautan') {
             $rules = [
@@ -84,8 +78,17 @@ class PpidController extends Controller
         if ($section === 'informasi') {
             // Update accordion items specifically
             $ppid->update([
-                'accordion_items' => $request->input('accordion_items', [])
+                'accordion_items' => $request->input('accordion_items', []),
             ]);
+        } elseif ($section === 'statistik') {
+            $data = [];
+
+            for ($i = 1; $i <= 10; $i++) {
+                $data["stat_{$i}_number"] = $request->input("stat_{$i}_number") ?? '';
+                $data["stat_{$i}_desc"] = $request->input("stat_{$i}_desc", '');
+            }
+
+            $ppid->update($data);
         } elseif ($section === 'tautan') {
             $data = $request->only(['tautan_badge', 'tautan_title', 'tautan_subtitle']);
             $tautanItems = $request->input('tautan_items', []);
@@ -118,7 +121,7 @@ class PpidController extends Controller
             $ppid->update($data);
         } else {
             $data = $request->only(array_filter(array_keys($rules), function ($key) {
-                return !str_contains($key, '*');
+                return ! str_contains($key, '*');
             }));
             $ppid->update($data);
         }

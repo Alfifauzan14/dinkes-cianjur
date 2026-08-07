@@ -4,25 +4,6 @@
 
 @section('styles')
 <style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
-    .form-section-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #004F3B;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-bottom: 10px;
-    }
     .accordion-grid-layout {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -65,32 +46,26 @@
 @endsection
 
 @section('content')
+
+
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="d-flex align-items-center" style="gap: 8px;">
+                    <span class="material-icons text-success">toc</span>
+                    <span class="font-weight-bold card-title-label">Daftar Informasi Publik (Accordion)</span>
+                </span>
+                <button type="button" id="btn-add-accordion" class="btn btn-sm btn-success ml-auto">
+                    <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Baris Baru
                 </button>
             </div>
-        @endif
 
-        <div class="custom-form-card">
-            <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="informasi">
-
-                <div class="d-flex align-items-center justify-content-between mb-4 pb-2" style="border-bottom: 1px solid var(--border-subtle);">
-                    <div class="form-section-title mb-0" style="border-bottom: none; padding-bottom: 0;">
-                        <span class="material-icons text-success">toc</span>
-                        <span>Daftar Informasi Publik (Accordion)</span>
-                    </div>
-                    <button type="button" id="btn-add-accordion" class="btn btn-outline-success btn-sm">
-                        <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Baris Baru
-                    </button>
-                </div>
+            <div class="card-body">
+                <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="informasi">
 
                 <div id="accordion-container" class="accordion-grid-layout">
                     @forelse (old('accordion_items', $ppid->accordion_items ?? []) as $index => $item)
@@ -127,11 +102,12 @@
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success px-4" id="ppid-save-btn">
+                    <button type="submit" class="btn btn-success-dark px-4" id="ppid-save-btn">
                         <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Informasi Publik
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>
@@ -159,7 +135,7 @@
                 <span class="badge badge-success mb-3">Item Baru</span>
                 <div class="form-group">
                     <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Klasifikasi Informasi <span class="text-danger">*</span></label>
-                    <select name="accordion_items[\${index}][category]" class="form-control" required>
+                    <select name="accordion_items[${index}][category]" class="form-control" required>
                         <option value="berkala">Informasi Berkala</option>
                         <option value="serta-merta">Informasi Serta Merta</option>
                         <option value="setiap-saat">Informasi Setiap Saat</option>
@@ -167,11 +143,11 @@
                 </div>
                 <div class="form-group">
                     <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Judul Informasi <span class="text-danger">*</span></label>
-                    <input type="text" name="accordion_items[\${index}][title]" class="form-control" placeholder="Judul..." required>
+                    <input type="text" name="accordion_items[${index}][title]" class="form-control" placeholder="Judul..." required>
                 </div>
                 <div class="form-group mb-0">
                     <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Detail Isi / Deskripsi <span class="text-danger">*</span></label>
-                    <textarea name="accordion_items[\${index}][content]" rows="3" class="form-control" placeholder="Isi deskripsi..." required></textarea>
+                    <textarea name="accordion_items[${index}][content]" rows="3" class="form-control" placeholder="Isi deskripsi..." required></textarea>
                 </div>
             `;
             container.appendChild(newField);
@@ -194,17 +170,17 @@
                 // Re-index inputs
                 Array.from(container.querySelectorAll('.accordion-card-field')).forEach((child, idx) => {
                     const select = child.querySelector('select');
-                    if (select) select.name = `accordion_items[\${idx}][category]`;
+                    if (select) select.name = `accordion_items[${idx}][category]`;
                     
                     const titleInput = child.querySelector('input');
-                    if (titleInput) titleInput.name = `accordion_items[\${idx}][title]`;
+                    if (titleInput) titleInput.name = `accordion_items[${idx}][title]`;
                     
                     const descTextarea = child.querySelector('textarea');
-                    if (descTextarea) descTextarea.name = `accordion_items[\${idx}][content]`;
+                    if (descTextarea) descTextarea.name = `accordion_items[${idx}][content]`;
                     
                     const badge = child.querySelector('.badge');
                     if (badge && !badge.innerText.includes('Baru')) {
-                        badge.innerText = `Item \${idx + 1}`;
+                        badge.innerText = `Item ${idx + 1}`;
                     }
                 });
             }

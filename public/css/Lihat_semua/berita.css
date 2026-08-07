@@ -197,9 +197,8 @@
 }
 
 .featured-large-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     transform: translateY(-4px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 153, 102, 0.25);
 }
 
 .card-image-wrap {
@@ -266,9 +265,8 @@
 }
 
 .featured-small-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     transform: translateY(-4px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 153, 102, 0.25);
 }
 
 .small-card-image-wrap {
@@ -331,9 +329,8 @@
 }
 
 .berita-grid-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     transform: translateY(-4px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 153, 102, 0.2);
 }
 
 .grid-card-image-wrap {

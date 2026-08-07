@@ -32,10 +32,12 @@
                     <h3 class="berita-filter-label">Filter Kategori</h3>
                     <div class="berita-filter-dropdown">
                         <select name="category" class="berita-select" onchange="this.form.submit()">
-                            <option value="Semua" {{ request('category') == 'Semua' ? 'selected' : '' }}>Semua Kategori</option>
-                            <option value="Kesehatan" {{ request('category') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
-                            <option value="Kegiatan" {{ request('category') == 'Kegiatan' ? 'selected' : '' }}>Kegiatan</option>
-                            <option value="Pengumuman" {{ request('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                            <option value="Semua" {{ request('category', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Kategori</option>
+                            @if(isset($kategoris))
+                                @foreach($kategoris as $kat)
+                                    <option value="{{ $kat->nama }}" {{ request('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -55,7 +57,11 @@
                                         <span class="material-icons" style="font-size: 72px;">image</span>
                                     </div>
                                 @endif
-                                <span class="berita-badge">{{ $featuredBerita->created_at->format('d M Y') }}</span>
+                                @php 
+                                    $katF = isset($kategoris) ? $kategoris->firstWhere('nama', $featuredBerita->category) : null; 
+                                    $bgF = $katF ? $katF->warna : '#009966';
+                                @endphp
+                                <span class="berita-badge" style="background-color: {{ $bgF }}; color: #fff;">{{ $featuredBerita->category ?? 'Berita' }}</span>
                             </div>
                             <div class="featured-large-content">
                                 <h2 class="featured-large-title">{{ $featuredBerita->title }}</h2>
@@ -77,6 +83,11 @@
                                     @endif
                                 </div>
                                 <div class="small-card-content">
+                                    @php 
+                                        $katB = isset($kategoris) ? $kategoris->firstWhere('nama', $recent->category) : null; 
+                                        $bgB = $katB ? $katB->warna : '#009966';
+                                    @endphp
+                                    <span class="berita-badge" style="background-color: {{ $bgB }}; color: #fff; font-size: 10px; padding: 2px 8px; display: inline-block; border-radius: 4px; margin-bottom: 5px;">{{ $recent->category ?? 'Berita' }}</span>
                                     <span class="small-card-date">{{ $recent->created_at->format('d M Y') }}</span>
                                     <h3 class="small-card-title">{{ $recent->title }}</h3>
                                 </div>
@@ -106,6 +117,11 @@
                             @endif
                         </div>
                         <div class="grid-card-content">
+                            @php 
+                                $katB = isset($kategoris) ? $kategoris->firstWhere('nama', $berita->category) : null; 
+                                $bgB = $katB ? $katB->warna : '#009966';
+                            @endphp
+                            <span class="berita-badge" style="background-color: {{ $bgB }}; color: #fff; font-size: 11px; padding: 3px 10px; display: inline-block; border-radius: 4px; margin-bottom: 8px;">{{ $berita->category ?? 'Berita' }}</span>
                             <span class="grid-card-date">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; display: inline-block; vertical-align: middle;">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />

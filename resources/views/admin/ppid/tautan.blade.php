@@ -74,25 +74,18 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-
-        <div class="custom-form-card">
-            <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="tautan">
-
-                <div class="form-section-title">
+        <div class="card card-outline card-success">
+            <div class="card-header" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="d-flex align-items-center" style="gap: 8px;">
                     <span class="material-icons text-success">link</span>
-                    <span>Pengaturan Seksi Tautan PPID</span>
-                </div>
+                    <span class="font-weight-bold card-title-label">Pengaturan Seksi Tautan PPID</span>
+                </span>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="tautan">
 
                 <div class="row">
                     <div class="col-md-4">
@@ -145,11 +138,14 @@
                                 <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Upload Ikon/Gambar (Opsional)</label>
                                 @if(!empty($item['image']))
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $item['image']) }}" class="preview-image" style="max-height: 50px;">
+                                        <img src="{{ asset('storage/' . $item['image']) }}" class="preview-image" style="max-height: 50px; border-radius: 4px; border: 1px solid #E2E8F0;">
                                     </div>
                                     <input type="hidden" name="tautan_items[{{ $index }}][existing_image]" value="{{ $item['image'] }}">
                                 @endif
-                                <input type="file" name="tautan_items[{{ $index }}][image_upload]" class="form-control-file" style="font-size: 11.5px;" accept="image/*">
+                                <div class="custom-file" style="font-size: 11.5px;">
+                                    <input type="file" name="tautan_items[{{ $index }}][image_upload]" class="custom-file-input" accept="image/*" onchange="previewFile(this)">
+                                    <label class="custom-file-label" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">Pilih gambar...</label>
+                                </div>
                             </div>
                         </div>
                     @empty
@@ -161,7 +157,7 @@
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success px-4" id="ppid-save-btn">
+                    <button type="submit" class="btn btn-success-dark px-4" id="ppid-save-btn">
                         <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Tautan
                     </button>
                 </div>
@@ -169,10 +165,10 @@
         </div>
     </div>
 </div>
+</div>
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const container = document.getElementById('tautan-container');
     const btnAdd = document.getElementById('btn-add-tautan');
@@ -203,7 +199,10 @@
                 </div>
                 <div class="form-group mb-0">
                     <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Upload Ikon/Gambar (Opsional)</label>
-                    <input type="file" name="tautan_items[${index}][image_upload]" class="form-control-file" style="font-size: 11.5px;" accept="image/*">
+                    <div class="custom-file" style="font-size: 11.5px;">
+                        <input type="file" name="tautan_items[${index}][image_upload]" class="custom-file-input" accept="image/*" onchange="previewFile(this)">
+                        <label class="custom-file-label" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">Pilih gambar...</label>
+                    </div>
                 </div>
             `;
             container.appendChild(newField);
@@ -244,6 +243,13 @@
                 });
             }
         });
+    }
+
+    function previewFile(input) {
+        if (input.files && input.files[0]) {
+            const fileName = input.files[0].name;
+            input.nextElementSibling.innerText = fileName;
+        }
     }
 
     document.getElementById('ppid-form').addEventListener('submit', function() {

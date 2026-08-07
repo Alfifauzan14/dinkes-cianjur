@@ -30,7 +30,7 @@
     $totalLayanan   = LayananTerpadu::count();
 @endphp
 
-{{-- ── Greeting Banner ──────────────────────────────────────────── --}}
+{{-- -- Greeting Banner -------------------------------------------- --}}
 <div class="card card-success card-outline mb-4">
     <div class="card-body" style="background: linear-gradient(135deg, #004F3B 0%, #007A52 60%, #009966 100%); border-radius: 6px; color:#fff; padding: 28px 32px; position:relative; overflow:hidden;">
         <div style="position:absolute;right:-30px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
@@ -49,7 +49,7 @@
     </div>
 </div>
 
-{{-- ── Stats Grid — Row 1 ────────────────────────────────────────── --}}
+{{-- -- Stats Grid � Row 1 ------------------------------------------ --}}
 <div class="row">
 
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -114,7 +114,7 @@
 
 </div>
 
-{{-- ── Stats Grid — Row 2 ────────────────────────────────────────── --}}
+{{-- -- Stats Grid � Row 2 ------------------------------------------ --}}
 <div class="row">
 
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -179,7 +179,7 @@
 
 </div>
 
-{{-- ── Quick Actions ─────────────────────────────────────────────── --}}
+{{-- -- Quick Actions ----------------------------------------------- --}}
 <h5 class="mb-3" style="font-weight:700;color:#1E293B;font-size:13px;text-transform:uppercase;letter-spacing:.8px;">
     <span class="material-icons" style="font-size:16px;color:#009966;vertical-align:middle;">bolt</span>
     Aksi Cepat
@@ -248,7 +248,7 @@
 
 </div>
 
-{{-- ── Recent Content & Upcoming Agenda ────────────────────────── --}}
+{{-- -- Recent Content & Upcoming Agenda -------------------------- --}}
 <h5 class="mb-3" style="font-weight:700;color:#1E293B;font-size:13px;text-transform:uppercase;letter-spacing:.8px;">
     <span class="material-icons" style="font-size:16px;color:#009966;vertical-align:middle;">update</span>
     Aktivitas Terkini
@@ -258,7 +258,7 @@
     {{-- Recent Berita --}}
     <div class="col-lg-6 col-12">
         <div class="card card-success card-outline h-100">
-            <div class="card-header d-flex align-items-center" style="padding:14px 20px;">
+            <div class="card-header d-flex align-items-center" style="padding:16px 20px;">
                 <h3 class="card-title mb-0 d-flex align-items-center" style="gap:8px;font-size:14px;font-weight:700;">
                     <span class="material-icons" style="font-size:18px;color:#009966;">newspaper</span>
                     Berita Terbaru
@@ -294,7 +294,7 @@
     {{-- Upcoming Agenda --}}
     <div class="col-lg-6 col-12">
         <div class="card card-info card-outline h-100">
-            <div class="card-header d-flex align-items-center" style="padding:14px 20px;">
+            <div class="card-header d-flex align-items-center" style="padding:16px 20px;">
                 <h3 class="card-title mb-0 d-flex align-items-center" style="gap:8px;font-size:14px;font-weight:700;">
                     <span class="material-icons" style="font-size:18px;color:#17a2b8;">event</span>
                     Agenda Mendatang

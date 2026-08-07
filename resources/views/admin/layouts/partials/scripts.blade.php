@@ -40,19 +40,32 @@
         });
     };
 
-    // ── SweetAlert2: Toast Notification ────────────────────────────
-    window.showToast = function(icon, title) {
+    // ── SweetAlert2: Notification (konsisten seperti delete) ───────
+    window.showAlert = function(icon, title, text) {
         Swal.fire({
-            icon: icon,
             title: title,
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3500,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer);
-                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            text: text || '',
+            icon: icon,
+            confirmButtonColor: icon === 'success' ? '#009966' : '#dc3545',
+            confirmButtonText: 'Tutup'
+        });
+    };
+
+    // ── SweetAlert2: Confirm aksi (gaya sama dengan confirmDelete) ─
+    window.confirmAction = function(title, text, onConfirm) {
+        Swal.fire({
+            title: title,
+            text: text || '',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: '<span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span> Hapus',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed && typeof onConfirm === 'function') {
+                onConfirm();
             }
         });
     };
@@ -82,8 +95,8 @@
         const errorsJson     = sessionAlertEl.dataset.errors;
 
         document.addEventListener('DOMContentLoaded', function() {
-            if (successMessage) showToast('success', successMessage);
-            if (errorMessage)   showToast('error', errorMessage);
+            if (successMessage) showAlert('success', successMessage);
+            if (errorMessage)   showAlert('error', errorMessage);
             if (errorsJson) {
                 try {
                     const errors = JSON.parse(errorsJson);

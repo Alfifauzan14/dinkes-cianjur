@@ -19,7 +19,7 @@
 
 /* ── Header Section ──────────────────────────────────────────── */
 .prog-header {
-    background-color: #004F3B; /* Judul Token */
+    background-color: #006045;
     padding: 60px 0;
     text-align: left;
     box-sizing: border-box;
@@ -107,21 +107,21 @@
     border: 1px solid #E5E7EB;
     border-radius: 1px; /* Card luar 1px */
     padding: 32px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .prog-info-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .prog-info-number {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 48px; /* Judul 48px */
     font-weight: 800;
-    color: #009966; /* Sub judul/aksen */
+    color: #0F172A; /* Hitam/Charcoal */
     margin: 0 0 8px 0;
     line-height: 1;
 }
@@ -152,22 +152,21 @@
     background: #FFFFFF;
     border: 1px solid #E5E7EB;
     border-radius: 3px; /* Card dalam 3px */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
-    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .prog-program-item:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-    border-color: #009966;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
 }
 
 .prog-program-number {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 20px; /* Judul card 20px */
     font-weight: 700;
-    color: #004F3B;
+    color: #0F172A;
     margin: 0;
     line-height: 1.4;
 }
@@ -188,7 +187,7 @@
     border-radius: 1px; /* Card luar 1px */
     padding: 40px;
     margin-bottom: 28px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
 }
 
 .prog-content-title {

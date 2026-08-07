@@ -81,8 +81,8 @@
                     @endif
                 </div>
                 @empty
-                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #94A3B8;">
-                    <p style="font-size: 16px;">Belum ada layanan labkesda yang tersedia.</p>
+                <div class="labkesda-empty-state">
+                    <p class="labkesda-empty-text">Belum ada layanan labkesda yang tersedia.</p>
                 </div>
                 @endforelse
             </div>

@@ -4,25 +4,6 @@
 
 @section('styles')
 <style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
-    .form-section-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #004F3B;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-bottom: 10px;
-    }
     .dynamic-row-item {
         background: #F8FAFC;
         border: 1px solid var(--border-subtle);
@@ -39,32 +20,26 @@
 @endsection
 
 @section('content')
+
+
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; margin-bottom: 20px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+                <span class="d-flex align-items-center" style="gap: 8px;">
+                    <span class="material-icons text-success">people</span>
+                    <span class="font-weight-bold card-title-label">Distribusi Profesi Tenaga Kesehatan (Nakes)</span>
+                </span>
+                <button type="button" class="btn btn-outline-success btn-sm ml-auto" onclick="addNakesRow()">
+                    <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Profesi
                 </button>
             </div>
-        @endif
 
-        <div class="custom-form-card">
-            <form action="{{ route('admin.satudata.statistik.update') }}" method="POST" id="statistik-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="section" value="nakes">
-
-                <div class="d-flex align-items-center justify-content-between mb-4 pb-2" style="border-bottom: 1px solid var(--border-subtle);">
-                    <div class="form-section-title mb-0" style="border-bottom: none; padding-bottom: 0;">
-                        <span class="material-icons text-success">people</span>
-                        <span>Distribusi Profesi Tenaga Kesehatan (Nakes)</span>
-                    </div>
-                    <button type="button" class="btn btn-outline-success btn-sm" onclick="addNakesRow()">
-                        <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Profesi
-                    </button>
-                </div>
+            <div class="card-body">
+                <form action="{{ route('admin.satudata.statistik.update') }}" method="POST" id="statistik-form">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="section" value="nakes">
 
                 <div id="nakes-rows-container">
                     @forelse($setting->nakes_data ?? [] as $nakes)
@@ -94,11 +69,12 @@
                 </div>
 
                 <div class="border-top pt-4 mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success px-4" id="statistik-save-btn">
+                    <button type="submit" class="btn btn-success-dark px-4" id="statistik-save-btn">
                         <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Distribusi Nakes
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

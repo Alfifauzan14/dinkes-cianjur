@@ -1,21 +1,64 @@
-<!-- Struktur Organisasi Section Card -->
-<div class="struktur-card-container" style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-    <span class="struktur-badge" style="display: inline-block; background-color: #E6F4EA; color: #009966; padding: 6px 12px; border-radius: 9999px; font-size: 12px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Bagan Struktur</span>
-    
-    <div class="struktur-image-wrap" style="text-align: center; border: 1px solid #F1F5F9; border-radius: 8px; padding: 16px; background-color: #F8FAFC;">
-        @if($profile && $profile->struktur_organisasi_image)
-            @if(file_exists(public_path('uploads/profile/' . $profile->struktur_organisasi_image)))
-                <img src="{{ asset('uploads/profile/' . $profile->struktur_organisasi_image) }}" alt="Bagan Struktur Organisasi Dinkes Cianjur" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" class="lightbox-trigger">
+<!-- Struktur Organisasi Section -->
+<div class="struktur-organisasi-section">
+    <div class="struktur-header-wrap">
+        <span class="struktur-subtitle">Profil Organisasi</span>
+        <h2 class="struktur-title">Struktur organisasi</h2>
+    </div>
+
+    <div class="struktur-card-container">
+        <div class="struktur-image-wrap">
+            @if($profile && $profile->struktur_organisasi_image)
+                @if(file_exists(public_path('uploads/profile/' . $profile->struktur_organisasi_image)))
+                    <img src="{{ asset('uploads/profile/' . $profile->struktur_organisasi_image) }}" alt="Bagan Struktur Organisasi Dinkes Cianjur" class="struktur-img-main lightbox-trigger">
+                @else
+                    <img src="{{ asset('images/' . $profile->struktur_organisasi_image) }}" alt="Bagan Struktur Organisasi Dinkes Cianjur" class="struktur-img-main lightbox-trigger">
+                @endif
             @else
-                <img src="{{ asset('images/' . $profile->struktur_organisasi_image) }}" alt="Bagan Struktur Organisasi Dinkes Cianjur" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" class="lightbox-trigger">
+                <!-- Default placeholder structure image if not uploaded -->
+                <div class="struktur-empty-wrap">
+                    <span class="material-icons struktur-empty-icon">account_tree</span>
+                    <p class="struktur-empty-title">Bagan Struktur Organisasi Belum Diunggah</p>
+                    <p class="struktur-empty-desc">Struktur organisasi Dinas Kesehatan Kabupaten Cianjur.</p>
+                </div>
             @endif
-        @else
-            <!-- Default placeholder structure image if not uploaded -->
-            <div style="padding: 60px 20px; color: #94A3B8;">
-                <span class="material-icons" style="font-size: 64px; color: #CBD5E1; margin-bottom: 12px;">account_tree</span>
-                <p style="font-size: 15px; font-weight: 500; margin: 0 0 4px 0;">Bagan Struktur Organisasi Belum Diunggah</p>
-                <p style="font-size: 13px; margin: 0; color: #94A3B8;">Silakan unggah bagan melalui Panel Admin pada menu Edit Profil.</p>
-            </div>
-        @endif
+        </div>
+    </div>
+
+    <div class="struktur-bottom-actions">
+        <div class="struktur-info-text">
+            <p class="struktur-info-p">
+                Struktur organisasi disusun <strong class="struktur-info-strong">sesuai Peraturan Bupati Cianjur Nomor 85 Tahun 2021</strong> tentang Tugas dan Fungsi serta Tata Kerja Unit Organisasi di Lingkungan Dinas Kesehatan Kabupaten Cianjur, yang berkedudukan di bawah dan bertanggung jawab kepada Bupati Cianjur melalui Sekretaris Daerah.
+            </p>
+        </div>
+        <div class="struktur-buttons">
+            @if($profile && $profile->struktur_organisasi_image)
+                <a href="{{ file_exists(public_path('uploads/profile/' . $profile->struktur_organisasi_image)) ? asset('uploads/profile/' . $profile->struktur_organisasi_image) : asset('images/' . $profile->struktur_organisasi_image) }}" download="Struktur_Organisasi_Dinkes.png" class="struktur-btn-primary">
+                    <span class="material-icons struktur-btn-icon">file_download</span> Simpan Struktur Organisasi
+                </a>
+            @endif
+            <button onclick="window.print()" class="struktur-btn-outline">
+                <span class="material-icons struktur-btn-icon">print</span> Cetak Halaman
+            </button>
+        </div>
     </div>
 </div>
+
+<style>
+    @media (max-width: 768px) {
+        .struktur-bottom-actions {
+            flex-direction: column;
+            align-items: stretch;
+            text-align: center;
+        }
+        .struktur-buttons {
+            justify-content: center;
+        }
+    }
+    .btn-download:hover {
+        background-color: #00B377 !important;
+    }
+    .btn-print:hover {
+        background-color: #F8FAFC !important;
+        border-color: #00CC88 !important;
+    }
+</style>

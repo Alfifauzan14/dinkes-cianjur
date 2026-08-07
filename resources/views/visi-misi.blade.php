@@ -27,7 +27,7 @@
 
         <main class="profile-content">
             <div class="profile-container">
-                @include('components.Profile.visi-misi', ['profile' => $profile])
+                @include('components.Profile.visi-misi', ['profile' => $profile, 'puskesmasCount' => $puskesmasCount, 'kecamatanCount' => $kecamatanCount])
             </div>
         </main>
     </div>

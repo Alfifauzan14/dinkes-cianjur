@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\SettingFooter;
 use Illuminate\Database\Seeder;
 
 class SettingSeeder extends Seeder
@@ -12,7 +12,7 @@ class SettingSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\SettingFooter::firstOrCreate(['id' => 1], [
+        SettingFooter::firstOrCreate(['id' => 1], [
             'site_name' => 'Dinas Kesehatan Kabupaten Cianjur',
             'site_tagline' => 'Mewujudkan Transformasi Pelayanan Kesehatan Masyarakat yang Profesional, Merata, dan Terintegrasi.',
             'site_logo' => null,

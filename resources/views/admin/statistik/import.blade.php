@@ -13,7 +13,7 @@
             <a href="{{ route('admin.satudata.statistik.template') }}" class="btn btn-sm btn-outline-success">
                 <span class="material-icons" style="font-size:16px;vertical-align:middle;">download</span> Download Template CSV
             </a>
-            <a href="{{ route('admin.satudata.statistik.edit') }}" class="btn btn-sm btn-outline-secondary">
+            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'stunting']) }}" class="btn btn-sm btn-outline-secondary">
                 <span class="material-icons" style="font-size:16px;vertical-align:middle;">arrow_back</span> Kembali
             </a>
         </div>
@@ -34,7 +34,6 @@
             </div>
         @endif
 
-        {{-- Format CSV Info --}}
         <div class="card mb-4" style="border:1px solid #E5E7EB;">
             <div class="card-header" style="background:#F9FAFB;padding:10px 14px;">
                 <strong style="font-size:13px;color:#374151;">Format CSV yang Diterima</strong>
@@ -55,13 +54,7 @@
                                 <td class="font-weight-bold text-success" style="font-family:monospace;">year</td>
                                 <td>Integer</td>
                                 <td><span class="text-danger font-weight-bold">Wajib</span></td>
-                                <td>Tahun pengukuran, contoh: 2026</td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-bold text-success" style="font-family:monospace;">total_balita</td>
-                                <td>Integer</td>
-                                <td><span class="text-danger font-weight-bold">Wajib</span></td>
-                                <td>Jumlah total balita yang diukur</td>
+                                <td>Tahun pengukuran, contoh: 2024</td>
                             </tr>
                             <tr>
                                 <td class="font-weight-bold text-success" style="font-family:monospace;">balita_stunting</td>
@@ -69,40 +62,12 @@
                                 <td><span class="text-danger font-weight-bold">Wajib</span></td>
                                 <td>Jumlah balita yang terdeteksi stunting</td>
                             </tr>
-                            <tr>
-                                <td class="text-muted" style="font-family:monospace;">wilayah_terendah</td>
-                                <td>String</td>
-                                <td><span class="text-muted">Opsional</span></td>
-                                <td>Kecamatan dengan angka stunting terendah</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted" style="font-family:monospace;">wilayah_tertinggi</td>
-                                <td>String</td>
-                                <td><span class="text-muted">Opsional</span></td>
-                                <td>Kecamatan dengan angka stunting tertinggi</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted" style="font-family:monospace;">catatan</td>
-                                <td>String</td>
-                                <td><span class="text-muted">Opsional</span></td>
-                                <td>Catatan atau keterangan khusus untuk tahun ini</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted" style="font-family:monospace;">is_highlighted</td>
-                                <td>Boolean</td>
-                                <td><span class="text-muted">Opsional</span></td>
-                                <td>Isi <code>true</code> untuk tahun yang ingin di-highlight di grafik</td>
-                            </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="p-3" style="background:#ECFDF5;border-top:1px solid #E5E7EB;font-size:12px;color:#047857;">
-                    💡 <strong>Catatan:</strong> Kolom <code>rate</code> (%) tidak perlu diisi — dihitung otomatis dari <code>balita_stunting / total_balita × 100</code>
                 </div>
             </div>
         </div>
 
-        {{-- Upload Form --}}
         <form action="{{ route('admin.satudata.statistik.import.post') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div style="border: 2px dashed #CBD5E1; border-radius: 3px; padding: 36px; text-align: center; background: #F8FAFC; margin-bottom: 24px; cursor: pointer; transition: border-color 0.2s;"
@@ -120,7 +85,7 @@
             @enderror
 
             <div class="d-flex justify-content-end" style="gap:8px;">
-                <a href="{{ route('admin.satudata.statistik.edit') }}" class="btn btn-outline-secondary">Batal</a>
+                <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'stunting']) }}" class="btn btn-outline-secondary">Batal</a>
                 <button type="submit" class="btn btn-success">
                     <span class="material-icons" style="font-size: 16px; vertical-align:middle;">upload</span> Upload &amp; Proses
                 </button>
@@ -129,7 +94,6 @@
     </div>
 </div>
 
-{{-- Current Data Preview --}}
 @if($stuntingRecords->count() > 0)
 <div class="card card-outline card-success">
     <div class="card-header">
@@ -144,11 +108,7 @@
                 <thead>
                     <tr>
                         <th>Tahun</th>
-                        <th class="text-right">Rate (%)</th>
-                        <th class="text-right">Total Balita</th>
-                        <th class="text-right">Balita Stunting</th>
-                        <th>Wil. Terendah</th>
-                        <th>Wil. Tertinggi</th>
+                        <th class="text-right">Jml Bayi Stunting</th>
                         <th class="text-center">Highlight</th>
                     </tr>
                 </thead>
@@ -161,11 +121,7 @@
                                 <span class="badge badge-success ml-1">AKTIF</span>
                             @endif
                         </td>
-                        <td class="text-right font-weight-bold text-success">{{ $rec->rate }}%</td>
-                        <td class="text-right text-secondary">{{ $rec->total_balita ? number_format($rec->total_balita) : '—' }}</td>
                         <td class="text-right text-danger font-weight-bold">{{ $rec->balita_stunting ? number_format($rec->balita_stunting) : '—' }}</td>
-                        <td class="text-secondary">{{ $rec->wilayah_terendah ?? '—' }}</td>
-                        <td class="text-secondary">{{ $rec->wilayah_tertinggi ?? '—' }}</td>
                         <td class="text-center align-middle">
                             @if($rec->is_highlighted)
                                 <span class="material-icons text-success" style="font-size: 18px;">check_circle</span>
@@ -189,7 +145,7 @@ function updateLabel() {
     const input = document.getElementById('csv_file');
     const label = document.getElementById('file-label');
     if (input.files.length > 0) {
-        label.textContent = '📄 ' + input.files[0].name;
+        label.textContent = input.files[0].name;
         label.style.color = '#009966';
     }
 }

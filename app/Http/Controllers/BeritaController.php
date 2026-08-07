@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class BeritaController extends Controller
@@ -76,8 +77,10 @@ class BeritaController extends Controller
         }
 
         $beritas = $beritasQuery->paginate(6)->withQueryString();
+        
+        $kategoris = Kategori::ofType('berita')->get();
 
-        return view('berita', compact('featuredBerita', 'beritas', 'recentBeritas'));
+        return view('berita', compact('featuredBerita', 'beritas', 'recentBeritas', 'kategoris'));
     }
 
     /**

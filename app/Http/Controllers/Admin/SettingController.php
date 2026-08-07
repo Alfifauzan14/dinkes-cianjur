@@ -4,49 +4,52 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SettingController extends Controller
 {
     /**
      * Show the settings edit page.
      */
-    public function edit(): \Illuminate\View\View
+    public function edit(): View
     {
         $settings = Setting::all()->pluck('value', 'key')->toArray();
+
         return view('admin.setting.edit', compact('settings'));
     }
 
     /**
      * Update settings in the database.
      */
-    public function update(Request $request): \Illuminate\Http\RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
         $request->validate([
-            'header_site_name'     => 'required|string|max:255',
-            'header_tagline'       => 'nullable|string|max:255',
-            'footer_tagline'       => 'nullable|string|max:500',
-            'footer_address'       => 'nullable|string|max:500',
-            'footer_phone'         => 'nullable|string|max:50',
-            'footer_email'         => 'nullable|email|max:255',
-            'footer_emergency_text'=> 'nullable|string|max:255',
-            'footer_emergency_phone'=> 'nullable|string|max:50',
-            'footer_copyright'     => 'nullable|string|max:255',
+            'header_site_name' => 'required|string|max:255',
+            'header_tagline' => 'nullable|string|max:255',
+            'footer_tagline' => 'nullable|string|max:500',
+            'footer_address' => 'nullable|string|max:500',
+            'footer_phone' => 'nullable|string|max:50',
+            'footer_email' => 'nullable|email|max:255',
+            'footer_emergency_text' => 'nullable|string|max:255',
+            'footer_emergency_phone' => 'nullable|string|max:50',
+            'footer_copyright' => 'nullable|string|max:255',
             // Quick nav links
-            'footer_nav_1_label'   => 'nullable|string|max:100',
-            'footer_nav_1_url'     => 'nullable|string|max:500',
-            'footer_nav_2_label'   => 'nullable|string|max:100',
-            'footer_nav_2_url'     => 'nullable|string|max:500',
-            'footer_nav_3_label'   => 'nullable|string|max:100',
-            'footer_nav_3_url'     => 'nullable|string|max:500',
-            'footer_nav_4_label'   => 'nullable|string|max:100',
-            'footer_nav_4_url'     => 'nullable|string|max:500',
+            'footer_nav_1_label' => 'nullable|string|max:100',
+            'footer_nav_1_url' => 'nullable|string|max:500',
+            'footer_nav_2_label' => 'nullable|string|max:100',
+            'footer_nav_2_url' => 'nullable|string|max:500',
+            'footer_nav_3_label' => 'nullable|string|max:100',
+            'footer_nav_3_url' => 'nullable|string|max:500',
+            'footer_nav_4_label' => 'nullable|string|max:100',
+            'footer_nav_4_url' => 'nullable|string|max:500',
             // Social media
-            'social_facebook'      => 'nullable|url|max:500',
-            'social_instagram'     => 'nullable|url|max:500',
-            'social_twitter'       => 'nullable|url|max:500',
-            'social_youtube'       => 'nullable|url|max:500',
-            'social_tiktok'        => 'nullable|url|max:500',
+            'social_facebook' => 'nullable|url|max:500',
+            'social_instagram' => 'nullable|url|max:500',
+            'social_twitter' => 'nullable|url|max:500',
+            'social_youtube' => 'nullable|url|max:500',
+            'social_tiktok' => 'nullable|url|max:500',
         ]);
 
         $keys = [

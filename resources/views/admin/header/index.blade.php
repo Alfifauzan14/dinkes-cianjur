@@ -5,23 +5,13 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px;">
-                <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
 
-        <div class="card-header-actions mb-4 d-flex align-items-center justify-content-between">
-            <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Header Halaman</div>
-                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Ubah judul dan sub-judul header yang muncul di bagian atas halaman publik.</div>
-            </div>
-        </div>
 
-        <div class="card" style="box-shadow: var(--card-shadow); border-radius: 8px; border: none;">
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center" style="gap: 8px;">
+                <span class="material-icons text-success">view_carousel</span>
+                <span class="font-weight-bold card-title-label">Kelola Header Halaman</span>
+            </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -32,7 +22,7 @@
                                 <th style="width: 150px;">Page Key</th>
                                 <th>Judul Header (Title)</th>
                                 <th>Sub-Judul (Subtitle)</th>
-                                class="text-center" <th class="text-center" style="width: 100px; padding-right: 24px;">Aksi</th>
+                                <th class="text-center" style="width: 100px; padding-right: 24px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,7 +36,7 @@
                                     {{ $header->subtitle ?: '-' }}
                                 </td>
                                 <td class="text-center" style="padding-right: 24px; vertical-align: middle;">
-                                    <button class="btn btn-sm btn-outline-primary btn-edit-header" 
+                                    <button class="btn btn-sm btn-edit-outline btn-edit-header" 
                                             data-id="{{ $header->id }}" 
                                             data-name="{{ $header->page_name }}" 
                                             data-title="{{ $header->title }}" 
@@ -98,7 +88,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Perbarui Header</button>
+                    <button type="submit" class="btn btn-success-dark">Perbarui Header</button>
                 </div>
             </form>
         </div>

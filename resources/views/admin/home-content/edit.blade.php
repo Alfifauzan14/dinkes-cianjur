@@ -3,52 +3,46 @@
 @section('title', 'Edit Info Card')
 @section('header_title', 'Edit Info Card')
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/pagodasehat.css') }}?v={{ time() }}">
-@endsection
-
 @section('content')
-<div class="berita-admin-wrapper">
-    <div class="admin-card">
-        <form action="{{ route('admin.home-content.update', $card->id) }}" method="POST" class="admin-form">
+
+
+<div class="card card-outline card-success">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <span class="font-weight-bold text-muted" style="font-size:13px;">
+            <span class="material-icons text-warning" style="font-size:16px;vertical-align:middle;">edit</span>
+            Formulir Edit Info Card
+        </span>
+        <a href="{{ route('admin.home-content.index') }}" class="btn btn-sm btn-outline-secondary ml-auto">
+            <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
+        </a>
+    </div>
+
+    <div class="card-body">
+        <form action="{{ route('admin.home-content.update', $card->id) }}" method="POST">
             @csrf
             @method('PUT')
 
             <div class="form-group">
-                <label for="title">Judul</label>
-                <input
-                    type="text"
-                    name="title"
-                    id="title"
-                    value="{{ old('title', $card->title) }}"
-                    class="form-control-input"
-                    placeholder="Contoh: Peta Sebaran Faskes"
-                    required
-                >
-                @error('title')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+                <label for="title">Judul <span class="text-danger">*</span></label>
+                <input type="text" name="title" id="title" value="{{ old('title', $card->title) }}"
+                    class="form-control @error('title') is-invalid @enderror"
+                    placeholder="Contoh: Peta Sebaran Faskes" required>
+                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
             <div class="form-group">
                 <label for="description">Deskripsi</label>
-                <textarea
-                    name="description"
-                    id="description"
-                    class="form-textarea"
-                    rows="4"
-                    placeholder="Contoh: Temukan lokasi puskesmas & faskes terdekat di Kabupaten Cianjur."
-                >{{ old('description', $card->description) }}</textarea>
-                @error('description')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+                <textarea name="description" id="description" rows="4"
+                    class="form-control @error('description') is-invalid @enderror"
+                    placeholder="Contoh: Temukan lokasi puskesmas & faskes terdekat di Kabupaten Cianjur.">{{ old('description', $card->description) }}</textarea>
+                @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
             <div class="form-group">
                 <label>Pilih Ikon</label>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div class="icon-picker-container">
                     @foreach($icons as $iconName)
-                        <label class="icon-option {{ old('icon_name', $card->icon_name) === $iconName ? 'selected' : '' }}" style="cursor: pointer; border: 2px solid {{ old('icon_name', $card->icon_name) === $iconName ? '#009966' : '#E5E7EB' }}; border-radius: 6px; padding: 10px; display: inline-flex; flex-direction: column; align-items: center; gap: 6px; width: 90px; background: {{ old('icon_name', $card->icon_name) === $iconName ? '#E6F7F0' : '#FFFFFF' }};">
+                        <label class="icon-option {{ old('icon_name', $card->icon_name) === $iconName ? 'selected' : '' }}">
                             <input
                                 type="radio"
                                 name="icon_name"
@@ -60,23 +54,20 @@
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 @include('admin.home-content.icon', ['icon' => $iconName])
                             </svg>
-                            <span style="font-size: 12px; color: #374151; text-transform: capitalize;">{{ $iconName }}</span>
+                            <span class="icon-label-text">{{ $iconName }}</span>
                         </label>
                     @endforeach
                 </div>
-                @error('icon_name')
-                    <span class="field-error" style="color: #EF4444; font-size: 13px;">{{ $message }}</span>
-                @enderror
+                @error('icon_name') <div class="text-danger" style="font-size:13px;">{{ $message }}</div> @enderror
             </div>
 
-            <div class="form-actions" style="display: flex; gap: 10px; margin-top: 10px;">
-                <button type="submit" class="btn-admin btn-admin-primary">
-                    <span class="material-icons">save</span>
-                    Perbarui
-                </button>
-                <a href="{{ route('admin.home-content.index') }}" class="btn-admin btn-admin-secondary">
-                    Batal
+            <div class="d-flex align-items-center justify-content-end" style="gap:10px;">
+                <a href="{{ route('admin.home-content.index') }}" class="btn btn-outline-secondary">
+                    <span class="material-icons" style="font-size:16px;vertical-align:middle;">close</span> Batal
                 </a>
+                <button type="submit" class="btn btn-success-dark">
+                    <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Perbarui
+                </button>
             </div>
         </form>
     </div>
@@ -84,17 +75,71 @@
 @endsection
 
 @section('scripts')
+<style>
+    .icon-picker-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 12px;
+        max-height: 260px;
+        overflow-y: auto;
+        padding: 12px;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        background: #F8FAFC;
+    }
+    .icon-option {
+        cursor: pointer;
+        border: 2px solid #E2E8F0;
+        border-radius: 8px;
+        padding: 12px 8px;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        background: #FFFFFF;
+        text-align: center;
+        min-height: 76px;
+        transition: all 0.15s ease-in-out;
+        position: relative;
+        margin-bottom: 0 !important;
+    }
+    .icon-option:hover {
+        border-color: #009966;
+        background: #F0FDF4;
+    }
+    .icon-option.selected,
+    .icon-option:has(.icon-radio:checked) {
+        border-color: #009966 !important;
+        background-color: #E6F7F0 !important;
+        box-shadow: 0 0 0 2px rgba(0, 153, 102, 0.15) !important;
+    }
+    .icon-option.selected .icon-label-text,
+    .icon-option:has(.icon-radio:checked) .icon-label-text {
+        color: #004F3B !important;
+        font-weight: 700 !important;
+    }
+    .icon-label-text {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: #475569;
+        text-transform: capitalize;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        line-height: 1.2;
+    }
+</style>
 <script>
 document.querySelectorAll('.icon-option').forEach(function(option) {
     option.addEventListener('click', function() {
         document.querySelectorAll('.icon-option').forEach(function(opt) {
-            opt.style.borderColor = '#E5E7EB';
-            opt.style.background = '#FFFFFF';
+            opt.classList.remove('selected');
         });
-        this.style.borderColor = '#009966';
-        this.style.background = '#E6F7F0';
+        this.classList.add('selected');
         var radio = this.querySelector('.icon-radio');
-        radio.checked = true;
+        if (radio) radio.checked = true;
     });
 });
 </script>

@@ -14,17 +14,16 @@
             </div>
         @endif
 
-        <div class="card-header-actions mb-4 d-flex align-items-center justify-content-between">
-            <div>
-                <div style="font-size: 18px; font-weight: 800; color: #004F3B;">Kelola Jenis Faskes</div>
-                <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">Kelola daftar kategori atau jenis fasilitas kesehatan yang terdaftar.</div>
+        <div class="card card-outline card-success">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <span class="d-flex align-items-center" style="gap: 8px;">
+                    <span class="material-icons text-success">local_hospital</span>
+                    <span class="font-weight-bold card-title-label">Kelola Jenis Faskes</span>
+                </span>
+                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahType">
+                    <span class="material-icons" style="font-size:16px;">add</span> Tambah Jenis Faskes
+                </button>
             </div>
-            <button class="btn btn-success" data-toggle="modal" data-target="#modalTambahType">
-                <span class="material-icons" style="font-size:17px; vertical-align:middle; margin-right:4px;">add</span> Tambah Jenis Faskes
-            </button>
-        </div>
-
-        <div class="card" style="box-shadow: var(--card-shadow); border-radius: 8px; border: none;">
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -41,21 +40,21 @@
                                 <td style="padding-left: 24px; vertical-align: middle;">{{ $idx + 1 }}</td>
                                 <td class="font-weight-bold text-dark" style="vertical-align: middle;">{{ $type->name }}</td>
                                 <td class="text-center" style="padding-right: 24px; vertical-align: middle;">
-                                    <div class="btn-group">
-                                        <button class="btn btn-sm btn-outline-primary btn-edit-type" 
-                                                data-id="{{ $type->id }}" 
-                                                data-name="{{ $type->name }}" 
+                                    <div class="btn-action-group">
+                                        <button class="btn-action btn-action-edit btn-edit-type"
+                                                data-id="{{ $type->id }}"
+                                                data-name="{{ $type->name }}"
                                                 data-toggle="modal" data-target="#modalEditType"
-                                                style="border-radius: 4px; padding: 4px 8px; margin-right: 4px;">
-                                            <span class="material-icons" style="font-size: 15px; vertical-align: middle;">edit</span>
+                                                title="Edit">
+                                            <span class="material-icons">edit</span>
                                         </button>
                                         <form action="{{ route('admin.jenis-faskes.destroy', $type->id) }}" method="POST" class="d-inline" id="del-type-{{ $type->id }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-outline-danger" 
+                                            <button type="button" class="btn-action btn-action-delete"
                                                     onclick="if(confirm('Apakah Anda yakin ingin menghapus jenis faskes ini?')) document.getElementById('del-type-{{ $type->id }}').submit();"
-                                                    style="border-radius: 4px; padding: 4px 8px;">
-                                                <span class="material-icons" style="font-size: 15px; vertical-align: middle;">delete</span>
+                                                    title="Hapus">
+                                                <span class="material-icons">delete</span>
                                             </button>
                                         </form>
                                     </div>

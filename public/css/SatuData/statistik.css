@@ -22,7 +22,7 @@
 
 /* ── Banner Header Top Section ────────────────────────────────── */
 .satudata-banner {
-    background: radial-gradient(circle at top right, rgba(0, 153, 102, 0.15) 0%, transparent 60%), linear-gradient(135deg, #004F3B 0%, #003326 100%);
+    background-color: #006045;
     position: relative;
     overflow: hidden;
     color: #FFFFFF;
@@ -98,8 +98,6 @@
     color: #009966;
     display: block;
     margin-bottom: 6px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
 }
 
 .satudata-section-title {
@@ -145,7 +143,7 @@
     background: #FFFFFF;
     border-radius: 1px !important; /* Card luar 1px */
     padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* clean shadow */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* clean shadow */
     border: 1px solid #E2E8F0;
     display: flex;
     flex-direction: column;
@@ -153,11 +151,12 @@
     min-height: 160px;
     position: relative;
     overflow: hidden;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .stat-card:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* subtle shadow change */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
 }
 
 .stat-card-header {
@@ -234,7 +233,7 @@
     background: #FFFFFF;
     border-radius: 1px !important;
     padding: 28px 32px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     border: 1px solid #E2E8F0;
     margin-bottom: 28px;
 }
@@ -275,21 +274,27 @@
     border-radius: 3px !important;
 }
 
+.trend-badge.trend-up {
+    color: #DC2626;
+    border-color: #DC2626;
+    background: #FEE2E2;
+}
+
 /* Stunting Chart Visual */
 .stunting-chart-container {
-    width: 100%;
-    margin-top: 24px;
+    flex-grow: 1;
     overflow-x: auto;
     position: relative;
-    padding-left: 45px;
+    padding-left: 0;
+    margin-top: 0;
 }
 
 .chart-y-axis-grid {
     position: absolute;
     top: 10px;
-    left: 45px;
-    right: 10px;
-    height: 255px; /* Increased from 165px */
+    left: 0;
+    right: 0;
+    height: 220px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -301,6 +306,11 @@
     width: 100%;
     border-top: 1px dashed #E2E8F0;
     position: relative;
+}
+
+.grid-line-solid {
+    border-top-style: solid;
+    border-top-color: #CBD5E1;
 }
 
 .grid-line-label {
@@ -316,13 +326,14 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    height: 320px; /* Increased from 230px */
+    height: 260px;
     padding: 10px 10px 14px;
     border-bottom: 1px solid #E2E8F0;
     gap: 12px;
     min-width: 650px;
     position: relative;
     z-index: 2;
+    margin-bottom: 0;
 }
 
 .chart-bar-item {
@@ -353,7 +364,7 @@
 .bar-track {
     width: 100%;
     max-width: 36px;
-    height: 165px;
+    height: 140px;
     display: flex;
     align-items: flex-end;
     background: #F8FAFC;
@@ -427,7 +438,7 @@
     background: #FFFFFF;
     border-radius: 1px !important;
     padding: 28px 32px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
     border: 1px solid #E2E8F0;
 }
 
@@ -533,7 +544,7 @@
 @media (max-width: 768px) {
     .stat-cards-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
     }
 }
 
@@ -585,6 +596,41 @@
     gap: 4px;
 }
 
+/* ── Chart Filter Tabs ───────────────────────────────────────── */
+.chart-filter-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #E2E8F0;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.chart-filter-tab {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748B;
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.chart-filter-tab:hover {
+    color: #009966;
+    background-color: rgba(0, 153, 102, 0.04);
+}
+
+.chart-filter-tab.active {
+    color: #009966;
+    border-bottom-color: #009966;
+    font-weight: 700;
+}
+
 /* ── Split Dashboard Grid Layout ──────────────────────────────── */
 .stunting-dashboard-grid {
     display: grid;
@@ -610,7 +656,7 @@
     flex-direction: column;
     gap: 16px;
     transition: opacity 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
 }
 
 .detail-card-header {
@@ -644,7 +690,7 @@
     border-radius: 3px;
     padding: 16px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
 }
 
 .detail-rate-label {
@@ -677,7 +723,7 @@
     border: 1px solid #E2E8F0;
     border-radius: 3px;
     padding: 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
 }
 
 .detail-stat-label {
@@ -768,5 +814,162 @@
         grid-template-columns: 1fr;
         gap: 24px;
     }
+}
+
+/* --- Added from blade --- */
+.stat-card-body-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+.stat-card-number {
+    margin: 0;
+}
+.stat-card-icon-wrapper {
+    color: #009966;
+    background-color: #E6F7F0;
+    width: 44px;
+    height: 44px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.stat-card-icon-wrapper .material-icons {
+    font-size: 22px;
+}
+.stat-card-caption {
+    margin-top: 8px;
+}
+
+.chart-flex-container {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 12px;
+}
+.chart-y-axis-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 275px;
+    margin-top: 10px;
+    width: 32px;
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 700;
+    text-align: right;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.chart-y-axis-labels-item {
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: visible;
+}
+.stunting-chart-container {
+    flex-grow: 1;
+    overflow-x: auto;
+    position: relative;
+    padding-left: 0;
+    margin-top: 0;
+}
+.chart-y-axis-grid {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    height: 275px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 1;
+}
+.grid-line-dashed {
+    width: 100%;
+    border-top: 1px dashed #E2E8F0;
+    position: relative;
+}
+.grid-line-solid {
+    width: 100%;
+    border-top: 1px solid #CBD5E1;
+    position: relative;
+}
+.chart-bars-wrapper {
+    position: relative;
+    z-index: 2;
+    height: 320px;
+    border-bottom: 1px solid #E2E8F0;
+    padding-bottom: 14px;
+    margin-bottom: 0;
+}
+.bar-year-tag-current {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+}
+.chart-click-hint {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #64748B;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-left: 44px;
+}
+.chart-click-hint .material-icons {
+    font-size: 16px;
+    color: #009966;
+}
+.detail-stat-val-danger {
+    color: #DC2626;
+}
+.info-row {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+}
+.info-row .material-icons {
+    font-size: 16px;
+    color: #009966;
+    margin-top: 2px;
+}
+.chart-footer-note {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #F1F5F9;
+}
+
+/* ── y-axis labels outside layout ── */
+.chart-y-axis-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 220px;
+    margin-top: 10px;
+    width: 32px;
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 700;
+    text-align: right;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.chart-y-axis-labels-item {
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: visible;
 }
 

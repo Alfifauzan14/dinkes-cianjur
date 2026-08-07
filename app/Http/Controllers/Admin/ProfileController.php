@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faskes;
+use App\Models\Kecamatan;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -94,11 +96,14 @@ class ProfileController extends Controller
         }
 
         $section = $request->query('section', 'sambutan');
-        if (!in_array($section, ['sambutan', 'visimisi', 'sejarah', 'struktur'])) {
+        if (! in_array($section, ['sambutan', 'visimisi', 'sejarah', 'struktur'])) {
             $section = 'sambutan';
         }
 
-        return view('admin.profil.' . $section, compact('profile'));
+        $puskesmasCount = Faskes::where('type', 'Puskesmas')->count();
+        $kecamatanCount = Kecamatan::count();
+
+        return view('admin.profil.'.$section, compact('profile', 'puskesmasCount', 'kecamatanCount'));
     }
 
     /**
@@ -147,7 +152,7 @@ class ProfileController extends Controller
         $profile = Profile::firstOrCreate(['id' => 1]);
 
         $data = $request->only(array_filter(array_keys($rules), function ($key) {
-            return !str_contains($key, '*');
+            return ! str_contains($key, '*');
         }));
 
         // Handle Kepala Dinas Image

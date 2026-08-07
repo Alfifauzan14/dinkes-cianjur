@@ -8,11 +8,17 @@ use Illuminate\Http\Request;
 
 class LayananTerpaduController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $layanans = LayananTerpadu::orderBy('type')->orderBy('name')->get();
+        $type = $request->query('type');
 
-        return view('admin.layanan.index', compact('layanans'));
+        $layanans = LayananTerpadu::query()
+            ->when($type, fn ($q) => $q->where('type', $type))
+            ->orderBy('type')
+            ->orderBy('name')
+            ->get();
+
+        return view('admin.layanan.index', compact('layanans', 'type'));
     }
 
     public function create()

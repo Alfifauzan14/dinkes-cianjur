@@ -227,13 +227,6 @@
 @section('content')
 <div class="setting-page">
 
-    @if(session('success'))
-    <div class="alert-success">
-        <span class="material-icons">check_circle</span>
-        {{ session('success') }}
-    </div>
-    @endif
-
     <form action="{{ route('admin.setting.update') }}" method="POST" id="settings-form">
         @csrf
         @method('PUT')

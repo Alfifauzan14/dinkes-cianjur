@@ -39,12 +39,9 @@ class PpidAdminTest extends TestCase
     {
         $admin = User::factory()->create();
 
-        // 1. Update Statistik/Header
+        // 1. Update Statistik
         $response = $this->actingAs($admin)->put('/admin/ppid', [
             'section' => 'statistik',
-            'page_title' => 'PPID Baru',
-            'page_subtitle' => 'Subtitle Baru',
-            'stat_1_number' => '100',
             'stat_1_desc' => 'Deskripsi 100',
         ]);
         $response->assertRedirect('/admin/ppid?section=statistik');
@@ -63,16 +60,13 @@ class PpidAdminTest extends TestCase
                     'category' => 'serta-merta',
                     'content' => 'Content 2',
                 ],
-            ]
+            ],
         ]);
         $response->assertRedirect('/admin/ppid?section=informasi');
         $response->assertSessionHas('success', 'Konten halaman PPID berhasil diperbarui!');
 
         $this->assertDatabaseHas('ppid_settings', [
             'id' => 1,
-            'page_title' => 'PPID Baru',
-            'page_subtitle' => 'Subtitle Baru',
-            'stat_1_number' => '100',
             'stat_1_desc' => 'Deskripsi 100',
         ]);
 

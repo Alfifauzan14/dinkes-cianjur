@@ -33,7 +33,7 @@ class StatistikAdminTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Indikator Utama');
-        $response->assertSee('47'); // Default Puskesmas number
+        $response->assertSee('47');
     }
 
     /**
@@ -50,18 +50,9 @@ class StatistikAdminTest extends TestCase
             ->put('/admin/satu-data/statistik', [
                 'section' => 'indikator',
                 'status_badge' => 'Data Diperbarui 2026',
-                'stat_1_num' => '50',
-                'stat_1_badge' => '100% Siap!',
-                'stat_1_caption' => 'Akreditasi Paripurna Terjamin',
-                'stat_2_num' => '10',
-                'stat_2_badge' => 'Mitra BPJS+',
-                'stat_2_caption' => '5 RSUD Pemda + 5 RS Swasta',
-                'stat_3_num' => '4,000',
-                'stat_3_badge' => 'Tersertifikasi Nasional',
-                'stat_3_caption' => 'Seluruh Nakes Terdaftar',
-                'stat_4_num' => '96.2%',
-                'stat_4_badge' => '+4.0% YoY',
-                'stat_4_caption' => 'Target Imunisasi Tercapai',
+                'indikator_names' => ['PUSKESMAS', 'RS RUJUKAN', 'SDM KESEHATAN', 'IMUNISASI'],
+                'indikator_nums' => ['50', '10', '4,000', '96.2%'],
+                'indikator_captions' => ['Akreditasi Paripurna Terjamin', '5 RSUD + 5 RS Swasta', 'Seluruh Nakes Terdaftar', 'Target Imunisasi Tercapai'],
             ]);
         $response->assertRedirect('/admin/satu-data/statistik?section=indikator');
 
@@ -69,12 +60,11 @@ class StatistikAdminTest extends TestCase
         $response = $this->actingAs($admin)
             ->put('/admin/satu-data/statistik', [
                 'section' => 'stunting',
-                'stunting_title' => 'Tren Penurunan Stunting Baru',
-                'stunting_subtitle' => 'Target Daerah Cianjur Baru: <5%',
-                'stunting_trend_badge' => 'Tren Positif Baru',
-                'stunting_footer_note' => 'Penurunan signifikan tercatat.',
+                'stunting_title' => 'Tren Penurunan Prevalensi Stunting',
+                'stunting_subtitle' => 'Kabupaten Cianjur 2014-2024',
                 'stunting_years' => ['2024', '2025', '2026'],
-                'stunting_rates' => ['18.2', '14.7', '9.8'],
+                'stunting_total_balita' => ['44100', '43000', '42000'],
+                'stunting_balita_stunt' => ['4254', '3800', '3200'],
                 'highlighted_year' => '2026',
             ]);
         $response->assertRedirect('/admin/satu-data/statistik?section=stunting');
@@ -84,7 +74,7 @@ class StatistikAdminTest extends TestCase
             ->put('/admin/satu-data/statistik', [
                 'section' => 'nakes',
                 'nakes_names' => ['Perawat', 'Bidan'],
-                'nakes_values' => ['1,600 (50%)', '1,600 (50%)'],
+                'nakes_values' => ['1600', '1600'],
                 'nakes_widths' => ['50', '50'],
             ]);
         $response->assertRedirect('/admin/satu-data/statistik?section=nakes');
@@ -94,20 +84,24 @@ class StatistikAdminTest extends TestCase
             ->put('/admin/satu-data/statistik', [
                 'section' => 'sebaran',
                 'sebaran_names' => ['Zonasi Selatan', 'Zonasi Utara'],
-                'sebaran_values' => ['25 Puskesmas (50%)', '25 Puskesmas (50%)'],
+                'sebaran_values' => ['25', '25'],
                 'sebaran_widths' => ['50', '50'],
             ]);
         $response->assertRedirect('/admin/satu-data/statistik?section=sebaran');
 
         $this->assertDatabaseHas('statistik_settings', [
             'id' => 1,
-            'stat_1_num' => '50',
-            'stat_1_caption' => 'Akreditasi Paripurna Terjamin',
+            'indikator_data' => json_encode([
+                ['name' => 'PUSKESMAS', 'num' => '50', 'caption' => 'Akreditasi Paripurna Terjamin'],
+                ['name' => 'RS RUJUKAN', 'num' => '10', 'caption' => '5 RSUD + 5 RS Swasta'],
+                ['name' => 'SDM KESEHATAN', 'num' => '4000', 'caption' => 'Seluruh Nakes Terdaftar'],
+                ['name' => 'IMUNISASI', 'num' => '96.2', 'caption' => 'Target Imunisasi Tercapai'],
+            ]),
         ]);
 
         $this->assertDatabaseHas('stunting_records', [
             'year' => 2026,
-            'rate' => 9.8,
+            'balita_stunting' => 3200,
             'is_highlighted' => true,
         ]);
     }
