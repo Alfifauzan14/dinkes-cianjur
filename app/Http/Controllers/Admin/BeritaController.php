@@ -58,7 +58,7 @@ class BeritaController extends Controller
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:100',
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
             'status' => 'required|string|in:published,draft',
         ]);
 
@@ -104,7 +104,7 @@ class BeritaController extends Controller
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:100',
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
             'status' => 'required|string|in:published,draft',
         ]);
 
