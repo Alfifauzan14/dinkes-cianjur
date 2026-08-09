@@ -26,6 +26,9 @@ body, .main-sidebar, .content-wrapper, .main-header, .main-footer,
 .modal-content, input, select, textarea, button {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
+.material-icons {
+    font-family: 'Material Icons' !important;
+}
 body.hold-transition.sidebar-mini {
     background-color: var(--content-bg) !important;
 }
