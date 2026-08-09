@@ -33,6 +33,7 @@ class HeaderSettingController extends Controller
 
         $headers = HeaderSetting::all()->sortBy(function ($header) use ($order) {
             $index = array_search($header->page_key, $order);
+
             return $index === false ? 999 : $index;
         });
 
