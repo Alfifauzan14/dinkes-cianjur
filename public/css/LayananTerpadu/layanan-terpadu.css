@@ -124,6 +124,7 @@
     box-sizing: border-box;
     transition: all 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .lt-service-item:hover {
@@ -226,7 +227,9 @@
 
 .lt-search-icon {
     position: absolute;
-    left: 12px;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
     color: #94A3B8;
     font-size: 20px;
     pointer-events: none;
@@ -235,7 +238,7 @@
 .lt-search-input {
     width: 100%;
     height: 40px;
-    padding: 0 14px 0 40px;
+    padding: 0 14px 0 42px;
     border: 1px solid #E2E8F0;
     border-radius: 3px;
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -243,6 +246,7 @@
     outline: none;
     box-sizing: border-box;
     background: #F8FAFC;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     transition: border-color 0.2s;
 }
 
@@ -251,36 +255,23 @@
     background: #FFFFFF;
 }
 
-.lt-topic-pills {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.lt-topic-pill-btn {
+.lt-search-btn {
     height: 40px;
-    padding: 0 18px;
+    padding: 0 24px;
+    background-color: #009966;
+    color: #FFFFFF;
+    border: none;
     border-radius: 3px;
-    border: 1px solid #E2E8F0;
-    background: #F8FAFC;
-    color: #475569;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
 }
 
-.lt-topic-pill-btn:hover {
-    border-color: #009966;
-    color: #009966;
-}
-
-.lt-topic-pill-btn.active {
-    border-color: #009966;
-    background: #009966;
-    color: #FFFFFF;
+.lt-search-btn:hover {
+    background-color: #008055;
 }
 
 /* ── Empty State ─────────────────────────────────────────────── */
@@ -299,31 +290,43 @@
 /* ── Responsive Design ───────────────────────────────────────── */
 @media (max-width: 768px) {
     .lt-page-wrapper {
-        padding-top: 80px;
+        padding-top: 103px; /* Keep same as desktop to prevent sliding under navbar */
     }
 
     .lt-header {
-        padding: 40px 0;
+        padding: 40px 0; /* Give more vertical breathing room */
+    }
+
+    .lt-header-container,
+    .lt-container,
+    .lt-filter-bar {
+        padding: 0 24px; /* Slightly more horizontal padding */
     }
 
     .lt-header-title {
-        font-size: 28px;
+        font-size: 26px;
+        margin-bottom: 16px; /* Space out title and subtitle */
     }
 
     .lt-header-subtitle {
         font-size: 14px;
+        line-height: 1.6;
     }
 
     .lt-content {
-        padding: 32px 0;
+        padding: 30px 0;
     }
 
     .lt-main-title {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .lt-services-grid {
         grid-template-columns: 1fr;
+    }
+
+    .lt-logos-section {
+        padding: 20px;
     }
 
     .lt-filter-bar {
@@ -332,11 +335,20 @@
     }
 
     .lt-search-wrapper {
-        min-width: unset;
+        min-width: 100%;
+        width: 100%;
     }
 
     .lt-logos-grid {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .lt-logo-placeholder {
+        width: 60px;
+        height: 60px;
     }
 }
 

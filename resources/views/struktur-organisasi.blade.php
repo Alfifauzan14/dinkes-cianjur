@@ -15,13 +15,10 @@
     <link rel="stylesheet" href="{{ asset('css/Profile/profile.css') }}?v={{ time() }}">
 
     <div class="profile-page-wrapper">
-        @php
-            $headerSetting = \App\Models\HeaderSetting::getByKey('struktur-organisasi', 'Struktur Organisasi', 'Bagan kepengurusan dan susunan organisasi Dinas Kesehatan Kabupaten Cianjur.');
-        @endphp
         <header class="profile-header">
             <div class="profile-header-container">
-                <h1 class="profile-header-title">{{ $headerSetting->title }}</h1>
-                <p class="profile-header-subtitle">{{ $headerSetting->subtitle }}</p>
+                <h1 class="profile-header-title">Struktur Organisasi</h1>
+                <p class="profile-header-subtitle">Bagan kepengurusan dan susunan organisasi Dinas Kesehatan Kabupaten Cianjur.</p>
             </div>
         </header>
 

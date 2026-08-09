@@ -15,9 +15,12 @@ class ProgramKesehatanController extends Controller
      */
     public function index()
     {
-        $programs = ProgramKesehatan::orderBy('created_at', 'desc')->paginate(10);
+        $stunting = ProgramKesehatan::where('slug', 'cianjur-bebas-stunting')->first();
+        if ($stunting) {
+            return redirect()->route('admin.program-kesehatan.edit', $stunting->id);
+        }
 
-        return view('admin.program.index', compact('programs'));
+        return redirect()->route('admin.dashboard');
     }
 
     /**
@@ -25,9 +28,7 @@ class ProgramKesehatanController extends Controller
      */
     public function create()
     {
-        $kategoris = Kategori::ofType('program')->orderBy('nama')->get();
-
-        return view('admin.program.create', compact('kategoris'));
+        abort(403, 'Aksi ini dinonaktifkan.');
     }
 
     /**
@@ -35,6 +36,8 @@ class ProgramKesehatanController extends Controller
      */
     public function store(Request $request)
     {
+        abort(403, 'Aksi ini dinonaktifkan.');
+
         $request->validate([
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255',
@@ -178,9 +181,6 @@ class ProgramKesehatanController extends Controller
      */
     public function destroy(ProgramKesehatan $programKesehatan)
     {
-        $programKesehatan->delete();
-
-        return redirect()->route('admin.program-kesehatan.index')
-            ->with('success', 'Program Kesehatan berhasil dihapus.');
+        abort(403, 'Aksi ini dinonaktifkan.');
     }
 }

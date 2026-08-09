@@ -1,16 +1,13 @@
 <link rel="stylesheet" href="{{ asset('css/LayananTerpadu/layanan-terpadu.css') }}?v={{ time() }}">
 
 <div class="lt-page-wrapper">
-    @php
-        $headerSetting = \App\Models\HeaderSetting::getByKey('layanan-terpadu', 'Layanan Terpadu', 'Portal perizinan praktis dan pelayanan informasi terintegrasi bagi masyarakat, faskes, dan tenaga kesehatan.');
-    @endphp
-    <!-- Header Section -->
     <header class="lt-header">
         <div class="lt-header-container">
             <h1 class="lt-header-title">{{ \App\Models\Setting::get('page_layanan_title', 'Layanan Terpadu Kesehatan Kabupaten Cianjur') }}</h1>
             <p class="lt-header-subtitle">{{ \App\Models\Setting::get('page_layanan_subtitle', 'Pusat pelayanan perizinan, rekomendasi medis, dan sertifikasi kesehatan secara cepat, transparan, dan terintegrasi.') }}</p>
         </div>
     </header>
+
 
     <!-- Main Content Section -->
     <main class="lt-content">
@@ -22,12 +19,7 @@
                     <span class="material-icons lt-search-icon">search</span>
                     <input type="text" id="layananSearchInput" class="lt-search-input" placeholder="Cari layanan perizinan, sertifikat, atau rekomendasi...">
                 </div>
-                <div class="lt-topic-pills">
-                    <button type="button" class="lt-topic-pill-btn active" data-type="all">Semua Layanan</button>
-                    <button type="button" class="lt-topic-pill-btn" data-type="warga">Untuk Warga</button>
-                    <button type="button" class="lt-topic-pill-btn" data-type="faskes">Untuk Faskes</button>
-                    <button type="button" class="lt-topic-pill-btn" data-type="nakes">Untuk Nakes</button>
-                </div>
+                <button type="button" id="layananSearchBtn" class="lt-search-btn">Cari</button>
             </div>
 
             <!-- Layanan Untuk Warga -->
@@ -39,20 +31,12 @@
 
                 <div class="lt-services-grid">
                     @forelse($wargaServices as $service)
-                        @if($service->link)
-                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable lt-service-link">
-                        @else
-                            <div class="lt-service-item">
-                        @endif
+                        <a href="{{ route('layanan-terpadu.show', $service->id) }}" class="lt-service-item">
                             <span class="lt-service-icon">
                                 @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
                             </span>
                             <span class="lt-service-text">{{ $service->name }}</span>
-                        @if($service->link)
-                            </a>
-                        @else
-                            </div>
-                        @endif
+                        </a>
                     @empty
                         <div class="lt-empty-state">Belum ada layanan untuk warga.</div>
                     @endforelse
@@ -68,20 +52,12 @@
 
                 <div class="lt-services-grid">
                     @forelse($faskesServices as $service)
-                        @if($service->link)
-                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable lt-service-link">
-                        @else
-                            <div class="lt-service-item">
-                        @endif
+                        <a href="{{ route('layanan-terpadu.show', $service->id) }}" class="lt-service-item">
                             <span class="lt-service-icon">
                                 @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
                             </span>
                             <span class="lt-service-text">{{ $service->name }}</span>
-                        @if($service->link)
-                            </a>
-                        @else
-                            </div>
-                        @endif
+                        </a>
                     @empty
                         <div class="lt-empty-state">Belum ada layanan untuk faskes.</div>
                     @endforelse
@@ -97,20 +73,12 @@
 
                 <div class="lt-services-grid">
                     @forelse($nakesServices as $service)
-                        @if($service->link)
-                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable lt-service-link">
-                        @else
-                            <div class="lt-service-item">
-                        @endif
+                        <a href="{{ route('layanan-terpadu.show', $service->id) }}" class="lt-service-item">
                             <span class="lt-service-icon">
                                 @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
                             </span>
                             <span class="lt-service-text">{{ $service->name }}</span>
-                        @if($service->link)
-                            </a>
-                        @else
-                            </div>
-                        @endif
+                        </a>
                     @empty
                         <div class="lt-empty-state">Belum ada layanan untuk nakes.</div>
                     @endforelse
@@ -150,72 +118,71 @@
 
         </div>
     </main>
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('layananSearchInput');
-    const tabBtns = document.querySelectorAll('.lt-topic-pill-btn');
-    const categorySections = document.querySelectorAll('.lt-category-section');
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('layananSearchInput');
+        const categorySections = document.querySelectorAll('.lt-category-section');
 
-    let activeType = 'all';
+        let activeType = 'all';
 
-    function filterLayanan() {
-        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        // Parse URL query parameter for pre-filtering
+        const urlParams = new URLSearchParams(window.location.search);
+        const typeParam = urlParams.get('type');
+        if (typeParam && ['warga', 'faskes', 'nakes'].includes(typeParam.toLowerCase())) {
+            activeType = typeParam.toLowerCase();
+        }
 
-        categorySections.forEach(section => {
-            const sectionType = section.getAttribute('data-type');
-            const matchesType = (activeType === 'all') || (sectionType === activeType);
+        function filterLayanan() {
+            const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-            if (!matchesType) {
-                section.style.display = 'none';
-                return;
-            }
+            categorySections.forEach(section => {
+                const sectionType = section.getAttribute('data-type');
+                const matchesType = (activeType === 'all') || (sectionType === activeType);
 
-            // Filter individual service items inside this section
-            const serviceItems = section.querySelectorAll('.lt-service-item');
-            let hasVisibleItems = false;
+                if (!matchesType) {
+                    section.style.display = 'none';
+                    return;
+                }
 
-            serviceItems.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                if (query === '' || text.includes(query)) {
-                    item.style.display = 'flex';
-                    hasVisibleItems = true;
+                // Filter individual service items inside this section
+                const serviceItems = section.querySelectorAll('.lt-service-item');
+                let hasVisibleItems = false;
+
+                serviceItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (query === '' || text.includes(query)) {
+                        item.style.display = 'flex';
+                        hasVisibleItems = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                if (hasVisibleItems) {
+                    section.style.display = 'block';
                 } else {
-                    item.style.display = 'none';
+                    section.style.display = 'none';
                 }
             });
+        }
 
-            if (hasVisibleItems) {
-                section.style.display = 'block';
-            } else {
-                section.style.display = 'none';
-            }
-        });
-    }
+        // Trigger filter immediately on load
+        filterLayanan();
 
-    if (searchInput) {
-        searchInput.addEventListener('input', filterLayanan);
-    }
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            tabBtns.forEach(b => {
-                b.classList.remove('active');
-                b.style.background = '#F9FAFB';
-                b.style.color = '#374151';
-                b.style.borderColor = '#E5E7EB';
+        if (searchInput) {
+            searchInput.addEventListener('input', filterLayanan);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    filterLayanan();
+                }
             });
+        }
 
-            this.classList.add('active');
-            this.style.background = '#009966';
-            this.style.color = '#FFFFFF';
-            this.style.borderColor = '#009966';
-
-            activeType = this.getAttribute('data-type');
-            filterLayanan();
-        });
+        const searchBtn = document.getElementById('layananSearchBtn');
+        if (searchBtn) {
+            searchBtn.addEventListener('click', filterLayanan);
+        }
     });
-});
-</script>
-
+    </script>
+</div>

@@ -1,15 +1,12 @@
 <link rel="stylesheet" href="{{ asset('css/SatuData/statistik.css') }}?v={{ time() }}">
 
 <div class="satudata-wrapper">
-    @php
-        $headerSetting = \App\Models\HeaderSetting::getByKey('statistik', 'Satu Data Kesehatan', 'Portal visualisasi statistik stunting, ketersediaan tenaga medis, dan sebaran faskes.');
-    @endphp
     <!-- Banner Header Top Section -->
     <header class="satudata-banner">
         <div class="satudata-banner-container">
-            <h1 class="satudata-banner-title">{{ $headerSetting->title }}</h1>
+            <h1 class="satudata-banner-title">Satu Data Kesehatan</h1>
             <p class="satudata-banner-subtitle">
-                {{ $headerSetting->subtitle }}
+                Portal visualisasi statistik stunting, ketersediaan tenaga medis, dan sebaran faskes.
             </p>
         </div>
     </header>

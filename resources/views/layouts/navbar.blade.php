@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ asset('css/layouts/navbar.css') }}?v={{ time() }}">
 
 <div class="dinkes-navbar-wrapper">
+    <!-- Overlay untuk efek gelap -->
+    <div class="navbar-overlay"></div>
+    
     <nav class="dinkes-navbar {{ Request::is('/') ? '' : 'navbar-white' }}">
         <div class="dinkes-navbar-container">
             <div class="navbar-brand">
@@ -9,6 +12,10 @@
             </div>
 
             <ul class="navbar-menu">
+                <li class="menu-header-mobile">
+                    <span class="menu-title-mobile">Menu Utama</span>
+                    <button class="menu-close-mobile"><span class="material-icons">close</span></button>
+                </li>
                 <li><a href="/" class="menu-item {{ Request::is('/') ? 'active' : '' }}">Beranda</a></li>
 
                 <li class="dropdown">
@@ -47,7 +54,9 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/layanan-terpadu') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">widgets</span><span>Layanan Terpadu</span></a></li>
+                        <li><a href="{{ url('/layanan-terpadu?type=warga') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">people</span><span>Layanan Warga</span></a></li>
+                        <li><a href="{{ url('/layanan-terpadu?type=faskes') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">local_hospital</span><span>Layanan Faskes</span></a></li>
+                        <li><a href="{{ url('/layanan-terpadu?type=nakes') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">medical_services</span><span>Layanan Nakes</span></a></li>
                     </ul>
                 </li>
 
@@ -86,113 +95,56 @@
             </button>
         </div>
     </nav>
-
-    {{-- Mobile Menu Drawer --}}
-    <div class="mobile-menu-overlay"></div>
-    <div class="mobile-menu-drawer">
-        <div class="mobile-drawer-header">
-            <div class="navbar-brand">
-                <img src="{{ asset('Assets/layouts/Nav/logo_pemkab_cropped.png') }}" alt="Logo Pemkab" style="height: 36px;">
-                <img src="{{ asset('Assets/layouts/Nav/logo_dinkes_cropped.png') }}" alt="Logo Dinkes" style="height: 36px;">
-            </div>
-            <button class="mobile-drawer-close" aria-label="Close navigation">
-                <span class="material-icons">close</span>
-            </button>
-        </div>
-        <ul class="mobile-drawer-menu">
-            <li><a href="/" class="mobile-menu-link {{ Request::is('/') ? 'active' : '' }}">Beranda</a></li>
-
-            <li class="mobile-dropdown">
-                <div class="mobile-dropdown-toggle">
-                    <span>Profil</span>
-                    <span class="material-icons mobile-chevron">expand_more</span>
-                </div>
-                <ul class="mobile-submenu">
-                    <li><a href="{{ route('profil.tentang') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">info</span> Tentang Dinkes</a></li>
-                    <li><a href="{{ route('profil.visi-misi') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">flag</span> Visi & Misi</a></li>
-                    <li><a href="{{ route('profil.struktur-organisasi') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">account_tree</span> Struktur Organisasi</a></li>
-                </ul>
-            </li>
-
-            <li class="mobile-dropdown">
-                <div class="mobile-dropdown-toggle">
-                    <span>Program Kesehatan</span>
-                    <span class="material-icons mobile-chevron">expand_more</span>
-                </div>
-                <ul class="mobile-submenu">
-                    @foreach(\App\Models\ProgramKesehatan::where('status', 'published')->get() as $prog)
-                        <li><a href="{{ route('program.show', $prog->slug) }}"><span class="material-icons" style="font-size: 16px; color: #009966;">health_and_safety</span> {{ $prog->title }}</a></li>
-                    @endforeach
-                </ul>
-            </li>
-
-            <li class="mobile-dropdown">
-                <div class="mobile-dropdown-toggle">
-                    <span>Program Terpadu</span>
-                    <span class="material-icons mobile-chevron">expand_more</span>
-                </div>
-                <ul class="mobile-submenu">
-                    <li><a href="{{ url('/layanan-terpadu') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">widgets</span> Layanan Terpadu</a></li>
-                </ul>
-            </li>
-
-            <li class="mobile-dropdown">
-                <div class="mobile-dropdown-toggle">
-                    <span>Fasilitas Kesehatan</span>
-                    <span class="material-icons mobile-chevron">expand_more</span>
-                </div>
-                <ul class="mobile-submenu">
-                    <li><a href="{{ route('faskes') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">local_hospital</span> Info Puskesmas & RS</a></li>
-                    <li><a href="{{ url('/labkesda') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">biotech</span> Labkesda</a></li>
-                </ul>
-            </li>
-
-            <li class="mobile-dropdown">
-                <div class="mobile-dropdown-toggle">
-                    <span>Satu Data</span>
-                    <span class="material-icons mobile-chevron">expand_more</span>
-                </div>
-                <ul class="mobile-submenu">
-                    <li><a href="{{ route('satudata.statistik') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">bar_chart</span> Dashboard Statistik</a></li>
-                    <li><a href="{{ route('satudata.laporan') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">description</span> Laporan PDF</a></li>
-                    <li><a href="{{ route('satudata.regulasi') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">gavel</span> Regulasi & Hukum</a></li>
-                </ul>
-            </li>
-
-            <li><a href="{{ route('ppid') }}" class="mobile-menu-link {{ Request::is('ppid') ? 'active' : '' }}">PPID</a></li>
-        </ul>
-    </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const toggleBtn = document.querySelector('.mobile-toggle');
-        const closeBtn = document.querySelector('.mobile-drawer-close');
-        const overlay = document.querySelector('.mobile-menu-overlay');
-        const drawer = document.querySelector('.mobile-menu-drawer');
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        const dropdowns = document.querySelectorAll('.dropdown');
+        const overlay = document.querySelector('.navbar-overlay');
+        const closeBtn = document.querySelector('.menu-close-mobile');
 
-        function openMenu() {
-            drawer.classList.add('open');
-            overlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
+        function toggleMenu() {
+            navbarMenu.classList.toggle('active');
+            if(overlay) overlay.classList.toggle('active');
+            if (navbarMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden'; // prevent background scrolling
+            } else {
+                document.body.style.overflow = '';
+            }
         }
 
-        function closeMenu() {
-            drawer.classList.remove('open');
-            overlay.classList.remove('open');
-            document.body.style.overflow = '';
+        if (mobileToggle && navbarMenu) {
+            mobileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+        }
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                toggleMenu();
+            });
         }
 
-        if (toggleBtn) toggleBtn.addEventListener('click', openMenu);
-        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-        if (overlay) overlay.addEventListener('click', closeMenu);
-
-        // Mobile dropdown toggles
-        const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
-        dropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                const parent = this.parentElement;
-                parent.classList.toggle('open');
+        // Toggle dropdowns on mobile
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    // Prevent closing if clicking inside the menu
+                    if (e.target.closest('.dropdown-menu')) return;
+                    
+                    e.preventDefault();
+                    this.classList.toggle('open');
+                }
             });
         });
     });

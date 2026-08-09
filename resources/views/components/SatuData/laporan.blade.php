@@ -1,14 +1,11 @@
 <link rel="stylesheet" href="{{ asset('css/SatuData/laporan.css') }}?v={{ time() }}">
 
 <div class="laporan-wrapper">
-    @php
-        $headerSetting = \App\Models\HeaderSetting::getByKey('laporan', 'Laporan Dinkes', 'Transparansi laporan akuntabilitas kinerja, keuangan, dan informasi publik.');
-    @endphp
     <!-- Banner Header Top Section -->
     <header class="satudata-banner">
         <div class="satudata-banner-container">
-            <h1 class="satudata-banner-title">{{ $headerSetting->title }}</h1>
-            <p class="satudata-banner-subtitle">{{ $headerSetting->subtitle }}</p>
+            <h1 class="satudata-banner-title">Laporan Dinkes</h1>
+            <p class="satudata-banner-subtitle">Transparansi laporan akuntabilitas kinerja, keuangan, dan informasi publik.</p>
         </div>
     </header>
 

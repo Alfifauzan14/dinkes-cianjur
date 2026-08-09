@@ -35,8 +35,6 @@ class DatabaseSeeder extends Seeder
         // Seeder pengaturan situs
         $this->call(SettingSeeder::class);
 
-        // Seeder header situs
-        $this->call(HeaderSettingSeeder::class);
 
         // Seeder jenis faskes & kecamatan
         $this->call(JenisFaskesAndKecamatanSeeder::class);
@@ -536,9 +534,7 @@ class DatabaseSeeder extends Seeder
                 ['name' => $layanan['name']],
                 $layanan
             );
-        }
-
-        // Seeding Program Kesehatan (Stunting & KIA)
+        }        // Seeding Program Kesehatan (Stunting & KIA)
         $programs = [
             [
                 'title' => 'Cianjur Bebas Stunting',
@@ -550,20 +546,9 @@ class DatabaseSeeder extends Seeder
                 'stat_2_label' => 'Balita Terpantau',
                 'stat_3_num' => '2,800',
                 'stat_3_label' => 'Keluarga Penerima Manfaat',
-                'content' => '<h3 class="st-content-title">Apa itu Stunting?</h3>
-<p class="st-content-text">Stunting adalah kondisi gagal tumbuh pada anak balita (bayi di bawah lima tahun) akibat kekurangan gizi kronis sehingga anak terlalu pendek untuk usianya. Kekurangan gizi terjadi sejak bayi dalam kandungan hingga awal kehidupan anak (1000 Hari Pertama Kehidupan).</p>
-<h3 class="st-content-title">Penyebab Stunting</h3>
-<ul class="st-content-list">
-    <li>Kurangnya asupan gizi pada ibu selama kehamilan.</li>
-    <li>Kebutuhan gizi anak tidak tercukupi.</li>
-    <li>Kurangnya pengetahuan ibu mengenai kesehatan dan gizi.</li>
-    <li>Terbatasnya layanan kesehatan termasuk layanan kehamilan dan nifas.</li>
-    <li>Kurangnya akses makanan bergizi dan air bersih.</li>
-</ul>
-<h3 class="st-content-title">Dampak Stunting</h3>
-<p class="st-content-text">Stunting tidak hanya menyebabkan tubuh anak pendek, tetapi juga menghambat perkembangan otak, menurunkan kemampuan belajar, dan meningkatkan risiko penyakit kronis di masa dewasa.</p>',
+                'content' => "Apa itu Stunting?\nStunting adalah kondisi gagal tumbuh pada anak balita (bayi di bawah lima tahun) akibat kekurangan gizi kronis sehingga anak terlalu pendek untuk usianya. Kekurangan gizi terjadi sejak bayi dalam kandungan hingga awal kehidupan anak (1000 Hari Pertama Kehidupan).\n\nPenyebab Stunting:\n- Kurangnya asupan gizi pada ibu selama kehamilan.\n- Kebutuhan gizi anak tidak tercukupi.\n- Kurangnya pengetahuan ibu mengenai kesehatan dan gizi.\n- Terbatasnya layanan kesehatan termasuk layanan kehamilan dan nifas.\n- Kurangnya akses makanan bergizi dan air bersih.\n\nDampak Stunting:\nStunting tidak hanya menyebabkan tubuh anak pendek, tetapi juga menghambat perkembangan otak, menurunkan kemampuan belajar, dan meningkatkan risiko penyakit kronis di masa dewasa.",
                 'intervensi' => [
-                    ['title' => 'Pemberian Makanan Tambahan (PMT) untuk Balita', 'description' => 'Menyediakan makanan bergizi tinggi untuk balita stunting dan gizi buruk guna memenuhi kebutuhan nutrisi harian mereka.'],
+                    ['title' => 'Pemberian Makanan Tambahan (PMT) untuk Balita', 'description' => 'Menyediakan makanan bergizi tinggi untuk balita stunting and gizi buruk guna memenuhi kebutuhan nutrisi harian mereka.'],
                     ['title' => 'Edukasi Gizi dan Pola Asuh untuk Orang Tua', 'description' => 'Memberikan pendampingan dan edukasi kepada orang tua tentang pola asuh yang baik, gizi seimbang, dan stimulasi tumbuh kembang anak.'],
                     ['title' => 'Pemantauan Tumbuh Kembang Balita', 'description' => 'Melakukan pengukuran rutin tinggi badan, berat badan, dan lingkar kepala balita untuk deteksi dini stunting di Posyandu.'],
                     ['title' => 'Perbaikan Sanitasi dan Akses Air Bersih', 'description' => 'Meningkatkan akses keluarga terhadap air bersih dan sanitasi layak untuk mencegah penyakit infeksi yang mempengaruhi pertumbuhan anak.'],
@@ -582,18 +567,7 @@ class DatabaseSeeder extends Seeder
                 'stat_2_label' => null,
                 'stat_3_num' => null,
                 'stat_3_label' => null,
-                'content' => '<h3 class="kia-content-title">Mengapa KIA Penting?</h3>
-<p class="kia-content-text">Kesehatan Ibu dan Anak (KIA) adalah fondasi utama dalam membangun generasi bangsa yang sehat dan berkualitas. Periode 1000 Hari Pertama Kehidupan (HPK) merupakan masa emas perkembangan anak yang krusial.</p>
-<p class="kia-content-text">Dengan pelayanan KIA yang optimal, kita dapat menurunkan Angka Kematian Ibu (AKI) dan Angka Kematian Bayi (AKB), serta mencegah stunting sejak dini.</p>
-<h3 class="kia-content-title">Layanan KIA yang Tersedia</h3>
-<ul class="kia-content-list">
-    <li><strong>Konsultasi dan pemeriksaan kehamilan rutin</strong> - Pemantauan kesehatan ibu dan janin secara berkala.</li>
-    <li><strong>Persalinan di fasilitas kesehatan</strong> - Layanan persalinan aman dan profesional di puskesmas atau rumah sakit.</li>
-    <li><strong>Pemeriksaan neonatal dan imunisasi</strong> - Screening bayi baru lahir dan vaksinasi lengkap.</li>
-    <li><strong>Pemantauan tumbuh kembang anak</strong> - Pengukuran rutin tinggi badan, berat badan, dan lingkar kepala.</li>
-    <li><strong>Pemberian vitamin A dan suplemen gizi</strong> - Suplementasi untuk mencegah defisiensi gizi.</li>
-</ul>
-<p class="kia-content-text">Semua layanan KIA tersedia secara gratis di Puskesmas dan Fasilitas Kesehatan Primer di seluruh Kabupaten Cianjur.</p>',
+                'content' => "Mengapa KIA Penting?\nKesehatan Ibu dan Anak (KIA) adalah fondasi utama dalam membangun generasi bangsa yang sehat dan berkualitas. Periode 1000 Hari Pertama Kehidupan (HPK) merupakan masa emas perkembangan anak yang krusial.\n\nDengan pelayanan KIA yang optimal, kita dapat menurunkan Angka Kematian Ibu (AKI) dan Angka Kematian Bayi (AKB), serta mencegah stunting sejak dini.\n\nLayanan KIA yang Tersedia:\n- Konsultasi dan pemeriksaan kehamilan rutin - Pemantauan kesehatan ibu dan janin secara berkala.\n- Persalinan di fasilitas kesehatan - Layanan persalinan aman dan profesional di puskesmas atau rumah sakit.\n- Pemeriksaan neonatal dan imunisasi - Screening bayi baru lahir dan vaksinasi lengkap.\n- Pemantauan tumbuh kembang anak - Pengukuran rutin tinggi badan, berat badan, dan lingkar kepala.\n- Pemberian vitamin A dan suplemen gizi - Suplementasi untuk mencegah defisiensi gizi.\n\nSemua layanan KIA tersedia secara gratis di Puskesmas dan Fasilitas Kesehatan Primer di seluruh Kabupaten Cianjur.",
                 'intervensi' => [
                     ['title' => 'Pelayanan Antenatal Care (ANC)', 'description' => 'Pemeriksaan kehamilan rutin untuk memantau kesehatan ibu dan janin, termasuk USG, laboratorium, dan konseling gizi.'],
                     ['title' => 'Pelayanan Persalinan dan Penolongan Persalinan', 'description' => 'Pelayanan persalinan yang aman dan profesional di fasilitas kesehatan dengan tenaga medis berpengalaman.'],

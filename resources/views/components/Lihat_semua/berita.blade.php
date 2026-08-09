@@ -1,14 +1,10 @@
 <link rel="stylesheet" href="{{ asset('css/Lihat_semua/berita.css') }}?v={{ time() }}">
 
 <div class="berita-page-wrapper">
-    @php
-        $headerSetting = \App\Models\HeaderSetting::getByKey('berita', 'Berita & Publikasi', 'Kabar berita terbaru, rilis pers, sosialisasi germas, dan pengumuman resmi Dinas Kesehatan.');
-    @endphp
-    <!-- Header Banner -->
     <header class="berita-header">
         <div class="berita-header-container">
             <h1 class="berita-header-title">{{ \App\Models\Setting::get('page_berita_title', 'Rilis Berita & Informasi Terkini') }}</h1>
-            <p class="berita-header-subtitle">{{ \App\Models\Setting::get('page_berita_subtitle', 'Informasi seputar kesehatan terkini dan kegiatan yang dilaksanakan oleh Dinas Kesehatan Kabupaten Cianjur') }}</p>
+            <p class="berita-header-subtitle">{{ \App\Models\Setting::get('page_berita_subtitle', 'Informasi seputar kesehatan terkini and kegiatan yang dilaksanakan oleh Dinas Kesehatan Kabupaten Cianjur') }}</p>
         </div>
     </header>
 
@@ -61,7 +57,7 @@
                                     $katF = isset($kategoris) ? $kategoris->firstWhere('nama', $featuredBerita->category) : null; 
                                     $bgF = $katF ? $katF->warna : '#009966';
                                 @endphp
-                                <span class="berita-badge" style="background-color: {{ $bgF }}; color: #fff;">{{ $featuredBerita->category ?? 'Berita' }}</span>
+                                <span class="berita-badge" @style(['background-color: ' . $bgF, 'color: #fff'])>{{ $featuredBerita->category ?? 'Berita' }}</span>
                             </div>
                             <div class="featured-large-content">
                                 <h2 class="featured-large-title">{{ $featuredBerita->title }}</h2>
@@ -87,7 +83,7 @@
                                         $katB = isset($kategoris) ? $kategoris->firstWhere('nama', $recent->category) : null; 
                                         $bgB = $katB ? $katB->warna : '#009966';
                                     @endphp
-                                    <span class="berita-badge" style="background-color: {{ $bgB }}; color: #fff; font-size: 10px; padding: 2px 8px; display: inline-block; border-radius: 4px; margin-bottom: 5px;">{{ $recent->category ?? 'Berita' }}</span>
+                                    <span class="berita-badge" @style(['background-color: ' . $bgB, 'color: #fff', 'font-size: 10px', 'padding: 2px 8px', 'display: inline-block', 'border-radius: 4px', 'margin-bottom: 5px'])>{{ $recent->category ?? 'Berita' }}</span>
                                     <span class="small-card-date">{{ $recent->created_at->format('d M Y') }}</span>
                                     <h3 class="small-card-title">{{ $recent->title }}</h3>
                                 </div>
@@ -121,7 +117,7 @@
                                 $katB = isset($kategoris) ? $kategoris->firstWhere('nama', $berita->category) : null; 
                                 $bgB = $katB ? $katB->warna : '#009966';
                             @endphp
-                            <span class="berita-badge" style="background-color: {{ $bgB }}; color: #fff; font-size: 11px; padding: 3px 10px; display: inline-block; border-radius: 4px; margin-bottom: 8px;">{{ $berita->category ?? 'Berita' }}</span>
+                            <span class="berita-badge" @style(['background-color: ' . $bgB, 'color: #fff', 'font-size: 11px', 'padding: 3px 10px', 'display: inline-block', 'border-radius: 4px', 'margin-bottom: 8px'])>{{ $berita->category ?? 'Berita' }}</span>
                             <span class="grid-card-date">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; display: inline-block; vertical-align: middle;">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />

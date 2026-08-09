@@ -26,6 +26,23 @@ class LayananTerpaduAdminTest extends TestCase
         $response->assertSee('Layanan Publik Cianjur Sehat');
     }
 
+    public function test_public_layanan_terpadu_detail_renders_successful_response(): void
+    {
+        $service = LayananTerpadu::create([
+            'name' => 'Layanan Detail Cianjur Sehat',
+            'type' => 'Warga',
+            'icon' => 'smile',
+            'link' => 'https://layanan.cianjurkab.go.id',
+            'description' => 'Ini adalah deskripsi detail pelayanan kesehatan di Cianjur.',
+        ]);
+
+        $response = $this->get("/layanan-terpadu/{$service->id}");
+
+        $response->assertStatus(200);
+        $response->assertSee('Layanan Detail Cianjur Sehat');
+        $response->assertSee('Ini adalah deskripsi detail pelayanan kesehatan di Cianjur.');
+    }
+
     public function test_guest_cannot_access_admin_layanan(): void
     {
         $response = $this->get('/admin/layanan-terpadu');

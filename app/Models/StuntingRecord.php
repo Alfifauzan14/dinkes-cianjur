@@ -11,7 +11,12 @@ class StuntingRecord extends Model
 
     protected $fillable = [
         'year',
+        'rate',
+        'total_balita',
         'balita_stunting',
+        'wilayah_terendah',
+        'wilayah_tertinggi',
+        'catatan',
         'is_highlighted',
     ];
 
