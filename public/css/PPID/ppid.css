@@ -2,8 +2,10 @@
 
 .ppid-page-wrapper {
     width: 100%;
-    min-height: 100vh;
-    background-color: #FFFFFF;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #F8FAFC;
     font-family: 'Plus Jakarta Sans', sans-serif;
     box-sizing: border-box;
     padding-top: 103px; /* Offset navbar */
@@ -12,7 +14,7 @@
 /* ── Header Section ──────────────────────────────────────────── */
 .ppid-header {
     background-color: #006045;
-    padding: 60px 0 140px;
+    padding: 60px 0;
     text-align: left;
     box-sizing: border-box;
 }
@@ -681,7 +683,7 @@
     }
     
     .ppid-header {
-        padding: 40px 0 100px;
+        padding: 40px 0;
     }
     
     .ppid-header-container {
@@ -802,3 +804,242 @@
         padding: 0 0 52px 0;
     }
 }
+
+/* ── Layanan PPID Section (Akses Layanan Utama) ──────────────── */
+.layanan-ppid-section {
+    background-color: #F8FAFC; /* Light gray background like regulasi-wrapper */
+    padding: 40px 0; /* Match satudata-main padding */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #1E293B; /* Slate dark text */
+    box-sizing: border-box;
+    border-bottom: 1px solid #E2E8F0;
+    flex: 1; /* Stretch to fill remaining space */
+}
+
+.layanan-ppid-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.layanan-ppid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 28px; /* Match satudata-header margin-bottom */
+    gap: 32px;
+}
+
+.layanan-ppid-header .header-left {
+    flex: 1;
+}
+
+.layanan-ppid-header .header-right {
+    flex: 1;
+    max-width: 600px;
+}
+
+.layanan-ppid-header .badge-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; /* Match satudata-category-tag size */
+    font-weight: 700;
+    color: #009966; /* Accent color like satudata-category-tag */
+    display: block;
+    margin-bottom: 6px;
+}
+
+.layanan-ppid-header .section-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 36px; /* Match satudata-section-title size */
+    font-weight: 800;
+    color: #0F172A; /* Dark slate */
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.layanan-ppid-header .section-desc {
+    font-size: 16px;
+    font-weight: 400;
+    color: #64748B; /* Text color like regulasi-card-desc */
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Grid */
+.layanan-ppid-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    box-sizing: border-box;
+}
+
+/* Cards */
+.layanan-ppid-card {
+    background: #FFFFFF; /* White card like regulasi-card */
+    border: 1px solid #E2E8F0; /* Light gray border like regulasi-card */
+    border-radius: 1px !important; /* Card luar: 1px */
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* Shadow like regulasi-card */
+    box-sizing: border-box;
+    position: relative;
+    min-height: 320px;
+}
+
+.layanan-ppid-card:hover {
+    transform: translateY(-4px); /* Hover like regulasi-card */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Hover shadow like regulasi-card */
+}
+
+.layanan-ppid-card.card-permohonan:hover {
+    border-color: #2563EB; /* Blue border on hover */
+}
+.layanan-ppid-card.card-keberatan:hover {
+    border-color: #EF4444; /* Red border on hover */
+}
+.layanan-ppid-card.card-status:hover {
+    border-color: #00BC7D; /* Green border on hover */
+}
+
+/* Icon Wrappers */
+.card-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 3px !important; /* Card dalam: 3px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+}
+
+.icon-permohonan {
+    background-color: rgba(37, 99, 235, 0.1);
+    color: #2563EB;
+}
+
+.icon-keberatan {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+}
+
+.icon-status {
+    background-color: rgba(0, 188, 125, 0.1);
+    color: #00BC7D;
+}
+
+.card-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Card Content */
+.layanan-ppid-card .card-title {
+    font-size: 20px; /* Judul card: 20px */
+    font-weight: 700;
+    color: #0F172A; /* Dark slate */
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+.layanan-ppid-card .card-desc {
+    font-size: 15px;
+    font-weight: 400;
+    color: #64748B; /* Text color like regulasi-card-desc */
+    margin: 0 0 32px 0;
+    line-height: 1.6;
+    flex: 1; /* Pushes button to bottom */
+}
+
+/* Card Button */
+.card-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px; /* Sub judul card / Btn card: 16px */
+    font-weight: 700;
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+/* Button colors */
+.card-permohonan .card-btn { color: #2563EB; }
+.card-keberatan .card-btn { color: #EF4444; }
+.card-status .card-btn { color: #00BC7D; }
+
+.card-btn .arrow-icon {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
+}
+
+.card-btn:hover {
+    gap: 12px;
+}
+
+.card-btn:hover .arrow-icon {
+    transform: translateX(4px);
+}
+
+.card-permohonan .card-btn:hover { color: #1d4ed8; }
+.card-keberatan .card-btn:hover { color: #dc2626; }
+.card-status .card-btn:hover { color: #009A66; }
+
+/* Responsive CSS */
+@media (max-width: 1024px) {
+    .layanan-ppid-container {
+        padding: 0 32px;
+    }
+
+    .layanan-ppid-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .layanan-ppid-header .section-title {
+        font-size: 32px;
+    }
+
+    .layanan-ppid-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .layanan-ppid-section {
+        padding: 60px 0;
+    }
+
+    .layanan-ppid-container {
+        padding: 0 24px;
+    }
+
+    .layanan-ppid-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .layanan-ppid-card {
+        padding: 32px 24px;
+        min-height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .layanan-ppid-container {
+        padding: 0 20px;
+    }
+}
+
+
