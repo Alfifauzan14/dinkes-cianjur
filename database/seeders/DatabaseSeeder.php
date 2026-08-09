@@ -495,6 +495,9 @@ class DatabaseSeeder extends Seeder
             );
         }
 
+        // Seeder Labkesda
+        $this->call(LabkesdaSeeder::class);
+
         // Seeding Layanan Terpadu
         $layananTerpadus = [
             // Warga

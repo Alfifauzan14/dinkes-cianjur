@@ -58,6 +58,8 @@ Route::post('/ikm', [IkmController::class, 'store'])->name('ikm.store');
 
 /* --- Labkesda & Faskes Routes --- */
 Route::get('/media', [MediaController::class, 'index'])->name('media');
+Route::get('/media/galeri-kegiatan', [MediaController::class, 'galeriKegiatan'])->name('media.galeri-kegiatan');
+Route::get('/media/infografis', [MediaController::class, 'infografis'])->name('media.infografis');
 Route::get('/faskes', [PublicFaskesController::class, 'index'])->name('faskes');
 Route::get('/labkesda', [LabkesdaController::class, 'index'])->name('labkesda');
 

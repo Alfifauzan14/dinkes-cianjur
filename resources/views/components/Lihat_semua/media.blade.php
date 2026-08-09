@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ asset('css/Lihat_semua/media.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('css/Lihat_semua/media-index.css') }}?v={{ time() }}">
 
 <div class="media-page-wrapper">
     @php
@@ -7,6 +8,13 @@
     <!-- Header Banner -->
     <header class="media-header">
         <div class="media-header-container">
+            <div class="mediaindex-breadcrumb" style="margin-bottom: 20px;">
+                <a href="{{ route('home') }}">Beranda</a>
+                <span class="mediaindex-breadcrumb-sep"><span class="material-icons">chevron_right</span></span>
+                <a href="{{ url('/media') }}">Media</a>
+                <span class="mediaindex-breadcrumb-sep"><span class="material-icons">chevron_right</span></span>
+                <span>Galeri Kegiatan</span>
+            </div>
             <h1 class="media-header-title">{{ \App\Models\Setting::get('page_media_title', 'Galeri Kegiatan') }}</h1>
             <p class="media-header-subtitle">{{ \App\Models\Setting::get('page_media_subtitle', 'Kumpulan dokumentasi foto dan video dari berbagai acara dan kegiatan Dinas Kesehatan Kota Cianjur') }}</p>
         </div>
@@ -16,7 +24,7 @@
     <main class="media-content">
         <div class="media-container">
             <!-- Search & Filter Bar -->
-            <form action="{{ url('/media') }}" method="GET" class="media-filter-bar">
+            <form action="{{ route('media.galeri-kegiatan') }}" method="GET" class="media-filter-bar">
                 <div class="media-search-section">
                     <h3 class="media-filter-label">Cari Album Kegiatan</h3>
                     <div class="media-search-box">

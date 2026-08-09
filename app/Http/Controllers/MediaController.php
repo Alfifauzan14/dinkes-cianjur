@@ -9,9 +9,17 @@ use Illuminate\View\View;
 class MediaController extends Controller
 {
     /**
-     * Display the public Media / Galeri page.
+     * Display the Media landing page with category cards.
      */
-    public function index(Request $request): View
+    public function index(): View
+    {
+        return view('media-index');
+    }
+
+    /**
+     * Display the Galeri Kegiatan page (formerly /media).
+     */
+    public function galeriKegiatan(Request $request): View
     {
         $query = Galeri::orderBy('created_at', 'desc');
 
@@ -26,6 +34,14 @@ class MediaController extends Controller
 
         $galeris = $query->paginate(12)->withQueryString();
 
-        return view('media', compact('galeris'));
+        return view('media-galeri', compact('galeris'));
+    }
+
+    /**
+     * Display the Infografis placeholder page.
+     */
+    public function infografis(): View
+    {
+        return view('media-infografis');
     }
 }
