@@ -22,12 +22,7 @@
                     <span class="material-icons lt-search-icon">search</span>
                     <input type="text" id="layananSearchInput" class="lt-search-input" placeholder="Cari layanan perizinan, sertifikat, atau rekomendasi...">
                 </div>
-                <div class="lt-topic-pills">
-                    <button type="button" class="lt-topic-pill-btn active" data-type="all">Semua Layanan</button>
-                    <button type="button" class="lt-topic-pill-btn" data-type="warga">Untuk Warga</button>
-                    <button type="button" class="lt-topic-pill-btn" data-type="faskes">Untuk Faskes</button>
-                    <button type="button" class="lt-topic-pill-btn" data-type="nakes">Untuk Nakes</button>
-                </div>
+                <button type="button" id="layananSearchBtn" class="lt-search-btn">Cari</button>
             </div>
 
             <!-- Layanan Untuk Warga -->
@@ -130,10 +125,16 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('layananSearchInput');
-        const tabBtns = document.querySelectorAll('.lt-topic-pill-btn');
         const categorySections = document.querySelectorAll('.lt-category-section');
 
         let activeType = 'all';
+
+        // Parse URL query parameter for pre-filtering
+        const urlParams = new URLSearchParams(window.location.search);
+        const typeParam = urlParams.get('type');
+        if (typeParam && ['warga', 'faskes', 'nakes'].includes(typeParam.toLowerCase())) {
+            activeType = typeParam.toLowerCase();
+        }
 
         function filterLayanan() {
             const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
@@ -169,28 +170,22 @@
             });
         }
 
+        // Trigger filter immediately on load
+        filterLayanan();
+
         if (searchInput) {
             searchInput.addEventListener('input', filterLayanan);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    filterLayanan();
+                }
+            });
         }
 
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                tabBtns.forEach(b => {
-                    b.classList.remove('active');
-                    b.style.background = '#F9FAFB';
-                    b.style.color = '#374151';
-                    b.style.borderColor = '#E5E7EB';
-                });
-
-                this.classList.add('active');
-                this.style.background = '#009966';
-                this.style.color = '#FFFFFF';
-                this.style.borderColor = '#009966';
-
-                activeType = this.getAttribute('data-type');
-                filterLayanan();
-            });
-        });
+        const searchBtn = document.getElementById('layananSearchBtn');
+        if (searchBtn) {
+            searchBtn.addEventListener('click', filterLayanan);
+        }
     });
     </script>
 

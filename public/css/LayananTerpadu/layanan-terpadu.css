@@ -252,36 +252,23 @@
     background: #FFFFFF;
 }
 
-.lt-topic-pills {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.lt-topic-pill-btn {
+.lt-search-btn {
     height: 40px;
-    padding: 0 18px;
+    padding: 0 24px;
+    background-color: #009966;
+    color: #FFFFFF;
+    border: none;
     border-radius: 3px;
-    border: 1px solid #E2E8F0;
-    background: #F8FAFC;
-    color: #475569;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
 }
 
-.lt-topic-pill-btn:hover {
-    border-color: #009966;
-    color: #009966;
-}
-
-.lt-topic-pill-btn.active {
-    border-color: #009966;
-    background: #009966;
-    color: #FFFFFF;
+.lt-search-btn:hover {
+    background-color: #008055;
 }
 
 /* ── Empty State ─────────────────────────────────────────────── */

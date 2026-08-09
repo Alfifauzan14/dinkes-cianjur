@@ -47,7 +47,9 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/layanan-terpadu') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">widgets</span><span>Layanan Terpadu</span></a></li>
+                        <li><a href="{{ url('/layanan-terpadu?type=warga') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">people</span><span>Layanan Warga</span></a></li>
+                        <li><a href="{{ url('/layanan-terpadu?type=faskes') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">local_hospital</span><span>Layanan Faskes</span></a></li>
+                        <li><a href="{{ url('/layanan-terpadu?type=nakes') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 8px;"><span class="material-icons" style="font-size: 18px; color: #009966;">medical_services</span><span>Layanan Nakes</span></a></li>
                     </ul>
                 </li>
 
@@ -132,7 +134,9 @@
                     <span class="material-icons mobile-chevron">expand_more</span>
                 </div>
                 <ul class="mobile-submenu">
-                    <li><a href="{{ url('/layanan-terpadu') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">widgets</span> Layanan Terpadu</a></li>
+                    <li><a href="{{ url('/layanan-terpadu?type=warga') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">people</span> Layanan Warga</a></li>
+                    <li><a href="{{ url('/layanan-terpadu?type=faskes') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">local_hospital</span> Layanan Faskes</a></li>
+                    <li><a href="{{ url('/layanan-terpadu?type=nakes') }}"><span class="material-icons" style="font-size: 16px; color: #009966;">medical_services</span> Layanan Nakes</a></li>
                 </ul>
             </li>
 
