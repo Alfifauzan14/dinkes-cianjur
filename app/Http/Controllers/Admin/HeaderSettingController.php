@@ -12,7 +12,29 @@ class HeaderSettingController extends Controller
 {
     public function index(): View
     {
-        $headers = HeaderSetting::orderBy('page_name')->get();
+        $order = [
+            'profil',
+            'visi-misi',
+            'struktur-organisasi',
+            'program-kesehatan',
+            'layanan-terpadu',
+            'labkesda',
+            'ikm',
+            'pagoda-sehat',
+            'faskes',
+            'statistik',
+            'laporan',
+            'regulasi',
+            'ppid',
+            'berita',
+            'agenda',
+            'media',
+        ];
+
+        $headers = HeaderSetting::all()->sortBy(function ($header) use ($order) {
+            $index = array_search($header->page_key, $order);
+            return $index === false ? 999 : $index;
+        });
 
         return view('admin.header.index', compact('headers'));
     }

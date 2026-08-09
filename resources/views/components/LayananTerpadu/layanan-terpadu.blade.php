@@ -12,6 +12,7 @@
         </div>
     </header>
 
+
     <!-- Main Content Section -->
     <main class="lt-content">
         <div class="lt-container">
@@ -188,4 +189,4 @@
         }
     });
     </script>
-
+</div>

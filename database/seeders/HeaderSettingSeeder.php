@@ -83,6 +83,24 @@ class HeaderSettingSeeder extends Seeder
                 'subtitle' => 'Himpunan Peraturan Bupati (Perbup) penanggulangan stunting, KIA, dan kebijakan operasional medis.',
             ],
             [
+                'page_key' => 'program-kesehatan',
+                'page_name' => 'Program Kesehatan',
+                'title' => 'Program Kesehatan',
+                'subtitle' => 'Daftar program kesehatan unggulan dan inovasi layanan kesehatan di Kabupaten Cianjur.',
+            ],
+            [
+                'page_key' => 'ikm',
+                'page_name' => 'Indeks Kepuasan Masyarakat',
+                'title' => 'Indeks Kepuasan Masyarakat',
+                'subtitle' => 'Hasil evaluasi dan pengukuran tingkat kepuasan masyarakat terhadap pelayanan Dinas Kesehatan.',
+            ],
+            [
+                'page_key' => 'pagoda-sehat',
+                'page_name' => 'Pagoda Sehat',
+                'title' => 'Pagoda Sehat',
+                'subtitle' => 'Platform edukasi dan layanan kesehatan berbasis digital terintegrasi untuk masyarakat Cianjur.',
+            ],
+            [
                 'page_key' => 'statistik',
                 'page_name' => 'Satu Data / Statistik',
                 'title' => 'Satu Data Kesehatan',

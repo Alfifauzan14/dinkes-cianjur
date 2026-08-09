@@ -33,12 +33,15 @@
             
             <div class="card card-success card-outline card-outline-tabs shadow-sm">
                 <div class="card-header p-0 border-bottom-0" style="background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0 !important;">
-                <div class="d-flex justify-content-between align-items-center px-4 pt-3 pb-2">
-                    <span class="d-flex align-items-center" style="gap: 8px;">
-                        <span class="material-icons text-success">health_and_safety</span>
-                        <span class="font-weight-bold card-title-label" style="font-size: 15px; color: #334155;">Formulir Edit: {{ $program->title }}</span>
-                    </span>
-                </div>
+                    <div class="d-flex justify-content-between align-items-center px-4 pt-3 pb-2">
+                        <span class="d-flex align-items-center" style="gap: 8px;">
+                            <span class="material-icons text-success">health_and_safety</span>
+                            <span class="font-weight-bold card-title-label" style="font-size: 15px; color: #334155;">Formulir Edit: {{ $program->title }}</span>
+                        </span>
+                        <a href="{{ route('admin.program-kesehatan.index') }}" class="btn btn-outline-secondary" style="padding: 6px 16px; font-weight: 500; border: 1px solid #CBD5E1 !important; border-radius: 4px; color: #475569;">
+                            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">arrow_back</span> Kembali
+                        </a>
+                    </div>
                     <ul class="nav nav-tabs px-4" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="pill" href="#pane-konten" role="tab">
@@ -230,7 +233,7 @@
                 </div>
                 
                 <div class="card-footer bg-white d-flex align-items-center justify-content-end p-3" style="border-top: 1px solid #E2E8F0; justify-content: flex-end !important; display: flex !important;">
-                    <button type="submit" class="btn btn-success px-4">
+                    <button type="submit" class="btn px-4" style="font-weight: 600; background-color: #004F3B; color: #fff; border: none; border-radius: 4px;">
                         <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> 
                         Simpan Perubahan
                     </button>

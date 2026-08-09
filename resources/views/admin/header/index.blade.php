@@ -8,10 +8,7 @@
 
 
         <div class="card card-outline card-success">
-            <div class="card-header d-flex align-items-center" style="gap: 8px;">
-                <span class="material-icons text-success">view_carousel</span>
-                <span class="font-weight-bold card-title-label">Kelola Header Halaman</span>
-            </div>
+
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -26,9 +23,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($headers as $idx => $header)
+                            @forelse($headers as $header)
                             <tr>
-                                <td style="padding-left: 24px; vertical-align: middle;">{{ $idx + 1 }}</td>
+                                <td style="padding-left: 24px; vertical-align: middle;">{{ $loop->iteration }}</td>
                                 <td class="font-weight-bold text-dark" style="vertical-align: middle;">{{ $header->page_name }}</td>
                                 <td style="vertical-align: middle;"><code style="background:#F3F4F6; padding: 2px 6px; border-radius: 4px;">{{ $header->page_key }}</code></td>
                                 <td class="text-dark font-weight-bold" style="vertical-align: middle;">{{ $header->title }}</td>
