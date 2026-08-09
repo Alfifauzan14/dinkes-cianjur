@@ -35,7 +35,6 @@ class DatabaseSeeder extends Seeder
         // Seeder pengaturan situs
         $this->call(SettingSeeder::class);
 
-
         // Seeder jenis faskes & kecamatan
         $this->call(JenisFaskesAndKecamatanSeeder::class);
 
@@ -45,6 +44,7 @@ class DatabaseSeeder extends Seeder
         // Seeder home content (info cards & social links)
         $this->call(HomeInfoCardSeeder::class);
         $this->call(HomeSocialLinkSeeder::class);
+        $this->call(HeaderSettingSeeder::class);
 
         // Seeder data faskes lengkap
         $this->call(FaskesSeeder::class);

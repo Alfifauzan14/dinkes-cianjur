@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\HeaderSettingController;
 use App\Http\Controllers\Admin\HomeContentController;
+use App\Http\Controllers\Admin\InfografisController as AdminInfografisController;
 use App\Http\Controllers\Admin\JenisFaskesController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\KecamatanController;
@@ -58,6 +60,7 @@ Route::post('/ikm', [IkmController::class, 'store'])->name('ikm.store');
 /* --- Labkesda & Faskes Routes --- */
 Route::get('/media', [MediaController::class, 'index'])->name('media');
 Route::get('/media/galeri-kegiatan', [MediaController::class, 'galeriKegiatan'])->name('media.galeri-kegiatan');
+Route::get('/media/galeri-kegiatan/{slug}', [MediaController::class, 'show'])->name('media.galeri-kegiatan.show');
 Route::get('/media/infografis', [MediaController::class, 'infografis'])->name('media.infografis');
 Route::get('/faskes', [PublicFaskesController::class, 'index'])->name('faskes');
 Route::get('/labkesda', [LabkesdaController::class, 'index'])->name('labkesda');
@@ -166,6 +169,19 @@ Route::resource('/admin/galeri', GaleriController::class, [
     ],
 ])->middleware('auth');
 
+Route::get('/admin/galeri/{galeri}/photos', [GaleriController::class, 'photos'])->middleware('auth')->name('admin.galeri.photos');
+
+Route::resource('/admin/infografis', AdminInfografisController::class, [
+    'names' => [
+        'index' => 'admin.infografis.index',
+        'create' => 'admin.infografis.create',
+        'store' => 'admin.infografis.store',
+        'edit' => 'admin.infografis.edit',
+        'update' => 'admin.infografis.update',
+        'destroy' => 'admin.infografis.destroy',
+    ],
+])->middleware('auth');
+
 Route::resource('/admin/faskes', FaskesController::class, [
     'names' => [
         'index' => 'admin.faskes.index',
@@ -198,6 +214,13 @@ Route::resource('/admin/kecamatan', KecamatanController::class, [
     ],
 ])->middleware('auth');
 
+Route::resource('/admin/headers', HeaderSettingController::class, [
+    'only' => ['index', 'update'],
+    'names' => [
+        'index' => 'admin.headers.index',
+        'update' => 'admin.headers.update',
+    ],
+])->middleware('auth');
 
 Route::get('/admin/ppid', [AdminPpidController::class, 'edit'])->middleware('auth')->name('admin.ppid.edit');
 Route::put('/admin/ppid', [AdminPpidController::class, 'update'])->middleware('auth')->name('admin.ppid.update');

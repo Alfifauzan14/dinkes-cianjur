@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Infografis Dinas Kesehatan Kabupaten Cianjur - Visualisasi data dan informasi kesehatan.">
+    <meta name="description" content="Infografis Dinas Kesehatan Kabupaten Cianjur - Poster dan visualisasi data kesehatan.">
     <title>Infografis - Dinas Kesehatan Kabupaten Cianjur</title>
 
     {{-- Google Fonts: Plus Jakarta Sans --}}
@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {{-- FontAwesome for Brands --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/Lihat_semua/media-index.css') }}?v={{ time() }}">
 </head>
 <body style="background-color: #FFFFFF; margin: 0; padding: 0; min-height: 100vh; font-family: 'Plus Jakarta Sans', sans-serif;">
 

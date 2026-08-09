@@ -169,73 +169,48 @@
 .mediaindex-card-bg {
     position: relative;
     height: 220px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
 }
 
-.mediaindex-card-bg--galeri {
-    background: linear-gradient(135deg, #004F3B 0%, #007D53 50%, #009966 100%);
-}
-
-.mediaindex-card-bg--infografis {
-    background: linear-gradient(135deg, #1E3A5F 0%, #1B5FA0 55%, #2176D1 100%);
-}
-
-/* Decorative shine */
-.mediaindex-card-shine {
+.mediaindex-card-bg-img {
     position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
-    pointer-events: none;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
     transition: transform 0.5s ease;
 }
 
-.mediaindex-card:hover .mediaindex-card-shine {
-    transform: scale(1.3);
-}
-
-/* Second decorative circle */
-.mediaindex-card-bg::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    left: 20px;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.04);
-    pointer-events: none;
-}
-
-.mediaindex-card-icon-wrap {
-    width: 80px;
-    height: 80px;
-    border-radius: 3px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-    transition: background 0.3s ease, transform 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.mediaindex-card:hover .mediaindex-card-icon-wrap {
-    background: rgba(255, 255, 255, 0.22);
+.mediaindex-card:hover .mediaindex-card-bg-img {
     transform: scale(1.05);
 }
 
-.mediaindex-card-icon {
-    font-size: 40px;
-    color: #FFFFFF;
+.mediaindex-card-bg-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+    color: rgba(255, 255, 255, 0.25);
+    background: linear-gradient(135deg, #004F3B 0%, #007D53 50%, #009966 100%);
+}
+
+.mediaindex-card:nth-child(2) .mediaindex-card-bg-icon {
+    background: linear-gradient(135deg, #1E3A5F 0%, #1B5FA0 55%, #2176D1 100%);
+}
+
+.mediaindex-card-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.05) 100%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.mediaindex-card:hover .mediaindex-card-bg-overlay {
+    opacity: 0.7;
 }
 
 /* ── Card Body ────────────────────────────────────────────────── */

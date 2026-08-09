@@ -7,6 +7,7 @@ use App\Models\Berita;
 use App\Models\Galeri;
 use App\Models\HomeInfoCard;
 use App\Models\HomeSocialLink;
+use App\Models\Infografis;
 use App\Models\PagodaSehatCard;
 use App\Models\Profile;
 use Carbon\Carbon;
@@ -57,7 +58,8 @@ class HomeController extends Controller
         $nextDate = $selectedDate->copy()->addDay()->format('Y-m-d');
         $canNavigateNext = true;
 
-        $homeGaleris = Galeri::orderBy('created_at', 'desc')->take(5)->get();
+        $homeGaleris = Galeri::orderBy('created_at', 'desc')->take(10)->get();
+        $homeInfografis = Infografis::orderBy('created_at', 'desc')->take(4)->get();
         $profile = Profile::first();
 
         $pagodaCards = PagodaSehatCard::orderBy('order_index')->get();
@@ -72,6 +74,7 @@ class HomeController extends Controller
             'nextDate',
             'canNavigateNext',
             'homeGaleris',
+            'homeInfografis',
             'profile',
             'pagodaCards',
             'infoCards',

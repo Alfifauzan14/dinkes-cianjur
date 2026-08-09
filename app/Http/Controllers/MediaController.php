@@ -3,25 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Galeri;
+use App\Models\Infografis;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MediaController extends Controller
 {
-    /**
-     * Display the Media landing page with category cards.
-     */
     public function index(): View
     {
-        return view('media-index');
+        $recentGaleri = Galeri::with('thumbnail')
+            ->withCount('photos')
+            ->orderBy('created_at', 'desc')
+            ->limit(4)
+            ->get();
+
+        $recentInfografis = Infografis::orderBy('created_at', 'desc')
+            ->limit(4)
+            ->get();
+
+        return view('media-index', compact('recentGaleri', 'recentInfografis'));
     }
 
-    /**
-     * Display the Galeri Kegiatan page (formerly /media).
-     */
     public function galeriKegiatan(Request $request): View
     {
-        $query = Galeri::orderBy('created_at', 'desc');
+        $query = Galeri::with('thumbnail')->withCount('photos')->orderBy('created_at', 'desc');
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -37,11 +42,21 @@ class MediaController extends Controller
         return view('media-galeri', compact('galeris'));
     }
 
-    /**
-     * Display the Infografis placeholder page.
-     */
+    public function show(string $slug): View
+    {
+        $galeri = Galeri::where('slug', $slug)
+            ->with(['photos' => function ($query) {
+                $query->orderBy('order');
+            }])
+            ->firstOrFail();
+
+        return view('media-show', compact('galeri'));
+    }
+
     public function infografis(): View
     {
-        return view('media-infografis');
+        $infografis = Infografis::orderBy('created_at', 'desc')->paginate(12);
+
+        return view('media-infografis', compact('infografis'));
     }
 }

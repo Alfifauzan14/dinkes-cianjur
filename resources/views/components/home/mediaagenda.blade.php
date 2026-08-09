@@ -4,7 +4,7 @@
     <div class="mediaagenda-inner">
     <!-- Header -->
     <div class="mediaagenda-header">
-        <h2 class="mediaagenda-title">Galeri &amp; Agenda</h2>
+        <h2 class="mediaagenda-title">Media &amp; Agenda</h2>
     </div>
 
     <!-- Main Container -->
@@ -13,7 +13,7 @@
         <div class="media-column">
             <div class="column-header">
                 <a href="{{ route('media') }}" class="view-all-link">
-                    Lihat Semua Galeri
+                    Lihat Semua Media
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M12 5L19 12L12 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -23,26 +23,42 @@
 
             <!-- Media Grid -->
             <div class="media-grid">
-                @php
-                    $firstGaleri = $homeGaleris->first();
-                    $subGaleris = $homeGaleris->skip(1);
-                @endphp
-
-                @if($firstGaleri)
-                    <!-- Large Card -->
-                    <div class="media-card large-card">
-                        @if(file_exists(public_path('uploads/galeri/' . $firstGaleri->image)))
-                            <img src="{{ asset('uploads/galeri/' . $firstGaleri->image) }}" alt="{{ $firstGaleri->title }}" class="card-image lightbox-trigger" loading="lazy">
-                        @else
-                            <img src="{{ asset('images/' . $firstGaleri->image) }}" alt="{{ $firstGaleri->title }}" class="card-image lightbox-trigger" loading="lazy">
-                        @endif
-                        <div class="card-overlay"></div>
-                        <div class="badge-container">
-                            <span class="badge badge-program">{{ $firstGaleri->category }}</span>
-                            <span class="badge badge-date">{{ $firstGaleri->created_at->format('d/m') }}</span>
+                @if($homeGaleris->count() > 0)
+                    <!-- Galeri Slider -->
+                    <div class="galeri-slider" id="galeriSlider">
+                        <div class="galeri-slider-track">
+                            @foreach($homeGaleris as $galeri)
+                                <div class="galeri-slide {{ $loop->first ? 'active' : '' }}">
+                                    <a href="{{ route('media.galeri-kegiatan.show', $galeri->slug) }}" class="media-card large-card">
+                                        @if(file_exists(public_path('uploads/galeri/' . $galeri->image)))
+                                            <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image" loading="lazy">
+                                        @else
+                                            <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image" loading="lazy">
+                                        @endif
+                                        <div class="card-overlay"></div>
+                                        <div class="badge-container">
+                                            <span class="badge badge-program">{{ $galeri->category }}</span>
+                                            <span class="badge badge-date">{{ $galeri->created_at->format('d/m') }}</span>
+                                        </div>
+                                        <div class="card-content">
+                                            <h4 class="card-title">{{ $galeri->title }}</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
-                        <div class="card-content">
-                            <h4 class="card-title">{{ $firstGaleri->title }}</h4>
+                        <!-- Slider Controls -->
+                        <button class="slider-btn slider-prev" aria-label="Sebelumnya">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <button class="slider-btn slider-next" aria-label="Selanjutnya">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                        </button>
+                        <!-- Dots -->
+                        <div class="slider-dots">
+                            @foreach($homeGaleris as $galeri)
+                                <span class="slider-dot {{ $loop->first ? 'active' : '' }}" data-index="{{ $loop->index }}"></span>
+                            @endforeach
                         </div>
                     </div>
                 @else
@@ -52,24 +68,16 @@
                     </div>
                 @endif
 
-                <!-- 2x2 Grid -->
-                @if($subGaleris->count() > 0)
+                <!-- Infografis 2x2 Grid -->
+                @if($homeInfografis->count() > 0)
                     <div class="media-subgrid">
-                        @foreach($subGaleris as $galeri)
-                            <!-- Card -->
-                            <div class="media-card small-card">
-                                @if(file_exists(public_path('uploads/galeri/' . $galeri->image)))
-                                    <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image lightbox-trigger" loading="lazy">
-                                @else
-                                    <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image lightbox-trigger" loading="lazy">
-                                @endif
+                        @foreach($homeInfografis as $item)
+                            <div class="media-card small-card infografis-card">
+                                <img src="{{ asset('uploads/infografis/' . $item->image) }}" alt="{{ $item->title }}" class="card-image" loading="lazy">
                                 <div class="card-overlay"></div>
-                                <div class="badge-container">
-                                    <span class="badge badge-program">{{ $galeri->category }}</span>
-                                </div>
                                 <div class="card-content">
-                                    <span class="card-category">{{ $galeri->category }}</span>
-                                    <h4 class="card-title">{{ $galeri->title }}</h4>
+                                    <span class="card-category">Infografis</span>
+                                    <h4 class="card-title">{{ $item->title }}</h4>
                                 </div>
                             </div>
                         @endforeach
@@ -161,9 +169,65 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Lightbox Initialization
-    if (typeof initLightbox === 'function') {
-        initLightbox('.lightbox-trigger');
+    // Galeri Slider
+    const slider = document.getElementById('galeriSlider');
+    if (slider) {
+        const slides = slider.querySelectorAll('.galeri-slide');
+        const dots = slider.querySelectorAll('.slider-dot');
+        const prevBtn = slider.querySelector('.slider-prev');
+        const nextBtn = slider.querySelector('.slider-next');
+        let current = 0;
+        let autoTimer;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function goToSlide(index) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (index + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        function startAuto() {
+            stopAuto();
+            autoTimer = setInterval(() => goToSlide(current + 1), 4000);
+        }
+
+        function stopAuto() {
+            clearInterval(autoTimer);
+        }
+
+        prevBtn.addEventListener('click', () => { goToSlide(current - 1); startAuto(); });
+        nextBtn.addEventListener('click', () => { goToSlide(current + 1); startAuto(); });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSlide(parseInt(dot.dataset.index));
+                startAuto();
+            });
+        });
+
+        // Touch/Swipe support
+        slider.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopAuto();
+        }, { passive: true });
+
+        slider.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                goToSlide(diff > 0 ? current + 1 : current - 1);
+            }
+            startAuto();
+        }, { passive: true });
+
+        // Pause on hover
+        slider.addEventListener('mouseenter', stopAuto);
+        slider.addEventListener('mouseleave', startAuto);
+
+        startAuto();
     }
 
     // Agenda Timeline Navigation
@@ -194,7 +258,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (!data.success) return;
 
-                // Update Selector HTML
                 agendaSelector.innerHTML = `
                     <a href="?agenda_date=${data.prevDate}" class="date-nav-btn" aria-label="Previous date">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -209,7 +272,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     </a>
                 `;
 
-                // Update Timeline HTML
                 let timelineHtml = '<div class="timeline-line"></div>';
                 if (data.agendas && data.agendas.length > 0) {
                     data.agendas.forEach(agenda => {
