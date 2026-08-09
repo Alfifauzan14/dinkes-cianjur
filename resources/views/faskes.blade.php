@@ -15,14 +15,11 @@
     @include('layouts.navbar')
 
     <div class="faskes-page-wrapper">
-    @php
-        $headerSetting = \App\Models\HeaderSetting::getByKey('faskes', 'Fasilitas Kesehatan', 'Peta sebaran dan daftar lengkap Rumah Sakit, Puskesmas, serta Klinik rujukan di wilayah Cianjur.');
-    @endphp
     <!-- Header Section -->
     <header class="faskes-header">
         <div class="faskes-header-container">
-            <h1 class="faskes-header-title">{{ $headerSetting->title }}</h1>
-            <p class="faskes-header-subtitle">{{ $headerSetting->subtitle }}</p>
+            <h1 class="faskes-header-title">Fasilitas Kesehatan</h1>
+            <p class="faskes-header-subtitle">Peta sebaran dan daftar lengkap Rumah Sakit, Puskesmas, serta Klinik rujukan di wilayah Cianjur.</p>
         </div>
     </header>
 

@@ -1,10 +1,6 @@
 <link rel="stylesheet" href="{{ asset('css/Lihat_semua/agenda.css') }}?v={{ time() }}">
 
 <div class="agenda-page-wrapper">
-    @php
-        $headerSetting = \App\Models\HeaderSetting::getByKey('agenda', 'Agenda Kegiatan', 'Jadwal program, rapat, sosialisasi, dan aktivitas penting Dinas Kesehatan.');
-    @endphp
-    <!-- Header Banner -->
     <header class="agenda-header">
         <div class="agenda-header-container">
             <h1 class="agenda-header-title">{{ \App\Models\Setting::get('page_agenda_title', 'Agenda Kesehatan') }}</h1>

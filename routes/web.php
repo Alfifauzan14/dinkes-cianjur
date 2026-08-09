@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\GaleriController;
-use App\Http\Controllers\Admin\HeaderSettingController;
 use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\JenisFaskesController;
 use App\Http\Controllers\Admin\KategoriController;
@@ -197,13 +196,6 @@ Route::resource('/admin/kecamatan', KecamatanController::class, [
     ],
 ])->middleware('auth');
 
-Route::resource('/admin/headers', HeaderSettingController::class, [
-    'only' => ['index', 'update'],
-    'names' => [
-        'index' => 'admin.headers.index',
-        'update' => 'admin.headers.update',
-    ],
-])->middleware('auth');
 
 Route::get('/admin/ppid', [AdminPpidController::class, 'edit'])->middleware('auth')->name('admin.ppid.edit');
 Route::put('/admin/ppid', [AdminPpidController::class, 'update'])->middleware('auth')->name('admin.ppid.update');

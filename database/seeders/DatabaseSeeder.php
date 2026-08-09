@@ -35,8 +35,6 @@ class DatabaseSeeder extends Seeder
         // Seeder pengaturan situs
         $this->call(SettingSeeder::class);
 
-        // Seeder header situs
-        $this->call(HeaderSettingSeeder::class);
 
         // Seeder jenis faskes & kecamatan
         $this->call(JenisFaskesAndKecamatanSeeder::class);

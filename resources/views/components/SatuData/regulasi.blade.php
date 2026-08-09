@@ -1,14 +1,11 @@
 <link rel="stylesheet" href="{{ asset('css/SatuData/regulasi.css') }}?v={{ time() }}">
 
 <div class="regulasi-wrapper">
-    @php
-        $headerSetting = \App\Models\HeaderSetting::getByKey('regulasi', 'Regulasi & Produk Hukum', 'Himpunan peraturan bupati dan keputusan kepala dinas kesehatan.');
-    @endphp
     <!-- Banner Header Top Section -->
     <header class="satudata-banner">
         <div class="satudata-banner-container">
-            <h1 class="satudata-banner-title">{{ $headerSetting->title }}</h1>
-            <p class="satudata-banner-subtitle">{{ $headerSetting->subtitle }}</p>
+            <h1 class="satudata-banner-title">Regulasi & Produk Hukum</h1>
+            <p class="satudata-banner-subtitle">Himpunan peraturan bupati dan keputusan kepala dinas kesehatan.</p>
         </div>
     </header>
 

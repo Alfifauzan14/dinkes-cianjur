@@ -274,7 +274,7 @@ function removeIntervensi(btn) {
     }
 }
 
-let intervensiCount = {{ count((array)$program->intervensi) ?: 1 }};
+let intervensiCount = Number('{{ count((array)$program->intervensi) ?: 1 }}');
 document.getElementById('addIntervensiBtn').addEventListener('click', function() {
     const idx = intervensiCount++;
     const prevId = 'iprev-' + idx;

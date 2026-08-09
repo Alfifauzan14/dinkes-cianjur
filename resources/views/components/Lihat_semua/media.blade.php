@@ -1,14 +1,10 @@
 <link rel="stylesheet" href="{{ asset('css/Lihat_semua/media.css') }}?v={{ time() }}">
 
 <div class="media-page-wrapper">
-    @php
-        $headerSetting = \App\Models\HeaderSetting::getByKey('media', 'Galeri Foto', 'Dokumentasi visual rangkaian kegiatan, kampanye kesehatan, dan pelayanan publik di lapangan.');
-    @endphp
-    <!-- Header Banner -->
     <header class="media-header">
         <div class="media-header-container">
             <h1 class="media-header-title">{{ \App\Models\Setting::get('page_media_title', 'Galeri Kegiatan') }}</h1>
-            <p class="media-header-subtitle">{{ \App\Models\Setting::get('page_media_subtitle', 'Kumpulan dokumentasi foto dan video dari berbagai acara dan kegiatan Dinas Kesehatan Kota Cianjur') }}</p>
+            <p class="media-header-subtitle">{{ \App\Models\Setting::get('page_media_subtitle', 'Kumpulan dokumentasi foto and video dari berbagai acara and kegiatan Dinas Kesehatan Kota Cianjur') }}</p>
         </div>
     </header>
 
