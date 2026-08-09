@@ -1,0 +1,324 @@
+/* =============================================
+   Layanan Terpadu Detail Page Stylesheet (Round 2 Revisions)
+   ============================================= */
+
+/* Page Wrapper */
+.ltd-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+    padding-top: 103px; /* Match navbar spacing */
+}
+
+
+
+.ltd-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #009966 !important; /* Green color matching Gambar 2 */
+    transition: color 0.2s ease;
+}
+
+.ltd-back-link:hover {
+    color: #007A52 !important; /* Darker green on hover */
+}
+
+.ltd-back-icon {
+    font-size: 20px !important; /* Size 20px */
+    vertical-align: middle;
+}
+
+.ltd-back-text {
+    font-size: 20px; /* Size 20px */
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    vertical-align: middle;
+}
+
+/* Header Section (Banner style matching other pages) */
+.ltd-header {
+    background-color: #065F46; /* Matching stunting/KIA green header background */
+    position: relative;
+    overflow: hidden;
+    padding: 60px 0;
+    color: #FFFFFF;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.ltd-header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+}
+
+.ltd-header-title {
+    font-size: 48px; /* Judul: 48px */
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.ltd-header-subtitle {
+    font-size: 24px; /* Sub judul: 24px */
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    line-height: 1.5;
+    max-width: 850px;
+}
+
+/* Main Content Area (Single Column Stack) */
+.ltd-content {
+    padding: 60px 0 80px 0;
+    box-sizing: border-box;
+}
+
+.ltd-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* Single column vertical stack layout */
+.ltd-main-col {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Row container for side-by-side columns (Detail & Bantuan) */
+.ltd-grid-two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+/* Card Style */
+.ltd-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 1px; /* Card luar: 1px */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05); /* x0 y0 blur 35 */
+    padding: 36px;
+    box-sizing: border-box;
+}
+
+.ltd-card-title {
+    font-size: 20px; /* Judul card: 20px */
+    font-weight: 800;
+    color: #0F172A;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #F1F5F9;
+    letter-spacing: -0.3px;
+}
+
+.ltd-card-body {
+    width: 100%;
+}
+
+/* Standard Typography inside details */
+.ltd-text {
+    font-size: 16px; /* Teks biasa: 16px */
+    line-height: 1.7;
+    color: #475569;
+    margin: 0 0 16px 0;
+}
+
+.ltd-text:last-child {
+    margin-bottom: 0;
+}
+
+.ltd-text-muted {
+    font-style: italic;
+    color: #94A3B8;
+}
+
+/* Requirements List */
+.ltd-requirements-list {
+    margin: 0;
+    padding: 0 0 0 20px;
+    list-style-type: disc;
+}
+
+.ltd-requirements-list li {
+    font-size: 16px; /* Teks biasa: 16px */
+    line-height: 1.7;
+    color: #475569;
+    margin-bottom: 10px;
+}
+
+.ltd-requirements-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Workflow list layout (Simple list matching other pages, no circles) */
+.ltd-workflow-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ltd-workflow-item {
+    padding: 0;
+}
+
+.ltd-workflow-title {
+    font-size: 18px; /* Subjudul alur: 18px */
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0 0 6px 0;
+}
+
+.ltd-workflow-text {
+    font-size: 16px; /* Teks biasa: 16px */
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+}
+
+/* Vertical layout for Service Info Block inside grid column */
+.ltd-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ltd-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.ltd-info-icon {
+    font-size: 24px;
+    color: #009966;
+    margin-top: 2px;
+}
+
+.ltd-info-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.ltd-info-value {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.ltd-text-free {
+    color: #009966;
+}
+
+.ltd-action-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* CTA Buttons */
+.ltd-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #009966;
+    color: #FFFFFF;
+    border: 1px solid #009966;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 3px; /* Card dalam: 3px */
+    text-decoration: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 153, 102, 0.15);
+}
+
+.ltd-btn-primary:hover {
+    background-color: #007A52;
+    border-color: #007A52;
+    transform: translateY(-1px);
+}
+
+.ltd-action-tip {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #64748B;
+    margin: 0;
+}
+
+/* Helpdesk contact vertical alignment */
+.ltd-contact-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ltd-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px; /* Teks biasa: 16px */
+    color: #475569;
+}
+
+.ltd-contact-item span.material-icons {
+    font-size: 20px;
+    color: #94A3B8;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .ltd-grid-two-cols {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ltd-page-wrapper {
+        padding-top: 80px;
+    }
+    
+    .ltd-header-container,
+    .ltd-container {
+        padding: 0 20px;
+    }
+    
+    .ltd-header {
+        padding: 40px 0;
+    }
+    
+    .ltd-header-title {
+        font-size: 32px;
+    }
+    
+    .ltd-header-subtitle {
+        font-size: 18px;
+    }
+    
+    .ltd-card {
+        padding: 24px;
+    }
+}

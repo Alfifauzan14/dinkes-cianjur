@@ -68,48 +68,40 @@ class ProgramKesehatanAdminTest extends TestCase
         $response->assertRedirect('/dinkes-login');
     }
 
-    public function test_admin_can_view_program_list(): void
+    public function test_admin_can_view_program_list_redirects_to_edit_if_stunting_exists(): void
     {
         $admin = User::factory()->create(['email' => 'admin@dinkes.go.id']);
-        ProgramKesehatan::create([
-            'title' => 'Program List Test',
-            'slug' => 'program-list-test',
+        $stunting = ProgramKesehatan::create([
+            'title' => 'Cianjur Bebas Stunting',
+            'slug' => 'cianjur-bebas-stunting',
             'status' => 'published',
         ]);
 
         $response = $this->actingAs($admin)->get('/admin/program-kesehatan');
 
-        $response->assertStatus(200);
-        $response->assertSee('Program List Test');
+        $response->assertRedirect(route('admin.program-kesehatan.edit', $stunting->id));
     }
 
-    public function test_admin_can_create_program(): void
+    public function test_admin_can_view_program_list_redirects_to_dashboard_if_no_stunting(): void
+    {
+        $admin = User::factory()->create(['email' => 'admin@dinkes.go.id']);
+
+        $response = $this->actingAs($admin)->get('/admin/program-kesehatan');
+
+        $response->assertRedirect(route('admin.dashboard'));
+    }
+
+    public function test_admin_cannot_create_program(): void
     {
         $admin = User::factory()->create(['email' => 'admin@dinkes.go.id']);
 
         $response = $this->actingAs($admin)->post('/admin/program-kesehatan', [
             'title' => 'Program Pencegahan DBD',
             'slug' => 'pencegahan-dbd',
-            'subtitle' => 'Bersama berantas jentik nyamuk',
-            'stat_1_num' => '24',
-            'stat_1_label' => 'Kecamatan Terbebas',
-            'content' => '<h3>Informasi DBD</h3>',
-            'intervensi_titles' => ['Fogging Massal', '3M Plus'],
-            'intervensi_descs' => ['Penyemprotan nyamuk', 'Mengubur menutup menguras'],
             'status' => 'published',
         ]);
 
-        $response->assertRedirect(route('admin.program-kesehatan.index'));
-        $this->assertDatabaseHas('program_kesehatans', [
-            'title' => 'Program Pencegahan DBD',
-            'slug' => 'pencegahan-dbd',
-            'status' => 'published',
-        ]);
-
-        $program = ProgramKesehatan::where('slug', 'pencegahan-dbd')->first();
-        $this->assertNotNull($program->intervensi);
-        $this->assertCount(2, $program->intervensi);
-        $this->assertEquals('Fogging Massal', $program->intervensi[0]['title']);
+        $response->assertStatus(403);
     }
 
     public function test_admin_can_update_program(): void
@@ -139,7 +131,7 @@ class ProgramKesehatanAdminTest extends TestCase
         ]);
     }
 
-    public function test_admin_can_delete_program(): void
+    public function test_admin_cannot_delete_program(): void
     {
         $admin = User::factory()->create(['email' => 'admin@dinkes.go.id']);
         $program = ProgramKesehatan::create([
@@ -150,7 +142,6 @@ class ProgramKesehatanAdminTest extends TestCase
 
         $response = $this->actingAs($admin)->delete("/admin/program-kesehatan/{$program->id}");
 
-        $response->assertRedirect(route('admin.program-kesehatan.index'));
-        $this->assertDatabaseMissing('program_kesehatans', ['id' => $program->id]);
+        $response->assertStatus(403);
     }
 }

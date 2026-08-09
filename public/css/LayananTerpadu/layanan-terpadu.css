@@ -124,6 +124,7 @@
     box-sizing: border-box;
     transition: all 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .lt-service-item:hover {

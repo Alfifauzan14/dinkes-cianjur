@@ -11,5 +11,12 @@ class LayananTerpadu extends Model
         'type',
         'icon',
         'link',
+        'description',
+        'requirements',
+        'procedures',
+        'processing_time',
+        'tariff',
+        'helpdesk_email',
+        'helpdesk_phone',
     ];
 }

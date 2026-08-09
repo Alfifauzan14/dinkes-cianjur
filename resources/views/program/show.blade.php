@@ -16,6 +16,50 @@
 <body style="background-color: #FFFFFF; margin: 0; padding: 0; min-height: 100vh;">
     @include('layouts.navbar')
 
+@php
+    // Plain-text parser helper to render content beautifully without raw HTML input
+    $parsePlainText = function($text, $titleClass, $textClass, $listClass) {
+        $blocks = preg_split('/\n\s*\n/', trim($text));
+        $html = '';
+        foreach ($blocks as $block) {
+            $block = trim($block);
+            if (empty($block)) continue;
+            
+            // Check if it's a list (all non-empty lines start with bullet markers)
+            $lines = explode("\n", $block);
+            $isList = true;
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if (!empty($line) && !preg_match('/^[\-\*\x{2022}]\s|^\d+\.\s/u', $line)) {
+                    $isList = false;
+                    break;
+                }
+            }
+            
+            if ($isList && count($lines) > 0) {
+                $html .= '<ul class="' . e($listClass) . '">';
+                foreach ($lines as $line) {
+                    $line = trim($line);
+                    if (empty($line)) continue;
+                    $cleanedLine = preg_replace('/^[\-\*\x{2022}]\s*|^\d+\.\s*/u', '', $line);
+                    $html .= '<li>' . e($cleanedLine) . '</li>';
+                }
+                $html .= '</ul>';
+            } else {
+                // If it's short and doesn't end with a period, or ends with a colon, it's a heading
+                $isHeading = (strlen($block) < 80 && !str_ends_with($block, '.')) || str_ends_with($block, ':');
+                if ($isHeading) {
+                    $headingText = rtrim($block, ':');
+                    $html .= '<h3 class="' . e($titleClass) . '">' . e($headingText) . '</h3>';
+                } else {
+                    $html .= '<p class="' . e($textClass) . '">' . nl2br(e($block)) . '</p>';
+                }
+            }
+        }
+        return $html;
+    };
+@endphp
+
     <link rel="stylesheet" href="{{ asset('css/ProgramKesehatan/program.css') }}?v={{ time() }}">
 
     <div class="prog-page-wrapper">
@@ -86,7 +130,7 @@
                         @if(Str::contains($program->content, ['<p>', '<h3>', '<ul>', '<div>', '<br>']))
                             {!! $program->content !!}
                         @else
-                            {!! nl2br(e($program->content)) !!}
+                            {!! $parsePlainText($program->content, 'prog-content-title', 'prog-content-text', 'prog-content-list') !!}
                         @endif
                     </div>
                 @endif

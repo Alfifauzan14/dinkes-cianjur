@@ -11,14 +11,11 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px;">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
             <span class="material-icons text-success">health_and_safety</span>
             <span class="font-weight-bold card-title-label">Kelola Program Kesehatan</span>
         </span>
-        <a href="{{ route('admin.program-kesehatan.create') }}" class="btn btn-sm btn-success">
-            <span class="material-icons" style="font-size:16px;">add</span> Tambah Program
-        </a>
     </div>
 
     <div class="card-body p-0">
@@ -62,13 +59,6 @@
                                 <a href="{{ route('admin.program-kesehatan.edit', $program->id) }}" class="btn-action btn-action-edit" title="Edit">
                                     <span class="material-icons">edit</span>
                                 </a>
-                                <form action="{{ route('admin.program-kesehatan.destroy', $program->id) }}" method="POST" id="del-program-{{ $program->id }}" style="margin: 0; display: inline;">
-                                    @csrf @method('DELETE')
-                                    <button type="button" class="btn-action btn-action-delete" title="Hapus"
-                                        onclick="confirmDelete('del-program-{{ $program->id }}')">
-                                        <span class="material-icons">delete</span>
-                                    </button>
-                                </form>
                             </div>
                         </td>
                     </tr>

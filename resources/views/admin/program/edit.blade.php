@@ -25,22 +25,25 @@
         <form id="formProgram" action="{{ route('admin.program-kesehatan.update', $program->id) }}" method="POST">
             @csrf @method('PUT')
             
+            <input type="hidden" name="title" value="{{ $program->title }}">
+            <input type="hidden" name="slug" value="{{ $program->slug }}">
+            <input type="hidden" name="kategori" value="{{ $program->kategori }}">
+            <input type="hidden" name="icon" value="{{ $program->icon }}">
+            <input type="hidden" name="status" value="{{ $program->status }}">
+            
             <div class="card card-success card-outline card-outline-tabs shadow-sm">
-                <div class="card-header p-0 border-bottom-0">
+                <div class="card-header p-0 border-bottom-0" style="background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0 !important;">
                 <div class="d-flex justify-content-between align-items-center px-4 pt-3 pb-2">
                     <span class="d-flex align-items-center" style="gap: 8px;">
                         <span class="material-icons text-success">health_and_safety</span>
-                        <span class="font-weight-bold card-title-label">Formulir Edit Program Kesehatan</span>
+                        <span class="font-weight-bold card-title-label" style="font-size: 15px; color: #334155;">Formulir Edit: {{ $program->title }}</span>
                     </span>
-                    <a href="{{ route('admin.program-kesehatan.index') }}" class="btn btn-sm btn-outline-secondary">
-                        <span class="material-icons" style="font-size: 16px; vertical-align: middle;">arrow_back</span> Kembali
-                    </a>
                 </div>
                     <ul class="nav nav-tabs px-4" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="pill" href="#pane-dasar" role="tab">
-                                <span class="material-icons" style="font-size: 16px; vertical-align: text-bottom; margin-right: 4px;">info</span>
-                                Informasi Dasar
+                            <a class="nav-link active" data-toggle="pill" href="#pane-konten" role="tab">
+                                <span class="material-icons" style="font-size: 16px; vertical-align: text-bottom; margin-right: 4px;">article</span>
+                                Konten & Artikel
                             </a>
                         </li>
                         <li class="nav-item">
@@ -55,51 +58,16 @@
                                 Indikator Statistik
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#pane-edukasi" role="tab">
-                                <span class="material-icons" style="font-size: 16px; vertical-align: text-bottom; margin-right: 4px;">article</span>
-                                Artikel Edukasi
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 
                 <div class="card-body px-4 py-4">
                     <div class="tab-content" id="program-tabs-content">
                         
-                        {{-- === SECTION 1: Informasi Dasar === --}}
-                        <div class="tab-pane fade show active" id="pane-dasar" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label for="title">Nama Program <span class="text-danger">*</span></label>
-                                        <input type="text" name="title" id="title"
-                                            value="{{ old('title', $program->title) }}"
-                                            class="form-control @error('title') is-invalid @enderror"
-                                            placeholder="Contoh: Pencegahan Tuberkulosis (TB)"
-                                            oninput="autoSlug(this.value)"
-                                            required>
-                                        @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="kategori">Kategori <span class="text-danger">*</span></label>
-                                        <select name="kategori" id="kategori" class="form-control @error('kategori') is-invalid @enderror" required>
-                                            <option value="">-- Pilih Kategori --</option>
-                                            @foreach($kategoris as $kat)
-                                            <option value="{{ $kat->nama }}" {{ old('kategori', $program->kategori) == $kat->nama ? 'selected' : '' }}>
-                                                {{ $kat->nama }}
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                        @error('kategori') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subtitle">Deskripsi Singkat (Banner Halaman)</label>
+                        {{-- === SECTION 1: Konten & Artikel === --}}
+                        <div class="tab-pane fade show active" id="pane-konten" role="tabpanel">
+                            <div class="form-group mb-4">
+                                <label for="subtitle" class="font-weight-bold" style="font-size: 14px;">Deskripsi Singkat (Tampil di Banner Halaman Publik)</label>
                                 <input type="text" name="subtitle" id="subtitle"
                                     value="{{ old('subtitle', $program->subtitle) }}"
                                     class="form-control"
@@ -107,49 +75,14 @@
                                     maxlength="200">
                             </div>
                             
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group mb-0">
-                                        <label for="slug">Slug URL <small class="text-muted">(Otomatis dari judul)</small></label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text bg-light text-muted" style="border-right: none;">/program/</span>
-                                            </div>
-                                            <input type="text" name="slug" id="slug"
-                                                value="{{ old('slug', $program->slug) }}"
-                                                class="form-control @error('slug') is-invalid @enderror"
-                                                placeholder="pencegahan-tb" required>
-                                        </div>
-                                        @error('slug') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-0">
-                                        <label for="status">Status Publikasi <span class="text-danger">*</span></label>
-                                        <select name="status" id="status" class="form-control" required>
-                                            <option value="published" {{ old('status', $program->status) === 'published' ? 'selected' : '' }}>Published</option>
-                                            <option value="draft" {{ old('status', $program->status) === 'draft' ? 'selected' : '' }}>Draft</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-0">
-                                        <label for="icon">Ikon Program <span class="text-danger">*</span></label>
-                                        @php $currentIcon = old('icon', $program->icon ?? 'health_and_safety'); @endphp
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text bg-light text-success" style="border-right: none;">
-                                                    <span class="material-icons" id="iconPreviewIcon" style="font-size: 18px;">{{ $currentIcon }}</span>
-                                                </span>
-                                            </div>
-                                            <input type="text" name="icon" id="icon"
-                                                value="{{ $currentIcon }}"
-                                                class="form-control"
-                                                placeholder="health_and_safety"
-                                                oninput="updateIconPreview(this.value)" required>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="content" class="font-weight-bold" style="font-size: 14px;">Detail Artikel Edukasi / Konten Lengkap Program</label>
+                                <p class="text-muted mb-2" style="font-size: 13px;">Tuliskan deskripsi atau artikel lengkap mengenai program kesehatan ini (cukup tuliskan teks/paragraf biasa, tidak perlu kode HTML).</p>
+                                <textarea name="content" id="content" rows="14"
+                                     class="form-control @error('content') is-invalid @enderror"
+                                     placeholder="Tuliskan artikel atau deskripsi program di sini..."
+                                     style="font-size: 14px; line-height: 1.6;">{{ old('content', $program->content) }}</textarea>
+                                @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
                         </div>
 
@@ -293,27 +226,11 @@
                                 @endforeach
                             </div>
                         </div>
-
-                        {{-- === SECTION 4: Artikel Edukasi === --}}
-                        <div class="tab-pane fade" id="pane-edukasi" role="tabpanel">
-                            <div class="mb-4">
-                                <h6 class="font-weight-bold mb-1" style="font-size: 15px;">Detail Artikel Edukasi / Konten Program</h6>
-                                <p class="text-muted mb-0" style="font-size: 13px;">Tuliskan deskripsi atau artikel lengkap mengenai program kesehatan ini (cukup tuliskan teks/paragraf biasa, tidak perlu kode HTML).</p>
-                            </div>
-                            
-                            <div class="form-group">
-                                <textarea name="content" id="content" rows="14"
-                                     class="form-control @error('content') is-invalid @enderror"
-                                     placeholder="Tuliskan artikel atau deskripsi program di sini..."
-                                     style="font-size: 14px; line-height: 1.6;">{{ old('content', $program->content) }}</textarea>
-                                @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
                     </div>
                 </div>
                 
-                <div class="card-footer bg-white d-flex align-items-center justify-content-end p-3">
-                    <button type="submit" class="btn px-4" style="font-weight: 600; background-color: #004F3B; color: #fff; border: none; border-radius: 4px;">
+                <div class="card-footer bg-white d-flex align-items-center justify-content-end p-3" style="border-top: 1px solid #E2E8F0; justify-content: flex-end !important; display: flex !important;">
+                    <button type="submit" class="btn btn-success px-4">
                         <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> 
                         Simpan Perubahan
                     </button>

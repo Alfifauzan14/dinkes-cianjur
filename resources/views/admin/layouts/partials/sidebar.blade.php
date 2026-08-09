@@ -74,12 +74,38 @@
                 {{-- ── LAYANAN ─────────────────────────────────────── --}}
                 <li class="nav-header">LAYANAN</li>
 
-                <li class="nav-item">
-                    <a href="{{ route('admin.program-kesehatan.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.program-kesehatan.*') ? 'active' : '' }}">
+                @php
+                    $stuntingProg = \App\Models\ProgramKesehatan::where('slug', 'cianjur-bebas-stunting')->first();
+                    $kiaProg = \App\Models\ProgramKesehatan::where('slug', 'kesehatan-ibu-anak')->first();
+                @endphp
+                <li class="nav-item has-treeview {{ request()->routeIs('admin.program-kesehatan.*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->routeIs('admin.program-kesehatan.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">health_and_safety</span>
-                        <p>Program Kesehatan</p>
+                        <p>
+                            Program Kesehatan
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview" @style(['display: block' => request()->routeIs('admin.program-kesehatan.*'), 'display: none' => !request()->routeIs('admin.program-kesehatan.*')])>
+                        @if($stuntingProg)
+                        <li class="nav-item">
+                            <a href="{{ route('admin.program-kesehatan.edit', $stuntingProg->id) }}"
+                               class="nav-link {{ request()->is('admin/program-kesehatan/' . $stuntingProg->id . '/edit') ? 'active' : '' }}">
+                                <span class="material-icons nav-icon">child_care</span>
+                                <p>Cianjur Bebas Stunting</p>
+                            </a>
+                        </li>
+                        @endif
+                        @if($kiaProg)
+                        <li class="nav-item">
+                            <a href="{{ route('admin.program-kesehatan.edit', $kiaProg->id) }}"
+                               class="nav-link {{ request()->is('admin/program-kesehatan/' . $kiaProg->id . '/edit') ? 'active' : '' }}">
+                                <span class="material-icons nav-icon">pregnant_woman</span>
+                                <p>Kesehatan Ibu & Anak</p>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
                 </li>
 
                 <li class="nav-item">

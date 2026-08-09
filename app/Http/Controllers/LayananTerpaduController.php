@@ -18,4 +18,14 @@ class LayananTerpaduController extends Controller
 
         return view('layanan-terpadu', compact('wargaServices', 'faskesServices', 'nakesServices'));
     }
+
+    /**
+     * Display details of a specific Layanan Terpadu service.
+     */
+    public function show(int $id): View
+    {
+        $service = LayananTerpadu::findOrFail($id);
+
+        return view('layanan-terpadu-detail', compact('service'));
+    }
 }

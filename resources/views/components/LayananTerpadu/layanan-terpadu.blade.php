@@ -39,20 +39,12 @@
 
                 <div class="lt-services-grid">
                     @forelse($wargaServices as $service)
-                        @if($service->link)
-                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable lt-service-link">
-                        @else
-                            <div class="lt-service-item">
-                        @endif
+                        <a href="{{ route('layanan-terpadu.show', $service->id) }}" class="lt-service-item">
                             <span class="lt-service-icon">
                                 @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
                             </span>
                             <span class="lt-service-text">{{ $service->name }}</span>
-                        @if($service->link)
-                            </a>
-                        @else
-                            </div>
-                        @endif
+                        </a>
                     @empty
                         <div class="lt-empty-state">Belum ada layanan untuk warga.</div>
                     @endforelse
@@ -68,20 +60,12 @@
 
                 <div class="lt-services-grid">
                     @forelse($faskesServices as $service)
-                        @if($service->link)
-                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable lt-service-link">
-                        @else
-                            <div class="lt-service-item">
-                        @endif
+                        <a href="{{ route('layanan-terpadu.show', $service->id) }}" class="lt-service-item">
                             <span class="lt-service-icon">
                                 @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
                             </span>
                             <span class="lt-service-text">{{ $service->name }}</span>
-                        @if($service->link)
-                            </a>
-                        @else
-                            </div>
-                        @endif
+                        </a>
                     @empty
                         <div class="lt-empty-state">Belum ada layanan untuk faskes.</div>
                     @endforelse
@@ -97,20 +81,12 @@
 
                 <div class="lt-services-grid">
                     @forelse($nakesServices as $service)
-                        @if($service->link)
-                            <a href="{{ $service->link }}" target="_blank" class="lt-service-item lt-service-item-clickable lt-service-link">
-                        @else
-                            <div class="lt-service-item">
-                        @endif
+                        <a href="{{ route('layanan-terpadu.show', $service->id) }}" class="lt-service-item">
                             <span class="lt-service-icon">
                                 @include('components.LayananTerpadu.service-icon', ['icon' => $service->icon])
                             </span>
                             <span class="lt-service-text">{{ $service->name }}</span>
-                        @if($service->link)
-                            </a>
-                        @else
-                            </div>
-                        @endif
+                        </a>
                     @empty
                         <div class="lt-empty-state">Belum ada layanan untuk nakes.</div>
                     @endforelse
@@ -150,72 +126,71 @@
 
         </div>
     </main>
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('layananSearchInput');
-    const tabBtns = document.querySelectorAll('.lt-topic-pill-btn');
-    const categorySections = document.querySelectorAll('.lt-category-section');
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('layananSearchInput');
+        const tabBtns = document.querySelectorAll('.lt-topic-pill-btn');
+        const categorySections = document.querySelectorAll('.lt-category-section');
 
-    let activeType = 'all';
+        let activeType = 'all';
 
-    function filterLayanan() {
-        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        function filterLayanan() {
+            const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-        categorySections.forEach(section => {
-            const sectionType = section.getAttribute('data-type');
-            const matchesType = (activeType === 'all') || (sectionType === activeType);
+            categorySections.forEach(section => {
+                const sectionType = section.getAttribute('data-type');
+                const matchesType = (activeType === 'all') || (sectionType === activeType);
 
-            if (!matchesType) {
-                section.style.display = 'none';
-                return;
-            }
+                if (!matchesType) {
+                    section.style.display = 'none';
+                    return;
+                }
 
-            // Filter individual service items inside this section
-            const serviceItems = section.querySelectorAll('.lt-service-item');
-            let hasVisibleItems = false;
+                // Filter individual service items inside this section
+                const serviceItems = section.querySelectorAll('.lt-service-item');
+                let hasVisibleItems = false;
 
-            serviceItems.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                if (query === '' || text.includes(query)) {
-                    item.style.display = 'flex';
-                    hasVisibleItems = true;
+                serviceItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (query === '' || text.includes(query)) {
+                        item.style.display = 'flex';
+                        hasVisibleItems = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                if (hasVisibleItems) {
+                    section.style.display = 'block';
                 } else {
-                    item.style.display = 'none';
+                    section.style.display = 'none';
                 }
             });
+        }
 
-            if (hasVisibleItems) {
-                section.style.display = 'block';
-            } else {
-                section.style.display = 'none';
-            }
-        });
-    }
+        if (searchInput) {
+            searchInput.addEventListener('input', filterLayanan);
+        }
 
-    if (searchInput) {
-        searchInput.addEventListener('input', filterLayanan);
-    }
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = '#F9FAFB';
+                    b.style.color = '#374151';
+                    b.style.borderColor = '#E5E7EB';
+                });
 
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            tabBtns.forEach(b => {
-                b.classList.remove('active');
-                b.style.background = '#F9FAFB';
-                b.style.color = '#374151';
-                b.style.borderColor = '#E5E7EB';
+                this.classList.add('active');
+                this.style.background = '#009966';
+                this.style.color = '#FFFFFF';
+                this.style.borderColor = '#009966';
+
+                activeType = this.getAttribute('data-type');
+                filterLayanan();
             });
-
-            this.classList.add('active');
-            this.style.background = '#009966';
-            this.style.color = '#FFFFFF';
-            this.style.borderColor = '#009966';
-
-            activeType = this.getAttribute('data-type');
-            filterLayanan();
         });
     });
-});
-</script>
+    </script>
 
