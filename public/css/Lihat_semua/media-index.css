@@ -80,7 +80,7 @@
     color: #FFFFFF;
 }
 
-.mediaindex-breadcrumb > span:last-child {
+.mediaindex-breadcrumb>span:last-child {
     color: rgba(255, 255, 255, 0.9);
     font-weight: 600;
 }
