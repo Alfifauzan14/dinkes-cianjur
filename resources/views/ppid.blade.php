@@ -9,9 +9,11 @@
     {{-- FontAwesome for Brands --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
-<body style="background-color: #FFFFFF; margin: 0; padding: 0; min-height: 100vh;">
+<body style="background-color: #F8FAFC; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column;">
     @include('layouts.navbar')
-    @include('components.PPID.ppid')
+    <main style="flex: 1; display: flex; flex-direction: column;">
+        @include('components.PPID.ppid')
+    </main>
     @include('layouts.footer')
 </body>
 </html>

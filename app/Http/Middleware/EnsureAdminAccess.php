@@ -21,8 +21,8 @@ class EnsureAdminAccess
             return redirect()->route('login')->with('error', 'Silakan verifikasi Gerbang Lapis 1 terlebih dahulu.');
         }
 
-        if (! auth()->check() || ! auth()->user()->is_admin) {
-            abort(403, 'Akses ditolak. Halaman ini khusus untuk admin.');
+        if (! auth()->check() || auth()->user()->is_active === false || ! auth()->user()->is_admin) {
+            abort(403, 'Akses ditolak. Halaman ini khusus untuk admin aktif.');
         }
 
         return $next($request);

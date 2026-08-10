@@ -24,6 +24,7 @@ class Galeri extends Model
             if (empty($galeri->slug)) {
                 $galeri->slug = Str::slug($galeri->title);
             }
+            $galeri->image = $galeri->image ?? '';
         });
 
         static::updating(function (Galeri $galeri) {

@@ -117,9 +117,11 @@
                                 </div>
 
                                 <div class="chart-bars-wrapper" id="chart-bars-wrapper">
-                                    @foreach($stuntingRecords as $record)
+                                    @foreach($stuntingRecords as $index => $record)
                                         @php
                                             $heightPercent = $yMax > 0 ? ($record->balita_stunting / $yMax) * 100 : 0;
+                                            $prevRecord = $index > 0 ? $stuntingRecords[$index - 1] : null;
+                                            $prevStuntingStr = $prevRecord ? $prevRecord->balita_stunting : '';
                                         @endphp
                                         <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
                                              role="button"
@@ -127,6 +129,12 @@
                                              aria-label="Detail stunting tahun {{ $record->year }}"
                                              data-year="{{ $record->year }}"
                                              data-stunting="{{ $record->balita_stunting ?? '' }}"
+                                             data-rate="{{ $record->rate ?? '0.0' }}"
+                                             data-total-balita="{{ $record->total_balita ?? '' }}"
+                                             data-terendah="{{ $record->wilayah_terendah ?? '' }}"
+                                             data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
+                                             data-catatan="{{ $record->catatan ?? '' }}"
+                                             data-prev="{{ $prevStuntingStr }}"
                                              onclick="updateStuntingDetail(this)"
                                              onkeydown="if(event.key==='Enter')updateStuntingDetail(this)">
                                             <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ number_format($record->balita_stunting) }}</span>
@@ -165,16 +173,44 @@
                                     <span class="detail-stat-label">Jumlah Bayi Stunting</span>
                                     <span id="detail-stunting" class="detail-stat-val detail-stat-val-danger">—</span>
                                 </div>
+                                <div class="detail-stat-item">
+                                    <span class="detail-stat-label">Prevalensi Stunting</span>
+                                    <span id="detail-rate" class="detail-stat-val" style="color: #009966;">—</span>
+                                </div>
                             </div>
+                            
+                            <div class="detail-list" style="margin-top: 4px;">
+                                <div class="detail-list-row">
+                                    <span class="detail-list-label">Total Balita</span>
+                                    <span id="detail-total-balita" class="detail-list-val">—</span>
+                                </div>
+                                <div class="detail-list-row">
+                                    <span class="detail-list-label">Prevalensi Terendah</span>
+                                    <span id="detail-terendah" class="detail-list-val">—</span>
+                                </div>
+                                <div class="detail-list-row">
+                                    <span class="detail-list-label">Prevalensi Tertinggi</span>
+                                    <span id="detail-tertinggi" class="detail-list-val">—</span>
+                                </div>
+                                <div class="detail-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                                    <span class="detail-list-label">Perbandingan Tren</span>
+                                    <span id="detail-diff" class="detail-list-val" style="font-size: 13px;">—</span>
+                                </div>
+                                <div class="detail-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px; border: none; padding-bottom: 0;">
+                                    <span class="detail-list-label">Catatan Intervensi</span>
+                                    <p id="detail-catatan" class="detail-list-val" style="font-size: 13px; font-weight: 400; color: #475569; line-height: 1.5; margin: 0; text-align: left; width: 100%;">—</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
                 <!-- Footer Note -->
-                <div class="chart-footer-note">
+                <!-- <div class="chart-footer-note">
                     {!! $setting->stunting_footer_note !!}
                 </div>
-            </div>
+            </div> -->
 
             <script>
             function filterByRange(range, btn) {
@@ -214,6 +250,12 @@
 
                 const year     = el.dataset.year;
                 const stunting = el.dataset.stunting;
+                const rate     = el.dataset.rate;
+                const total    = el.dataset.totalBalita;
+                const terendah = el.dataset.terendah;
+                const tertinggi = el.dataset.tertinggi;
+                const catatan  = el.dataset.catatan;
+                const prev     = el.dataset.prev;
 
                 const detailCard = document.getElementById('stunting-detail-card');
                 detailCard.style.opacity = '0.5';
@@ -221,6 +263,32 @@
                 setTimeout(() => {
                     document.getElementById('detail-year').textContent = year;
                     document.getElementById('detail-stunting').textContent = stunting ? Number(stunting).toLocaleString('id-ID') + ' Balita' : '—';
+                    document.getElementById('detail-rate').textContent = rate && rate !== '0' && rate !== '0.0' ? rate + '%' : '—';
+                    document.getElementById('detail-total-balita').textContent = total && total !== '0' ? Number(total).toLocaleString('id-ID') + ' Balita' : '—';
+                    document.getElementById('detail-terendah').textContent = terendah || '—';
+                    document.getElementById('detail-tertinggi').textContent = tertinggi || '—';
+                    document.getElementById('detail-catatan').textContent = catatan || '—';
+                    
+                    const diffEl = document.getElementById('detail-diff');
+                    
+                    if (stunting && prev) {
+                        const currentVal = Number(stunting);
+                        const prevVal = Number(prev);
+                        const diff = currentVal - prevVal;
+                        const percent = ((Math.abs(diff) / prevVal) * 100).toFixed(1);
+                        
+                        if (diff < 0) {
+                            diffEl.innerHTML = `<span style="color: #00BC7D; font-weight: 700;">&#9660; Turun ${percent}%</span> dari tahun sebelumnya.`;
+                        } else if (diff > 0) {
+                            diffEl.innerHTML = `<span style="color: #EF4444; font-weight: 700;">&#9650; Naik ${percent}%</span> dari tahun sebelumnya.`;
+                        } else {
+                            diffEl.innerHTML = `<span style="color: #64748B; font-weight: 700;">Stabil</span> dari tahun sebelumnya.`;
+                        }
+                    } else if (stunting && !prev) {
+                        diffEl.innerHTML = `<span style="color: #64748B;">Data historis tidak tersedia.</span>`;
+                    } else {
+                        diffEl.innerHTML = '—';
+                    }
                     
                     detailCard.style.opacity = '1';
                 }, 120);
@@ -239,87 +307,7 @@
             });
             </script>
 
-            <!-- Two Side-by-Side Progress Cards -->
-            <div class="progress-cards-grid">
-                
-                <!-- Card A: Distribusi Profesi Nakes -->
-                <div class="progress-card">
-                    <div class="progress-card-header">
-                        <div class="progress-card-title-area">
-                            @php
-                                $nakesTotal = 0;
-                                foreach ($setting->nakes_data ?? [] as $n) {
-                                    $cleaned = preg_replace('/[^0-9]/', '', strtok($n['value'] ?? '0', ' '));
-                                    $nakesTotal += (int) $cleaned;
-                                }
-                            @endphp
-                            <h3 class="progress-card-title">Distribusi Profesi Nakes ({{ number_format($nakesTotal, 0, ',', '.') }})</h3>
-                            <p class="progress-card-subtitle">Terdaftar pada Portal E-SIP Dinkes</p>
-                        </div>
-                        <span class="progress-badge">Aktif SIP</span>
-                    </div>
-                    
-                    <div class="progress-list">
-                        @if($setting->nakes_data)
-                            @foreach($setting->nakes_data as $nakes)
-                                @php
-                                    $nWidth = $nakesTotal > 0
-                                        ? round(((int) ($nakes['value'] ?? 0) / $nakesTotal) * 100)
-                                        : 0;
-                                @endphp
-                                <div class="progress-item">
-                                    <div class="progress-item-labels">
-                                        <span class="progress-item-name">{{ $nakes['name'] }}</span>
-                                        <span class="progress-item-value">{{ number_format((int) ($nakes['value'] ?? 0), 0, ',', '.') }}</span>
-                                    </div>
-                                    <div class="progress-track-wrapper">
-                                        <div class="progress-bar-fill" @style(['width: ' . $nWidth . '%'])></div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Card B: Sebaran Puskesmas per Zonasi -->
-                <div class="progress-card">
-                    <div class="progress-card-header">
-                        <div class="progress-card-title-area">
-                            @php
-                                $sebaranTotal = 0;
-                                foreach ($setting->sebaran_data ?? [] as $s) {
-                                    $sebaranTotal += (int) ($s['value'] ?? 0);
-                                }
-                            @endphp
-                            <h3 class="progress-card-title">Sebaran Puskesmas per Zonasi</h3>
-                            <p class="progress-card-subtitle">{{ number_format($sebaranTotal, 0, ',', '.') }} Unit Wilayah Kerja Kabupaten</p>
-                        </div>
-                        <span class="progress-badge">Aktif SIP</span>
-                    </div>
-
-                    <div class="progress-list">
-                        @if($setting->sebaran_data)
-                            @foreach($setting->sebaran_data as $sebaran)
-                                @php
-                                    $sWidth = $sebaranTotal > 0
-                                        ? round(((int) ($sebaran['value'] ?? 0) / $sebaranTotal) * 100)
-                                        : 0;
-                                @endphp
-                                <div class="progress-item">
-                                    <div class="progress-item-labels">
-                                        <span class="progress-item-name">{{ $sebaran['name'] }}</span>
-                                        <span class="progress-item-value">{{ number_format((int) ($sebaran['value'] ?? 0), 0, ',', '.') }} Puskesmas</span>
-                                    </div>
-                                    <div class="progress-track-wrapper">
-                                        <div class="progress-bar-fill" @style(['width: ' . $sWidth . '%'])></div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-
-            </div>
+            <!-- Progress cards deleted -->
 
         </div>
     </main>

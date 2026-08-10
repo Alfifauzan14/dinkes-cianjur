@@ -153,7 +153,7 @@
                 <li class="nav-item has-treeview {{ $faskesActive ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ $faskesActive ? 'active' : '' }}">
                         <span class="material-icons nav-icon">location_city</span>
-                        <p>Kelola Faskes <i class="right fas fa-angle-right"></i></p>
+                        <p>Kelola Info Faskes <i class="right fas fa-angle-right"></i></p>
                     </a>
                     <ul class="nav nav-treeview pl-3">
                         <li class="nav-item">
@@ -342,29 +342,13 @@
                     </ul>
                 </li>
 
-                {{-- Settings dropdown --}}
-                @php $settingsActive = request()->routeIs('admin.settingfooter.*') || request()->routeIs('admin.headers.*'); @endphp
-                <li class="nav-item has-treeview {{ $settingsActive ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ $settingsActive ? 'active' : '' }}">
+                {{-- Pengaturan Footer --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.settingfooter.edit') }}"
+                       class="nav-link {{ request()->routeIs('admin.settingfooter.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">settings</span>
-                        <p>Settings <i class="right fas fa-angle-right"></i></p>
+                        <p>Pengaturan Footer</p>
                     </a>
-                    <ul class="nav nav-treeview pl-3">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.settingfooter.edit') }}"
-                               class="nav-link {{ request()->routeIs('admin.settingfooter.*') ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">settings</span>
-                                <p>Pengaturan Footer</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.headers.index') }}"
-                               class="nav-link {{ request()->routeIs('admin.headers.*') ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">view_carousel</span>
-                                <p>Header Halaman</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
                 {{-- ── LOGOUT ───────────────────────────────────────── --}}

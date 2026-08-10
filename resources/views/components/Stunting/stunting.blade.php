@@ -100,8 +100,13 @@
                 <div class="st-program-grid">
                     @foreach($program->intervensi as $item)
                         <div class="st-program-item">
-                            <h3 class="st-program-number">{{ $loop->iteration }}. {{ $item['title'] }}</h3>
-                            <p class="st-program-desc">{{ $item['description'] }}</p>
+                            <div class="st-program-header" style="display: flex; align-items: center; gap: 12px;">
+                                <div class="st-program-icon-wrap" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #E6F4EA; border-radius: 50%; flex-shrink: 0;">
+                                    <span class="material-icons" style="font-size: 20px; color: #009966;">{{ $item['icon'] ?? 'check_circle' }}</span>
+                                </div>
+                                <h3 class="st-program-number" style="margin: 0;">{{ $item['title'] }}</h3>
+                            </div>
+                            <p class="st-program-desc" style="margin-top: 4px; padding-left: 52px;">{{ $item['description'] }}</p>
                         </div>
                     @endforeach
                 </div>
