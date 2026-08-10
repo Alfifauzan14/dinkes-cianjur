@@ -3,21 +3,7 @@
 <div class="mediaindex-page-wrapper">
     <header class="mediaindex-header">
         <div class="mediaindex-header-container">
-            <div class="mediaindex-breadcrumb">
-                <a href="{{ route('home') }}">Beranda</a>
-                <span class="mediaindex-breadcrumb-sep">
-                    <span class="material-icons">chevron_right</span>
-                </span>
-                <a href="{{ url('/media') }}">Media</a>
-                <span class="mediaindex-breadcrumb-sep">
-                    <span class="material-icons">chevron_right</span>
-                </span>
-                <a href="{{ route('media.galeri-kegiatan') }}">Galeri Kegiatan</a>
-                <span class="mediaindex-breadcrumb-sep">
-                    <span class="material-icons">chevron_right</span>
-                </span>
-                <span>{{ $galeri->title }}</span>
-            </div>
+
             <h1 class="mediaindex-header-title" style="font-size: 36px;">{{ $galeri->title }}</h1>
             <div class="mediaindex-header-meta">
                 <span class="mediaindex-header-badge">{{ $galeri->category }}</span>
