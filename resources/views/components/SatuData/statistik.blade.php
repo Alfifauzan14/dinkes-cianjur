@@ -37,7 +37,11 @@
                     <div class="stat-card-body-wrap">
                         <div class="stat-card-number">{{ $puskesmasCount ?? 0 }}</div>
                         <div class="stat-card-icon-wrapper">
-                            <span class="material-icons">local_hospital</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="12" y1="8" x2="12" y2="16"/>
+                                <line x1="8" y1="12" x2="16" y2="12"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="stat-card-caption caption-accent">
@@ -56,7 +60,12 @@
                     <div class="stat-card-body-wrap">
                         <div class="stat-card-number">{{ $rsCount ?? 0 }}</div>
                         <div class="stat-card-icon-wrapper">
-                            <span class="material-icons">corporate_fare</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21V9a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v12"/>
+                                <path d="M2 21h20"/>
+                                <path d="M10 12h4"/>
+                                <path d="M12 10v4"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="stat-card-caption caption-accent">
@@ -75,7 +84,10 @@
                     <div class="stat-card-body-wrap">
                         <div class="stat-card-number">{{ $kecamatanCount ?? 0 }}</div>
                         <div class="stat-card-icon-wrapper">
-                            <span class="material-icons">explore</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="stat-card-caption caption-accent">
@@ -94,7 +106,12 @@
                     <div class="stat-card-body-wrap">
                         <div class="stat-card-number">{{ $layananCount ?? 0 }}</div>
                         <div class="stat-card-icon-wrapper">
-                            <span class="material-icons">assignment</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="stat-card-caption caption-accent">
