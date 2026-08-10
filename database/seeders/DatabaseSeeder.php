@@ -46,8 +46,8 @@ class DatabaseSeeder extends Seeder
         $this->call(HomeSocialLinkSeeder::class);
         $this->call(HeaderSettingSeeder::class);
 
-        // Seeder data faskes lengkap
         $this->call(FaskesSeeder::class);
+        $this->call(PpidPermohonanSeeder::class);
         // Pastikan User Admin ada
         User::updateOrCreate(
             ['email' => 'admin@dinkes.go.id'],
