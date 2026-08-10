@@ -52,15 +52,15 @@
     };
 
     // ── SweetAlert2: Confirm aksi (gaya sama dengan confirmDelete) ─
-    window.confirmAction = function(title, text, onConfirm) {
+    window.confirmAction = function(title, text, onConfirm, confirmButtonText = 'Ya', confirmButtonColor = '#009966', icon = 'warning') {
         Swal.fire({
             title: title,
             text: text || '',
-            icon: 'warning',
+            icon: icon,
             showCancelButton: true,
-            confirmButtonColor: '#dc3545',
+            confirmButtonColor: confirmButtonColor,
             cancelButtonColor: '#6c757d',
-            confirmButtonText: '<span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span> Hapus',
+            confirmButtonText: confirmButtonText,
             cancelButtonText: 'Batal',
             reverseButtons: true
         }).then((result) => {
