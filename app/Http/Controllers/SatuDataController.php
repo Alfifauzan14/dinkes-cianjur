@@ -20,22 +20,34 @@ class SatuDataController extends Controller
     public function statistik(): View
     {
         $setting = StatistikSetting::first() ?? new StatistikSetting;
-        $stuntingRecords = StuntingRecord::orderBy('year', 'asc')->get();
-        $maxRate = $stuntingRecords->max('balita_stunting') ?: 1;
 
-        $puskesmasCount = Faskes::where('type', 'Puskesmas')->count();
-        $rsCount = Faskes::where('type', 'Rumah Sakit')->count();
-        $kecamatanCount = Kecamatan::count();
-        $layananCount = LayananTerpadu::count();
+        $puskesmasCount = \App\Models\Faskes::where('type', 'Puskesmas')->count();
+        $rsCount = \App\Models\Faskes::where('type', 'Rumah Sakit')->count();
+        $kecamatanCount = \App\Models\Kecamatan::count();
+        $layananCount = \App\Models\LayananTerpadu::count();
+
+        // Query sebaran faskes per kecamatan secara otomatis
+        $allFaskes = \App\Models\Faskes::all();
+        $faskesDistribution = $allFaskes->groupBy('kecamatan')->map(function ($items, $kecamatan) {
+            return (object) [
+                'kecamatan' => $kecamatan ?: 'Belum Ditentukan',
+                'total' => $items->count(),
+                'puskesmas' => $items->where('type', 'Puskesmas')->count(),
+                'rs' => $items->where('type', 'Rumah Sakit')->count(),
+                'list' => $items->pluck('name')->implode(', ')
+            ];
+        })->sortByDesc('total')->values();
+
+        $maxFaskesCount = $faskesDistribution->max('total') ?: 1;
 
         return view('statistik', compact(
             'setting',
-            'stuntingRecords',
-            'maxRate',
             'puskesmasCount',
             'rsCount',
             'kecamatanCount',
-            'layananCount'
+            'layananCount',
+            'faskesDistribution',
+            'maxFaskesCount'
         ));
     }
 

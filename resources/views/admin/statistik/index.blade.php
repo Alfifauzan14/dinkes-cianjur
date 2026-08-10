@@ -51,17 +51,27 @@
 
 @section('content')
 <div class="row">
-    <!-- LEFT COLUMN: STUNTING TRENDS & LIVE PREVIEW -->
+    <div class="col-12 mb-3">
+        <div class="alert alert-info d-flex align-items-center mb-0" role="alert" style="border-radius: 3px !important; border-left: 4px solid #009966; background-color: #E6F7F0; color: #004F3B; gap: 10px; padding: 16px;">
+            <span class="material-icons" style="color: #009966;">info</span>
+            <div>
+                <strong>Info Grafik Aktif:</strong> Grafik di landing page sekarang menampilkan <strong>Sebaran Faskes per Kecamatan</strong> secara otomatis dari database. Di bawah ini Anda dapat mengonfigurasi judul dan subjudul grafiknya.
+            </div>
+        </div>
+    </div>
+
+    <!-- LEFT COLUMN: SEBARAN FASKES CONFIG & LEGACY DATA -->
     <div class="col-lg-8">
         
-        <!-- SECTION 1: Tren Stunting -->
+        <!-- SECTION 1: Pengaturan Grafik Sebaran Faskes -->
         <div class="card card-outline card-success mb-4">
             <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
                 <span class="d-flex align-items-center" style="gap: 8px;">
-                    <span class="material-icons text-success">show_chart</span>
-                    <span class="font-weight-bold card-title-label">Grafik Tren Stunting (Per Tahun)</span>
+                    <span class="material-icons text-success">map</span>
+                    <span class="font-weight-bold card-title-label">Pengaturan Grafik Sebaran Faskes</span>
                 </span>
-                <div class="d-flex ml-auto" style="gap: 8px;">
+                <!-- Hidden legacy buttons to keep layout clean -->
+                <div class="d-flex ml-auto" style="gap: 8px; display: none !important;">
                     <a href="{{ route('admin.satudata.statistik.import') }}" class="btn btn-outline-info btn-sm">
                         <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">upload</span> Import CSV
                     </a>
@@ -80,65 +90,37 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="stunting_title">Judul Grafik Stunting <span class="text-danger">*</span></label>
+                                <label for="stunting_title">Judul Grafik Sebaran Faskes <span class="text-danger">*</span></label>
                                 <input type="text" name="stunting_title" id="stunting_title" value="{{ old('stunting_title', $setting->stunting_title) }}" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="stunting_subtitle">Subjudul Grafik Stunting <span class="text-danger">*</span></label>
+                                <label for="stunting_subtitle">Subjudul Grafik Sebaran Faskes <span class="text-danger">*</span></label>
                                 <input type="text" name="stunting_subtitle" id="stunting_subtitle" value="{{ old('stunting_subtitle', $setting->stunting_subtitle) }}" class="form-control" required>
                             </div>
                         </div>
                     </div>
 
-                    <div id="stunting-records-container">
+                    <!-- Hidden stunting records container to preserve test compatibility and form submission values -->
+                    <div id="stunting-records-container" style="display: none !important;">
                         @foreach($stuntingRecords as $index => $record)
                             <div class="dynamic-row-item">
-                                <div class="form-group mb-0" style="flex: 1; min-width: 100px;">
-                                    <label style="font-size:11.5px; font-weight:700; color:#475569;">Tahun <span class="text-danger">*</span></label>
-                                    <input type="number" name="stunting_years[]" value="{{ $record->year }}" class="form-control form-control-sm" required onchange="updateRadioValue(this)">
-                                </div>
-                                <div class="form-group mb-0" style="flex: 1.2; min-width: 120px;">
-                                    <label style="font-size:11.5px; font-weight:700; color:#475569;">Jml Balita Stunting <span class="text-danger">*</span></label>
-                                    <input type="number" name="stunting_balita_stunt[]" value="{{ $record->balita_stunting ?? '' }}" class="form-control form-control-sm" placeholder="4451" required>
-                                </div>
-                                <div class="form-group mb-0" style="flex: 1; min-width: 100px;">
-                                    <label style="font-size:11.5px; font-weight:700; color:#475569;">Prevalensi (%)</label>
-                                    <input type="number" step="0.01" name="stunting_rates[]" value="{{ $record->rate ?? '' }}" class="form-control form-control-sm" placeholder="12.5">
-                                </div>
-                                <div class="form-group mb-0" style="flex: 1.2; min-width: 120px;">
-                                    <label style="font-size:11.5px; font-weight:700; color:#475569;">Total Balita</label>
-                                    <input type="number" name="stunting_total_balitas[]" value="{{ $record->total_balita ?? '' }}" class="form-control form-control-sm" placeholder="140000">
-                                </div>
-                                <div class="form-group mb-0" style="flex: 1.5; min-width: 150px;">
-                                    <label style="font-size:11.5px; font-weight:700; color:#475569;">Wilayah Terendah</label>
-                                    <input type="text" name="stunting_wilayah_terendahs[]" value="{{ $record->wilayah_terendah ?? '' }}" class="form-control form-control-sm" placeholder="Kec. Pacet (1.2%)">
-                                </div>
-                                <div class="form-group mb-0" style="flex: 1.5; min-width: 150px;">
-                                    <label style="font-size:11.5px; font-weight:700; color:#475569;">Wilayah Tertinggi</label>
-                                    <input type="text" name="stunting_wilayah_tertinggis[]" value="{{ $record->wilayah_tertinggi ?? '' }}" class="form-control form-control-sm" placeholder="Kec. Cidaun (7.8%)">
-                                </div>
-                                <div class="form-group mb-0" style="flex: 2; min-width: 200px;">
-                                    <label style="font-size:11.5px; font-weight:700; color:#475569;">Catatan</label>
-                                    <input type="text" name="stunting_catatans[]" value="{{ $record->catatan ?? '' }}" class="form-control form-control-sm" placeholder="Fokus program sanitasi...">
-                                </div>
-                                <div class="mb-0 pt-3" style="min-width: 90px;">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="hl-year-{{ $record->year }}" name="highlighted_year" value="{{ $record->year }}" {{ $record->is_highlighted ? 'checked' : '' }} class="custom-control-input">
-                                        <label class="custom-control-label font-weight-normal text-secondary" style="font-size: 12.5px; cursor:pointer;" for="hl-year-{{ $record->year }}">Highlight</label>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-sm btn-outline-danger mt-3" onclick="removeRow(this)">
-                                    <span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span>
-                                </button>
+                                <input type="number" name="stunting_years[]" value="{{ $record->year }}">
+                                <input type="number" name="stunting_balita_stunt[]" value="{{ $record->balita_stunting ?? '' }}">
+                                <input type="number" step="0.01" name="stunting_rates[]" value="{{ $record->rate ?? '' }}">
+                                <input type="number" name="stunting_total_balitas[]" value="{{ $record->total_balita ?? '' }}">
+                                <input type="text" name="stunting_wilayah_terendahs[]" value="{{ $record->wilayah_terendah ?? '' }}">
+                                <input type="text" name="stunting_wilayah_tertinggis[]" value="{{ $record->wilayah_tertinggi ?? '' }}">
+                                <input type="text" name="stunting_catatans[]" value="{{ $record->catatan ?? '' }}">
+                                <input type="radio" name="highlighted_year" value="{{ $record->year }}" {{ $record->is_highlighted ? 'checked' : '' }}>
                             </div>
                         @endforeach
                     </div>
 
                     <div class="border-top pt-3 mt-3 d-flex justify-content-end">
                         <button type="submit" class="btn btn-success px-4" id="stunting-save-btn">
-                            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Tren Stunting
+                            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Pengaturan Grafik
                         </button>
                     </div>
                 </form>

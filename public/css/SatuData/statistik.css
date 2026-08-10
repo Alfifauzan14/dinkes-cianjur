@@ -326,10 +326,10 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    height: 260px;
+    height: 340px;
     padding: 10px 10px 14px;
-    border-bottom: 1px solid #E2E8F0;
-    gap: 12px;
+    border-bottom: 2px solid #F1F5F9;
+    gap: 16px;
     min-width: 650px;
     position: relative;
     z-index: 2;
@@ -341,64 +341,81 @@
     flex-direction: column;
     align-items: center;
     width: 80px;
-    flex: 0 0 auto;
+    flex: 1 1 0%;
+    max-width: 90px;
     height: 100%;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .bar-val {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: #64748B;
+    color: #475569;
     background-color: #FFFFFF;
-    padding: 2px 6px;
-    border-radius: 3px; /* Changed to 3px */
+    padding: 3px 8px;
+    border-radius: 3px !important; /* Card dalam/elemen 3px */
     border: 1px solid #E2E8F0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     z-index: 3;
     flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.chart-bar-item:hover .bar-val {
+    color: #009966;
+    border-color: #009966;
 }
 
 .bar-track {
     width: 100%;
-    max-width: 36px;
-    height: 140px;
+    max-width: 44px;
+    height: 275px; /* Aligned with grid height */
     display: flex;
     align-items: flex-end;
     background: #F8FAFC;
-    border: 1px solid #F1F5F9;
-    border-radius: 4px 4px 0 0 !important;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px 3px 0 0 !important; /* Card dalam 3px */
     flex-shrink: 0;
     overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
 }
 
 .bar-fill {
     width: 100%;
-    border-radius: 4px 4px 0 0 !important;
-    background: #A7F3D0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 3px 3px 0 0 !important; /* Card dalam 3px */
+    background: #A7F3D0; /* Warna flat hijau muda */
+    transition: all 0.2s ease;
+    position: relative;
 }
 
 .chart-bar-item:hover .bar-fill {
-    background: #6EE7B7;
-    transform: scaleY(1.02);
+    background: #6EE7B7; /* Warna flat saat hover */
 }
 
-/* Highlight Bar 2026 (Saat Ini) */
+/* Highlight Bar (Aktif) */
 .bar-fill-active {
-    background: linear-gradient(to top, #009966, #00BC7D) !important;
+    background: #004F3B !important; /* Warna flat hijau tua brand */
+}
+
+.chart-bar-item:hover .bar-fill-active {
+    background: #009966 !important; /* Warna flat hijau aksen saat hover */
 }
 
 .bar-year {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 600;
-    color: #475569;
+    color: #64748B;
     text-align: center;
     line-height: 1.2;
     flex-shrink: 0;
+    transition: all 0.2s ease;
 }
 
 .bar-year-active {
@@ -408,17 +425,18 @@
 
 .font-bold {
     font-weight: 800 !important;
-    color: #009966 !important;
+    color: #004F3B !important;
 }
 
 /* Footer Note */
 .chart-footer-note {
     text-align: center;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     color: #64748B;
-    margin-top: 18px;
-    font-weight: 400;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #F1F5F9;
 }
 
 .chart-footer-note strong {
@@ -648,66 +666,68 @@
 }
 
 .stunting-detail-card {
-    background-color: #F8FAFC;
+    background-color: #FFFFFF;
     border: 1px solid #E2E8F0;
-    border-radius: 3px;
+    border-radius: 1px !important;
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    transition: opacity 0.2s ease;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
 
 .detail-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #E2E8F0;
-    padding-bottom: 12px;
+    border-bottom: 1px solid #F1F5F9;
+    padding-bottom: 14px;
 }
 
 .detail-card-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 800;
     color: #0F172A;
     margin: 0;
+    letter-spacing: -0.2px;
 }
 
 .detail-year-badge {
     background-color: #009966;
     color: #FFFFFF;
-    padding: 3px 10px;
-    border-radius: 3px;
+    padding: 4px 12px;
+    border-radius: 3px !important;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .detail-rate-box {
-    background-color: #FFFFFF;
+    background-color: #F8FAFC;
     border: 1px solid #E2E8F0;
-    border-radius: 3px;
+    border-radius: 3px !important;
     padding: 16px;
     text-align: center;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .detail-rate-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
     color: #64748B;
     letter-spacing: 0.05em;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
 }
 
 .detail-rate-val {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 36px;
+    font-size: 38px;
     font-weight: 800;
-    color: #009966;
+    color: #004F3B;
     letter-spacing: -1px;
     line-height: 1;
 }
@@ -715,39 +735,46 @@
 .detail-stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 16px;
 }
 
 .detail-stat-item {
-    background-color: #FFFFFF;
+    background-color: #F8FAFC;
     border: 1px solid #E2E8F0;
-    border-radius: 3px;
-    padding: 12px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    border-radius: 3px !important;
+    padding: 14px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01);
+    transition: all 0.2s ease;
+}
+
+.detail-stat-item:hover {
+    border-color: #A7F3D0;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 153, 102, 0.04);
 }
 
 .detail-stat-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
-    font-weight: 600;
-    color: #94A3B8;
+    font-weight: 700;
+    color: #64748B;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .detail-stat-val {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 800;
     color: #0F172A;
 }
 
 .detail-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     background-color: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 3px;
@@ -856,7 +883,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 275px;
-    margin-top: 10px;
+    margin-top: 39px;
     width: 32px;
     font-size: 11px;
     color: #94A3B8;
@@ -883,7 +910,7 @@
 }
 .chart-y-axis-grid {
     position: absolute;
-    top: 10px;
+    top: 39px;
     left: 0;
     right: 0;
     height: 275px;
@@ -948,28 +975,5 @@
     border-top: 1px solid #F1F5F9;
 }
 
-/* ── y-axis labels outside layout ── */
-.chart-y-axis-labels {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 220px;
-    margin-top: 10px;
-    width: 32px;
-    font-size: 11px;
-    color: #94A3B8;
-    font-weight: 700;
-    text-align: right;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 10;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-}
-.chart-y-axis-labels-item {
-    height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    overflow: visible;
-}
+/* ── End of file ── */
 
