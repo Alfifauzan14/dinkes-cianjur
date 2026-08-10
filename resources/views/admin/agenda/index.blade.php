@@ -39,22 +39,46 @@
     <div class="px-4 pt-3 pb-0 bg-white" style="border-bottom: 1px solid #E2E8F0;">
         <ul class="nav nav-tabs border-0" id="agenda-time-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link {{ request('time_filter', 'all') === 'all' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('time_filter', 'all') === 'all' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'all'])) }}">
+                <a class="nav-link {{ request('time_filter', 'all') === 'all' ? 'active font-weight-bold text-success' : 'text-secondary' }}"
+                   @style([
+                       'border-bottom: 3px solid ' . (request('time_filter', 'all') === 'all' ? '#009966' : 'transparent'),
+                       'border-radius: 0',
+                       'padding-bottom: 12px'
+                   ])
+                   href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'all'])) }}">
                     Semua Agenda
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request('time_filter') === 'upcoming' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('time_filter') === 'upcoming' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'upcoming'])) }}">
+                <a class="nav-link {{ request('time_filter') === 'upcoming' ? 'active font-weight-bold text-success' : 'text-secondary' }}"
+                   @style([
+                       'border-bottom: 3px solid ' . (request('time_filter') === 'upcoming' ? '#009966' : 'transparent'),
+                       'border-radius: 0',
+                       'padding-bottom: 12px'
+                   ])
+                   href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'upcoming'])) }}">
                     Akan Datang
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request('time_filter') === 'today' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('time_filter') === 'today' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'today'])) }}">
+                <a class="nav-link {{ request('time_filter') === 'today' ? 'active font-weight-bold text-success' : 'text-secondary' }}"
+                   @style([
+                       'border-bottom: 3px solid ' . (request('time_filter') === 'today' ? '#009966' : 'transparent'),
+                       'border-radius: 0',
+                       'padding-bottom: 12px'
+                   ])
+                   href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'today'])) }}">
                     Hari Ini
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request('time_filter') === 'past' ? 'active font-weight-bold text-success' : 'text-secondary' }}" style="border-bottom: 3px solid {{ request('time_filter') === 'past' ? '#009966' : 'transparent' }}; border-radius: 0; padding-bottom: 12px;" href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'past'])) }}">
+                <a class="nav-link {{ request('time_filter') === 'past' ? 'active font-weight-bold text-success' : 'text-secondary' }}"
+                   @style([
+                       'border-bottom: 3px solid ' . (request('time_filter') === 'past' ? '#009966' : 'transparent'),
+                       'border-radius: 0',
+                       'padding-bottom: 12px'
+                   ])
+                   href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'past'])) }}">
                     Lampau / Selesai
                 </a>
             </li>

@@ -228,7 +228,7 @@
                     <a href="{{ route('admin.kategori.index') }}"
                        class="nav-link {{ request()->routeIs('admin.kategori.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">category</span>
-                        <p>Kategori Berita</p>
+                        <p>Kelola Kategori</p>
                     </a>
                 </li>
 

@@ -77,7 +77,14 @@
                                 $bgColor = $katData ? $katData->warna . '20' : '#E0F2FE';
                                 $textColor = $katData ? $katData->warna : '#0369A1';
                             @endphp
-                            <span class="badge" style="background:{{ $bgColor }};color:{{ $textColor }};padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700;">
+                            <span class="badge" @style([
+                                'background-color: ' . $bgColor,
+                                'color: ' . $textColor,
+                                'padding: 4px 10px',
+                                'border-radius: 3px',
+                                'font-size: 11px',
+                                'font-weight: 700'
+                            ])>
                                 {{ $galeri->category }}
                             </span>
                         </td>
