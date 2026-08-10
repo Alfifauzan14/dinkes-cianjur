@@ -124,4 +124,42 @@
         </div>
     </div>
 </div>
+
+<!-- SECTION 2: Kredensial Gerbang Akses (Lapis 1) -->
+<div class="card card-outline card-success mt-4">
+    <div class="card-header d-flex align-items-center" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success">security</span>
+            <span class="font-weight-bold card-title-label">Kredensial Gerbang Akses (Lapis 1)</span>
+        </span>
+    </div>
+
+    <div class="card-body">
+        <form action="{{ route('admin.users.update-gatekeeper') }}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gatekeeper_username">Username Gerbang <span class="text-danger">*</span></label>
+                        <input type="text" name="gatekeeper_username" id="gatekeeper_username" value="{{ old('gatekeeper_username', $gatekeeperUsername) }}" class="form-control" placeholder="Masukkan username baru..." required>
+                        <small class="form-text text-muted">Username untuk melewati overlay pembatas masuk (Gerbang Lapis 1) sebelum halaman login.</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gatekeeper_password">Password Gerbang <span class="text-danger">*</span></label>
+                        <input type="text" name="gatekeeper_password" id="gatekeeper_password" value="{{ old('gatekeeper_password', $gatekeeperPassword) }}" class="form-control" placeholder="Masukkan password baru..." required>
+                        <small class="form-text text-muted">Password untuk melewati overlay pembatas masuk (Gerbang Lapis 1) sebelum halaman login.</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-top pt-3 mt-3 d-flex justify-content-end">
+                <button type="submit" class="btn btn-success px-4">
+                    <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Kredensial
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection
