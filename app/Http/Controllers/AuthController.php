@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -22,10 +24,22 @@ class AuthController extends Controller
     }
 
     /**
-     * Handle verification of gatekeeper (Lapis 1) via AJAX.
+     * Handle verification of gatekeeper (Lapis 1) via AJAX with rate limiting & timing attack protection.
      */
     public function verifyGatekeeper(Request $request)
     {
+        $throttleKey = 'gatekeeper:'.$request->ip();
+
+        if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+
+            return response()->json([
+                'success' => false,
+                'message' => "Terlalu banyak percobaan gagal. Silakan coba lagi dalam {$seconds} detik.",
+                'retry_after' => $seconds,
+            ], 429);
+        }
+
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
@@ -34,20 +48,34 @@ class AuthController extends Controller
         $expectedUsername = Setting::get('gatekeeper_username', config('services.gatekeeper.username', 'admin'));
         $expectedPassword = Setting::get('gatekeeper_password', config('services.gatekeeper.password', 'dinkes2026'));
 
-        if ($request->username === $expectedUsername && $request->password === $expectedPassword) {
-            $request->session()->put('gatekeeper_passed', true);
+        // Mencegah timing attack dengan hash_equals
+        $isUsernameValid = hash_equals((string) $expectedUsername, (string) $request->username);
+        $isPasswordValid = hash_equals((string) $expectedPassword, (string) $request->password);
 
-            return response()->json(['success' => true]);
+        if ($isUsernameValid && $isPasswordValid) {
+            RateLimiter::clear($throttleKey);
+
+            $request->session()->put('gatekeeper_passed', true);
+            $request->session()->regenerate();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Verifikasi Gerbang Lapis 1 berhasil!',
+            ]);
         }
+
+        RateLimiter::hit($throttleKey, 60);
+        $remainingAttempts = RateLimiter::remaining($throttleKey, 5);
 
         return response()->json([
             'success' => false,
-            'message' => 'Username atau Password Gerbang salah!',
+            'message' => "Username atau Password Gerbang tidak valid! (Sisa percobaan: {$remainingAttempts})",
+            'remaining_attempts' => $remainingAttempts,
         ], 401);
     }
 
     /**
-     * Handle standard database authentication (Lapis 2).
+     * Handle standard database authentication (Lapis 2) with rate limiting.
      */
     public function login(Request $request)
     {
@@ -61,12 +89,27 @@ class AuthController extends Controller
 
         $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required', 'string'],
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $throttleKey = 'login:'.Str::lower($request->input('email')).'|'.$request->ip();
 
-        if (Auth::attempt($credentials)) {
+        if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+
+            return response()->json([
+                'success' => false,
+                'message' => "Terlalu banyak percobaan login gagal. Akun dikunci sementara selama {$seconds} detik.",
+                'retry_after' => $seconds,
+            ], 429);
+        }
+
+        $credentials = $request->only('email', 'password');
+        $remember = $request->boolean('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
+            RateLimiter::clear($throttleKey);
+
             if (! Auth::user()->is_active) {
                 Auth::logout();
 
@@ -78,12 +121,19 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            return response()->json(['success' => true]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Login berhasil! Mengalihkan...',
+            ]);
         }
+
+        RateLimiter::hit($throttleKey, 60);
+        $remainingAttempts = RateLimiter::remaining($throttleKey, 5);
 
         return response()->json([
             'success' => false,
-            'message' => 'Kredensial yang dimasukkan tidak cocok dengan data kami.',
+            'message' => "Kredensial yang Anda masukkan tidak cocok dengan data kami. (Sisa percobaan: {$remainingAttempts})",
+            'remaining_attempts' => $remainingAttempts,
         ], 401);
     }
 

@@ -60,9 +60,9 @@ class HeaderSettingSeeder extends Seeder
             ],
             [
                 'page_key' => 'media',
-                'page_name' => 'Media & Dokumentasi',
-                'title' => 'Media & Dokumentasi',
-                'subtitle' => 'Eksplorasi konten visual Dinas Kesehatan Kabupaten Cianjur — dari galeri kegiatan di lapangan hingga infografis data kesehatan.',
+                'page_name' => 'Galeri Foto',
+                'title' => 'Galeri Foto',
+                'subtitle' => 'Dokumentasi visual rangkaian kegiatan, kampanye kesehatan, dan pelayanan publik di lapangan.',
             ],
             [
                 'page_key' => 'media-galeri',
@@ -74,7 +74,7 @@ class HeaderSettingSeeder extends Seeder
                 'page_key' => 'media-infografis',
                 'page_name' => 'Infografis',
                 'title' => 'Infografis',
-                'subtitle' => 'Visualisasi data dan informasi kesehatan Kabupaten Cianjur dalam format poster yang informatif dan mudah dipahami.',
+                'subtitle' => 'Visualisasi data dan statistik kesehatan dalam format infografis yang informatif dan mudah dipahami oleh masyarakat.',
             ],
             [
                 'page_key' => 'ppid',
