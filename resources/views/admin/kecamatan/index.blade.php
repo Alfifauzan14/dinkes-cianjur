@@ -52,7 +52,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn-action btn-action-delete"
-                                                    onclick="if(confirm('Apakah Anda yakin ingin menghapus kecamatan ini?')) document.getElementById('del-kec-{{ $kec->id }}').submit();"
+                                                    onclick="confirmDelete('del-kec-{{ $kec->id }}')"
                                                     title="Hapus">
                                                 <span class="material-icons">delete</span>
                                             </button>

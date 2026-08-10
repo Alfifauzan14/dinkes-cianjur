@@ -64,6 +64,14 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.infografis.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.infografis.*') ? 'active' : '' }}">
+                        <span class="material-icons nav-icon">bar_chart</span>
+                        <p>Infografis</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.home-content.index') }}"
                        class="nav-link {{ request()->routeIs('admin.home-content.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">info</span>
@@ -335,7 +343,7 @@
                 </li>
 
                 {{-- Settings dropdown --}}
-                @php $settingsActive = request()->routeIs('admin.settingfooter.*'); @endphp
+                @php $settingsActive = request()->routeIs('admin.settingfooter.*') || request()->routeIs('admin.headers.*'); @endphp
                 <li class="nav-item has-treeview {{ $settingsActive ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ $settingsActive ? 'active' : '' }}">
                         <span class="material-icons nav-icon">settings</span>
@@ -347,6 +355,13 @@
                                class="nav-link {{ request()->routeIs('admin.settingfooter.*') ? 'active' : '' }}">
                                 <span class="material-icons nav-icon">settings</span>
                                 <p>Pengaturan Footer</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.headers.index') }}"
+                               class="nav-link {{ request()->routeIs('admin.headers.*') ? 'active' : '' }}">
+                                <span class="material-icons nav-icon">view_carousel</span>
+                                <p>Header Halaman</p>
                             </a>
                         </li>
                     </ul>

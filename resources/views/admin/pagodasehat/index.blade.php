@@ -86,10 +86,10 @@
                                     <a href="{{ route('admin.pagodasehat.edit', $card->id) }}" class="btn-action btn-action-edit" title="Edit">
                                         <span class="material-icons">edit</span>
                                     </a>
-                                    <form action="{{ route('admin.pagodasehat.destroy', $card->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kartu ini?');" style="margin: 0; display: inline;">
+                                    <form action="{{ route('admin.pagodasehat.destroy', $card->id) }}" method="POST" id="del-pagodasehat-{{ $card->id }}" style="margin: 0; display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-action btn-action-delete" title="Hapus">
+                                        <button type="button" class="btn-action btn-action-delete" title="Hapus" onclick="confirmDelete('del-pagodasehat-{{ $card->id }}')">
                                             <span class="material-icons">delete</span>
                                         </button>
                                     </form>

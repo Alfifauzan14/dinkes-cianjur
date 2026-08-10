@@ -52,7 +52,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn-action btn-action-delete"
-                                                    onclick="if(confirm('Apakah Anda yakin ingin menghapus jenis faskes ini?')) document.getElementById('del-type-{{ $type->id }}').submit();"
+                                                    onclick="confirmDelete('del-type-{{ $type->id }}')"
                                                     title="Hapus">
                                                 <span class="material-icons">delete</span>
                                             </button>

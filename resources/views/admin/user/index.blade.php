@@ -59,23 +59,23 @@
                                         <span class="material-icons">lock_reset</span>
                                     </button>
                                     @if($user->is_active)
-                                        <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" id="toggle-user-{{ $user->id }}" class="d-inline">
                                             @csrf @method('POST')
-                                            <button type="submit" class="btn-action btn-action-warning" title="Nonaktifkan" onclick="return confirm('Nonaktifkan {{ $user->name }}?')">
+                                            <button type="button" class="btn-action btn-action-warning" title="Nonaktifkan" onclick="confirmAction('Nonaktifkan Pengguna?', 'Status akun {{ $user->name }} akan dinonaktifkan.', function() { document.getElementById('toggle-user-{{ $user->id }}').submit(); })">
                                                 <span class="material-icons">block</span>
                                             </button>
                                         </form>
                                     @else
-                                        <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" id="toggle-user-{{ $user->id }}" class="d-inline">
                                             @csrf @method('POST')
-                                            <button type="submit" class="btn-action btn-action-success" title="Aktifkan" onclick="return confirm('Aktifkan {{ $user->name }}?')">
+                                            <button type="button" class="btn-action btn-action-success" title="Aktifkan" onclick="confirmAction('Aktifkan Pengguna?', 'Status akun {{ $user->name }} akan diaktifkan kembali.', function() { document.getElementById('toggle-user-{{ $user->id }}').submit(); })">
                                                 <span class="material-icons">check_circle</span>
                                             </button>
                                         </form>
                                     @endif
-                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus pengguna {{ $user->name }}? Tindakan ini tidak dapat dibatalkan.')">
+                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" id="del-user-{{ $user->id }}" class="d-inline">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="btn-action btn-action-delete" title="Hapus">
+                                        <button type="button" class="btn-action btn-action-delete" title="Hapus" onclick="confirmDelete('del-user-{{ $user->id }}')">
                                             <span class="material-icons">delete</span>
                                         </button>
                                     </form>

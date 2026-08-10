@@ -151,7 +151,7 @@
 .faskes-search-input {
     flex: 1;
     height: 44px;
-    padding: 0 16px;
+    padding: 0 14px;
     border: 1px solid #E0E0E0;
     border-right: none;
     border-top-left-radius: 3px;
@@ -159,15 +159,19 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 500;
     color: #332C2B;
+    text-align: left;
     outline: none;
     background: #FFFFFF;
     box-sizing: border-box;
+    -webkit-appearance: none;
 }
 
 .faskes-search-input::placeholder {
     color: #A3A3A3;
+    text-align: left;
 }
 
 .faskes-search-input:focus {
@@ -176,7 +180,7 @@
 
 .faskes-search-btn {
     height: 44px;
-    padding: 0 32px;
+    padding: 0 28px;
     background-color: #00BC7D;
     color: #FFFFFF;
     border: none;
@@ -185,22 +189,129 @@
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.2s ease;
     white-space: nowrap;
     box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .faskes-search-btn:hover {
     background-color: #009A66;
 }
 
+/* ── Custom Select Dropdown ───────────────────────────────────── */
+.faskes-custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.faskes-custom-select-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    background: #FFFFFF;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #332C2B;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: left;
+    transition: border-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.faskes-custom-select-btn:focus,
+.faskes-custom-select.open .faskes-custom-select-btn {
+    border-color: #00BC7D;
+    outline: none;
+}
+
+.faskes-custom-select-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.faskes-custom-select-icon {
+    width: 10px;
+    height: 6px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: #A3A3A3;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.2s ease;
+}
+
+.faskes-custom-select.open .faskes-custom-select-icon {
+    transform: rotate(180deg);
+}
+
+.faskes-custom-select-list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 9999;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.faskes-custom-select.open .faskes-custom-select-list {
+    display: block;
+}
+
+.faskes-custom-option {
+    padding: 10px 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #332C2B;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.faskes-custom-option:hover {
+    background: rgba(0, 153, 102, 0.08);
+    color: #009966;
+}
+
+.faskes-custom-option.selected {
+    color: #009966;
+    font-weight: 700;
+    background: rgba(0, 153, 102, 0.06);
+}
+
+
+
 /* ── Filter Wrap (Dropdowns) ─────────────────────────────────── */
 .faskes-filter-wrap {
     position: relative;
     flex-shrink: 0;
+    /* jangan overflow hidden agar dropdown list bisa keluar */
+    overflow: visible;
 }
 
 .faskes-filter-wrap::after {
@@ -476,17 +587,22 @@
     }
 }
 
+/* ── Tablet (<=768px) ─────────────────────────────────────────── */
 @media (max-width: 768px) {
     .faskes-page-wrapper {
         padding-top: 80px;
     }
 
     .faskes-header {
-        padding: 40px 0 100px;
+        padding: 40px 0 50px;
+    }
+
+    .faskes-header-container {
+        padding: 0 24px;
     }
 
     .faskes-header-title {
-        font-size: 32px;
+        font-size: 30px;
     }
 
     .faskes-header-subtitle {
@@ -494,16 +610,21 @@
     }
 
     .faskes-content {
-        padding: 40px 20px;
+        padding: 36px 0 56px;
+    }
+
+    .faskes-container {
+        padding: 0 24px;
     }
 
     .faskes-main-title {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .faskes-filter-section {
         flex-wrap: wrap;
         align-items: stretch;
+        gap: 12px;
     }
 
     .faskes-search-wrap {
@@ -517,18 +638,159 @@
 
     .faskes-select {
         width: 100%;
+        height: 44px;
+        font-size: 14px; /* lebih kecil = native dropdown option lebih compact */
+        padding: 0 36px 0 14px;
+    }
+
+    .faskes-search-input {
+        height: 48px;
+        font-size: 16px; /* 16px = cegah iOS auto-zoom */
+        padding: 0 14px; /* explicit agar teks rata kiri */
+    }
+
+    .faskes-search-btn {
+        height: 48px;
+        padding: 0 14px;
+        font-size: 14px;
+        flex-shrink: 0;
+        box-sizing: border-box;
+    }
+
+    .faskes-filter-card {
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    .faskes-card {
+        padding: 20px;
     }
 
     .faskes-card-header {
         flex-direction: column;
         align-items: flex-start;
+        gap: 8px;
+    }
+
+    .faskes-card-name {
+        font-size: 16px;
+    }
+
+    .faskes-badge {
+        font-size: 12px;
+        padding: 4px 12px;
+    }
+
+    .faskes-card-info {
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .faskes-info-item {
+        font-size: 13px;
+        gap: 10px;
+    }
+
+    .faskes-card-actions {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .faskes-btn {
+        flex: 1;
+        height: 44px;
+        font-size: 14px;
+    }
+
+    .faskes-list {
+        gap: 18px;
+    }
+}
+
+/* ── Mobile (<=480px) ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    .faskes-header {
+        padding: 32px 0 44px;
+    }
+
+    .faskes-header-container {
+        padding: 0 20px;
+    }
+
+    .faskes-header-title {
+        font-size: 26px;
+        line-height: 1.25;
+    }
+
+    .faskes-content {
+        padding: 28px 0 52px;
+    }
+
+    .faskes-container {
+        padding: 0 20px;
+    }
+
+    .faskes-title-section {
+        margin-bottom: 24px;
+    }
+
+    .faskes-main-title {
+        font-size: 20px;
+    }
+
+    .faskes-main-subtitle {
+        font-size: 14px;
+    }
+
+    .faskes-filter-card {
+        padding: 18px;
+        margin-bottom: 20px;
+    }
+
+    .faskes-map-container {
+        height: 350px;
+    }
+
+    .faskes-list {
+        gap: 20px;
+    }
+
+    .faskes-card {
+        padding: 18px;
+    }
+}
+
+/* ── Very small (<=375px) ─────────────────────────────────────── */
+@media (max-width: 375px) {
+    .faskes-header-container,
+    .faskes-container {
+        padding: 0 16px;
+    }
+
+    .faskes-header-title {
+        font-size: 22px;
+    }
+
+    .faskes-main-title {
+        font-size: 18px;
+    }
+
+    .faskes-filter-card {
+        padding: 14px;
     }
 
     .faskes-card-actions {
         flex-direction: column;
+        gap: 10px;
     }
 
     .faskes-btn {
         width: 100%;
+        flex: none;
+    }
+
+    .faskes-map-container {
+        height: 280px;
     }
 }
