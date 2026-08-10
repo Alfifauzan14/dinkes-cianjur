@@ -8,13 +8,7 @@
 <div class="media-page-wrapper">
     <header class="media-header">
         <div class="media-header-container">
-            <div class="mediaindex-breadcrumb" style="margin-bottom: 20px;">
-                <a href="{{ route('home') }}">Beranda</a>
-                <span class="mediaindex-breadcrumb-sep"><span class="material-icons">chevron_right</span></span>
-                <a href="{{ url('/media') }}">Media</a>
-                <span class="mediaindex-breadcrumb-sep"><span class="material-icons">chevron_right</span></span>
-                <span>Galeri Kegiatan</span>
-            </div>
+
             <h1 class="media-header-title">{{ $header->title }}</h1>
             <p class="media-header-subtitle">{{ $header->subtitle }}</p>
         </div>
