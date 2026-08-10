@@ -8,7 +8,6 @@ use App\Models\Laporan;
 use App\Models\LayananTerpadu;
 use App\Models\Regulasi;
 use App\Models\StatistikSetting;
-use App\Models\StuntingRecord;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -21,20 +20,20 @@ class SatuDataController extends Controller
     {
         $setting = StatistikSetting::first() ?? new StatistikSetting;
 
-        $puskesmasCount = \App\Models\Faskes::where('type', 'Puskesmas')->count();
-        $rsCount = \App\Models\Faskes::where('type', 'Rumah Sakit')->count();
-        $kecamatanCount = \App\Models\Kecamatan::count();
-        $layananCount = \App\Models\LayananTerpadu::count();
+        $puskesmasCount = Faskes::where('type', 'Puskesmas')->count();
+        $rsCount = Faskes::where('type', 'Rumah Sakit')->count();
+        $kecamatanCount = Kecamatan::count();
+        $layananCount = LayananTerpadu::count();
 
         // Query sebaran faskes per kecamatan secara otomatis
-        $allFaskes = \App\Models\Faskes::all();
+        $allFaskes = Faskes::all();
         $faskesDistribution = $allFaskes->groupBy('kecamatan')->map(function ($items, $kecamatan) {
             return (object) [
                 'kecamatan' => $kecamatan ?: 'Belum Ditentukan',
                 'total' => $items->count(),
                 'puskesmas' => $items->where('type', 'Puskesmas')->count(),
                 'rs' => $items->where('type', 'Rumah Sakit')->count(),
-                'list' => $items->pluck('name')->implode(', ')
+                'list' => $items->pluck('name')->implode(', '),
             ];
         })->sortByDesc('total')->values();
 

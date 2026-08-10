@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,8 +31,8 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $expectedUsername = \App\Models\Setting::get('gatekeeper_username', config('services.gatekeeper.username', 'admin'));
-        $expectedPassword = \App\Models\Setting::get('gatekeeper_password', config('services.gatekeeper.password', 'dinkes2026'));
+        $expectedUsername = Setting::get('gatekeeper_username', config('services.gatekeeper.username', 'admin'));
+        $expectedPassword = Setting::get('gatekeeper_password', config('services.gatekeeper.password', 'dinkes2026'));
 
         if ($request->username === $expectedUsername && $request->password === $expectedPassword) {
             $request->session()->put('gatekeeper_passed', true);

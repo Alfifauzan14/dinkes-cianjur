@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -114,9 +115,9 @@ class UserAdminSecurityTest extends TestCase
             ]);
 
         $response->assertRedirect();
-        
-        $this->assertEquals('new_gate_username', \App\Models\Setting::get('gatekeeper_username'));
-        $this->assertEquals('new_gate_password', \App\Models\Setting::get('gatekeeper_password'));
+
+        $this->assertEquals('new_gate_username', Setting::get('gatekeeper_username'));
+        $this->assertEquals('new_gate_password', Setting::get('gatekeeper_password'));
 
         // Verify that authentication fails with old/default values now
         $verifyResponseOld = $this->postJson('/dinkes-gatekeeper', [
