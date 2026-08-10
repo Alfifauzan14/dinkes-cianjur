@@ -93,7 +93,6 @@ class AuthController extends Controller
 
         $throttleKey = 'login:'.Str::lower($request->input('email')).'|'.$request->ip();
 
-<<<<<<< HEAD
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
 
@@ -109,8 +108,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             RateLimiter::clear($throttleKey);
-=======
-        if (Auth::attempt($credentials)) {
+
             if (! Auth::user()->is_active) {
                 Auth::logout();
 
@@ -120,7 +118,6 @@ class AuthController extends Controller
                 ], 403);
             }
 
->>>>>>> fb64eb7397dcfbbeb57f1e50b66e61df95954003
             $request->session()->regenerate();
 
             return response()->json([

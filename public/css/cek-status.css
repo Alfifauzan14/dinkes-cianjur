@@ -1,0 +1,573 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ── Wrapper ──────────────────────────────────────────────────── */
+.cs-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding-top: 103px;
+    box-sizing: border-box;
+}
+
+/* ── Header ───────────────────────────────────────────────────── */
+.cs-header {
+    background-color: #006045;
+    padding: 52px 0 48px;
+    box-sizing: border-box;
+}
+
+.cs-header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.cs-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: color 0.2s;
+}
+.cs-back-link .material-icons { font-size: 18px; }
+.cs-back-link:hover { color: #ffffff; }
+
+.cs-header-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 12px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.cs-header-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 760px;
+}
+
+/* ── Main ─────────────────────────────────────────────────────── */
+.cs-main {
+    flex: 1;
+    padding: 48px 0 80px;
+    box-sizing: border-box;
+}
+
+.cs-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* ── Alert ────────────────────────────────────────────────────── */
+.cs-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+.cs-alert .material-icons { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.cs-alert-success {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    color: #166534;
+}
+.cs-alert-error {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: #991B1B;
+}
+
+/* ── Info Box ─────────────────────────────────────────────────── */
+.cs-info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(0, 153, 102, 0.07);
+    border: 1px solid rgba(0, 153, 102, 0.25);
+    border-radius: 3px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 14px;
+    color: #1A4035;
+    line-height: 1.6;
+}
+.cs-info-box .material-icons {
+    font-size: 20px;
+    color: #009966;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.cs-info-box p { margin: 0; }
+.cs-info-box strong { color: #006045; }
+
+/* ── Search Card ──────────────────────────────────────────────── */
+.cs-card {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 1px;
+    padding: 40px;
+    box-shadow: 0 0 35px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+    margin-bottom: 24px;
+}
+
+.cs-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.cs-step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    background: #009966;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cs-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0 0 4px;
+}
+
+.cs-card-desc {
+    font-size: 14px;
+    color: #64748B;
+    margin: 0;
+}
+
+/* ── Fields ───────────────────────────────────────────────────── */
+.cs-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cs-field-group { display: flex; flex-direction: column; gap: 6px; }
+
+.cs-field-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1E293B;
+}
+.cs-req  { color: #EF4444; }
+
+.cs-field-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+    font-size: 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #1E293B;
+    background: #FFFFFF;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    outline: none;
+}
+.cs-field-input:focus {
+    border-color: #009966;
+    box-shadow: 0 0 0 3px rgba(0,153,102,0.1);
+}
+.cs-field-input.is-error {
+    border-color: #EF4444;
+}
+
+.cs-field-err  { font-size: 12px; color: #EF4444; }
+
+/* ── Prefix wrap ──────────────────────────────────────────────── */
+.cs-field-prefix-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.cs-field-prefix {
+    position: absolute;
+    left: 14px;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+.cs-field-prefix .material-icons { font-size: 18px; color: #94A3B8; }
+.cs-field-input.has-prefix { padding-left: 44px; }
+
+/* ── Cek Button ───────────────────────────────────────────────── */
+.cs-cek-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 3px;
+    background: #009966;
+    color: #FFFFFF;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    box-sizing: border-box;
+}
+.cs-cek-btn:hover    { background: #007A52; }
+.cs-cek-btn:active   { transform: scale(0.98); }
+.cs-cek-btn:disabled { background: #94A3B8; cursor: not-allowed; transform: none; }
+.cs-cek-btn .material-icons { font-size: 18px; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.cs-spinning { animation: spin 1s linear infinite; display: inline-flex; }
+
+/* ── Warning Alert ────────────────────────────────────────────── */
+.cs-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 3px;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: #991B1B;
+    animation: slideDown 0.3s ease;
+}
+.cs-warning .material-icons { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+/* ── Status Hero ──────────────────────────────────────────────── */
+.cs-status-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 32px 24px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+    animation: slideDown 0.4s ease;
+}
+.cs-status-hero.pending {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+    border: 1px solid #FCD34D;
+}
+.cs-status-hero.disetujui {
+    background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+    border: 1px solid #6EE7B7;
+}
+.cs-status-hero.ditolak {
+    background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+    border: 1px solid #FCA5A5;
+}
+
+.cs-status-hero-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+.cs-status-hero.pending .cs-status-hero-icon {
+    background: #FCD34D;
+    color: #92400E;
+}
+.cs-status-hero.disetujui .cs-status-hero-icon {
+    background: #6EE7B7;
+    color: #065F46;
+}
+.cs-status-hero.ditolak .cs-status-hero-icon {
+    background: #FCA5A5;
+    color: #991B1B;
+}
+.cs-status-hero-icon .material-icons { font-size: 32px; }
+
+.cs-status-hero-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748B;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cs-status-hero-text {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0;
+}
+.cs-status-hero.pending .cs-status-hero-text   { color: #92400E; }
+.cs-status-hero.disetujui .cs-status-hero-text { color: #065F46; }
+.cs-status-hero.ditolak .cs-status-hero-text   { color: #991B1B; }
+
+.cs-status-hero-date {
+    font-size: 13px;
+    color: #94A3B8;
+    margin-top: 8px;
+}
+
+/* ── Detail Cards ─────────────────────────────────────────────── */
+.cs-detail-section {
+    margin-bottom: 24px;
+    animation: slideDown 0.4s ease;
+}
+
+.cs-detail-section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #009966;
+}
+.cs-detail-section-header .material-icons {
+    font-size: 22px;
+    color: #009966;
+}
+.cs-detail-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+}
+
+.cs-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+}
+
+.cs-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cs-detail-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cs-detail-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1E293B;
+    word-break: break-word;
+}
+
+.cs-detail-value.full-width {
+    grid-column: 1 / -1;
+}
+
+.cs-detail-value-block {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1E293B;
+    line-height: 1.6;
+    background: #F8FAFC;
+    padding: 14px 16px;
+    border-left: 4px solid #009966;
+    border-radius: 0 3px 3px 0;
+    white-space: pre-wrap;
+}
+
+/* ── Tanggapan Card ───────────────────────────────────────────── */
+.cs-tanggapan-card {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 1px;
+    padding: 32px 40px;
+    box-shadow: 0 0 35px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    border-left: 4px solid #009966;
+    animation: slideDown 0.4s ease;
+}
+
+.cs-tanggapan-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.cs-tanggapan-header .material-icons {
+    font-size: 22px;
+    color: #009966;
+}
+.cs-tanggapan-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+}
+
+.cs-tanggapan-text {
+    font-size: 15px;
+    color: #1E293B;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    margin-bottom: 16px;
+}
+
+.cs-tanggapan-file {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+}
+.cs-tanggapan-file-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    background: #009966;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.cs-tanggapan-file-info {
+    flex: 1;
+    min-width: 0;
+}
+.cs-tanggapan-file-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1E293B;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cs-tanggapan-file-hint {
+    font-size: 12px;
+    color: #94A3B8;
+}
+.cs-tanggapan-file-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border: 1px solid #009966;
+    border-radius: 3px;
+    background: #FFFFFF;
+    color: #009966;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+.cs-tanggapan-file-link:hover {
+    background: #009966;
+    color: #FFFFFF;
+}
+.cs-tanggapan-file-link .material-icons { font-size: 16px; }
+
+/* ── KTP Preview ──────────────────────────────────────────────── */
+.cs-ktp-wrap {
+    margin-top: 8px;
+}
+.cs-ktp-img {
+    max-height: 220px;
+    border-radius: 3px;
+    object-fit: cover;
+    border: 1px solid #E2E8F0;
+}
+.cs-ktp-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #009966;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.cs-ktp-link:hover { color: #007A52; }
+.cs-ktp-link .material-icons { font-size: 16px; }
+
+/* ── Badge helpers ────────────────────────────────────────────── */
+.cs-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #E2E8F0;
+    color: #475569;
+}
+
+/* ── Animations ───────────────────────────────────────────────── */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .cs-header-container,
+    .cs-container { padding: 0 32px; }
+}
+
+@media (max-width: 768px) {
+    .cs-wrapper { padding-top: 80px; }
+
+    .cs-header { padding: 36px 0 32px; }
+    .cs-header-container { padding: 0 24px; }
+    .cs-header-title { font-size: 30px; }
+
+    .cs-main { padding: 32px 0 60px; }
+    .cs-container { padding: 0 20px; }
+
+    .cs-card { padding: 24px 20px; }
+    .cs-tanggapan-card { padding: 24px 20px; }
+
+    .cs-detail-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    .cs-status-hero-text { font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+    .cs-header-container,
+    .cs-container { padding: 0 16px; }
+
+    .cs-header-title { font-size: 26px; }
+}

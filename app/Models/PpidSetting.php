@@ -35,6 +35,7 @@ class PpidSetting extends Model
         'tautan_items',
         'tata_cara_items',
         'tata_cara_image',
+        'email_ppid',
     ];
 
     protected $casts = [

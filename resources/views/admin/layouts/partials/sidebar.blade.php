@@ -304,39 +304,26 @@
                     </ul>
                 </li>
 
-                {{-- Layanan PPID dropdown --}}
-                <li class="nav-item has-treeview {{ request()->routeIs('admin.ppid.*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->routeIs('admin.ppid.*') ? 'active' : '' }}">
+                {{-- Layanan PPID --}}
+                @php $ppidActive = request()->routeIs('admin.ppid.permohonan.*') || request()->routeIs('admin.ppid.keberatan.*'); @endphp
+                <li class="nav-item has-treeview {{ $ppidActive ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $ppidActive ? 'active' : '' }}">
                         <span class="material-icons nav-icon">help_outline</span>
                         <p>Layanan PPID <i class="right fas fa-angle-right"></i></p>
                     </a>
-                    <ul class="nav nav-treeview pl-3">
+                    <ul class="nav nav-treeview pl-3" @style(['display: block' => $ppidActive, 'display: none' => !$ppidActive])>
                         <li class="nav-item">
-                            <a href="{{ route('admin.ppid.edit', ['section' => 'informasi']) }}"
-                               class="nav-link {{ request()->routeIs('admin.ppid.*') && request('section', 'informasi') === 'informasi' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">toc</span>
-                                <p>Informasi Publik</p>
+                            <a href="{{ route('admin.ppid.permohonan.index') }}"
+                               class="nav-link {{ request()->routeIs('admin.ppid.permohonan.*') ? 'active' : '' }}">
+                                <span class="material-icons nav-icon">assignment</span>
+                                <p>Permohonan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.ppid.edit', ['section' => 'statistik']) }}"
-                               class="nav-link {{ request()->routeIs('admin.ppid.*') && request('section') === 'statistik' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">view_quilt</span>
-                                <p>Statistik PPID</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.ppid.edit', ['section' => 'tautan']) }}"
-                               class="nav-link {{ request()->routeIs('admin.ppid.*') && request('section') === 'tautan' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">link</span>
-                                <p>Tautan Publik</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.ppid.edit', ['section' => 'tatacara']) }}"
-                               class="nav-link {{ request()->routeIs('admin.ppid.*') && request('section') === 'tatacara' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">playlist_add_check</span>
-                                <p>Tata Cara &amp; Aksi</p>
+                            <a href="{{ route('admin.ppid.keberatan.index') }}"
+                               class="nav-link {{ request()->routeIs('admin.ppid.keberatan.*') ? 'active' : '' }}">
+                                <span class="material-icons nav-icon">report_problem</span>
+                                <p>Keberatan</p>
                             </a>
                         </li>
                     </ul>

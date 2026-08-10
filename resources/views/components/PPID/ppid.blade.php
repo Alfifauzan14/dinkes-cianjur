@@ -36,7 +36,7 @@
                     </div>
                     <h3 class="card-title">Ajukan Permohonan</h3>
                     <p class="card-desc">Gunakan layanan ini untuk meminta informasi publik yang belum tersedia.</p>
-                    <a href="{{ $ppid->btn_daftar_url ?: '#' }}" class="card-btn">
+                    <a href="{{ route('permohonan') }}" class="card-btn">
                         <span>Buat Permohonan</span>
                         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -60,7 +60,7 @@
                     </div>
                     <h3 class="card-title">Ajukan Keberatan</h3>
                     <p class="card-desc">Sampaikan keberatan bila proses atau hasil permohonan belum sesuai.</p>
-                    <a href="{{ $ppid->btn_login_url ?: '#' }}" class="card-btn">
+                    <a href="{{ route('keberatan') }}" class="card-btn">
                         <span>Ajukan Keberatan</span>
                         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -79,7 +79,7 @@
                     </div>
                     <h3 class="card-title">Cek Status</h3>
                     <p class="card-desc">Pantau perkembangan permohonan informasi yang sudah Anda kirim.</p>
-                    <a href="{{ $ppid->btn_login_url ?: '#' }}" class="card-btn">
+                    <a href="{{ route('cek-status') }}" class="card-btn">
                         <span>Cek Status</span>
                         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>

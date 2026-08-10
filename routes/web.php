@@ -11,7 +11,8 @@ use App\Http\Controllers\Admin\LabkesdaController as AdminLabkesdaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananTerpaduController as AdminLayananTerpaduController;
 use App\Http\Controllers\Admin\PagodaSehatController;
-use App\Http\Controllers\Admin\PpidController as AdminPpidController;
+use App\Http\Controllers\Admin\PpidKeberatanController;
+use App\Http\Controllers\Admin\PpidPermohonanController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\RegulasiController;
 use App\Http\Controllers\Admin\SettingFooterController;
@@ -40,6 +41,13 @@ Route::get('/profil/tentang-dinkes', [ProfileController::class, 'index'])->name(
 Route::get('/profil/visi-misi', [ProfileController::class, 'visiMisi'])->name('profil.visi-misi');
 Route::get('/profil/struktur-organisasi', [ProfileController::class, 'strukturOrganisasi'])->name('profil.struktur-organisasi');
 Route::get('/ppid', [PPIDController::class, 'index'])->name('ppid');
+Route::get('/permohonan', [PPIDController::class, 'permohonan'])->name('permohonan');
+Route::post('/permohonan', [PPIDController::class, 'storePermohonan'])->name('permohonan.store');
+Route::get('/keberatan', [PPIDController::class, 'keberatan'])->name('keberatan');
+Route::post('/keberatan/cek', [PPIDController::class, 'cekPermohonan'])->name('keberatan.cek');
+Route::post('/keberatan', [PPIDController::class, 'storeKeberatan'])->name('keberatan.store');
+Route::get('/cek-status', [PPIDController::class, 'cekStatus'])->name('cek-status');
+Route::post('/cek-status', [PPIDController::class, 'cekStatusApi'])->name('cek-status.api');
 Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
 Route::get('/api/agenda-by-date', [HomeController::class, 'agendaByDate'])->name('agenda.by_date');
 
@@ -216,8 +224,14 @@ Route::resource('/admin/kecamatan', KecamatanController::class, [
     ],
 ])->middleware('auth');
 
-Route::get('/admin/ppid', [AdminPpidController::class, 'edit'])->middleware('auth')->name('admin.ppid.edit');
-Route::put('/admin/ppid', [AdminPpidController::class, 'update'])->middleware('auth')->name('admin.ppid.update');
+Route::get('/admin/ppid-permohonan', [PpidPermohonanController::class, 'index'])->middleware('auth')->name('admin.ppid.permohonan.index');
+Route::get('/admin/ppid-permohonan/{id}', [PpidPermohonanController::class, 'show'])->middleware('auth')->name('admin.ppid.permohonan.show');
+Route::put('/admin/ppid-permohonan/email', [PpidPermohonanController::class, 'updateEmail'])->middleware('auth')->name('admin.ppid.permohonan.update-email');
+Route::put('/admin/ppid-permohonan/{id}/status', [PpidPermohonanController::class, 'updateStatus'])->middleware('auth')->name('admin.ppid.permohonan.update-status');
+
+Route::get('/admin/ppid-keberatan', [PpidKeberatanController::class, 'index'])->middleware('auth')->name('admin.ppid.keberatan.index');
+Route::get('/admin/ppid-keberatan/{id}', [PpidKeberatanController::class, 'show'])->middleware('auth')->name('admin.ppid.keberatan.show');
+Route::put('/admin/ppid-keberatan/{id}/status', [PpidKeberatanController::class, 'updateStatus'])->middleware('auth')->name('admin.ppid.keberatan.update-status');
 
 Route::get('/admin/profil', [AdminProfileController::class, 'edit'])->middleware('auth')->name('admin.profil.edit');
 Route::put('/admin/profil', [AdminProfileController::class, 'update'])->middleware('auth')->name('admin.profil.update');
