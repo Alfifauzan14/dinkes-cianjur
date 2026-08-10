@@ -97,6 +97,11 @@ class StatistikController extends Controller
                 'stunting_subtitle' => 'required|string|max:255',
                 'stunting_years' => 'nullable|array',
                 'stunting_balita_stunt' => 'nullable|array',
+                'stunting_rates' => 'nullable|array',
+                'stunting_total_balitas' => 'nullable|array',
+                'stunting_wilayah_terendahs' => 'nullable|array',
+                'stunting_wilayah_tertinggis' => 'nullable|array',
+                'stunting_catatans' => 'nullable|array',
                 'highlighted_year' => 'nullable|integer',
             ];
         } elseif ($section === 'nakes') {
@@ -148,12 +153,22 @@ class StatistikController extends Controller
                         $balitaStunt = (int) ($request->stunting_balita_stunt[$index] ?? 0);
                         $isHighlighted = ($yearInt === (int) $request->highlighted_year);
 
+                        $rate = (float) ($request->stunting_rates[$index] ?? 0.0);
+                        $totalBalita = ! empty($request->stunting_total_balitas[$index]) ? (int) $request->stunting_total_balitas[$index] : null;
+                        $terendah = ! empty($request->stunting_wilayah_terendahs[$index]) ? $request->stunting_wilayah_terendahs[$index] : null;
+                        $tertinggi = ! empty($request->stunting_wilayah_tertinggis[$index]) ? $request->stunting_wilayah_tertinggis[$index] : null;
+                        $catatan = ! empty($request->stunting_catatans[$index]) ? $request->stunting_catatans[$index] : null;
+
                         StuntingRecord::updateOrCreate(
                             ['year' => $yearInt],
                             [
                                 'balita_stunting' => $balitaStunt,
                                 'is_highlighted' => $isHighlighted,
-                                'rate' => 0.0,
+                                'rate' => $rate,
+                                'total_balita' => $totalBalita,
+                                'wilayah_terendah' => $terendah,
+                                'wilayah_tertinggi' => $tertinggi,
+                                'catatan' => $catatan,
                             ]
                         );
 

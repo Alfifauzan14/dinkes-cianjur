@@ -30,11 +30,7 @@
                             @foreach($homeGaleris as $galeri)
                                 <div class="galeri-slide {{ $loop->first ? 'active' : '' }}">
                                     <a href="{{ route('media.galeri-kegiatan.show', $galeri->slug) }}" class="media-card large-card">
-                                        @if(file_exists(public_path('uploads/galeri/' . $galeri->image)))
-                                            <img src="{{ asset('uploads/galeri/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image" loading="lazy">
-                                        @else
-                                            <img src="{{ asset('images/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="card-image" loading="lazy">
-                                        @endif
+                                        <img src="{{ $galeri->thumbnail_url }}" alt="{{ $galeri->title }}" class="card-image" loading="lazy">
                                         <div class="card-overlay"></div>
                                         <div class="badge-container">
                                             <span class="badge badge-program">{{ $galeri->category }}</span>

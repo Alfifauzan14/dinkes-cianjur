@@ -129,6 +129,11 @@
                                              aria-label="Detail stunting tahun {{ $record->year }}"
                                              data-year="{{ $record->year }}"
                                              data-stunting="{{ $record->balita_stunting ?? '' }}"
+                                             data-rate="{{ $record->rate ?? '0.0' }}"
+                                             data-total-balita="{{ $record->total_balita ?? '' }}"
+                                             data-terendah="{{ $record->wilayah_terendah ?? '' }}"
+                                             data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
+                                             data-catatan="{{ $record->catatan ?? '' }}"
                                              data-prev="{{ $prevStuntingStr }}"
                                              onclick="updateStuntingDetail(this)"
                                              onkeydown="if(event.key==='Enter')updateStuntingDetail(this)">
@@ -168,12 +173,32 @@
                                     <span class="detail-stat-label">Jumlah Bayi Stunting</span>
                                     <span id="detail-stunting" class="detail-stat-val detail-stat-val-danger">—</span>
                                 </div>
+                                <div class="detail-stat-item">
+                                    <span class="detail-stat-label">Prevalensi Stunting</span>
+                                    <span id="detail-rate" class="detail-stat-val" style="color: #009966;">—</span>
+                                </div>
                             </div>
                             
                             <div class="detail-list" style="margin-top: 4px;">
-                                <div class="detail-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px; border: none;">
+                                <div class="detail-list-row">
+                                    <span class="detail-list-label">Total Balita</span>
+                                    <span id="detail-total-balita" class="detail-list-val">—</span>
+                                </div>
+                                <div class="detail-list-row">
+                                    <span class="detail-list-label">Prevalensi Terendah</span>
+                                    <span id="detail-terendah" class="detail-list-val">—</span>
+                                </div>
+                                <div class="detail-list-row">
+                                    <span class="detail-list-label">Prevalensi Tertinggi</span>
+                                    <span id="detail-tertinggi" class="detail-list-val">—</span>
+                                </div>
+                                <div class="detail-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px;">
                                     <span class="detail-list-label">Perbandingan Tren</span>
                                     <span id="detail-diff" class="detail-list-val" style="font-size: 13px;">—</span>
+                                </div>
+                                <div class="detail-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px; border: none; padding-bottom: 0;">
+                                    <span class="detail-list-label">Catatan Intervensi</span>
+                                    <p id="detail-catatan" class="detail-list-val" style="font-size: 13px; font-weight: 400; color: #475569; line-height: 1.5; margin: 0; text-align: left; width: 100%;">—</p>
                                 </div>
                             </div>
 
@@ -225,6 +250,11 @@
 
                 const year     = el.dataset.year;
                 const stunting = el.dataset.stunting;
+                const rate     = el.dataset.rate;
+                const total    = el.dataset.totalBalita;
+                const terendah = el.dataset.terendah;
+                const tertinggi = el.dataset.tertinggi;
+                const catatan  = el.dataset.catatan;
                 const prev     = el.dataset.prev;
 
                 const detailCard = document.getElementById('stunting-detail-card');
@@ -233,6 +263,11 @@
                 setTimeout(() => {
                     document.getElementById('detail-year').textContent = year;
                     document.getElementById('detail-stunting').textContent = stunting ? Number(stunting).toLocaleString('id-ID') + ' Balita' : '—';
+                    document.getElementById('detail-rate').textContent = rate && rate !== '0' && rate !== '0.0' ? rate + '%' : '—';
+                    document.getElementById('detail-total-balita').textContent = total && total !== '0' ? Number(total).toLocaleString('id-ID') + ' Balita' : '—';
+                    document.getElementById('detail-terendah').textContent = terendah || '—';
+                    document.getElementById('detail-tertinggi').textContent = tertinggi || '—';
+                    document.getElementById('detail-catatan').textContent = catatan || '—';
                     
                     const diffEl = document.getElementById('detail-diff');
                     

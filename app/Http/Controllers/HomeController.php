@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -47,12 +48,7 @@ class HomeController extends Controller
             ->orderBy('time_start', 'asc')
             ->get();
 
-        $indonesianMonthsShort = [
-            1 => 'JANUARI', 2 => 'FEBRUARI', 3 => 'MARET', 4 => 'APRIL',
-            5 => 'MEI', 6 => 'JUNI', 7 => 'JULI', 8 => 'AGUSTUS',
-            9 => 'SEPTEMBER', 10 => 'OKTOBER', 11 => 'NOVEMBER', 12 => 'DESEMBER',
-        ];
-        $currentDateLabel = $selectedDate->format('d').' '.$indonesianMonthsShort[$selectedDate->format('n')].' '.$selectedDate->format('Y');
+        $currentDateLabel = Str::upper($selectedDate->locale('id')->translatedFormat('d F Y'));
 
         $prevDate = $selectedDate->copy()->subDay()->format('Y-m-d');
         $nextDate = $selectedDate->copy()->addDay()->format('Y-m-d');
@@ -106,12 +102,7 @@ class HomeController extends Controller
             ->orderBy('time_start', 'asc')
             ->get(['id', 'title', 'time_start', 'time_end', 'location', 'description']);
 
-        $indonesianMonthsShort = [
-            1 => 'JANUARI', 2 => 'FEBRUARI', 3 => 'MARET', 4 => 'APRIL',
-            5 => 'MEI', 6 => 'JUNI', 7 => 'JULI', 8 => 'AGUSTUS',
-            9 => 'SEPTEMBER', 10 => 'OKTOBER', 11 => 'NOVEMBER', 12 => 'DESEMBER',
-        ];
-        $currentDateLabel = $selectedDate->format('d').' '.$indonesianMonthsShort[$selectedDate->format('n')].' '.$selectedDate->format('Y');
+        $currentDateLabel = Str::upper($selectedDate->locale('id')->translatedFormat('d F Y'));
 
         $prevDate = $selectedDate->copy()->subDay()->format('Y-m-d');
         $nextDate = $selectedDate->copy()->addDay()->format('Y-m-d');

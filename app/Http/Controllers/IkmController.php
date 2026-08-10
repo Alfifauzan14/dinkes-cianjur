@@ -18,7 +18,7 @@ class IkmController extends Controller
         // Validasi
         $request->validate([
             'name' => 'nullable|string|max:255',
-            'whatsapp' => 'nullable|numeric',
+            'whatsapp' => 'nullable|string|max:50',
             'rating' => 'required|in:sangat_puas,puas,cukup,kurang',
             'description' => 'nullable|string',
         ]);

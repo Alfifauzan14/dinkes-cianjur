@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\GaleriController;
-use App\Http\Controllers\Admin\HeaderSettingController;
 use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\InfografisController as AdminInfografisController;
 use App\Http\Controllers\Admin\JenisFaskesController;
@@ -197,6 +196,9 @@ Route::get('/admin/faskes-export', [FaskesController::class, 'exportCsv'])->midd
 Route::post('/admin/faskes-import', [FaskesController::class, 'importCsv'])->middleware('auth')->name('admin.faskes.import');
 
 Route::resource('/admin/jenis-faskes', JenisFaskesController::class, [
+    'parameters' => [
+        'jenis-faskes' => 'jenisFaskes',
+    ],
     'names' => [
         'index' => 'admin.jenis-faskes.index',
         'store' => 'admin.jenis-faskes.store',
@@ -211,14 +213,6 @@ Route::resource('/admin/kecamatan', KecamatanController::class, [
         'store' => 'admin.kecamatan.store',
         'update' => 'admin.kecamatan.update',
         'destroy' => 'admin.kecamatan.destroy',
-    ],
-])->middleware('auth');
-
-Route::resource('/admin/headers', HeaderSettingController::class, [
-    'only' => ['index', 'update'],
-    'names' => [
-        'index' => 'admin.headers.index',
-        'update' => 'admin.headers.update',
     ],
 ])->middleware('auth');
 
@@ -296,7 +290,7 @@ Route::resource('/admin/users', UserController::class, [
         'update' => 'admin.users.update',
         'destroy' => 'admin.users.destroy',
     ],
-])->middleware('auth');
+])->middleware(['auth', 'admin.access']);
 
-Route::post('/admin/users/{user}/reset-password', [UserController::class, 'resetPassword'])->middleware('auth')->name('admin.users.reset-password');
-Route::post('/admin/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->middleware('auth')->name('admin.users.toggle-active');
+Route::post('/admin/users/{user}/reset-password', [UserController::class, 'resetPassword'])->middleware(['auth', 'admin.access'])->name('admin.users.reset-password');
+Route::post('/admin/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->middleware(['auth', 'admin.access'])->name('admin.users.toggle-active');

@@ -66,6 +66,15 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            if (! Auth::user()->is_active) {
+                Auth::logout();
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Akun Anda dinonaktifkan. Silakan hubungi administrator.',
+                ], 403);
+            }
+
             $request->session()->regenerate();
 
             return response()->json(['success' => true]);

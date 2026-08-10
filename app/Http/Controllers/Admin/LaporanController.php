@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class LaporanController extends Controller
 {
@@ -29,7 +30,11 @@ class LaporanController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string|in:Laporan Kinerja,Laporan Keuangan,Informasi Publik',
+            'category' => [
+                'required',
+                'string',
+                Rule::exists('kategoris', 'nama')->where('type', 'laporan'),
+            ],
             'file_document' => 'required|file|mimes:pdf|max:10240', // max 10MB
             'release_date' => 'required|date',
         ]);
@@ -69,7 +74,11 @@ class LaporanController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string|in:Laporan Kinerja,Laporan Keuangan,Informasi Publik',
+            'category' => [
+                'required',
+                'string',
+                Rule::exists('kategoris', 'nama')->where('type', 'laporan'),
+            ],
             'file_document' => 'nullable|file|mimes:pdf|max:10240',
             'release_date' => 'required|date',
         ]);
