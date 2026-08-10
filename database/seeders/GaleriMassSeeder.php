@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Galeri;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class GaleriMassSeeder extends Seeder
 {
@@ -82,6 +83,7 @@ class GaleriMassSeeder extends Seeder
 
         foreach ($galeriData as $i => $data) {
             $data['image'] = $images[$i % 2];
+            $data['slug'] = Str::slug($data['title']);
 
             Galeri::updateOrCreate(
                 ['title' => $data['title']],

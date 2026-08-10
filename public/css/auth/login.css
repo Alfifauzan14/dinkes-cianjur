@@ -1,12 +1,14 @@
 /* ================================================================
-   LOGIN SECTION CSS (Split-Screen Layout)
+   LOGIN SECTION CSS (Split-Screen Layout & Double-Gatekeeper)
    Font      : Plus Jakarta Sans
-   Warna     : Hijau #00BC7D (Hover: #009A66), Dark #065F46
-   Radius    : 8px (Input/Btn), 12px (Card Wrapper)
-   Shadow    : 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)
+   Warna     : Hijau Utama #004F3B, Aksen #009966 (Hover: #007A52)
+   Radius    : 1px (Card luar), 3px (Card dalam / Element), 6px (Input/Btn)
+   Shadow    : 0 10px 30px rgba(0, 0, 0, 0.08)
    ================================================================ */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -14,18 +16,22 @@
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #F3F4F6; /* Background luar abu-abu terang */
+    background-color: #0F172A;
+    /* Modern dark background */
+    background-image:
+        radial-gradient(at 0% 0%, rgba(0, 153, 102, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 79, 59, 0.25) 0px, transparent 50%);
     color: #1F2937;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 24px;
 }
 
 .login-page-wrapper {
     width: 100%;
-    max-width: 980px;
+    max-width: 1040px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,19 +39,20 @@ body {
 
 .login-split-card {
     background: #FFFFFF;
-    border-radius: 12px; /* Card Wrapper: 12px */
+    border-radius: 12px;
     display: flex;
     width: 100%;
-    min-height: 600px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    min-height: 640px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     overflow: hidden;
+    position: relative;
 }
 
-/* ── Left Side: Visual Panel (Green Background) ─────────────── */
+/* ── Left Side: Visual Panel (Green Gradient) ─────────────── */
 .login-visual-panel {
     width: 45%;
-    background: linear-gradient(145deg, #00BC7D 0%, #009A66 60%, #007A52 100%);
-    padding: 48px;
+    background: linear-gradient(145deg, #004F3B 0%, #007A52 50%, #009966 100%);
+    padding: 56px 48px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -54,100 +61,104 @@ body {
     color: #FFFFFF;
 }
 
-/* ── CSS-Only Decorative Elements ── */
-
-/* Orb blur di kiri atas */
+/* Decorative Orbs & Dot Grid */
 .vp-orb {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
 }
+
 .vp-orb-1 {
-    width: 280px;
-    height: 280px;
-    top: -80px;
-    right: -80px;
-    background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 70%);
-}
-.vp-orb-2 {
-    width: 200px;
-    height: 200px;
-    bottom: 220px;
-    left: -60px;
-    background: radial-gradient(circle, rgba(0,90,60,0.4) 0%, rgba(0,90,60,0) 70%);
+    width: 320px;
+    height: 320px;
+    top: -100px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
 }
 
-/* Dot grid pattern (CSS background) */
+.vp-orb-2 {
+    width: 240px;
+    height: 240px;
+    bottom: 180px;
+    left: -80px;
+    background: radial-gradient(circle, rgba(0, 153, 102, 0.4) 0%, rgba(0, 153, 102, 0) 70%);
+}
+
 .vp-dot-grid {
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
-    background-size: 28px 28px;
-    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.6) 70%, transparent 100%);
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
 }
 
-/* ── Header Block ── */
 .visual-header {
     z-index: 10;
     position: relative;
 }
 
-/* Eyebrow — label kecil di atas judul */
 .vp-eyebrow {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vp-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: #009966;
+    border-radius: 1px;
 }
 
 .visual-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 48px;
+    font-size: 44px;
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.1;
     margin-bottom: 20px;
-    letter-spacing: -1.5px;
-    color: #ffffff;
+    letter-spacing: -1.2px;
+    color: #FFFFFF;
 }
 
 .visual-desc {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
-    line-height: 1.75;
-    color: rgba(255, 255, 255, 0.78);
-    max-width: 300px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 320px;
 }
 
-/* ── Quote Block ── */
 .visual-quote {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-style: italic;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     z-index: 10;
     position: relative;
-    margin-bottom: 310px;
-    line-height: 1.7;
-    max-width: 290px;
-    padding-top: 16px;
+    margin-bottom: 240px;
+    line-height: 1.6;
+    max-width: 300px;
+    padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* 5-Layer Wave styles */
+/* 5-Layer Wave SVG */
 .waves-decor {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 340px;
+    height: 320px;
     pointer-events: none;
     z-index: 1;
 }
@@ -161,61 +172,98 @@ body {
 
 .wave-1 {
     height: 100px;
-    opacity: 1; /* Menggunakan fill-opacity="0.2" bawaan HTML */
 }
 
 .wave-2 {
-    height: 160px; /* Selisih 50px dari wave-1 (tidak berdekatan) */
-    opacity: 1;
+    height: 150px;
 }
 
 .wave-3 {
-    height: 220px; /* Selisih 50px dari wave-2 */
-    opacity: 1;
+    height: 200px;
 }
 
 .wave-4 {
-    height: 280px; /* Selisih 50px dari wave-3 */
-    opacity: 1;
+    height: 260px;
 }
 
 .wave-5 {
-    height: 340px; /* Selisih 50px dari wave-4 (Sangat tinggi) */
-    opacity: 1;
+    height: 320px;
 }
 
-/* ── Right Side: Form Panel (White Background) ────────────── */
+/* ── Right Side: Form Panel ───────────────────────────────── */
 .login-form-panel {
     width: 55%;
-    padding: 64px 56px;
+    padding: 56px 48px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: #FFFFFF;
+    position: relative;
+}
+
+/* Step Badge Indicator */
+.step-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    padding: 6px 14px 6px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #016639;
+    margin-bottom: 16px;
+    width: fit-content;
+    box-shadow: 0 1px 3px rgba(0, 79, 59, 0.06);
+}
+
+.step-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #009966;
+    box-shadow: 0 0 0 2px rgba(0, 153, 102, 0.2);
+    animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 0.6;
+    }
 }
 
 .form-header {
-    margin-bottom: 36px;
+    margin-bottom: 32px;
 }
 
 .form-title {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 800;
-    color: #111827;
+    color: #004F3B;
     margin-bottom: 8px;
     letter-spacing: -0.5px;
 }
 
 .form-subtitle {
-    font-size: 15px;
-    color: #9CA3AF;
+    font-size: 14px;
+    color: #64748B;
     font-weight: 500;
 }
 
 .main-login-form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
 }
 
 .input-group {
@@ -225,36 +273,68 @@ body {
 }
 
 .input-group label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: #374151;
+    color: #1E293B;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    color: #94A3B8;
+    font-size: 20px !important;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    color: #94A3B8;
+    font-size: 20px !important;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+    color: #009966;
 }
 
 .input-wrapper input {
     width: 100%;
-    border: 1px solid #D1D5DB;
-    border-radius: 6px; /* Input rounded: 6px */
-    padding: 14px 16px;
-    font-size: 15px;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    padding: 13px 44px 13px 44px;
+    /* Icon padding */
+    font-size: 14px;
     font-family: inherit;
     outline: none;
-    background: #FFFFFF;
-    color: #111827;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: #F8FAFC;
+    color: #0F172A;
+    transition: all 0.2s ease;
     box-sizing: border-box;
 }
 
-.input-wrapper input::placeholder {
-    color: #9CA3AF;
+.input-wrapper input:focus {
+    border-color: #009966;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(0, 153, 102, 0.12);
 }
 
-.input-wrapper input:focus {
-    border-color: #00BC7D;
-    box-shadow: 0 0 0 3px rgba(0, 188, 125, 0.08);
+.input-wrapper input:focus~.input-icon {
+    color: #009966;
 }
 
 .error-border input {
     border-color: #EF4444 !important;
+    background: #FEF2F2 !important;
 }
 
 .field-error {
@@ -262,14 +342,16 @@ body {
     font-weight: 600;
     color: #EF4444;
     margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-/* Checkbox & Forgot Password options */
 .form-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: -4px;
+    margin-top: -2px;
 }
 
 .remember-me {
@@ -277,166 +359,252 @@ body {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    color: #4B5563;
+    color: #475569;
 }
 
 .remember-me input {
-    accent-color: #00BC7D;
+    accent-color: #009966;
     width: 16px;
     height: 16px;
     cursor: pointer;
 }
 
 .forgot-password {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: #00BC7D;
+    color: #009966;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .forgot-password:hover {
-    color: #009A66;
+    color: #004F3B;
 }
 
-/* Submit Button */
+/* Primary Button */
 .submit-btn {
-    background-color: #00BC7D;
+    background: #009966;
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 700;
-    padding: 16px;
+    padding: 14px 20px;
     border: none;
-    border-radius: 6px; /* Button rounded: 6px */
+    border-radius: 6px;
     cursor: pointer;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     width: 100%;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    box-sizing: border-box;
-    box-shadow: 0 4px 12px rgba(0, 188, 125, 0.1);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0, 153, 102, 0.25);
 }
 
 .submit-btn:hover {
-    background-color: #009A66;
+    background: #007A52;
+    box-shadow: 0 6px 18px rgba(0, 153, 102, 0.35);
 }
 
 .submit-btn:active {
     transform: scale(0.99);
 }
 
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Spinner Icon */
+.btn-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #FFFFFF;
+    animation: spin 0.8s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .form-footer {
     font-size: 12px;
-    color: #9CA3AF;
+    color: #94A3B8;
     font-weight: 500;
     text-align: center;
-    margin-top: 32px;
+    margin-top: 24px;
 }
 
-/* ── Responsive Viewports ───────────────────────────────────── */
-@media (max-width: 840px) {
-    .login-split-card {
-        flex-direction: column;
-        min-height: auto;
-    }
-    .login-visual-panel {
-        width: 100%;
-        height: 280px;
-        padding: 32px;
-    }
-    .visual-title {
-        font-size: 28px;
-    }
-    .visual-quote {
-        display: none; /* Sembunyikan quote di layar kecil */
-    }
-    .login-form-panel {
-        width: 100%;
-        padding: 40px 32px;
-    }
-}
-
-/* ── Lapis 1: Gatekeeper Overlay ────────────────────────────── */
+/* ── Lapis 1: Gatekeeper Security Modal Overlay ────────────── */
 .gate-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(17, 24, 39, 0.85); /* Sleek dark glass overlay */
-    backdrop-filter: blur(10px);
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    transition: opacity 0.4s ease;
+    padding: 20px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .gate-overlay.fade-out {
     opacity: 0;
+    transform: scale(0.96);
     pointer-events: none;
 }
 
 .gate-card {
     background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 1px; /* Card terluar: 1px */
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 12px;
     width: 100%;
     max-width: 440px;
-    padding: 40px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 36px 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gate-card-top-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #009966;
 }
 
 .gate-header {
     text-align: center;
 }
 
-.gate-lock-icon {
-    font-size: 48px !important;
-    color: #EF4444;
-    margin-bottom: 12px;
-    display: inline-block;
+.gate-icon-badge {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 153, 102, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 12px auto 16px auto;
+    color: #009966;
+}
+
+.gate-icon-badge span {
+    font-size: 32px !important;
 }
 
 .gate-title {
     font-size: 24px;
     font-weight: 800;
-    color: #111827;
-    margin: 0 0 6px 0;
+    color: #004F3B;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
 }
 
 .gate-subtitle {
-    font-size: 14px;
-    color: #6B7280;
-    margin: 0;
+    font-size: 13px;
+    color: #64748B;
+    font-weight: 500;
 }
 
-.gate-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.error-msg {
+.alert-banner {
     display: none;
+    padding: 12px 14px;
+    border-radius: 6px;
     font-size: 13px;
     font-weight: 600;
-    color: #EF4444;
+    line-height: 1.5;
     text-align: center;
 }
 
-/* Animations */
+.alert-banner.error {
+    background: #FEF2F2;
+    border: 1px solid #FCA5A5;
+    color: #991B1B;
+}
+
+.alert-banner.success {
+    background: #F0FDF4;
+    border: 1px solid #86EFAC;
+    color: #166534;
+}
+
+/* Shake Animation */
 .shake {
     animation: shake-anim 0.5s ease;
 }
 
 @keyframes shake-anim {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-8px); }
-    40%, 80% { transform: translateX(8px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-8px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(8px);
+    }
+}
+
+/* Responsive Viewports */
+@media (max-width: 840px) {
+    .login-split-card {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .login-visual-panel {
+        width: 100%;
+        height: 260px;
+        padding: 32px 24px;
+    }
+
+    .visual-title {
+        font-size: 28px;
+    }
+
+    .visual-quote {
+        display: none;
+    }
+
+    .login-form-panel {
+        width: 100%;
+        padding: 36px 24px;
+    }
+}
+
+.login-visual-panel {
+    width: 100%;
+    padding: 32px 24px;
+}
+
+.visual-title {
+    font-size: 24px;
+}
+
+.login-form-panel {
+    width: 100%;
+    padding: 32px 24px;
 }

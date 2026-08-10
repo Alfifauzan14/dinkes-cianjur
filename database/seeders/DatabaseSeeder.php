@@ -208,6 +208,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($galeriData as $data) {
+            $data['slug'] = Str::slug($data['title']);
             Galeri::updateOrCreate(
                 ['title' => $data['title']],
                 $data
