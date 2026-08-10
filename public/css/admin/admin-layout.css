@@ -379,6 +379,46 @@ label {
 .btn-action-success { color: #059669 !important; background-color: #D1FAE5 !important; border-color: #A7F3D0 !important; }
 .btn-action-success:hover { background-color: #A7F3D0 !important; border-color: #6EE7B7 !important; color: #064E3B !important; }
 
+/* Minimalist Action Buttons */
+.btn-action-minimal {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background-color: transparent !important;
+    border: none !important;
+    color: #64748B !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    padding: 0 !important;
+}
+.btn-action-minimal:hover {
+    transform: scale(1.1);
+}
+.btn-action-minimal-edit:hover {
+    color: #009966 !important;
+    background-color: #E6F7F0 !important;
+}
+.btn-action-minimal-reset:hover {
+    color: #0284C7 !important;
+    background-color: #E0F2FE !important;
+}
+.btn-action-minimal-warning:hover {
+    color: #D97706 !important;
+    background-color: #FEF3C7 !important;
+}
+.btn-action-minimal-success:hover {
+    color: #059669 !important;
+    background-color: #D1FAE5 !important;
+}
+.btn-action-minimal-delete:hover {
+    color: #DC2626 !important;
+    background-color: #FEE2E2 !important;
+}
+
 
 /* ── Edit / Save update buttons ─────────────────────────────────────────── */
 .btn-success-dark   { background-color: #007A52 !important; border-color: #007A52 !important; color: #ffffff !important; }

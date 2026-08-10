@@ -51,41 +51,41 @@
                                 @endif
                             </td>
                             <td class="text-center align-middle" style="white-space:nowrap;">
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle d-inline-flex align-items-center" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="gap: 4px; border-radius: 6px;">
-                                        <span class="material-icons" style="font-size: 16px;">more_vert</span> Aksi
+                                <div class="btn-action-group" style="justify-content: center; gap: 8px;">
+                                    {{-- Edit Pengguna --}}
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn-action-minimal btn-action-minimal-edit" title="Edit Pengguna">
+                                        <span class="material-icons">edit</span>
+                                    </a>
+
+                                    {{-- Reset Password --}}
+                                    <button type="button" class="btn-action-minimal btn-action-minimal-reset" title="Reset Password" data-toggle="modal" data-target="#modalResetPassword{{ $user->id }}">
+                                        <span class="material-icons">lock_reset</span>
                                     </button>
-                                    <div class="dropdown-menu dropdown-menu-right" style="border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); border: 1px solid #E2E8F0;">
-                                        <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.users.edit', $user) }}" style="gap: 8px; padding: 8px 16px;">
-                                            <span class="material-icons text-primary" style="font-size: 18px;">edit</span> Edit Pengguna
-                                        </a>
-                                        <button type="button" class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#modalResetPassword{{ $user->id }}" style="gap: 8px; padding: 8px 16px; border: none; background: none; width: 100%; text-align: left;">
-                                            <span class="material-icons text-info" style="font-size: 18px;">lock_reset</span> Reset Password
-                                        </button>
-                                        <div class="dropdown-divider"></div>
-                                        @if($user->is_active)
-                                            <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" id="toggle-user-{{ $user->id }}" class="d-none">
-                                                @csrf @method('POST')
-                                            </form>
-                                            <button type="button" class="dropdown-item d-flex align-items-center text-warning" onclick="confirmAction('Nonaktifkan Pengguna?', 'Status akun {{ $user->name }} akan dinonaktifkan.', function() { document.getElementById('toggle-user-{{ $user->id }}').submit(); }, '<span class=\'material-icons\' style=\'font-size:16px;vertical-align:middle;\'>block</span> Nonaktifkan', '#ffc107', 'warning')" style="gap: 8px; padding: 8px 16px; border: none; background: none; width: 100%; text-align: left;">
-                                                <span class="material-icons">block</span> Nonaktifkan Akun
-                                            </button>
-                                        @else
-                                            <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" id="toggle-user-{{ $user->id }}" class="d-none">
-                                                @csrf @method('POST')
-                                            </form>
-                                            <button type="button" class="dropdown-item d-flex align-items-center text-success" onclick="confirmAction('Aktifkan Pengguna?', 'Status akun {{ $user->name }} akan diaktifkan kembali.', function() { document.getElementById('toggle-user-{{ $user->id }}').submit(); }, '<span class=\'material-icons\' style=\'font-size:16px;vertical-align:middle;\'>check_circle</span> Aktifkan', '#009966', 'question')" style="gap: 8px; padding: 8px 16px; border: none; background: none; width: 100%; text-align: left;">
-                                                <span class="material-icons">check_circle</span> Aktifkan Akun
-                                            </button>
-                                        @endif
-                                        <div class="dropdown-divider"></div>
-                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" id="del-user-{{ $user->id }}" class="d-none">
-                                            @csrf @method('DELETE')
+
+                                    {{-- Toggle Status Aktif/Nonaktif --}}
+                                    @if($user->is_active)
+                                        <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" id="toggle-user-{{ $user->id }}" class="d-none">
+                                            @csrf @method('POST')
                                         </form>
-                                        <button type="button" class="dropdown-item d-flex align-items-center text-danger font-weight-bold" onclick="confirmDelete('del-user-{{ $user->id }}')" style="gap: 8px; padding: 8px 16px; border: none; background: none; width: 100%; text-align: left;">
-                                            <span class="material-icons">delete</span> Hapus Pengguna
+                                        <button type="button" class="btn-action-minimal btn-action-minimal-warning" title="Nonaktifkan Akun" onclick="confirmAction('Nonaktifkan Pengguna?', 'Status akun {{ $user->name }} akan dinonaktifkan.', function() { document.getElementById('toggle-user-{{ $user->id }}').submit(); }, '<span class=\'material-icons\' style=\'font-size:16px;vertical-align:middle;\'>block</span> Nonaktifkan', '#ffc107', 'warning')">
+                                            <span class="material-icons">block</span>
                                         </button>
-                                    </div>
+                                    @else
+                                        <form action="{{ route('admin.users.toggle-active', $user) }}" method="POST" id="toggle-user-{{ $user->id }}" class="d-none">
+                                            @csrf @method('POST')
+                                        </form>
+                                        <button type="button" class="btn-action-minimal btn-action-minimal-success" title="Aktifkan Akun" onclick="confirmAction('Aktifkan Pengguna?', 'Status akun {{ $user->name }} akan diaktifkan kembali.', function() { document.getElementById('toggle-user-{{ $user->id }}').submit(); }, '<span class=\'material-icons\' style=\'font-size:16px;vertical-align:middle;\'>check_circle</span> Aktifkan', '#009966', 'question')">
+                                            <span class="material-icons">check_circle</span>
+                                        </button>
+                                    @endif
+
+                                    {{-- Hapus Pengguna --}}
+                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" id="del-user-{{ $user->id }}" class="d-none">
+                                        @csrf @method('DELETE')
+                                    </form>
+                                    <button type="button" class="btn-action-minimal btn-action-minimal-delete" title="Hapus Pengguna" onclick="confirmDelete('del-user-{{ $user->id }}')">
+                                        <span class="material-icons">delete</span>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
