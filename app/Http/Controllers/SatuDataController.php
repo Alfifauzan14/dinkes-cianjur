@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faskes;
+use App\Models\Kecamatan;
 use App\Models\Laporan;
+use App\Models\LayananTerpadu;
 use App\Models\Regulasi;
 use App\Models\StatistikSetting;
 use App\Models\StuntingRecord;
@@ -20,7 +23,20 @@ class SatuDataController extends Controller
         $stuntingRecords = StuntingRecord::orderBy('year', 'asc')->get();
         $maxRate = $stuntingRecords->max('balita_stunting') ?: 1;
 
-        return view('statistik', compact('setting', 'stuntingRecords', 'maxRate'));
+        $puskesmasCount = Faskes::where('type', 'Puskesmas')->count();
+        $rsCount = Faskes::where('type', 'Rumah Sakit')->count();
+        $kecamatanCount = Kecamatan::count();
+        $layananCount = LayananTerpadu::count();
+
+        return view('statistik', compact(
+            'setting',
+            'stuntingRecords',
+            'maxRate',
+            'puskesmasCount',
+            'rsCount',
+            'kecamatanCount',
+            'layananCount'
+        ));
     }
 
     /**

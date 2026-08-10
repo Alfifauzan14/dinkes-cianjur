@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faskes;
+use App\Models\Kecamatan;
+use App\Models\LayananTerpadu;
 use App\Models\StatistikSetting;
 use App\Models\StuntingRecord;
 use Illuminate\Http\RedirectResponse;
@@ -68,12 +71,19 @@ class StatistikController extends Controller
 
         $stuntingRecords = StuntingRecord::orderBy('year', 'asc')->get();
 
-        $section = $request->query('section', 'indikator');
-        if (! in_array($section, ['indikator', 'stunting', 'nakes', 'sebaran'])) {
-            $section = 'indikator';
-        }
+        $puskesmasCount = Faskes::where('type', 'Puskesmas')->count();
+        $rsCount = Faskes::where('type', 'Rumah Sakit')->count();
+        $kecamatanCount = Kecamatan::count();
+        $layananCount = LayananTerpadu::count();
 
-        return view('admin.statistik.'.$section, compact('setting', 'stuntingRecords'));
+        return view('admin.statistik.index', compact(
+            'setting',
+            'stuntingRecords',
+            'puskesmasCount',
+            'rsCount',
+            'kecamatanCount',
+            'layananCount'
+        ));
     }
 
     /**

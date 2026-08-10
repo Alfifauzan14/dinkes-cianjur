@@ -183,47 +183,13 @@
                 {{-- ── DATA & REGULASI ─────────────────────────────── --}}
                 <li class="nav-header">DATA & REGULASI</li>
 
-                {{-- Data & Statistik dropdown --}}
-                <li class="nav-item has-treeview {{ request()->routeIs('admin.satudata.statistik.*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
+                {{-- Data & Statistik --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.satudata.statistik.edit') }}"
+                       class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">bar_chart</span>
-                        <p>Data & Statistik <i class="right fas fa-angle-right"></i></p>
+                        <p>Data & Statistik</p>
                     </a>
-                    <ul class="nav nav-treeview pl-3">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'indikator']) }}"
-                               class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section', 'indikator') === 'indikator' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">show_chart</span>
-                                <p>Indikator Utama</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'stunting']) }}"
-                               class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'stunting' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">trending_down</span>
-                                <p>Tren Stunting</p>
-                            </a>
-                        </li>
-                        {{-- HIDDEN: Distribusi Nakes
-                        <li class="nav-item">
-                            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'nakes']) }}"
-                               class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'nakes' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">people</span>
-                                <p>Distribusi Nakes</p>
-                            </a>
-                        </li>
-                        --}}
-
-                        {{-- HIDDEN: Sebaran Puskesmas
-                        <li class="nav-item">
-                            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'sebaran']) }}"
-                               class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'sebaran' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">explore</span>
-                                <p>Sebaran Puskesmas</p>
-                            </a>
-                        </li>
-                        --}}
-                    </ul>
                 </li>
 
                 <li class="nav-item">

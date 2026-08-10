@@ -29,28 +29,81 @@
 
             <!-- 4 Stat Cards Row -->
             <div class="stat-cards-grid">
-                @php
-                    $cardIcons = ['local_hospital', 'corporate_fare', 'people', 'vaccines', 'medical_services', 'healing', 'monitor_health', 'biotech'];
-                @endphp
-                @foreach($setting->indikator_data ?? [] as $idx => $card)
-                    <div class="stat-card">
-                        <div class="stat-card-header">
-                            <span class="stat-card-label">{{ $card['name'] }}</span>
-                        </div>
-                        <div class="stat-card-body-wrap">
-                            <div class="stat-card-number">{{ $card['num'] }}</div>
-                            <div class="stat-card-icon-wrapper">
-                                <span class="material-icons">{{ $cardIcons[$idx] ?? 'indicator' }}</span>
-                            </div>
-                        </div>
-                        <div class="stat-card-caption caption-accent">
-                            <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>{{ $card['caption'] }}</span>
+                <!-- Card 1: Puskesmas -->
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-label">PUSKESMAS</span>
+                    </div>
+                    <div class="stat-card-body-wrap">
+                        <div class="stat-card-number">{{ $puskesmasCount ?? 0 }}</div>
+                        <div class="stat-card-icon-wrapper">
+                            <span class="material-icons">local_hospital</span>
                         </div>
                     </div>
-                @endforeach
+                    <div class="stat-card-caption caption-accent">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Tersebar di seluruh wilayah Cianjur</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Rumah Sakit -->
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-label">RUMAH SAKIT</span>
+                    </div>
+                    <div class="stat-card-body-wrap">
+                        <div class="stat-card-number">{{ $rsCount ?? 0 }}</div>
+                        <div class="stat-card-icon-wrapper">
+                            <span class="material-icons">corporate_fare</span>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Fasilitas rujukan kesehatan utama</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Wilayah Binaan -->
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-label">WILAYAH BINAAN</span>
+                    </div>
+                    <div class="stat-card-body-wrap">
+                        <div class="stat-card-number">{{ $kecamatanCount ?? 0 }}</div>
+                        <div class="stat-card-icon-wrapper">
+                            <span class="material-icons">explore</span>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Kecamatan di Kabupaten Cianjur</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Layanan Publik -->
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-label">LAYANAN PUBLIK</span>
+                    </div>
+                    <div class="stat-card-body-wrap">
+                        <div class="stat-card-number">{{ $layananCount ?? 0 }}</div>
+                        <div class="stat-card-icon-wrapper">
+                            <span class="material-icons">assignment</span>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Jenis layanan terpadu Dinas Kesehatan</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Chart Card: Tren Penurunan Prevalensi Stunting -->
