@@ -23,7 +23,7 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->orderBy('created_at', 'desc')->paginate(15);
+        $users = $query->orderBy('created_at', 'asc')->paginate(15);
 
         $gatekeeperUsername = Setting::get('gatekeeper_username', config('services.gatekeeper.username', 'admin'));
         $gatekeeperPassword = Setting::get('gatekeeper_password', config('services.gatekeeper.password', 'dinkes2026'));
