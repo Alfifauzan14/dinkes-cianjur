@@ -12,17 +12,17 @@
         </span>
         <div class="d-flex flex-wrap align-items-center" style="gap: 12px;">
             <form action="{{ route('admin.users.index') }}" method="GET" class="d-flex align-items-center" style="margin: 0; gap: 8px;">
-                <div class="input-group input-group-sm" style="width: 240px;">
-                    <input type="text" name="search" class="form-control" placeholder="Cari nama atau email..." value="{{ request('search') }}" style="border-radius: 3px 0 0 3px;">
+                <div class="input-group" style="width: 240px;">
+                    <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari nama atau email..." value="{{ request('search') }}">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-default" style="border-radius: 0 3px 3px 0; border: 1px solid #ced4da; border-left: none;">
-                            <span class="material-icons" style="font-size: 16px; vertical-align: middle;">search</span>
+                        <button type="submit" class="btn btn-sm btn-success d-flex align-items-center" style="border: none;">
+                            <span class="material-icons" style="font-size: 18px;">search</span>
                         </button>
                     </div>
                 </div>
                 @if(request('search'))
-                    <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-secondary" title="Bersihkan Pencarian">
-                        <span class="material-icons" style="font-size: 16px; vertical-align: middle;">clear</span>
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-secondary d-flex align-items-center" title="Bersihkan Pencarian" style="height: 31px;">
+                        <span class="material-icons" style="font-size: 18px;">clear</span>
                     </a>
                 @endif
             </form>
