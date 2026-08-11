@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ asset('css/layouts/footer.css') }}?v={{ time() }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <footer class="dinkes-footer" role="contentinfo">
     <div class="footer-main">
