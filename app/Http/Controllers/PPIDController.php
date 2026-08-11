@@ -36,7 +36,7 @@ class PPIDController extends Controller
             'nama_pemohon' => ['required', 'string', 'max:255'],
             'nik' => ['required', 'numeric', 'digits:16'],
             'no_hp' => ['required', 'regex:/^[0-9]{10,13}$/'],
-            'email' => ['nullable', 'email', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
             'pekerjaan' => ['required', 'string', 'max:255'],
             'cara_memperoleh' => ['required', 'string', 'in:email,mengambil_langsung'],
             'cara_informasi' => ['nullable', 'string', 'in:melihat,mendengarkan,membaca,mencatat'],
@@ -57,6 +57,8 @@ class PPIDController extends Controller
             'nik.numeric' => 'NIK harus 16 digit angka.',
             'no_hp.required' => 'Nomor HP wajib diisi.',
             'no_hp.regex' => 'Nomor HP harus berupa angka dan antara 10-13 digit.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
             'pekerjaan.required' => 'Pekerjaan wajib diisi.',
             'cara_memperoleh.required' => 'Cara memperoleh informasi wajib dipilih.',
             'alamat.required' => 'Alamat lengkap wajib diisi.',
@@ -74,7 +76,7 @@ class PPIDController extends Controller
             $ktpPath = $request->file('foto_ktp')->store('ppid/ktp', 'public');
         }
 
-        PpidPermohonan::create([
+        $permohonan = PpidPermohonan::create([
             'nama_pemohon' => $request->nama_pemohon,
             'nik' => $request->nik,
             'no_hp' => $request->no_hp,
@@ -94,7 +96,8 @@ class PPIDController extends Controller
         ]);
 
         return redirect()->route('permohonan')
-            ->with('success', 'Permohonan informasi Anda berhasil dikirim. Kami akan memproses dalam 10 hari kerja dan menghubungi Anda melalui nomor HP yang terdaftar.');
+            ->with('success', 'Permohonan informasi Anda berhasil dikirim.')
+            ->with('permohonan_token', $permohonan->token);
     }
 
     /**

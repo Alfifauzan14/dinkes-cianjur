@@ -104,13 +104,13 @@
                                 </div>
 
                                 <div class="field-group">
-                                    <label class="field-label" for="email">Email <span class="opt">(Opsional)</span></label>
+                                    <label class="field-label" for="email">Email <span class="req">*</span></label>
                                     <div class="field-prefix-wrap">
                                         <span class="field-prefix"><span class="material-icons">email</span></span>
                                         <input type="email" id="email" name="email"
                                             class="field-input has-prefix @error('email') is-error @enderror"
                                             placeholder="email@contoh.com"
-                                            value="{{ old('email') }}">
+                                            value="{{ old('email') }}" required>
                                     </div>
                                     @error('email')<span class="field-err">{{ $message }}</span>@enderror
                                 </div>
@@ -348,6 +348,61 @@
         </main>
     </div>
 
+
+    @if(session('permohonan_token'))
+    {{-- Modal Pop-up Token --}}
+    <div class="token-modal-overlay active" id="tokenModalOverlay">
+        <div class="token-modal-card">
+            <div class="token-modal-icon-wrap">
+                <span class="material-icons">check_circle</span>
+            </div>
+            <h3 class="token-modal-title">Permohonan Berhasil!</h3>
+            <p class="token-modal-desc">Simpan atau catat <strong>Token Permohonan</strong> berikut untuk melakukan pengecekan status permohonan Anda.</p>
+            
+            <div class="token-display-box">
+                <span class="token-code" id="tokenCodeText">{{ session('permohonan_token') }}</span>
+                <button type="button" class="btn-copy-token" id="btnCopyToken">
+                    <span class="material-icons">content_copy</span> <span id="copyText">Salin</span>
+                </button>
+            </div>
+
+            <p class="token-note">* Notifikasi status permohonan juga telah dikirimkan ke alamat email Anda.</p>
+
+            <div class="token-modal-actions">
+                <button type="button" class="btn-modal-close" id="btnCloseTokenModal">Mengerti & Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var copyBtn = document.getElementById('btnCopyToken');
+        var tokenText = document.getElementById('tokenCodeText');
+        var copyLabel = document.getElementById('copyText');
+        var closeBtn = document.getElementById('btnCloseTokenModal');
+        var overlay = document.getElementById('tokenModalOverlay');
+
+        if (copyBtn && tokenText) {
+            copyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(tokenText.textContent.trim()).then(function() {
+                    copyLabel.textContent = 'Tersalin!';
+                    copyBtn.style.background = '#004F3B';
+                    setTimeout(function() {
+                        copyLabel.textContent = 'Salin';
+                        copyBtn.style.background = '#009966';
+                    }, 2000);
+                });
+            });
+        }
+
+        if (closeBtn && overlay) {
+            closeBtn.addEventListener('click', function() {
+                overlay.classList.remove('active');
+            });
+        }
+    });
+    </script>
+    @endif
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
