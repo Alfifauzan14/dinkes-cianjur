@@ -104,13 +104,16 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-2" style="gap: 8px;">
-                                <span class="color-dot" style="background: {{ $kat->warna }};"></span>
+                                <span class="color-dot" @style(['background-color: ' . $kat->warna])></span>
                                 <code style="font-size:12px;color:var(--text-secondary);">{{ $kat->warna }}</code>
                             </div>
                         </td>
                         <td>
-                            <span class="badge-preview" style="background: {{ $kat->warna }}20; color: {{ $kat->warna }};">
-                                <span class="color-dot" style="background: {{ $kat->warna }};"></span>
+                            <span class="badge-preview" @style([
+                                'background-color: ' . $kat->warna . '20',
+                                'color: ' . $kat->warna
+                            ])>
+                                <span class="color-dot" @style(['background-color: ' . $kat->warna])></span>
                                 {{ $kat->nama }}
                             </span>
                         </td>
@@ -118,7 +121,11 @@
                             <div class="btn-action-group">
                                 <button class="btn-action btn-action-edit"
                                     title="Edit"
-                                    onclick="openEditModal({{ $kat->id }}, '{{ addslashes($kat->nama) }}', '{{ $kat->type }}', '{{ $kat->warna }}')"
+                                    data-id="{{ $kat->id }}"
+                                    data-nama="{{ $kat->nama }}"
+                                    data-type="{{ $kat->type }}"
+                                    data-warna="{{ $kat->warna }}"
+                                    onclick="openEditModal(this.dataset.id, this.dataset.nama, this.dataset.type, this.dataset.warna)"
                                 >
                                     <span class="material-icons" style="font-size:15px;">edit</span>
                                 </button>

@@ -15,6 +15,7 @@ class PpidKeberatanMail extends Mailable
     use Queueable, SerializesModels;
 
     public PpidKeberatan $keberatan;
+
     public ?string $fromEmail;
 
     /**

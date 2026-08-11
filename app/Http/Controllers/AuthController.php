@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -44,12 +45,12 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $expectedUsername = (string) config('services.gatekeeper.username', 'admin');
-        $expectedPassword = (string) config('services.gatekeeper.password', 'dinkes2026');
+        $expectedUsername = Setting::get('gatekeeper_username', config('services.gatekeeper.username', 'admin'));
+        $expectedPassword = Setting::get('gatekeeper_password', config('services.gatekeeper.password', 'dinkes2026'));
 
         // Mencegah timing attack dengan hash_equals
-        $isUsernameValid = hash_equals($expectedUsername, (string) $request->username);
-        $isPasswordValid = hash_equals($expectedPassword, (string) $request->password);
+        $isUsernameValid = hash_equals((string) $expectedUsername, (string) $request->username);
+        $isPasswordValid = hash_equals((string) $expectedPassword, (string) $request->password);
 
         if ($isUsernameValid && $isPasswordValid) {
             RateLimiter::clear($throttleKey);

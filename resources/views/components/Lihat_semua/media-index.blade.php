@@ -10,13 +10,7 @@
     <!-- Header Banner -->
     <header class="mediaindex-header">
         <div class="mediaindex-header-container">
-            <div class="mediaindex-breadcrumb">
-                <a href="{{ route('home') }}">Beranda</a>
-                <span class="mediaindex-breadcrumb-sep">
-                    <span class="material-icons">chevron_right</span>
-                </span>
-                <span>Media</span>
-            </div>
+
             <h1 class="mediaindex-header-title">{{ $header->title }}</h1>
             <p class="mediaindex-header-subtitle">{{ $header->subtitle }}</p>
         </div>

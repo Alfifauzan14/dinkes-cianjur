@@ -27,29 +27,7 @@
     overflow: hidden;
 }
 
-.mediaindex-header::before {
-    content: '';
-    position: absolute;
-    top: -60px;
-    right: -60px;
-    width: 360px;
-    height: 360px;
-    border-radius: 50%;
-    background: rgba(0, 153, 102, 0.12);
-    pointer-events: none;
-}
 
-.mediaindex-header::after {
-    content: '';
-    position: absolute;
-    bottom: -80px;
-    left: 40%;
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.04);
-    pointer-events: none;
-}
 
 .mediaindex-header-container {
     max-width: 1280px;

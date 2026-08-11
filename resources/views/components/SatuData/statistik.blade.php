@@ -21,67 +21,120 @@
                     <span class="satudata-category-tag">Satu Data Kesehatan</span>
                     <h2 class="satudata-section-title">Dashboard Indikator Utama</h2>
                 </div>
-                <div class="satudata-status-badge">
-                    <span class="status-dot"></span>
-                    <span class="status-text">{{ $setting->status_badge }}</span>
-                </div>
+                @if(!empty($setting->status_badge))
+                    <div class="satudata-status-badge" style="border-radius: 3px !important; background: #E6F7F0; color: #009966; border: 1.5px solid #009966; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;">
+                        <span class="status-dot" style="width: 8px; height: 8px; border-radius: 50%; background-color: #009966; display: inline-block;"></span>
+                        <span class="status-text" style="font-size: 12px; font-weight: 700; color: #009966;">{{ $setting->status_badge }}</span>
+                    </div>
+                @endif
             </div>
 
             <!-- 4 Stat Cards Row -->
             <div class="stat-cards-grid">
-                @php
-                    $cardIcons = ['local_hospital', 'corporate_fare', 'people', 'vaccines', 'medical_services', 'healing', 'monitor_health', 'biotech'];
-                @endphp
-                @foreach($setting->indikator_data ?? [] as $idx => $card)
-                    <div class="stat-card">
-                        <div class="stat-card-header">
-                            <span class="stat-card-label">{{ $card['name'] }}</span>
-                        </div>
-                        <div class="stat-card-body-wrap">
-                            <div class="stat-card-number">{{ $card['num'] }}</div>
-                            <div class="stat-card-icon-wrapper">
-                                <span class="material-icons">{{ $cardIcons[$idx] ?? 'indicator' }}</span>
-                            </div>
-                        </div>
-                        <div class="stat-card-caption caption-accent">
-                            <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
+                <!-- Card 1: Puskesmas -->
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-label">PUSKESMAS</span>
+                    </div>
+                    <div class="stat-card-body-wrap">
+                        <div class="stat-card-number">{{ $puskesmasCount ?? 0 }}</div>
+                        <div class="stat-card-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="12" y1="8" x2="12" y2="16"/>
+                                <line x1="8" y1="12" x2="16" y2="12"/>
                             </svg>
-                            <span>{{ $card['caption'] }}</span>
                         </div>
                     </div>
-                @endforeach
-            </div>
-
-            <!-- Chart Card: Tren Penurunan Prevalensi Stunting -->
-            <div class="chart-card">
-                <div class="chart-header">
-                    <div class="chart-header-left">
-                        <h3 class="chart-title">{{ $setting->stunting_title }}</h3>
-                        <p class="chart-subtitle">{{ $setting->stunting_subtitle }}</p>
-                    </div>
-                    <div class="chart-header-right">
-                        <span class="trend-badge">{{ $setting->stunting_trend_badge }}</span>
+                    <div class="stat-card-caption caption-accent">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Tersebar di seluruh wilayah Cianjur</span>
                     </div>
                 </div>
 
-                <!-- Year Range Filter Tabs -->
-                @php
-                    $allYears = $stuntingRecords->pluck('year')->sort()->values();
-                    $minYear = $allYears->first();
-                    $maxYear = $allYears->last();
-                    $activeFilter = request('range', 'all');
-                @endphp
-                <div class="chart-filter-tabs" style="display: flex; gap: 0; border-bottom: 2px solid #E2E8F0; margin-bottom: 20px;">
-                    <button type="button" class="chart-filter-tab {{ $activeFilter === 'all' ? 'active' : '' }}" data-range="all" onclick="filterByRange('all', this)">
-                        Semua ({{ $minYear }}–{{ $maxYear }})
-                    </button>
-                    <button type="button" class="chart-filter-tab {{ $activeFilter === '3' ? 'active' : '' }}" data-range="3" onclick="filterByRange('3', this)">
-                        3 Tahun Terakhir
-                    </button>
-                    <button type="button" class="chart-filter-tab {{ $activeFilter === '5' ? 'active' : '' }}" data-range="5" onclick="filterByRange('5', this)">
-                        5 Tahun Terakhir
-                    </button>
+                <!-- Card 2: Rumah Sakit -->
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-label">RUMAH SAKIT</span>
+                    </div>
+                    <div class="stat-card-body-wrap">
+                        <div class="stat-card-number">{{ $rsCount ?? 0 }}</div>
+                        <div class="stat-card-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21V9a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v12"/>
+                                <path d="M2 21h20"/>
+                                <path d="M10 12h4"/>
+                                <path d="M12 10v4"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Fasilitas rujukan kesehatan utama</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Wilayah Binaan -->
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-label">WILAYAH BINAAN</span>
+                    </div>
+                    <div class="stat-card-body-wrap">
+                        <div class="stat-card-number">{{ $kecamatanCount ?? 0 }}</div>
+                        <div class="stat-card-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Kecamatan di Kabupaten Cianjur</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Layanan Publik -->
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-label">LAYANAN PUBLIK</span>
+                    </div>
+                    <div class="stat-card-body-wrap">
+                        <div class="stat-card-number">{{ $layananCount ?? 0 }}</div>
+                        <div class="stat-card-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card-caption caption-accent">
+                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Jenis layanan terpadu Dinas Kesehatan</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Card: Sebaran Fasilitas Pelayanan Kesehatan -->
+            <div class="chart-card" style="border-radius: 1px !important;">
+                <div class="chart-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-title" style="color: #004F3B;">{{ $setting->stunting_title }}</h3>
+                        <p class="chart-subtitle" style="color: #64748B;">{{ $setting->stunting_subtitle }}</p>
+                    </div>
+                    <div class="chart-header-right">
+                        <span class="trend-badge" style="border-radius: 3px !important; background: #E6F7F0; color: #009966; border: 1.5px solid #009966;">Update Otomatis</span>
+                    </div>
                 </div>
 
                 <!-- Split Dashboard Grid Layout -->
@@ -90,204 +143,139 @@
                     <div class="stunting-chart-column">
                         <div class="chart-flex-container">
                              <!-- Y-Axis Static Labels (Left) -->
-                            @php
-                                $maxRateValue = $stuntingRecords->max('balita_stunting') ?: 1;
-                                $yMax = ceil($maxRateValue / 5000) * 5000;
-                                if ($yMax < 5000) {
-                                    $yMax = 5000;
-                                }
-                            @endphp
-                            <div class="chart-y-axis-labels">
-                                <div class="chart-y-axis-labels-item"><span>{{ number_format($yMax) }}</span></div>
-                                <div class="chart-y-axis-labels-item"><span>{{ number_format($yMax * 0.75) }}</span></div>
-                                <div class="chart-y-axis-labels-item"><span>{{ number_format($yMax * 0.5) }}</span></div>
-                                <div class="chart-y-axis-labels-item"><span>{{ number_format($yMax * 0.25) }}</span></div>
-                                <div class="chart-y-axis-labels-item"><span>0</span></div>
-                            </div>
-                            
-                            <!-- Scrollable Chart Area (Right) -->
-                            <div class="stunting-chart-container">
-                                <!-- Y-Axis Grid Lines -->
-                                <div class="chart-y-axis-grid">
-                                    <div class="grid-line"></div>
-                                    <div class="grid-line"></div>
-                                    <div class="grid-line"></div>
-                                    <div class="grid-line"></div>
-                                    <div class="grid-line grid-line-solid"></div>
-                                </div>
+                             @php
+                                 $yMax = $maxFaskesCount;
+                             @endphp
+                             <div class="chart-y-axis-labels">
+                                 <div class="chart-y-axis-labels-item"><span>{{ $yMax }} Unit</span></div>
+                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.8) }}</span></div>
+                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.6) }}</span></div>
+                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.4) }}</span></div>
+                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.2) }}</span></div>
+                                 <div class="chart-y-axis-labels-item"><span>0</span></div>
+                             </div>
+                             
+                             <!-- Scrollable Chart Area (Right) -->
+                             <div class="stunting-chart-container">
+                                 <!-- Y-Axis Grid Lines -->
+                                 <div class="chart-y-axis-grid">
+                                     <div class="grid-line"></div>
+                                     <div class="grid-line"></div>
+                                     <div class="grid-line"></div>
+                                     <div class="grid-line"></div>
+                                     <div class="grid-line"></div>
+                                     <div class="grid-line grid-line-solid"></div>
+                                 </div>
 
-                                <div class="chart-bars-wrapper" id="chart-bars-wrapper">
-                                    @foreach($stuntingRecords as $index => $record)
-                                        @php
-                                            $heightPercent = $yMax > 0 ? ($record->balita_stunting / $yMax) * 100 : 0;
-                                            $prevRecord = $index > 0 ? $stuntingRecords[$index - 1] : null;
-                                            $prevStuntingStr = $prevRecord ? $prevRecord->balita_stunting : '';
-                                        @endphp
-                                        <div class="chart-bar-item {{ $record->is_highlighted ? 'bar-highlighted' : '' }}"
-                                             role="button"
-                                             tabindex="0"
-                                             aria-label="Detail stunting tahun {{ $record->year }}"
-                                             data-year="{{ $record->year }}"
-                                             data-stunting="{{ $record->balita_stunting ?? '' }}"
-                                             data-rate="{{ $record->rate ?? '0.0' }}"
-                                             data-total-balita="{{ $record->total_balita ?? '' }}"
-                                             data-terendah="{{ $record->wilayah_terendah ?? '' }}"
-                                             data-tertinggi="{{ $record->wilayah_tertinggi ?? '' }}"
-                                             data-catatan="{{ $record->catatan ?? '' }}"
-                                             data-prev="{{ $prevStuntingStr }}"
-                                             onclick="updateStuntingDetail(this)"
-                                             onkeydown="if(event.key==='Enter')updateStuntingDetail(this)">
-                                            <span class="bar-val {{ $record->is_highlighted ? 'font-bold' : '' }}">{{ number_format($record->balita_stunting) }}</span>
-                                            <div class="bar-track">
-                                                <div class="bar-fill {{ $record->is_highlighted ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%'])></div>
-                                            </div>
-                                            <span class="bar-year {{ $record->is_highlighted ? 'bar-year-active' : '' }}">
-                                                {{ $record->year }}
-                                                @if($record->is_highlighted)
-                                                    <span class="bar-year-tag-current">(Saat Ini)</span>
-                                                @endif
-                                            </span>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
+                                 <div class="chart-bars-wrapper" id="chart-bars-wrapper">
+                                     @foreach($faskesDistribution as $index => $record)
+                                         @php
+                                             $heightPercent = $maxFaskesCount > 0 ? ($record->total / $maxFaskesCount) * 100 : 0;
+                                         @endphp
+                                         <div class="chart-bar-item {{ $index === 0 ? 'bar-highlighted' : '' }}"
+                                              role="button"
+                                              tabindex="0"
+                                              aria-label="Detail faskes kecamatan {{ $record->kecamatan }}"
+                                              data-kecamatan="{{ $record->kecamatan }}"
+                                              data-total="{{ $record->total }}"
+                                              data-puskesmas="{{ $record->puskesmas }}"
+                                              data-rs="{{ $record->rs }}"
+                                              data-list="{{ $record->list ?: 'Belum ada faskes ditambahkan.' }}"
+                                              onclick="updateFaskesDetail(this)"
+                                              onkeydown="if(event.key==='Enter')updateFaskesDetail(this)">
+                                             <span class="bar-val {{ $index === 0 ? 'font-bold' : '' }}" style="border-radius: 3px !important;">{{ $record->total }}</span>
+                                             <div class="bar-track" style="border-radius: 3px 3px 0 0 !important;">
+                                                 <div class="bar-fill {{ $index === 0 ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%']) style="border-radius: 3px 3px 0 0 !important;"></div>
+                                             </div>
+                                             <span class="bar-year {{ $index === 0 ? 'bar-year-active' : '' }}" style="font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px;" title="{{ $record->kecamatan }}">
+                                                 {{ $record->kecamatan }}
+                                             </span>
+                                         </div>
+                                     @endforeach
+                                 </div>
+                             </div>
                         </div>
                         
                         <!-- Click-to-Detail Hint -->
                         <div class="chart-click-hint">
                             <span class="material-icons">touch_app</span>
-                            <span>Arahkan kursor atau klik batang grafik untuk melihat rincian data tahunan di panel samping.</span>
+                            <span>Arahkan kursor atau klik batang kecamatan untuk melihat daftar faskes di panel samping.</span>
                         </div>
                     </div>
 
                     <!-- Right Column: Interactive Details Panel -->
                     <div class="stunting-detail-column">
-                        <div id="stunting-detail-card" class="stunting-detail-card">
+                        <div id="stunting-detail-card" class="stunting-detail-card" style="border-radius: 1px !important;">
                             <div class="detail-card-header">
-                                <h4 class="detail-card-title">Rincian Indikator Stunting</h4>
-                                <span id="detail-year" class="detail-year-badge">2026</span>
+                                <h4 class="detail-card-title" id="detail-kecamatan">Kecamatan</h4>
+                                <span id="detail-total" class="detail-year-badge" style="border-radius: 3px !important;">—</span>
                             </div>
 
                             <div class="detail-stats-grid">
-                                <div class="detail-stat-item">
-                                    <span class="detail-stat-label">Jumlah Bayi Stunting</span>
-                                    <span id="detail-stunting" class="detail-stat-val detail-stat-val-danger">—</span>
+                                <div class="detail-stat-item" style="border-radius: 3px !important;">
+                                    <span class="detail-stat-label">Puskesmas</span>
+                                    <span id="detail-puskesmas" class="detail-stat-val" style="color: #004F3B;">—</span>
                                 </div>
-                                <div class="detail-stat-item">
-                                    <span class="detail-stat-label">Prevalensi Stunting</span>
-                                    <span id="detail-rate" class="detail-stat-val" style="color: #009966;">—</span>
+                                <div class="detail-stat-item" style="border-radius: 3px !important;">
+                                    <span class="detail-stat-label">Rumah Sakit</span>
+                                    <span id="detail-rs" class="detail-stat-val" style="color: #009966;">—</span>
                                 </div>
                             </div>
                             
-                            <div class="detail-list" style="margin-top: 4px;">
-                                <div class="detail-list-row">
-                                    <span class="detail-list-label">Total Balita</span>
-                                    <span id="detail-total-balita" class="detail-list-val">—</span>
-                                </div>
-                                <div class="detail-list-row">
-                                    <span class="detail-list-label">Prevalensi Terendah</span>
-                                    <span id="detail-terendah" class="detail-list-val">—</span>
-                                </div>
-                                <div class="detail-list-row">
-                                    <span class="detail-list-label">Prevalensi Tertinggi</span>
-                                    <span id="detail-tertinggi" class="detail-list-val">—</span>
-                                </div>
-                                <div class="detail-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px;">
-                                    <span class="detail-list-label">Perbandingan Tren</span>
-                                    <span id="detail-diff" class="detail-list-val" style="font-size: 13px;">—</span>
-                                </div>
-                                <div class="detail-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px; border: none; padding-bottom: 0;">
-                                    <span class="detail-list-label">Catatan Intervensi</span>
-                                    <p id="detail-catatan" class="detail-list-val" style="font-size: 13px; font-weight: 400; color: #475569; line-height: 1.5; margin: 0; text-align: left; width: 100%;">—</p>
+                            <div class="detail-list" style="margin-top: 4px; border: 1px solid #E2E8F0; border-radius: 3px !important; padding: 12px; max-height: 200px; overflow-y: auto; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px;">
+                                <span class="detail-stat-label" style="margin-bottom: 0;">Daftar Fasilitas Kesehatan:</span>
+                                <div id="detail-faskes-list" style="font-size: 13px; color: #475569; line-height: 1.5;">
+                                    —
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
-                <!-- Footer Note -->
-                <!-- <div class="chart-footer-note">
-                    {!! $setting->stunting_footer_note !!}
-                </div>
-            </div> -->
+            </div>
 
             <script>
-            function filterByRange(range, btn) {
-                // Update active tab
-                document.querySelectorAll('.chart-filter-tab').forEach(t => t.classList.remove('active'));
-                btn.classList.add('active');
-
-                const bars = document.querySelectorAll('.chart-bar-item');
-                const allYears = Array.from(bars).map(b => parseInt(b.dataset.year));
-                const maxYear = Math.max(...allYears);
-                let minShow;
-
-                if (range === 'all') {
-                    minShow = Math.min(...allYears);
-                } else {
-                    minShow = maxYear - parseInt(range) + 1;
-                }
-
-                bars.forEach(bar => {
-                    const year = parseInt(bar.dataset.year);
-                    bar.style.display = year >= minShow ? '' : 'none';
-                });
-
-                // Re-select first visible bar
-                const firstVisible = document.querySelector('.chart-bar-item:not([style*="display: none"])');
-                if (firstVisible) {
-                    updateStuntingDetail(firstVisible);
-                }
-            }
-
-            function updateStuntingDetail(el) {
+            function updateFaskesDetail(el) {
                 document.querySelectorAll('.chart-bar-item').forEach(b => {
                     b.classList.remove('bar-active-selected');
                 });
                 
                 el.classList.add('bar-active-selected');
 
-                const year     = el.dataset.year;
-                const stunting = el.dataset.stunting;
-                const rate     = el.dataset.rate;
-                const total    = el.dataset.totalBalita;
-                const terendah = el.dataset.terendah;
-                const tertinggi = el.dataset.tertinggi;
-                const catatan  = el.dataset.catatan;
-                const prev     = el.dataset.prev;
+                const kecamatan = el.dataset.kecamatan;
+                const total     = el.dataset.total;
+                const puskesmas = el.dataset.puskesmas;
+                const rs        = el.dataset.rs;
+                const list      = el.dataset.list;
 
                 const detailCard = document.getElementById('stunting-detail-card');
                 detailCard.style.opacity = '0.5';
 
                 setTimeout(() => {
-                    document.getElementById('detail-year').textContent = year;
-                    document.getElementById('detail-stunting').textContent = stunting ? Number(stunting).toLocaleString('id-ID') + ' Balita' : '—';
-                    document.getElementById('detail-rate').textContent = rate && rate !== '0' && rate !== '0.0' ? rate + '%' : '—';
-                    document.getElementById('detail-total-balita').textContent = total && total !== '0' ? Number(total).toLocaleString('id-ID') + ' Balita' : '—';
-                    document.getElementById('detail-terendah').textContent = terendah || '—';
-                    document.getElementById('detail-tertinggi').textContent = tertinggi || '—';
-                    document.getElementById('detail-catatan').textContent = catatan || '—';
+                    document.getElementById('detail-kecamatan').textContent = kecamatan;
+                    document.getElementById('detail-total').textContent = total + ' Faskes';
+                    document.getElementById('detail-puskesmas').textContent = puskesmas + ' Unit';
+                    document.getElementById('detail-rs').textContent = rs + ' Unit';
                     
-                    const diffEl = document.getElementById('detail-diff');
+                    const listContainer = document.getElementById('detail-faskes-list');
+                    listContainer.innerHTML = '';
                     
-                    if (stunting && prev) {
-                        const currentVal = Number(stunting);
-                        const prevVal = Number(prev);
-                        const diff = currentVal - prevVal;
-                        const percent = ((Math.abs(diff) / prevVal) * 100).toFixed(1);
-                        
-                        if (diff < 0) {
-                            diffEl.innerHTML = `<span style="color: #00BC7D; font-weight: 700;">&#9660; Turun ${percent}%</span> dari tahun sebelumnya.`;
-                        } else if (diff > 0) {
-                            diffEl.innerHTML = `<span style="color: #EF4444; font-weight: 700;">&#9650; Naik ${percent}%</span> dari tahun sebelumnya.`;
-                        } else {
-                            diffEl.innerHTML = `<span style="color: #64748B; font-weight: 700;">Stabil</span> dari tahun sebelumnya.`;
-                        }
-                    } else if (stunting && !prev) {
-                        diffEl.innerHTML = `<span style="color: #64748B;">Data historis tidak tersedia.</span>`;
+                    if (list && list !== 'Belum ada faskes ditambahkan.') {
+                        const items = list.split(', ');
+                        const ul = document.createElement('ul');
+                        ul.style.margin = '0';
+                        ul.style.paddingLeft = '16px';
+                        ul.style.fontSize = '13px';
+                        ul.style.color = '#475569';
+                        ul.style.lineHeight = '1.6';
+                        items.forEach(item => {
+                            const li = document.createElement('li');
+                            li.textContent = item;
+                            ul.appendChild(li);
+                        });
+                        listContainer.appendChild(ul);
                     } else {
-                        diffEl.innerHTML = '—';
+                        listContainer.textContent = 'Tidak ada faskes di kecamatan ini.';
                     }
                     
                     detailCard.style.opacity = '1';
@@ -295,14 +283,9 @@
             }
 
             document.addEventListener('DOMContentLoaded', () => {
-                const highlightedBar = document.querySelector('.chart-bar-item.bar-highlighted');
-                if (highlightedBar) {
-                    updateStuntingDetail(highlightedBar);
-                } else {
-                    const firstBar = document.querySelector('.chart-bar-item');
-                    if (firstBar) {
-                        updateStuntingDetail(firstBar);
-                    }
+                const firstBar = document.querySelector('.chart-bar-item');
+                if (firstBar) {
+                    updateFaskesDetail(firstBar);
                 }
             });
             </script>

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -98,5 +99,39 @@ class UserAdminSecurityTest extends TestCase
 
         $response = $this->actingAs($admin)->get('/admin/users');
         $response->assertStatus(200);
+    }
+
+    public function test_admin_can_update_gatekeeper_credentials(): void
+    {
+        $admin = User::factory()->create([
+            'is_active' => true,
+            'is_admin' => true,
+        ]);
+
+        $response = $this->actingAs($admin)
+            ->post('/admin/users/update-gatekeeper', [
+                'gatekeeper_username' => 'new_gate_username',
+                'gatekeeper_password' => 'new_gate_password',
+            ]);
+
+        $response->assertRedirect();
+
+        $this->assertEquals('new_gate_username', Setting::get('gatekeeper_username'));
+        $this->assertEquals('new_gate_password', Setting::get('gatekeeper_password'));
+
+        // Verify that authentication fails with old/default values now
+        $verifyResponseOld = $this->postJson('/dinkes-gatekeeper', [
+            'username' => 'admin',
+            'password' => 'dinkes2026',
+        ]);
+        $verifyResponseOld->assertStatus(401);
+
+        // Verify that authentication succeeds with the newly updated credentials
+        $verifyResponseNew = $this->postJson('/dinkes-gatekeeper', [
+            'username' => 'new_gate_username',
+            'password' => 'new_gate_password',
+        ]);
+        $verifyResponseNew->assertStatus(200);
+        $verifyResponseNew->assertJson(['success' => true]);
     }
 }

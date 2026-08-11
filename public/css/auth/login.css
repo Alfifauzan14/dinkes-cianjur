@@ -16,12 +16,11 @@
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #0F172A;
-    /* Modern dark background */
+    background-color: #F8FAFC;
     background-image:
-        radial-gradient(at 0% 0%, rgba(0, 153, 102, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(0, 79, 59, 0.25) 0px, transparent 50%);
-    color: #1F2937;
+        radial-gradient(at 0% 0%, rgba(0, 153, 102, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 79, 59, 0.08) 0px, transparent 50%);
+    color: #1E293B;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -39,164 +38,33 @@ body {
 
 .login-split-card {
     background: #FFFFFF;
-    border-radius: 12px;
+    border-radius: 1px;
+    border: 1px solid #E2E8F0;
     display: flex;
     width: 100%;
     min-height: 640px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
     overflow: hidden;
     position: relative;
 }
 
-/* ── Left Side: Visual Panel (Green Gradient) ─────────────── */
+/* ── Left Side: Visual Panel (Full-bleed illustration) ────────── */
 .login-visual-panel {
     width: 45%;
-    background: linear-gradient(145deg, #004F3B 0%, #007A52 50%, #009966 100%);
-    padding: 56px 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    background: url('/Assets/ppdi/doctor_landscape_illustration_1785205715145.png') center / cover no-repeat;
     position: relative;
     overflow: hidden;
-    color: #FFFFFF;
+    flex-shrink: 0;
 }
 
-/* Decorative Orbs & Dot Grid */
-.vp-orb {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.vp-orb-1 {
-    width: 320px;
-    height: 320px;
-    top: -100px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
-}
-
-.vp-orb-2 {
-    width: 240px;
-    height: 240px;
-    bottom: 180px;
-    left: -80px;
-    background: radial-gradient(circle, rgba(0, 153, 102, 0.4) 0%, rgba(0, 153, 102, 0) 70%);
-}
-
-.vp-dot-grid {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1.2px, transparent 1.2px);
-    background-size: 24px 24px;
-    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
-}
-
-.visual-header {
-    z-index: 10;
-    position: relative;
-}
-
-.vp-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.vp-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 2px;
-    background: #009966;
-    border-radius: 1px;
-}
-
-.visual-title {
-    font-size: 44px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    letter-spacing: -1.2px;
-    color: #FFFFFF;
-}
-
-.visual-desc {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.85);
-    max-width: 320px;
-}
-
-.visual-quote {
-    font-size: 13px;
-    font-style: italic;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
-    z-index: 10;
-    position: relative;
-    margin-bottom: 240px;
-    line-height: 1.6;
-    max-width: 300px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* 5-Layer Wave SVG */
-.waves-decor {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 320px;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.wave-svg {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
-
-.wave-1 {
-    height: 100px;
-}
-
-.wave-2 {
-    height: 150px;
-}
-
-.wave-3 {
-    height: 200px;
-}
-
-.wave-4 {
-    height: 260px;
-}
-
-.wave-5 {
-    height: 320px;
-}
-
-/* ── Right Side: Form Panel ───────────────────────────────── */
+/* ── Right Side: Form Panel ──────────────────────────── */
 .login-form-panel {
     width: 55%;
-    padding: 56px 48px;
+    padding: 48px 52px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 0;
     background: #FFFFFF;
     position: relative;
 }
@@ -243,7 +111,7 @@ body {
 }
 
 .form-header {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .form-title {
@@ -310,7 +178,7 @@ body {
 .input-wrapper input {
     width: 100%;
     border: 1px solid #CBD5E1;
-    border-radius: 6px;
+    border-radius: 3px;
     padding: 13px 44px 13px 44px;
     /* Icon padding */
     font-size: 14px;
@@ -391,7 +259,7 @@ body {
     font-weight: 700;
     padding: 14px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 3px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -438,7 +306,9 @@ body {
     color: #94A3B8;
     font-weight: 500;
     text-align: center;
-    margin-top: 24px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #F1F5F9;
 }
 
 /* ── Lapis 1: Gatekeeper Security Modal Overlay ────────────── */
@@ -467,11 +337,11 @@ body {
 .gate-card {
     background: #FFFFFF;
     border: 1px solid rgba(226, 232, 240, 0.9);
-    border-radius: 12px;
+    border-radius: 1px;
     width: 100%;
     max-width: 440px;
     padding: 36px 32px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -526,7 +396,7 @@ body {
 .alert-banner {
     display: none;
     padding: 12px 14px;
-    border-radius: 6px;
+    border-radius: 3px;
     font-size: 13px;
     font-weight: 600;
     line-height: 1.5;
@@ -577,34 +447,24 @@ body {
 
     .login-visual-panel {
         width: 100%;
-        height: 260px;
-        padding: 32px 24px;
-    }
-
-    .visual-title {
-        font-size: 28px;
-    }
-
-    .visual-quote {
-        display: none;
+        height: 280px;
     }
 
     .login-form-panel {
         width: 100%;
-        padding: 36px 24px;
+        padding: 36px 28px;
+        justify-content: flex-start;
     }
 }
 
-.login-visual-panel {
-    width: 100%;
-    padding: 32px 24px;
-}
+@media (max-width: 480px) {
+    .login-visual-panel {
+        width: 100%;
+        height: 220px;
+    }
 
-.visual-title {
-    font-size: 24px;
-}
-
-.login-form-panel {
-    width: 100%;
-    padding: 32px 24px;
+    .login-form-panel {
+        width: 100%;
+        padding: 28px 20px;
+    }
 }

@@ -308,3 +308,4 @@ Route::resource('/admin/users', UserController::class, [
 
 Route::post('/admin/users/{user}/reset-password', [UserController::class, 'resetPassword'])->middleware(['auth', 'admin.access'])->name('admin.users.reset-password');
 Route::post('/admin/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->middleware(['auth', 'admin.access'])->name('admin.users.toggle-active');
+Route::post('/admin/users/update-gatekeeper', [UserController::class, 'updateGatekeeper'])->middleware(['auth', 'admin.access'])->name('admin.users.update-gatekeeper');

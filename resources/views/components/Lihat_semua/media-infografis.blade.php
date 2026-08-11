@@ -11,13 +11,7 @@
     <!-- Header Banner -->
     <header class="infografis-header">
         <div class="infografis-header-container">
-            <div class="mediaindex-breadcrumb" style="margin-bottom: 20px;">
-                <a href="{{ route('home') }}">Beranda</a>
-                <span class="mediaindex-breadcrumb-sep"><span class="material-icons">chevron_right</span></span>
-                <a href="{{ url('/media') }}">Media</a>
-                <span class="mediaindex-breadcrumb-sep"><span class="material-icons">chevron_right</span></span>
-                <span>Infografis</span>
-            </div>
+
             <h1 class="infografis-header-title">{{ $header->title }}</h1>
             <p class="infografis-header-subtitle">{{ $header->subtitle }}</p>
         </div>

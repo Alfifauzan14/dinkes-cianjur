@@ -4,10 +4,10 @@
      ============================================================ --}}
 <aside class="main-sidebar elevation-4">
     {{-- Brand Logo --}}
-    <a href="{{ route('admin.dashboard') }}" class="brand-link">
+    <a href="{{ route('admin.dashboard') }}" class="brand-link d-flex align-items-center" style="gap: 8px;">
         <img src="{{ asset('images/logo.png') }}" alt="Logo Dinkes"
-             class="brand-image elevation-3"
-             style="opacity:.9; background:#fff; padding:2px; border-radius:3px;">
+             class="brand-image"
+             style="opacity: .95; max-height: 33px;">
         <span class="brand-text">Dinkes Cianjur</span>
     </a>
 
@@ -36,14 +36,14 @@
                     </a>
                 </li>
 
-                {{-- ── KONTEN ──────────────────────────────────────── --}}
-                <li class="nav-header">KONTEN</li>
+                {{-- ── KONTEN WEBSITE ──────────────────────────────── --}}
+                <li class="nav-header">KONTEN WEBSITE</li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.berita.index') }}"
                        class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">newspaper</span>
-                        <p>Berita</p>
+                        <p>Berita &amp; Info</p>
                     </a>
                 </li>
 
@@ -51,7 +51,7 @@
                     <a href="{{ route('admin.agenda.index') }}"
                        class="nav-link {{ request()->routeIs('admin.agenda.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">event</span>
-                        <p>Agenda</p>
+                        <p>Agenda Kegiatan</p>
                     </a>
                 </li>
 
@@ -59,7 +59,7 @@
                     <a href="{{ route('admin.galeri.index') }}"
                        class="nav-link {{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">collections</span>
-                        <p>Galeri</p>
+                        <p>Galeri Media</p>
                     </a>
                 </li>
 
@@ -67,7 +67,7 @@
                     <a href="{{ route('admin.infografis.index') }}"
                        class="nav-link {{ request()->routeIs('admin.infografis.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">bar_chart</span>
-                        <p>Infografis</p>
+                        <p>Infografis Kesehatan</p>
                     </a>
                 </li>
 
@@ -75,12 +75,12 @@
                     <a href="{{ route('admin.home-content.index') }}"
                        class="nav-link {{ request()->routeIs('admin.home-content.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">info</span>
-                        <p>Konten Beranda</p>
+                        <p>Konten Halaman Utama</p>
                     </a>
                 </li>
 
-                {{-- ── LAYANAN ─────────────────────────────────────── --}}
-                <li class="nav-header">LAYANAN</li>
+                {{-- ── LAYANAN KESEHATAN ───────────────────────────── --}}
+                <li class="nav-header">LAYANAN KESEHATAN</li>
 
                 @php
                     $stuntingProg = \App\Models\ProgramKesehatan::where('slug', 'cianjur-bebas-stunting')->first();
@@ -99,8 +99,8 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.program-kesehatan.edit', $stuntingProg->id) }}"
                                class="nav-link {{ request()->is('admin/program-kesehatan/' . $stuntingProg->id . '/edit') ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">child_care</span>
-                                <p>Cianjur Bebas Stunting</p>
+                                 <span class="material-icons nav-icon">child_care</span>
+                                 <p>Cianjur Bebas Stunting</p>
                             </a>
                         </li>
                         @endif
@@ -108,8 +108,8 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.program-kesehatan.edit', $kiaProg->id) }}"
                                class="nav-link {{ request()->is('admin/program-kesehatan/' . $kiaProg->id . '/edit') ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">pregnant_woman</span>
-                                <p>Kesehatan Ibu & Anak</p>
+                                 <span class="material-icons nav-icon">pregnant_woman</span>
+                                 <p>Kesehatan Ibu &amp; Anak (KIA)</p>
                             </a>
                         </li>
                         @endif
@@ -120,7 +120,7 @@
                     <a href="{{ route('admin.layanan.index') }}"
                        class="nav-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">widgets</span>
-                        <p>Layanan</p>
+                        <p>Layanan Terpadu</p>
                     </a>
                 </li>
 
@@ -128,7 +128,7 @@
                     <a href="{{ route('admin.labkesda.index') }}"
                        class="nav-link {{ request()->routeIs('admin.labkesda.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">science</span>
-                        <p>Labkesda</p>
+                        <p>UPTD Labkesda</p>
                     </a>
                 </li>
 
@@ -136,7 +136,7 @@
                     <a href="{{ route('admin.ikm.index') }}"
                        class="nav-link {{ request()->routeIs('admin.ikm.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">reviews</span>
-                        <p>Indeks Kepuasan</p>
+                        <p>Indeks Kepuasan (IKM)</p>
                     </a>
                 </li>
 
@@ -144,7 +144,7 @@
                     <a href="{{ route('admin.pagodasehat.index') }}"
                        class="nav-link {{ request()->routeIs('admin.pagodasehat.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">medical_services</span>
-                        <p>Pagoda Sehat</p>
+                        <p>Zonasi Pagoda Sehat</p>
                     </a>
                 </li>
 
@@ -153,7 +153,7 @@
                 <li class="nav-item has-treeview {{ $faskesActive ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ $faskesActive ? 'active' : '' }}">
                         <span class="material-icons nav-icon">location_city</span>
-                        <p>Kelola Info Faskes <i class="right fas fa-angle-right"></i></p>
+                        <p>Informasi Faskes <i class="right fas fa-angle-right"></i></p>
                     </a>
                     <ul class="nav nav-treeview pl-3">
                         <li class="nav-item">
@@ -180,57 +180,23 @@
                     </ul>
                 </li>
 
-                {{-- ── DATA & REGULASI ─────────────────────────────── --}}
-                <li class="nav-header">DATA & REGULASI</li>
+                {{-- ── DATA & REGULASI SATU DATA ───────────────────── --}}
+                <li class="nav-header">DATA &amp; REGULASI SATU DATA</li>
 
-                {{-- Data & Statistik dropdown --}}
-                <li class="nav-item has-treeview {{ request()->routeIs('admin.satudata.statistik.*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
+                {{-- Data & Statistik --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.satudata.statistik.edit') }}"
+                       class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">bar_chart</span>
-                        <p>Data & Statistik <i class="right fas fa-angle-right"></i></p>
+                        <p>Statistik Satu Data</p>
                     </a>
-                    <ul class="nav nav-treeview pl-3">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'indikator']) }}"
-                               class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section', 'indikator') === 'indikator' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">show_chart</span>
-                                <p>Indikator Utama</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'stunting']) }}"
-                               class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'stunting' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">trending_down</span>
-                                <p>Tren Stunting</p>
-                            </a>
-                        </li>
-                        {{-- HIDDEN: Distribusi Nakes
-                        <li class="nav-item">
-                            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'nakes']) }}"
-                               class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'nakes' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">people</span>
-                                <p>Distribusi Nakes</p>
-                            </a>
-                        </li>
-                        --}}
-
-                        {{-- HIDDEN: Sebaran Puskesmas
-                        <li class="nav-item">
-                            <a href="{{ route('admin.satudata.statistik.edit', ['section' => 'sebaran']) }}"
-                               class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') && request('section') === 'sebaran' ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">explore</span>
-                                <p>Sebaran Puskesmas</p>
-                            </a>
-                        </li>
-                        --}}
-                    </ul>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.laporan.index') }}"
                        class="nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">description</span>
-                        <p>Laporan Kinerja</p>
+                        <p>Laporan Kinerja (LAKIP)</p>
                     </a>
                 </li>
 
@@ -250,13 +216,13 @@
                     <a href="{{ route('admin.users.index') }}"
                        class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">people</span>
-                        <p>Manajemen Pengguna</p>
+                        <p>Kelola Akun Pengguna</p>
                     </a>
                 </li>
                 @endif
 
-                {{-- ── PENGATURAN ───────────────────────────────────── --}}
-                <li class="nav-header">PENGATURAN</li>
+                {{-- ── PENGATURAN INSTANSI ─────────────────────────── --}}
+                <li class="nav-header">PENGATURAN INSTANSI</li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.kategori.index') }}"

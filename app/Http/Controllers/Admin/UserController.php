@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -23,7 +25,10 @@ class UserController extends Controller
 
         $users = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        return view('admin.user.index', compact('users'));
+        $gatekeeperUsername = Setting::get('gatekeeper_username', config('services.gatekeeper.username', 'admin'));
+        $gatekeeperPassword = Setting::get('gatekeeper_password', config('services.gatekeeper.password', 'dinkes2026'));
+
+        return view('admin.user.index', compact('users', 'gatekeeperUsername', 'gatekeeperPassword'));
     }
 
     public function create()
@@ -90,7 +95,7 @@ class UserController extends Controller
 
     public function toggleActive(User $user)
     {
-        if ($user->id === auth()->id()) {
+        if ($user->id === Auth::id()) {
             return back()->with('error', 'Anda tidak dapat menonaktifkan akun Anda sendiri.');
         }
 
@@ -109,7 +114,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        if ($user->id === auth()->id()) {
+        if ($user->id === Auth::id()) {
             return back()->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
         }
 
@@ -123,5 +128,18 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Pengguna berhasil dihapus.');
+    }
+
+    public function updateGatekeeper(Request $request)
+    {
+        $request->validate([
+            'gatekeeper_username' => 'required|string|max:255',
+            'gatekeeper_password' => 'required|string|max:255',
+        ]);
+
+        Setting::set('gatekeeper_username', $request->input('gatekeeper_username'));
+        Setting::set('gatekeeper_password', $request->input('gatekeeper_password'));
+
+        return back()->with('success', 'Kredensial Gerbang Akses berhasil diperbarui.');
     }
 }

@@ -348,7 +348,6 @@
         </main>
     </div>
 
-    @include('layouts.footer')
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -556,5 +555,6 @@
         });
     });
     </script>
+    @include('layouts.footer')
 </body>
 </html>
