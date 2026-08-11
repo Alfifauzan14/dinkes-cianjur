@@ -4,11 +4,9 @@
      ============================================================ --}}
 <aside class="main-sidebar elevation-4">
     {{-- Brand Logo --}}
-    <a href="{{ route('admin.dashboard') }}" class="brand-link d-flex align-items-center" style="gap: 8px;">
+    <a href="{{ route('admin.dashboard') }}" class="brand-link d-flex justify-content-center align-items-center" style="padding: 12px 0;">
         <img src="{{ asset('images/logo.png') }}" alt="Logo Dinkes"
-             class="brand-image"
-             style="opacity: .95; max-height: 33px;">
-        <span class="brand-text">Dinkes Cianjur</span>
+             style="opacity: .95; max-height: 55px; width: auto;">
     </a>
 
     <div class="sidebar">

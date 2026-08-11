@@ -167,7 +167,7 @@
                             <div id="intervensiContainer">
                                 <div class="card bg-light border mb-3 intervensi-item" id="intervensi-0">
                                     <div class="card-body p-3">
-                                        <button type="button" class="close text-danger" onclick="removeIntervensi(this)" title="Hapus" style="position: absolute; right: 15px; top: 15px;">
+                                        <button type="button" class="close text-danger" onclick="removeIntervensi(this)" title="Hapus" style="position: absolute; right: 15px; top: 15px; z-index: 10; cursor: pointer;">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                         
@@ -318,7 +318,7 @@ document.getElementById('addIntervensiBtn').addEventListener('click', function()
     const html = `
     <div class="card bg-light border mb-3 intervensi-item" id="intervensi-${idx}">
         <div class="card-body p-3">
-            <button type="button" class="close text-danger" onclick="removeIntervensi(this)" title="Hapus" style="position: absolute; right: 15px; top: 15px;">
+            <button type="button" class="close text-danger" onclick="removeIntervensi(this)" title="Hapus" style="position: absolute; right: 15px; top: 15px; z-index: 10; cursor: pointer;">
                 <span aria-hidden="true">&times;</span>
             </button>
             
