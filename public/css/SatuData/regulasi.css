@@ -165,35 +165,114 @@
     background: #FFFFFF;
 }
 
-.regulasi-topic-pills {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+/* ── Filter Wrap (Dropdown) ───────────────────────────────────── */
+.regulasi-filter-wrap {
+    position: relative;
+    flex-shrink: 0;
+    overflow: visible;
+    min-width: 200px;
 }
 
-.topic-pill-btn {
+/* ── Custom Select Dropdown ───────────────────────────────────── */
+.regulasi-custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.regulasi-custom-select-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
     height: 40px;
-    padding: 0 16px;
-    border-radius: 3px;
+    padding: 0 14px;
     border: 1px solid #E2E8F0;
+    border-radius: 3px;
     background: #F8FAFC;
-    color: #475569;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 600;
+    color: #374151;
     cursor: pointer;
-    transition: all 0.2s ease;
+    box-sizing: border-box;
+    text-align: left;
+    transition: border-color 0.2s;
 }
 
-.topic-pill-btn:hover {
+.regulasi-custom-select-btn:focus,
+.regulasi-custom-select.open .regulasi-custom-select-btn {
     border-color: #009966;
+    outline: none;
+    background: #FFFFFF;
+}
+
+.regulasi-custom-select-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.regulasi-custom-select-icon {
+    width: 10px;
+    height: 6px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: #94A3B8;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.2s ease;
+}
+
+.regulasi-custom-select.open .regulasi-custom-select-icon {
+    transform: rotate(180deg);
+}
+
+.regulasi-custom-select-list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 9999;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.regulasi-custom-select.open .regulasi-custom-select-list {
+    display: block;
+}
+
+.regulasi-custom-option {
+    padding: 10px 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.regulasi-custom-option:hover {
+    background: rgba(0, 153, 102, 0.08);
     color: #009966;
 }
 
-.topic-pill-btn.active {
-    border-color: #009966;
-    background: #009966;
-    color: #FFFFFF;
+.regulasi-custom-option.selected {
+    color: #009966;
+    font-weight: 700;
+    background: rgba(0, 153, 102, 0.06);
 }
 
 /* ── Regulasi Grid List ───────────────────────────────────────── */
@@ -463,6 +542,11 @@
     }
 
     .regulasi-search-wrapper {
+        min-width: unset;
+    }
+
+    .regulasi-filter-wrap {
+        width: 100%;
         min-width: unset;
     }
 }
