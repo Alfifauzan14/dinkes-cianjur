@@ -10,7 +10,22 @@
             <span class="material-icons text-success">people</span>
             <span class="font-weight-bold card-title-label">Daftar Pengguna</span>
         </span>
-        <div class="d-flex" style="gap: 8px;">
+        <div class="d-flex flex-wrap align-items-center" style="gap: 12px;">
+            <form action="{{ route('admin.users.index') }}" method="GET" class="d-flex align-items-center" style="margin: 0; gap: 8px;">
+                <div class="input-group" style="width: 240px;">
+                    <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari nama atau email..." value="{{ request('search') }}">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-sm btn-success d-flex align-items-center" style="border: none;">
+                            <span class="material-icons" style="font-size: 18px;">search</span>
+                        </button>
+                    </div>
+                </div>
+                @if(request('search'))
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-secondary d-flex align-items-center" title="Bersihkan Pencarian" style="height: 31px;">
+                        <span class="material-icons" style="font-size: 18px;">clear</span>
+                    </a>
+                @endif
+            </form>
             <a href="{{ route('admin.users.create') }}" class="btn btn-sm btn-success">
                 <span class="material-icons" style="font-size:16px;">add</span> Tambah Pengguna
             </a>
@@ -119,9 +134,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="px-4 py-3">
-            {{ $users->links() }}
-        </div>
+        @if($users->hasPages())
+            <div class="card-footer clearfix bg-white border-top p-3">
+                <div class="float-right" style="margin: 0;">
+                    {{ $users->withQueryString()->links() }}
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 

@@ -139,19 +139,33 @@
                         <div class="ltd-workflow-list">
                             @if(!empty($service->procedures))
                                 @php
-                                    $steps = preg_split('/\n\s*\n/', trim($service->procedures));
+                                    $hasDoubleNewline = strpos($service->procedures, "\n\r\n") !== false || strpos($service->procedures, "\n\n") !== false;
+                                    if ($hasDoubleNewline) {
+                                        $steps = preg_split('/\n\s*\n/', trim($service->procedures));
+                                    } else {
+                                        $steps = explode("\n", trim($service->procedures));
+                                    }
                                     $stepIndex = 1;
                                 @endphp
                                 @foreach($steps as $stepBlock)
                                     @php
-                                        $stepLines = explode("\n", trim($stepBlock));
-                                        $title = trim($stepLines[0] ?? '');
+                                        $stepBlock = trim($stepBlock);
+                                        if (empty($stepBlock)) continue;
+                                        
+                                        if ($hasDoubleNewline) {
+                                            $stepLines = explode("\n", $stepBlock);
+                                            $title = trim($stepLines[0] ?? '');
+                                            $desc = implode("\n", array_slice($stepLines, 1));
+                                        } else {
+                                            $title = $stepBlock;
+                                            $desc = '';
+                                        }
+                                        
                                         if (empty($title)) continue;
                                         
-                                        if (!preg_match('/^\d+[\.\s]/', $title)) {
-                                            $title = $stepIndex . '. ' . $title;
-                                        }
-                                        $desc = implode("\n", array_slice($stepLines, 1));
+                                        // Clean leading numbers/bullets if already written
+                                        $title = preg_replace('/^\d+[\.\)\s\-]+/u', '', $title);
+                                        $title = $stepIndex . '. ' . $title;
                                         $stepIndex++;
                                     @endphp
                                     <div class="ltd-workflow-item">
