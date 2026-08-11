@@ -12,7 +12,6 @@ class KategoriController extends Controller
 {
     private const TYPES = [
         'berita' => 'Berita',
-        'program' => 'Program Kesehatan',
         'regulasi' => 'Regulasi',
         'laporan' => 'Laporan',
         'galeri' => 'Galeri',
@@ -32,7 +31,7 @@ class KategoriController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:100',
-            'type' => 'required|in:berita,program,regulasi,laporan,galeri',
+            'type' => 'required|in:berita,regulasi,laporan,galeri',
             'warna' => 'required|string|max:20',
         ]);
 
@@ -46,7 +45,7 @@ class KategoriController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:100',
-            'type' => 'required|in:berita,program,regulasi,laporan,galeri',
+            'type' => 'required|in:berita,regulasi,laporan,galeri',
             'warna' => 'required|string|max:20',
         ]);
 

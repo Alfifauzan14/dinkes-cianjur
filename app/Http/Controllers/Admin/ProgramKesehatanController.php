@@ -105,9 +105,8 @@ class ProgramKesehatanController extends Controller
     public function edit(ProgramKesehatan $programKesehatan)
     {
         $program = $programKesehatan;
-        $kategoris = Kategori::ofType('program')->orderBy('nama')->get();
 
-        return view('admin.program.edit', compact('program', 'kategoris'));
+        return view('admin.program.edit', compact('program'));
     }
 
     /**
