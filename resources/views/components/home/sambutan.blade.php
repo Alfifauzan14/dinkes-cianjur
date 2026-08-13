@@ -50,7 +50,7 @@
                 @endif
             @else
                 <img 
-                    src="{{ asset('Assets/home/sambutan/Group 83.png') }}" 
+                    src="{{ asset('images/Group 83.png') }}" 
                     alt="Dr. I Made Setiawan - Kepala Dinas Kesehatan Kabupaten Cianjur" 
                     class="sambutan-photo"
                     loading="lazy"
