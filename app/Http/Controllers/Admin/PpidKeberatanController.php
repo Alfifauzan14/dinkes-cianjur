@@ -9,6 +9,7 @@ use App\Models\PpidSetting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class PpidKeberatanController extends Controller
@@ -54,13 +55,30 @@ class PpidKeberatanController extends Controller
         $request->validate([
             'status' => ['required', 'string', 'in:pending,ditanggapi'],
             'tanggapan_admin' => ['nullable', 'string', 'max:3000'],
+            'file_tanggapan' => ['nullable', 'file', 'max:20480'], // max 20MB
         ]);
 
         $keberatan = PpidKeberatan::with('permohonan')->findOrFail($id);
-        $keberatan->update([
+        $oldFile = $keberatan->file_tanggapan;
+
+        $updateData = [
             'status' => $request->status,
             'tanggapan_admin' => $request->tanggapan_admin,
-        ]);
+        ];
+
+        if ($request->hasFile('file_tanggapan')) {
+            // Delete old file if exists
+            if ($oldFile && Storage::disk('public')->exists($oldFile)) {
+                Storage::disk('public')->delete($oldFile);
+            }
+
+            $file = $request->file('file_tanggapan');
+            $filename = time().'_'.preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
+            $path = $file->storeAs('ppid_tanggapan_keberatan', $filename, 'public');
+            $updateData['file_tanggapan'] = $path;
+        }
+
+        $keberatan->update($updateData);
 
         // Send email to applicant
         $emailSent = false;
