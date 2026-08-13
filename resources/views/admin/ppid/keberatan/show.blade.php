@@ -117,7 +117,24 @@
                     </div>
                     @endif
 
-                    <form action="{{ route('admin.ppid.keberatan.update-status', $keberatan->id) }}" method="POST">
+                    @if($keberatan->file_tanggapan)
+                    <div class="mb-4">
+                        <label class="text-muted font-weight-bold d-block" style="font-size: 11px; text-transform: uppercase; margin-bottom: 6px;">Dokumen Terkirim</label>
+                        <div class="p-2 border rounded bg-light d-flex align-items-center justify-content-between" style="border-radius: 4px;">
+                            <span class="d-flex align-items-center overflow-hidden" style="gap: 8px;">
+                                <span class="material-icons text-success" style="font-size: 20px;">description</span>
+                                <span class="text-truncate text-dark font-weight-bold" style="font-size: 13px; max-width: 150px;" title="{{ basename($keberatan->file_tanggapan) }}">
+                                    {{ basename($keberatan->file_tanggapan) }}
+                                </span>
+                            </span>
+                            <a href="{{ asset('storage/' . $keberatan->file_tanggapan) }}" target="_blank" class="btn btn-xs btn-outline-success py-1 px-2 d-inline-flex align-items-center" style="gap: 3px; font-size: 11px; border-radius: 4px;">
+                                <span class="material-icons" style="font-size: 12px;">visibility</span> Lihat
+                            </a>
+                        </div>
+                    </div>
+                    @endif
+
+                    <form action="{{ route('admin.ppid.keberatan.update-status', $keberatan->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf @method('PUT')
 
                         <div class="form-group">
@@ -135,6 +152,12 @@
                                 style="border-radius: 4px; font-size: 14px; border-color: #E2E8F0; resize: vertical;"
                                 placeholder="Tulis tanggapan resmi terhadap keberatan ini...">{{ old('tanggapan_admin', $keberatan->tanggapan_admin) }}</textarea>
                             @error('tanggapan_admin') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="file_tanggapan" class="font-weight-bold text-dark" style="font-size: 13px;">Dokumen Pendukung / Surat Tanggapan</label>
+                            <input type="file" name="file_tanggapan" id="file_tanggapan" class="form-control-file border p-1 rounded bg-white" style="font-size: 13px;">
+                            <small class="text-muted">Format: PDF, Word, Excel, ZIP, dll. (Maks. 20MB). File ini akan dikirimkan ke email pemohon sebagai lampiran.</small>
                         </div>
 
                         <div class="d-flex" style="gap: 10px;">

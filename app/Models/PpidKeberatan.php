@@ -14,6 +14,7 @@ class PpidKeberatan extends Model
         'alasan_keberatan',
         'status',
         'tanggapan_admin',
+        'file_tanggapan',
     ];
 
     public function permohonan(): BelongsTo
