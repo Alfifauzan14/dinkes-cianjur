@@ -76,6 +76,12 @@
                         <label class="form-label" for="ikm-message">Masukan dan Keluhan</label>
                         <textarea name="description" id="ikm-message" class="form-textarea" placeholder="Tulis masukan atau keluhan Anda di sini.....">{{ old('description') }}</textarea>
                     </div>
+
+                    <!-- Row 4: Google reCAPTCHA v2 -->
+                    <div class="form-group" style="margin-bottom: 20px; display: flex; justify-content: center;">
+                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                        <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                    </div>
  
                     <!-- Submit Button -->
                     <button type="submit" class="submit-btn" id="homeIkmSubmitBtn">Kirim Penilaian Real-Time</button>
@@ -107,6 +113,15 @@ document.getElementById('homeIkmForm').addEventListener('submit', function(e) {
         return false;
     }
     
+    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+            e.preventDefault();
+            alert('Harap centang verifikasi "Saya bukan robot" terlebih dahulu.');
+            return false;
+        }
+    }
+
     const btn = document.getElementById('homeIkmSubmitBtn');
     btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Mengirim...';
     btn.disabled = true;
