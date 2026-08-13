@@ -80,7 +80,7 @@
                             @if($profile->kepala_dinas_image && file_exists(public_path('uploads/profile/' . $profile->kepala_dinas_image)))
                                 <img src="{{ asset('uploads/profile/' . $profile->kepala_dinas_image) }}" alt="Pimpinan" style="width: 100%; height: 100%; object-fit: cover;" id="kepala-preview-modal">
                             @else
-                                <img src="{{ asset('images/Group 83.png') }}" alt="Pimpinan" style="width: 100%; height: 100%; object-fit: cover;" id="kepala-preview-modal">
+                                <img src="{{ asset('Assets/home/sambutan/Group 83.png') }}" alt="Pimpinan" style="width: 100%; height: 100%; object-fit: cover;" id="kepala-preview-modal">
                             @endif
                         </div>
                         <div class="custom-file" style="font-size: 13px; flex: 1;">

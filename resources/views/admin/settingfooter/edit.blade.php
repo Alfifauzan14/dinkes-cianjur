@@ -63,7 +63,7 @@
                                     @if($setting->site_logo)
                                         <img src="{{ asset('uploads/settings/' . $setting->site_logo) }}" alt="Logo" style="max-height: 100px; max-width: 100%; object-fit: contain;" id="logo-preview-img">
                                     @else
-                                        <img src="{{ asset('images/logo.png') }}" alt="Logo Default" style="max-height: 100px; max-width: 100%; object-fit: contain;" id="logo-preview-img">
+                                        <img src="{{ asset('Assets/layouts/logo.png') }}" alt="Logo Default" style="max-height: 100px; max-width: 100%; object-fit: contain;" id="logo-preview-img">
                                     @endif
                                 </div>
                                 <div class="custom-file" style="font-size: 13px;">

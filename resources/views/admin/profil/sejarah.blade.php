@@ -48,7 +48,7 @@
                             @if($profile->sejarah_image && file_exists(public_path('uploads/profile/' . $profile->sejarah_image)))
                                 <img src="{{ asset('uploads/profile/' . $profile->sejarah_image) }}" alt="Logo Sejarah" style="max-height: 100%; max-width: 100%; object-fit: contain;" id="sejarah-preview-modal">
                             @else
-                                <img src="{{ asset('images/logo.png') }}" alt="Logo Default" style="max-height: 100%; max-width: 100%; object-fit: contain;" id="sejarah-preview-modal">
+                                <img src="{{ asset('Assets/layouts/logo.png') }}" alt="Logo Default" style="max-height: 100%; max-width: 100%; object-fit: contain;" id="sejarah-preview-modal">
                             @endif
                         </div>
                         <div class="custom-file" style="font-size: 13px; flex: 1;">

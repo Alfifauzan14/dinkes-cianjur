@@ -5,7 +5,7 @@
 <aside class="main-sidebar elevation-4">
     {{-- Brand Logo --}}
     <a href="{{ route('admin.dashboard') }}" class="brand-link d-flex justify-content-center align-items-center" style="padding: 12px 0;">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo Dinkes"
+        <img src="{{ asset('Assets/layouts/logo.png') }}" alt="Logo Dinkes"
              style="opacity: .95; max-height: 55px; width: auto;">
     </a>
 
