@@ -26,15 +26,28 @@
                 </div>
                 <div class="berita-filter-section">
                     <h3 class="berita-filter-label">Filter Kategori</h3>
-                    <div class="berita-filter-dropdown">
-                        <select name="category" class="berita-select" onchange="this.form.submit()">
-                            <option value="Semua" {{ request('category', 'Semua') == 'Semua' ? 'selected' : '' }}>Semua Kategori</option>
-                            @if(isset($kategoris))
-                                @foreach($kategoris as $kat)
-                                    <option value="{{ $kat->nama }}" {{ request('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
-                                @endforeach
-                            @endif
-                        </select>
+                    <div class="berita-filter-wrap">
+                        <input type="hidden" name="category" id="categoryValue" value="{{ request('category', 'Semua') }}">
+                        <div class="berita-custom-select" id="categoryDropdown">
+                            <button type="button" class="berita-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
+                                <span class="berita-custom-select-label">
+                                    @if(request('category') && request('category') !== 'Semua')
+                                        {{ request('category') }}
+                                    @else
+                                        Semua Kategori
+                                    @endif
+                                </span>
+                                <svg class="berita-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <ul class="berita-custom-select-list" role="listbox">
+                                <li class="berita-custom-option {{ request('category', 'Semua') === 'Semua' ? 'selected' : '' }}" data-value="Semua" role="option">Semua Kategori</li>
+                                @if(isset($kategoris))
+                                    @foreach($kategoris as $kat)
+                                        <li class="berita-custom-option {{ request('category') === $kat->nama ? 'selected' : '' }}" data-value="{{ $kat->nama }}" role="option">{{ $kat->nama }}</li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -149,3 +162,61 @@
         </div>
     </main>
 </div>
+
+<script>
+(function () {
+    function initCustomSelect(dropdownId, hiddenInputId) {
+        const wrap = document.getElementById(dropdownId);
+        if (!wrap) return;
+        const btn = wrap.querySelector('.berita-custom-select-btn');
+        const list = wrap.querySelector('.berita-custom-select-list');
+        const label = wrap.querySelector('.berita-custom-select-label');
+        const hidden = document.getElementById(hiddenInputId);
+        const form = wrap.closest('form');
+
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = wrap.classList.contains('open');
+            document.querySelectorAll('.berita-custom-select').forEach(function (d) {
+                d.classList.remove('open');
+                d.querySelector('.berita-custom-select-btn').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                wrap.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        list.querySelectorAll('.berita-custom-option').forEach(function (opt) {
+            opt.addEventListener('click', function () {
+                var val = opt.dataset.value;
+                hidden.value = val;
+                label.textContent = opt.textContent.trim();
+                list.querySelectorAll('.berita-custom-option').forEach(function (o) { o.classList.remove('selected'); });
+                opt.classList.add('selected');
+                wrap.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                form.submit();
+            });
+        });
+    }
+
+    initCustomSelect('categoryDropdown', 'categoryValue');
+
+    document.addEventListener('click', function () {
+        document.querySelectorAll('.berita-custom-select').forEach(function (d) {
+            d.classList.remove('open');
+            d.querySelector('.berita-custom-select-btn').setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.berita-custom-select').forEach(function (d) {
+                d.classList.remove('open');
+                d.querySelector('.berita-custom-select-btn').setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+})();
+</script>
