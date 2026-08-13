@@ -141,34 +141,111 @@
     width: 49%;
 }
 
-.berita-filter-dropdown {
+/* ── Custom Select Dropdown ───────────────────────────────────── */
+.berita-filter-wrap {
     position: relative;
+    overflow: visible;
 }
 
-.berita-select {
+.berita-custom-select {
+    position: relative;
     width: 100%;
-    padding: 12px 40px 12px 14px;
-    font-size: 15px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #4B5563;
+}
+
+.berita-custom-select-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
     border: 1px solid #D1D5DB;
-    border-radius: 3px !important;
-    background-color: #FFFFFF;
-    appearance: none;
-    -webkit-appearance: none;
+    border-radius: 3px;
+    background: #FFFFFF;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #332C2B;
     cursor: pointer;
-    outline: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
+    box-sizing: border-box;
+    text-align: left;
+    transition: border-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.berita-select option {
-    color: #1F2937;
-}
-
-.berita-select:focus {
+.berita-custom-select-btn:focus,
+.berita-custom-select.open .berita-custom-select-btn {
     border-color: #009966;
+    outline: none;
+}
+
+.berita-custom-select-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.berita-custom-select-icon {
+    width: 10px;
+    height: 6px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: #A3A3A3;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.2s ease;
+}
+
+.berita-custom-select.open .berita-custom-select-icon {
+    transform: rotate(180deg);
+}
+
+.berita-custom-select-list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 9999;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.berita-custom-select.open .berita-custom-select-list {
+    display: block;
+}
+
+.berita-custom-option {
+    padding: 10px 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #332C2B;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.berita-custom-option:hover {
+    background: rgba(0, 153, 102, 0.08);
+    color: #009966;
+}
+
+.berita-custom-option.selected {
+    color: #009966;
+    font-weight: 700;
+    background: rgba(0, 153, 102, 0.06);
 }
 
 /* ── Featured Section (Row 1) ────────────────────────────────── */

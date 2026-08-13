@@ -54,8 +54,13 @@ class PpidKeberatanMail extends Mailable
      */
     public function content(): Content
     {
+        $settingFooter = \App\Models\SettingFooter::first();
+
         return new Content(
             view: 'emails.ppid-keberatan-tanggapan',
+            with: [
+                'settingFooter' => $settingFooter,
+            ],
         );
     }
 

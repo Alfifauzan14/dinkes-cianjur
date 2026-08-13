@@ -731,3 +731,144 @@ body {
 .info-penting-list li { margin: 0; }
 .info-penting-list strong { color: #92400E; }
 
+/* ── Modal Pop Up Token ────────────────────────────────────────── */
+.token-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.token-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.token-modal-card {
+    background: #FFFFFF;
+    border-radius: 8px;
+    max-width: 480px;
+    width: 100%;
+    padding: 32px 28px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    transform: scale(0.92);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-sizing: border-box;
+}
+.token-modal-overlay.active .token-modal-card {
+    transform: scale(1);
+}
+.token-modal-icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #ECFDF5;
+    color: #009966;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+}
+.token-modal-icon-wrap .material-icons {
+    font-size: 36px;
+}
+.token-modal-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0F172A;
+    margin: 0 0 8px;
+}
+.token-modal-desc {
+    font-size: 14px;
+    color: #64748B;
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+.token-display-box {
+    background: #F8FAFC;
+    border: 2px dashed #009966;
+    border-radius: 6px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.token-code {
+    font-family: 'Plus Jakarta Sans', monospace;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: #004F3B;
+}
+.btn-copy-token {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #009966;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    flex-shrink: 0;
+}
+.btn-copy-token:hover {
+    background: #007A52;
+}
+.btn-copy-token .material-icons {
+    font-size: 16px;
+}
+.token-note {
+    font-size: 12px;
+    color: #94A3B8;
+    margin: 0 0 24px;
+    line-height: 1.5;
+}
+.token-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+.btn-modal-close {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    background: #009966;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: background 0.2s;
+}
+.btn-modal-close:hover {
+    background: #007A52;
+}
+@media (max-width: 480px) {
+    .token-modal-card {
+        padding: 24px 18px;
+    }
+    .token-code {
+        font-size: 22px;
+        letter-spacing: 2px;
+    }
+    .btn-copy-token {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+

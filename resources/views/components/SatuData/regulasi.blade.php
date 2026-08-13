@@ -29,12 +29,19 @@
                     <span class="material-icons regulasi-search-icon">search</span>
                     <input type="text" id="regulasiSearchInput" class="regulasi-search-input" placeholder="Cari nomor, judul, atau kata kunci...">
                 </div>
-                <div class="regulasi-topic-pills">
-                    <button type="button" class="topic-pill-btn active" data-topic="all">Semua Topik</button>
-                    <button type="button" class="topic-pill-btn" data-topic="STUNTING">Stunting</button>
-                    <button type="button" class="topic-pill-btn" data-topic="KIA">KIA</button>
-                    <button type="button" class="topic-pill-btn" data-topic="GERMAS">Germas</button>
-                    <button type="button" class="topic-pill-btn" data-topic="FASKES">Faskes</button>
+                <div class="regulasi-filter-wrap">
+                    <div class="regulasi-custom-select" id="kategoriDropdown">
+                        <button type="button" class="regulasi-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="regulasi-custom-select-label">Semua Kategori</span>
+                            <svg class="regulasi-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <ul class="regulasi-custom-select-list" role="listbox">
+                            <li class="regulasi-custom-option selected" data-category="all" role="option">Semua Kategori</li>
+                            @foreach($kategoris as $kategori)
+                                <li class="regulasi-custom-option" data-category="{{ strtoupper($kategori->nama) }}" role="option">{{ $kategori->nama }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -42,7 +49,7 @@
             <div class="regulasi-grid">
                 @forelse($regulasis as $regulasi)
                     <!-- Card -->
-                    <div class="regulasi-card" data-topic="{{ strtoupper($regulasi->topic) }}">
+                    <div class="regulasi-card" data-category="{{ strtoupper($regulasi->category) }}">
                         <div class="regulasi-card-cover">
                             @if($regulasi->cover_path)
                                 <img src="{{ asset('storage/' . $regulasi->cover_path) }}" alt="Cover {{ $regulasi->title }}" class="cover-img">
@@ -160,26 +167,18 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('regulasiSearchInput');
-    const topicBtns = document.querySelectorAll('.topic-pill-btn');
     const regulasiCards = document.querySelectorAll('.regulasi-card');
-
-    let activeTopic = 'all';
+    const kategoriDropdown = document.getElementById('kategoriDropdown');
+    let activeCategory = 'all';
 
     function filterRegulasi() {
         const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
         regulasiCards.forEach(card => {
-            const topic = card.getAttribute('data-topic') || '';
+            const category = card.getAttribute('data-category') || '';
             const text = card.textContent.toLowerCase();
-
-            const matchesTopic = (activeTopic === 'all') || (topic.includes(activeTopic));
+            const matchesCategory = (activeCategory === 'all') || (category.includes(activeCategory));
             const matchesQuery = query === '' || text.includes(query);
-
-            if (matchesTopic && matchesQuery) {
-                card.style.display = 'flex';
-            } else {
-                card.style.display = 'none';
-            }
+            card.style.display = (matchesCategory && matchesQuery) ? 'flex' : 'none';
         });
     }
 
@@ -187,23 +186,51 @@ document.addEventListener('DOMContentLoaded', function() {
         searchInput.addEventListener('input', filterRegulasi);
     }
 
-    topicBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            topicBtns.forEach(b => {
-                b.classList.remove('active');
-                b.style.background = '#F9FAFB';
-                b.style.color = '#374151';
-                b.style.borderColor = '#E5E7EB';
+    if (kategoriDropdown) {
+        const btn = kategoriDropdown.querySelector('.regulasi-custom-select-btn');
+        const list = kategoriDropdown.querySelector('.regulasi-custom-select-list');
+        const label = kategoriDropdown.querySelector('.regulasi-custom-select-label');
+
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = kategoriDropdown.classList.contains('open');
+            document.querySelectorAll('.regulasi-custom-select').forEach(function(d) {
+                d.classList.remove('open');
+                d.querySelector('.regulasi-custom-select-btn').setAttribute('aria-expanded', 'false');
             });
-
-            this.classList.add('active');
-            this.style.background = '#009966';
-            this.style.color = '#FFFFFF';
-            this.style.borderColor = '#009966';
-
-            activeTopic = this.getAttribute('data-topic');
-            filterRegulasi();
+            if (!isOpen) {
+                kategoriDropdown.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
         });
+
+        list.querySelectorAll('.regulasi-custom-option').forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                activeCategory = opt.getAttribute('data-category');
+                label.textContent = opt.textContent.trim();
+                list.querySelectorAll('.regulasi-custom-option').forEach(function(o) { o.classList.remove('selected'); });
+                opt.classList.add('selected');
+                kategoriDropdown.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                filterRegulasi();
+            });
+        });
+    }
+
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.regulasi-custom-select').forEach(function(d) {
+            d.classList.remove('open');
+            d.querySelector('.regulasi-custom-select-btn').setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.regulasi-custom-select').forEach(function(d) {
+                d.classList.remove('open');
+                d.querySelector('.regulasi-custom-select-btn').setAttribute('aria-expanded', 'false');
+            });
+        }
     });
 });
 </script>

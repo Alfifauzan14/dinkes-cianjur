@@ -4,27 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
-    {{-- Email Pengirim --}}
-    <div class="card card-outline card-success shadow-sm mb-4" style="border-radius: 8px; border-top: 3px solid #009966;">
-        <div class="card-header bg-white d-flex align-items-center justify-content-start" style="padding: 14px 20px; border-bottom: 1px solid #E2E8F0;">
-            <span class="material-icons text-success mr-2" style="font-size: 22px;">email</span>
-            <span class="font-weight-bold text-dark" style="font-size: 15px;">Email Pengirim Tanggapan PPID</span>
-        </div>
-        <div class="card-body" style="padding: 16px 20px;">
-            <p class="text-muted mb-3" style="font-size: 13px;">Email ini digunakan sebagai pengirim saat mengirimkan tanggapan dan dokumen ke pemohon informasi publik.</p>
-            <form action="{{ route('admin.ppid.permohonan.update-email') }}" method="POST" class="d-flex align-items-center" style="gap: 10px;">
-                @csrf
-                @method('PUT')
-                <input type="email" name="email_ppid" value="{{ old('email_ppid', $ppidSetting->email_ppid) }}" class="form-control @error('email_ppid') is-invalid @enderror" placeholder="contoh: ppid@dinkes.cianjurkab.go.id" style="border-radius: 4px; max-width: 400px; font-size: 14px;" required>
-                @error('email_ppid')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-                <button type="submit" class="btn btn-success btn-sm d-inline-flex align-items-center" style="gap: 5px; padding: 8px 16px; border-radius: 4px; font-weight: 600;">
-                    <span class="material-icons" style="font-size: 16px;">save</span> Simpan
-                </button>
-            </form>
-        </div>
-    </div>
+
 
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 6px; border-left: 4px solid #047857; background-color: #ECFDF5; color: #047857;">

@@ -172,7 +172,7 @@
         </div>
         <div class="footer">
             <p><strong>PPID Dinas Kesehatan Kabupaten Cianjur</strong></p>
-            <p>Jl. Raya Bandung No. 65, Karangtengah, Cianjur</p>
+            <p>{{ $settingFooter->address ?? 'Jl. Raya Bandung No. 65, Karangtengah, Cianjur' }}</p>
             <p>Email ini dikirim otomatis oleh sistem, mohon tidak membalas email ini.</p>
         </div>
     </div>

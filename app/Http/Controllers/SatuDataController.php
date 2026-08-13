@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Faskes;
 use App\Models\Kecamatan;
+use App\Models\Kategori;
 use App\Models\Laporan;
 use App\Models\LayananTerpadu;
 use App\Models\Regulasi;
@@ -69,7 +70,9 @@ class SatuDataController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        return view('regulasi', compact('regulasis'));
+        $kategoris = Kategori::ofType('regulasi')->orderBy('nama')->get();
+
+        return view('regulasi', compact('regulasis', 'kategoris'));
     }
 
     /**
