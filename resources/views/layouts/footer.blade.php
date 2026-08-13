@@ -74,11 +74,7 @@
                         <i class="fa-brands fa-instagram"></i>
                     </a>
                     @endif
-                    @if(!empty($site_settings->social_twitter))
-                    <a href="{{ $site_settings->social_twitter }}" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-x" aria-label="X (Twitter) Dinkes Cianjur" title="X (Twitter)">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
-                    @endif
+
                     @if(!empty($site_settings->social_youtube))
                     <a href="{{ $site_settings->social_youtube }}" target="_blank" rel="noopener noreferrer" class="footer-social-btn" id="footer-social-yt" aria-label="YouTube Dinkes Cianjur" title="YouTube">
                         <i class="fa-brands fa-youtube"></i>
