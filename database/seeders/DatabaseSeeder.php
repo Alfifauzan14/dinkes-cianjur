@@ -177,32 +177,32 @@ class DatabaseSeeder extends Seeder
         $galeriData = [
             [
                 'title' => 'Penguatan Sinergi Dinas Kesehatan Cianjur Bersama Klinik Utama Rotinsulu',
-                'image' => 'dumy1.png',
+                'image' => 'logo.png',
                 'category' => 'PROGRAM',
             ],
             [
                 'title' => 'Layanan Siaga Darurat PSC 119 Terintegrasi',
-                'image' => 'dumy1.png',
+                'image' => 'logo.png',
                 'category' => 'PROGRAM',
             ],
             [
                 'title' => 'Peringatan Hari Keluarga Nasional Tingkat Kabupaten',
-                'image' => 'dumy2.png',
+                'image' => 'logo.png',
                 'category' => 'PROGRAM',
             ],
             [
                 'title' => 'Pendaftaran Lomba Inovasi Daerah Sektor Kesehatan',
-                'image' => 'dumy2.png',
+                'image' => 'logo.png',
                 'category' => 'PROGRAM',
             ],
             [
                 'title' => 'Pencapaian Universal Health Coverage (UHC) Kabupaten Cianjur',
-                'image' => 'dumy2.png',
+                'image' => 'logo.png',
                 'category' => 'PROGRAM',
             ],
             [
                 'title' => 'Sosialisasi Penurunan Stunting Terpadu',
-                'image' => 'dumy1.png',
+                'image' => 'logo.png',
                 'category' => 'KEGIATAN',
             ],
         ];
