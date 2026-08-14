@@ -14,6 +14,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
+    {{-- Google reCAPTCHA v2 Script --}}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; margin: 0; padding: 0; }
         .ikm-container { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
@@ -141,6 +144,11 @@
                     <textarea name="description" class="form-control" rows="4" placeholder="Tulis masukan atau keluhan Anda di sini.....">{{ old('description') }}</textarea>
                 </div>
 
+                {{-- Google reCAPTCHA v2 --}}
+                <div class="form-group" style="margin-bottom: 24px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                </div>
+
                 <button type="submit" class="btn-submit" id="btnSubmit">Kirim Penilaian Real-Time</button>
             </form>
         </div>
@@ -163,7 +171,23 @@
         });
 
         // Handle single click submit
-        document.getElementById('ikmForm').addEventListener('submit', function() {
+        document.getElementById('ikmForm').addEventListener('submit', function(e) {
+            const ratingSelected = document.querySelector('input[name="rating"]:checked');
+            if (!ratingSelected) {
+                e.preventDefault();
+                alert('Silakan pilih salah satu opsi tingkat kepuasan Anda terlebih dahulu.');
+                return false;
+            }
+
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    e.preventDefault();
+                    alert('Harap centang verifikasi "Saya bukan robot" terlebih dahulu.');
+                    return false;
+                }
+            }
+
             const btn = document.getElementById('btnSubmit');
             btn.innerHTML = '<span class="material-icons" style="animation: spin 1s linear infinite; vertical-align: middle;">autorenew</span> Mengirim...';
             btn.disabled = true;

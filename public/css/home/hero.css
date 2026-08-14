@@ -211,7 +211,7 @@
 }
 
 .social-sidebar {
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -224,7 +224,7 @@
     box-shadow: -4px 10px 30px rgba(0, 0, 0, 0.05);
     border: 1px solid #E5E7EB;
     border-right: none;
-    z-index: 10;
+    z-index: 9999;
 }
 
 .social-icon-link {

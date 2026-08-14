@@ -131,44 +131,13 @@
                         <span class="material-icons text-success">share</span>
                         Tautan Media Sosial
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="social_facebook"><i class="fab fa-facebook mr-1" style="color: #1877F2;"></i> Facebook</label>
-                                <input type="url" name="social_facebook" id="social_facebook" value="{{ old('social_facebook', $setting->social_facebook) }}" class="form-control @error('social_facebook') is-invalid @enderror" placeholder="https://facebook.com/username">
-                                @error('social_facebook') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="social_instagram"><i class="fab fa-instagram mr-1" style="color: #E1306C;"></i> Instagram</label>
-                                <input type="url" name="social_instagram" id="social_instagram" value="{{ old('social_instagram', $setting->social_instagram) }}" class="form-control @error('social_instagram') is-invalid @enderror" placeholder="https://instagram.com/username">
-                                @error('social_instagram') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="social_twitter"><i class="fab fa-twitter mr-1" style="color: #1DA1F2;"></i> X (Twitter)</label>
-                                <input type="url" name="social_twitter" id="social_twitter" value="{{ old('social_twitter', $setting->social_twitter) }}" class="form-control @error('social_twitter') is-invalid @enderror" placeholder="https://x.com/username">
-                                @error('social_twitter') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="social_youtube"><i class="fab fa-youtube mr-1" style="color: #FF0000;"></i> YouTube</label>
-                                <input type="url" name="social_youtube" id="social_youtube" value="{{ old('social_youtube', $setting->social_youtube) }}" class="form-control @error('social_youtube') is-invalid @enderror" placeholder="https://youtube.com/channel/id">
-                                @error('social_youtube') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="social_tiktok"><i class="fab fa-tiktok mr-1" style="color: #010101;"></i> TikTok</label>
-                                <input type="url" name="social_tiktok" id="social_tiktok" value="{{ old('social_tiktok', $setting->social_tiktok) }}" class="form-control @error('social_tiktok') is-invalid @enderror" placeholder="https://tiktok.com/@username">
-                                @error('social_tiktok') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
+                    <div class="alert alert-info d-flex align-items-center" style="gap: 10px; border-radius: 8px; font-size: 13px;">
+                        <span class="material-icons" style="font-size: 20px;">info</span>
+                        <span>
+                            Link media sosial dikelola di halaman
+                            <a href="{{ route('admin.home-content.index') }}" class="font-weight-bold">Konten Halaman Utama</a>.
+                            Perubahan di sana otomatis berlaku di beranda <em>dan</em> footer.
+                        </span>
                     </div>
 
                     <div class="border-top pt-4 mt-4 d-flex justify-content-end">

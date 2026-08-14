@@ -1,297 +1,184 @@
 <link rel="stylesheet" href="{{ asset('css/SatuData/statistik.css') }}?v={{ time() }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <div class="satudata-wrapper">
-    <!-- Banner Header Top Section -->
+    {{-- Banner --}}
     <header class="satudata-banner">
         <div class="satudata-banner-container">
             <h1 class="satudata-banner-title">Satu Data Kesehatan</h1>
-            <p class="satudata-banner-subtitle">
-                Portal visualisasi statistik stunting, ketersediaan tenaga medis, dan sebaran faskes.
-            </p>
+            <p class="satudata-banner-subtitle">Portal visualisasi statistik kesehatan Kabupaten Cianjur.</p>
         </div>
     </header>
 
-    <!-- Main Content Section -->
     <main class="satudata-main">
         <div class="satudata-main-container">
-            
-            <!-- Dashboard Subheader -->
-            <div class="satudata-header">
-                <div class="satudata-header-left">
-                    <span class="satudata-category-tag">Satu Data Kesehatan</span>
-                    <h2 class="satudata-section-title">Dashboard Indikator Utama</h2>
+
+            {{-- Page Header --}}
+            <div class="db-page-header">
+                <div>
+                    <h2 class="db-page-title">Dashboard Kesehatan Kab. Cianjur</h2>
+                    <p class="db-page-period">Periode {{ now()->translatedFormat('F Y') }}</p>
                 </div>
                 @if(!empty($setting->status_badge))
-                    <div class="satudata-status-badge" style="border-radius: 3px !important; background: #E6F7F0; color: #009966; border: 1.5px solid #009966; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;">
-                        <span class="status-dot" style="width: 8px; height: 8px; border-radius: 50%; background-color: #009966; display: inline-block;"></span>
-                        <span class="status-text" style="font-size: 12px; font-weight: 700; color: #009966;">{{ $setting->status_badge }}</span>
-                    </div>
+                <span class="db-status-badge">
+                    <span class="db-status-dot"></span>{{ $setting->status_badge }}
+                </span>
                 @endif
             </div>
 
-            <!-- 4 Stat Cards Row -->
-            <div class="stat-cards-grid">
-                <!-- Card 1: Puskesmas -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">PUSKESMAS</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $puskesmasCount ?? 0 }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                <line x1="12" y1="8" x2="12" y2="16"/>
-                                <line x1="8" y1="12" x2="16" y2="12"/>
-                            </svg>
+            {{-- 2-Column Layout --}}
+            <div class="db-layout">
+
+                {{-- LEFT: Main Content --}}
+                <div class="db-main">
+
+                    {{-- 4 Stat Cards --}}
+                    <div class="db-stats-grid">
+                        <div class="db-stat-card db-stat-blue">
+                            <div class="db-stat-label">Total Kunjungan Pasien</div>
+                            <div class="db-stat-number">51.107</div>
+                            <div class="db-stat-change down">▼ 6,98% dari bulan sebelumnya</div>
+                        </div>
+
+                        <div class="db-stat-card">
+                            <div class="db-stat-label">No. 1 Penyakit Terbanyak</div>
+                            <div class="db-stat-disease">(I10) - Essential (primary) hypertension</div>
+                            <div class="db-stat-cases">3.594 Kasus</div>
+                        </div>
+                        <div class="db-stat-card">
+                            <div class="db-stat-label">Status Kunjungan</div>
+                            <div class="db-kunjungan-row">
+                                <div>
+                                    <div class="db-kunj-num green">47.002</div>
+                                    <div class="db-kunj-label">Selesai</div>
+                                </div>
+                                <div>
+                                    <div class="db-kunj-num red">4.105</div>
+                                    <div class="db-kunj-label">Dalam berobat</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Tersebar di seluruh wilayah Cianjur</span>
+
+                    {{-- 10 Penyakit Terbanyak --}}
+                    <div class="db-chart-card">
+                        <h3 class="db-chart-title">10 Penyakit Terbanyak</h3>
+                        <canvas id="penyakitChart" height="90"></canvas>
                     </div>
+
+
+
+                    {{-- 10 Pekerjaan --}}
+                    <div class="db-chart-card">
+                        <h3 class="db-chart-title">10 Pekerjaan Pasien Terbanyak</h3>
+                        <canvas id="pekerjaanChart" height="180"></canvas>
+                    </div>
+
                 </div>
 
-                <!-- Card 2: Rumah Sakit -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">RUMAH SAKIT</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $rsCount ?? 0 }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M19 21V9a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v12"/>
-                                <path d="M2 21h20"/>
-                                <path d="M10 12h4"/>
-                                <path d="M12 10v4"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Fasilitas rujukan kesehatan utama</span>
-                    </div>
-                </div>
+                {{-- RIGHT: Sidebar --}}
+                <div class="db-sidebar">
 
-                <!-- Card 3: Wilayah Binaan -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">WILAYAH BINAAN</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $kecamatanCount ?? 0 }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Kecamatan di Kabupaten Cianjur</span>
-                    </div>
-                </div>
 
-                <!-- Card 4: Layanan Publik -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">LAYANAN PUBLIK</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $layananCount ?? 0 }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                <polyline points="14 2 14 8 20 8"/>
-                                <line x1="16" y1="13" x2="8" y2="13"/>
-                                <line x1="16" y1="17" x2="8" y2="17"/>
-                            </svg>
+
+                    {{-- Satusehat --}}
+                    <div class="dbs-card">
+                        <div class="dbs-sublabel">Total Kunjungan Satusehat</div>
+                        <div class="dbs-satusehat-num">34.989</div>
+                        <div class="dbs-sublabel" style="margin-top:2px;">Kunjungan</div>
+                        <hr style="margin:14px 0; border-color:#E2E8F0;">
+                        <div class="dbs-sublabel">Pasien Terdaftar Satusehat</div>
+                        <div class="dbs-terdaftar-row">
+                            <span class="dbs-tf-green">7.416</span>
+                            <span class="dbs-tf-red">3.964</span>
+                        </div>
+                        <div class="dbs-tf-labels">
+                            <span>Terdaftar</span><span>Tidak terdaftar</span>
                         </div>
                     </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Jenis layanan terpadu Dinas Kesehatan</span>
+
+                    {{-- Pie Laki-laki --}}
+                    <div class="dbs-card">
+                        <div class="dbs-card-title-sm">Status Pasien Laki-laki</div>
+                        <canvas id="pieLaki" height="180"></canvas>
+                        <div class="dbs-legend">
+                            <div><span class="dbs-dot" style="background:#004F3B;"></span> Umum: 344.202 pasien (47%)</div>
+                            <div><span class="dbs-dot" style="background:#009966;"></span> BPJS: 385.682 pasien (53%)</div>
+                            <div><span class="dbs-dot" style="background:#A7F3D0;"></span> PKG: 11 pasien (0%)</div>
+                        </div>
                     </div>
+
+                    {{-- Pie Perempuan --}}
+                    <div class="dbs-card">
+                        <div class="dbs-card-title-sm">Status Pasien Perempuan</div>
+                        <canvas id="piePerempuan" height="180"></canvas>
+                        <div class="dbs-legend">
+                            <div><span class="dbs-dot" style="background:#004F3B;"></span> Umum: 258.455 pasien (48%)</div>
+                            <div><span class="dbs-dot" style="background:#009966;"></span> BPJS: 281.438 pasien (52%)</div>
+                            <div><span class="dbs-dot" style="background:#A7F3D0;"></span> PKG: 6 pasien (0%)</div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
 
-            <!-- Chart Card: Sebaran Fasilitas Pelayanan Kesehatan -->
-            <div class="chart-card" style="border-radius: 1px !important;">
-                <div class="chart-header">
-                    <div class="chart-header-left">
-                        <h3 class="chart-title" style="color: #004F3B;">{{ $setting->stunting_title }}</h3>
-                        <p class="chart-subtitle" style="color: #64748B;">{{ $setting->stunting_subtitle }}</p>
-                    </div>
-                    <div class="chart-header-right">
-                        <span class="trend-badge" style="border-radius: 3px !important; background: #E6F7F0; color: #009966; border: 1.5px solid #009966;">Update Otomatis</span>
-                    </div>
-                </div>
-
-                <!-- Split Dashboard Grid Layout -->
-                <div class="stunting-dashboard-grid">
-                    <!-- Left Column: Visual Chart -->
-                    <div class="stunting-chart-column">
-                        <div class="chart-flex-container">
-                             <!-- Y-Axis Static Labels (Left) -->
-                             @php
-                                 $yMax = $maxFaskesCount;
-                             @endphp
-                             <div class="chart-y-axis-labels">
-                                 <div class="chart-y-axis-labels-item"><span>{{ $yMax }} Unit</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.8) }}</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.6) }}</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.4) }}</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.2) }}</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>0</span></div>
-                             </div>
-                             
-                             <!-- Scrollable Chart Area (Right) -->
-                             <div class="stunting-chart-container">
-                                 <!-- Y-Axis Grid Lines -->
-                                 <div class="chart-y-axis-grid">
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line grid-line-solid"></div>
-                                 </div>
-
-                                 <div class="chart-bars-wrapper" id="chart-bars-wrapper">
-                                     @foreach($faskesDistribution as $index => $record)
-                                         @php
-                                             $heightPercent = $maxFaskesCount > 0 ? ($record->total / $maxFaskesCount) * 100 : 0;
-                                         @endphp
-                                         <div class="chart-bar-item {{ $index === 0 ? 'bar-highlighted' : '' }}"
-                                              role="button"
-                                              tabindex="0"
-                                              aria-label="Detail faskes kecamatan {{ $record->kecamatan }}"
-                                              data-kecamatan="{{ $record->kecamatan }}"
-                                              data-total="{{ $record->total }}"
-                                              data-puskesmas="{{ $record->puskesmas }}"
-                                              data-rs="{{ $record->rs }}"
-                                              data-list="{{ $record->list ?: 'Belum ada faskes ditambahkan.' }}"
-                                              onclick="updateFaskesDetail(this)"
-                                              onkeydown="if(event.key==='Enter')updateFaskesDetail(this)">
-                                             <span class="bar-val {{ $index === 0 ? 'font-bold' : '' }}" style="border-radius: 3px !important;">{{ $record->total }}</span>
-                                             <div class="bar-track" style="border-radius: 3px 3px 0 0 !important;">
-                                                 <div class="bar-fill {{ $index === 0 ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%']) style="border-radius: 3px 3px 0 0 !important;"></div>
-                                             </div>
-                                             <span class="bar-year {{ $index === 0 ? 'bar-year-active' : '' }}" style="font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px;" title="{{ $record->kecamatan }}">
-                                                 {{ $record->kecamatan }}
-                                             </span>
-                                         </div>
-                                     @endforeach
-                                 </div>
-                             </div>
-                        </div>
-                        
-                        <!-- Click-to-Detail Hint -->
-                        <div class="chart-click-hint">
-                            <span class="material-icons">touch_app</span>
-                            <span>Arahkan kursor atau klik batang kecamatan untuk melihat daftar faskes di panel samping.</span>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Interactive Details Panel -->
-                    <div class="stunting-detail-column">
-                        <div id="stunting-detail-card" class="stunting-detail-card" style="border-radius: 1px !important;">
-                            <div class="detail-card-header">
-                                <h4 class="detail-card-title" id="detail-kecamatan">Kecamatan</h4>
-                                <span id="detail-total" class="detail-year-badge" style="border-radius: 3px !important;">—</span>
-                            </div>
-
-                            <div class="detail-stats-grid">
-                                <div class="detail-stat-item" style="border-radius: 3px !important;">
-                                    <span class="detail-stat-label">Puskesmas</span>
-                                    <span id="detail-puskesmas" class="detail-stat-val" style="color: #004F3B;">—</span>
-                                </div>
-                                <div class="detail-stat-item" style="border-radius: 3px !important;">
-                                    <span class="detail-stat-label">Rumah Sakit</span>
-                                    <span id="detail-rs" class="detail-stat-val" style="color: #009966;">—</span>
-                                </div>
-                            </div>
-                            
-                            <div class="detail-list" style="margin-top: 4px; border: 1px solid #E2E8F0; border-radius: 3px !important; padding: 12px; max-height: 200px; overflow-y: auto; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px;">
-                                <span class="detail-stat-label" style="margin-bottom: 0;">Daftar Fasilitas Kesehatan:</span>
-                                <div id="detail-faskes-list" style="font-size: 13px; color: #475569; line-height: 1.5;">
-                                    —
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+            <div class="db-footnote">
+                <span class="material-icons" style="font-size:14px;vertical-align:middle;">info</span>
+                Data visualisasi bersumber dari sistem informasi Puskesmas terintegrasi. Diperbarui setiap bulan.
             </div>
-
-            <script>
-            function updateFaskesDetail(el) {
-                document.querySelectorAll('.chart-bar-item').forEach(b => {
-                    b.classList.remove('bar-active-selected');
-                });
-                
-                el.classList.add('bar-active-selected');
-
-                const kecamatan = el.dataset.kecamatan;
-                const total     = el.dataset.total;
-                const puskesmas = el.dataset.puskesmas;
-                const rs        = el.dataset.rs;
-                const list      = el.dataset.list;
-
-                const detailCard = document.getElementById('stunting-detail-card');
-                detailCard.style.opacity = '0.5';
-
-                setTimeout(() => {
-                    document.getElementById('detail-kecamatan').textContent = kecamatan;
-                    document.getElementById('detail-total').textContent = total + ' Faskes';
-                    document.getElementById('detail-puskesmas').textContent = puskesmas + ' Unit';
-                    document.getElementById('detail-rs').textContent = rs + ' Unit';
-                    
-                    const listContainer = document.getElementById('detail-faskes-list');
-                    listContainer.innerHTML = '';
-                    
-                    if (list && list !== 'Belum ada faskes ditambahkan.') {
-                        const items = list.split(', ');
-                        const ul = document.createElement('ul');
-                        ul.style.margin = '0';
-                        ul.style.paddingLeft = '16px';
-                        ul.style.fontSize = '13px';
-                        ul.style.color = '#475569';
-                        ul.style.lineHeight = '1.6';
-                        items.forEach(item => {
-                            const li = document.createElement('li');
-                            li.textContent = item;
-                            ul.appendChild(li);
-                        });
-                        listContainer.appendChild(ul);
-                    } else {
-                        listContainer.textContent = 'Tidak ada faskes di kecamatan ini.';
-                    }
-                    
-                    detailCard.style.opacity = '1';
-                }, 120);
-            }
-
-            document.addEventListener('DOMContentLoaded', () => {
-                const firstBar = document.querySelector('.chart-bar-item');
-                if (firstBar) {
-                    updateFaskesDetail(firstBar);
-                }
-            });
-            </script>
-
-            <!-- Progress cards deleted -->
 
         </div>
     </main>
 </div>
+
+<script>
+Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+Chart.defaults.font.size   = 11;
+
+// ── 1. Penyakit Terbanyak ────────────────────────────────────────
+new Chart(document.getElementById('penyakitChart'), {
+    type: 'bar',
+    data: {
+        labels: ['I10\nHipertensi','J00\nISPA','K30\nDispepsia','M79\nNyeri','J06\nRinitis','E11\nDiabetes','L23\nDermatitis','K29\nGastritis','A09\nDiare','J18\nPneumonia'],
+        datasets: [{ data:[3594,2901,2756,2100,1843,1650,1420,1310,1201,980], backgroundColor:'#009966', borderRadius:3, barPercentage:0.6 }]
+    },
+    options:{ responsive:true, plugins:{legend:{display:false}},
+        scales:{ y:{beginAtZero:true,grid:{color:'#F1F5F9'},ticks:{color:'#64748B'}},
+                 x:{grid:{display:false},ticks:{color:'#64748B',maxRotation:0}} } }
+});
+
+
+// ── 4. Pekerjaan Terbanyak (Horizontal) ────────────────────────
+const pkjLabels = ['IBU RUMAH TANGGA','BELUM/TIDAK BEKERJA','PELAJAR/MAHASISWA','LAIN-LAIN','WIRASWASTA','MENGURUS RUMAH TANGGA','KARYAWAN SWASTA','BURUH HARIAN LEPAS','PETANI/PEKEBUN','BELUM BEKERJA'];
+const pkjData   = [262595,219766,165909,127809,69007,63163,55427,47850,20008,19354];
+new Chart(document.getElementById('pekerjaanChart'), {
+    type: 'bar',
+    data:{ labels:pkjLabels, datasets:[{ data:pkjData, backgroundColor:'#009966', borderRadius:3, barPercentage:0.5 }] },
+    options:{ indexAxis:'y', responsive:true, plugins:{legend:{display:false}},
+        scales:{ x:{beginAtZero:true,grid:{color:'#F1F5F9'},ticks:{color:'#64748B'}},
+                 y:{grid:{display:false},ticks:{color:'#475569',font:{size:10}}} } }
+});
+
+// ── 5 & 6. Pie Charts ──────────────────────────────────────────
+const pieOpts = {
+    responsive:true,
+    plugins:{
+        legend:{display:false},
+        tooltip:{ callbacks:{ label: ctx => ' '+ctx.label+': '+ctx.parsed.toFixed(0)+'%' }}
+    }
+};
+const pieColors = ['#004F3B','#009966','#A7F3D0','#E6F7F0'];
+
+new Chart(document.getElementById('pieLaki'),{
+    type:'doughnut',
+    data:{ labels:['Umum','BPJS','PKG','Lainnya'], datasets:[{ data:[47,53,0,0], backgroundColor:pieColors, borderWidth:0 }] },
+    options: pieOpts
+});
+new Chart(document.getElementById('piePerempuan'),{
+    type:'doughnut',
+    data:{ labels:['Umum','BPJS','PKG','Lainnya'], datasets:[{ data:[48,52,0,0], backgroundColor:pieColors, borderWidth:0 }] },
+    options: pieOpts
+});
+</script>

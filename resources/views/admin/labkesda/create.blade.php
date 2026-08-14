@@ -184,15 +184,6 @@
                 </div>
             </div>
 
-            <hr class="my-4">
-
-            <div class="form-group">
-                <label for="button_text">Teks Tombol <small class="text-muted font-weight-normal">(Opsional)</small></label>
-                <input type="text" name="button_text" id="button_text" value="{{ old('button_text') }}"
-                    class="form-control @error('button_text') is-invalid @enderror"
-                    placeholder="Contoh: Lihat Tarif & Pemeriksaan Test">
-                @error('button_text') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
 
             <div class="form-group">
                 <label for="button_url">Link Tombol <small class="text-muted font-weight-normal">(Opsional)</small></label>

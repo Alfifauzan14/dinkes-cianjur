@@ -29,14 +29,22 @@ class AgendaController extends Controller
             $query->where('status', $request->input('status'));
         }
 
+        // Filter berdasarkan tanggal spesifik
+        if ($request->filled('date_filter')) {
+            $query->whereDate('date', $request->input('date_filter'));
+        }
+
         $timeFilter = $request->input('time_filter', 'all');
         $today = Carbon::today()->toDateString();
-        if ($timeFilter === 'upcoming') {
-            $query->where('date', '>', $today);
-        } elseif ($timeFilter === 'today') {
-            $query->whereDate('date', $today);
-        } elseif ($timeFilter === 'past') {
-            $query->where('date', '<', $today);
+        // Hanya terapkan time_filter jika tidak ada filter tanggal manual
+        if (!$request->filled('date_filter')) {
+            if ($timeFilter === 'upcoming') {
+                $query->where('date', '>', $today);
+            } elseif ($timeFilter === 'today') {
+                $query->whereDate('date', $today);
+            } elseif ($timeFilter === 'past') {
+                $query->where('date', '<', $today);
+            }
         }
 
         $agendas = $query->orderBy('date', 'desc')

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
 use App\Models\SettingFooter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -43,11 +42,6 @@ class SettingFooterController extends Controller
             'email' => 'required|email|max:255',
             'emergency_call' => 'required|string|max:255',
             'emergency_title' => 'required|string|max:255',
-            'social_facebook' => 'nullable|url|max:255',
-            'social_instagram' => 'nullable|url|max:255',
-            'social_twitter' => 'nullable|url|max:255',
-            'social_youtube' => 'nullable|url|max:255',
-            'social_tiktok' => 'nullable|url|max:255',
         ];
 
         $request->validate($rules);
@@ -78,11 +72,6 @@ class SettingFooterController extends Controller
 
         $setting->update($data);
 
-        Setting::set('social_facebook', $request->input('social_facebook', ''));
-        Setting::set('social_instagram', $request->input('social_instagram', ''));
-        Setting::set('social_twitter', $request->input('social_twitter', ''));
-        Setting::set('social_youtube', $request->input('social_youtube', ''));
-        Setting::set('social_tiktok', $request->input('social_tiktok', ''));
 
         return redirect()->route('admin.settingfooter.edit')
             ->with('success', 'Pengaturan footer berhasil diperbarui!');
