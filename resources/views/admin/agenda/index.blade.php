@@ -13,14 +13,21 @@
         {{-- Search & Filter --}}
         <form action="{{ route('admin.agenda.index') }}" method="GET" class="d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
             <input type="hidden" name="time_filter" value="{{ request('time_filter', 'all') }}">
-            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari agenda atau lokasi..." style="width: 220px;">
+            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari agenda atau lokasi..." style="width: 200px;">
             <select name="status" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 140px;">
                 <option value="">Semua Status</option>
                 <option value="published" {{ request('status') == 'published' ? 'selected' : '' }}>Diterbitkan</option>
                 <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draf</option>
             </select>
-            @if(request('search') || request('status'))
-                <a href="{{ route('admin.agenda.index', ['time_filter' => request('time_filter', 'all')]) }}" class="btn btn-sm btn-outline-secondary">Reset</a>
+            {{-- Filter Tanggal (1 input) --}}
+            <div class="d-flex align-items-center" style="gap: 6px;">
+                <span class="material-icons text-muted" style="font-size:16px;">calendar_today</span>
+                <input type="date" name="date_filter" value="{{ request('date_filter') }}" class="form-control form-control-sm" title="Filter berdasarkan tanggal" style="width: 155px;" onchange="this.form.submit()">
+            </div>
+            @if(request('search') || request('status') || request('date_filter'))
+                <a href="{{ route('admin.agenda.index', ['time_filter' => request('time_filter', 'all')]) }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
+                    <span class="material-icons" style="font-size:14px;vertical-align:middle;">clear</span> Reset
+                </a>
             @endif
         </form>
 
