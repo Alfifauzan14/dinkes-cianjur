@@ -40,7 +40,7 @@ class GaleriTest extends TestCase
 
         $galeri = Galeri::create([
             'title' => 'Foto Kegiatan Imunisasi',
-            'image' => 'dumy1.png',
+            'image' => 'logo.png',
             'category' => 'PROGRAM',
         ]);
 
@@ -62,7 +62,7 @@ class GaleriTest extends TestCase
 
         $galeri = Galeri::create([
             'title' => 'Foto Awal',
-            'image' => 'dumy1.png',
+            'image' => 'logo.png',
             'category' => 'PROGRAM',
         ]);
 
@@ -91,7 +91,7 @@ class GaleriTest extends TestCase
 
         $galeri = Galeri::create([
             'title' => 'Foto Dihapus',
-            'image' => 'dumy1.png',
+            'image' => 'logo.png',
             'category' => 'PROGRAM',
         ]);
 

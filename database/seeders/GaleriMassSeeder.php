@@ -11,7 +11,7 @@ class GaleriMassSeeder extends Seeder
     public function run(): void
     {
         $categories = ['PROGRAM', 'KEGIATAN', 'NASIONAL'];
-        $images = ['dumy1.png', 'dumy2.png'];
+        $images = ['logo.png'];
 
         $galeriData = [
             // PROGRAM
@@ -82,7 +82,7 @@ class GaleriMassSeeder extends Seeder
         ];
 
         foreach ($galeriData as $i => $data) {
-            $data['image'] = $images[$i % 2];
+            $data['image'] = $images[0];
             $data['slug'] = Str::slug($data['title']);
 
             Galeri::updateOrCreate(
