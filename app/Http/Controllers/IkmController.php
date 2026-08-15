@@ -18,12 +18,13 @@ class IkmController extends Controller
     {
         // Validasi Form Input & Google reCAPTCHA
         $request->validate([
-            'name' => 'nullable|string|max:255',
+            'name' => 'required|string|max:255',
             'whatsapp' => 'nullable|string|max:50',
             'rating' => 'required|in:sangat_puas,puas,cukup,kurang',
             'description' => 'nullable|string',
             'g-recaptcha-response' => 'required',
         ], [
+            'name.required' => 'Nama Lengkap wajib diisi.',
             'g-recaptcha-response.required' => 'Harap centang verifikasi "Saya bukan robot" terlebih dahulu.',
         ]);
 

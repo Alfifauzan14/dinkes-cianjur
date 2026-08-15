@@ -103,8 +103,8 @@
                 @csrf
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Nama Lengkap (Opsional)</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nama Lengkap Anda" value="{{ old('name') }}">
+                        <label class="form-label">Nama Lengkap <span style="color: red;">*</span></label>
+                        <input type="text" name="name" class="form-control" placeholder="Nama Lengkap Anda" value="{{ old('name') }}" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nomor WhatsApp</label>
@@ -179,13 +179,17 @@
                 return false;
             }
 
-            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
-                const recaptchaResponse = grecaptcha.getResponse();
-                if (!recaptchaResponse) {
-                    e.preventDefault();
-                    alert('Harap centang verifikasi "Saya bukan robot" terlebih dahulu.');
-                    return false;
-                }
+            if (typeof grecaptcha === 'undefined' || typeof grecaptcha.getResponse !== 'function') {
+                e.preventDefault();
+                alert('Sistem Verifikasi reCAPTCHA gagal dimuat. Pastikan browser mendukung JavaScript atau matikan pemblokir iklan (AdBlocker) lalu muat ulang halaman.');
+                return false;
+            }
+
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                e.preventDefault();
+                alert('Harap centang verifikasi "Saya bukan robot" terlebih dahulu.');
+                return false;
             }
 
             const btn = document.getElementById('btnSubmit');

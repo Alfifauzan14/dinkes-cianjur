@@ -50,8 +50,8 @@
                     <!-- Row 1: Nama & WhatsApp -->
                     <div class="form-row-2">
                         <div class="form-group">
-                            <label class="form-label" for="ikm-name">Nama Lengkap (Opsional)</label>
-                            <input type="text" name="name" id="ikm-name" class="form-input" placeholder="Nama Lengkap Anda" value="{{ old('name') }}">
+                            <label class="form-label" for="ikm-name">Nama Lengkap <span style="color: red;">*</span></label>
+                            <input type="text" name="name" id="ikm-name" class="form-input" placeholder="Nama Lengkap Anda" value="{{ old('name') }}" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="ikm-wa">Nomor WhatsApp</label>
@@ -113,13 +113,17 @@ document.getElementById('homeIkmForm').addEventListener('submit', function(e) {
         return false;
     }
     
-    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
-        const recaptchaResponse = grecaptcha.getResponse();
-        if (!recaptchaResponse) {
-            e.preventDefault();
-            alert('Harap centang verifikasi "Saya bukan robot" terlebih dahulu.');
-            return false;
-        }
+    if (typeof grecaptcha === 'undefined' || typeof grecaptcha.getResponse !== 'function') {
+        e.preventDefault();
+        alert('Sistem Verifikasi reCAPTCHA gagal dimuat. Pastikan browser mendukung JavaScript atau matikan pemblokir iklan (AdBlocker) lalu muat ulang halaman.');
+        return false;
+    }
+
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+        e.preventDefault();
+        alert('Harap centang verifikasi "Saya bukan robot" terlebih dahulu.');
+        return false;
     }
 
     const btn = document.getElementById('homeIkmSubmitBtn');
