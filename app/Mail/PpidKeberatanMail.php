@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\PpidKeberatan;
+use App\Models\SettingFooter;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
@@ -56,7 +57,7 @@ class PpidKeberatanMail extends Mailable
      */
     public function content(): Content
     {
-        $settingFooter = \App\Models\SettingFooter::first();
+        $settingFooter = SettingFooter::first();
 
         return new Content(
             view: 'emails.ppid-keberatan-tanggapan',

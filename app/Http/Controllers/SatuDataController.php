@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faskes;
-use App\Models\Kecamatan;
 use App\Models\Kategori;
+use App\Models\Kecamatan;
 use App\Models\Laporan;
 use App\Models\LayananTerpadu;
 use App\Models\Regulasi;
 use App\Models\StatistikSetting;
+use App\Services\WalagriApiClient;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class SatuDataController extends Controller
@@ -17,7 +22,7 @@ class SatuDataController extends Controller
     /**
      * Display the Satu Data Statistik page.
      */
-    public function statistik(): View
+    public function statistik(Request $request): View
     {
         $setting = StatistikSetting::first() ?? new StatistikSetting;
 
@@ -40,6 +45,37 @@ class SatuDataController extends Controller
 
         $maxFaskesCount = $faskesDistribution->max('total') ?: 1;
 
+        // Walagri API — filter bulan dari query param ?bulan=YYYY-MM, default bulan ini
+        $bulan = $request->query('bulan');
+        $selectedMonth = ($bulan && preg_match('/^\d{4}-\d{2}$/', $bulan))
+            ? CarbonImmutable::createFromFormat('Y-m', $bulan)->startOfMonth()
+            : CarbonImmutable::now()->startOfMonth();
+        $startDate = $selectedMonth->format('Y-m-d');
+        $endDate = $selectedMonth->isSameMonth(CarbonImmutable::now())
+            ? CarbonImmutable::now()->format('Y-m-d')
+            : $selectedMonth->endOfMonth()->format('Y-m-d');
+        $cacheKey = "walagri.{$startDate}.{$endDate}";
+
+        $walagri = Cache::get($cacheKey);
+        if (! $walagri) {
+            $client = WalagriApiClient::createFromEnv();
+            $walagri = [
+                'visits' => $client->getPatientVisits($startDate, $endDate),
+                'diseases' => $client->getTopDiseases(10, $startDate, $endDate),
+                'statusMale' => $client->getPatientStatus('male', $startDate, $endDate),
+                'statusFemale' => $client->getPatientStatus('female', $startDate, $endDate),
+                'professions' => $client->getTopProfessions(10, $startDate, $endDate),
+            ];
+            $allOk = collect($walagri)->every(fn ($r) => ! empty($r['success']));
+            if ($allOk) {
+                Cache::put($cacheKey, $walagri, 3600);
+            } else {
+                Log::warning('Walagri API partial failure', [
+                    'failures' => collect($walagri)->filter(fn ($r) => empty($r['success']))->keys()->all(),
+                ]);
+            }
+        }
+
         return view('statistik', compact(
             'setting',
             'puskesmasCount',
@@ -47,7 +83,11 @@ class SatuDataController extends Controller
             'kecamatanCount',
             'layananCount',
             'faskesDistribution',
-            'maxFaskesCount'
+            'maxFaskesCount',
+            'walagri',
+            'startDate',
+            'endDate',
+            'selectedMonth'
         ));
     }
 

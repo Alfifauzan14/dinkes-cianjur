@@ -72,7 +72,6 @@ class SettingFooterController extends Controller
 
         $setting->update($data);
 
-
         return redirect()->route('admin.settingfooter.edit')
             ->with('success', 'Pengaturan footer berhasil diperbarui!');
     }

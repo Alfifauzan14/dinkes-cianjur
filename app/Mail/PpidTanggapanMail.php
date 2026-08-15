@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\PpidPermohonan;
+use App\Models\SettingFooter;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
@@ -56,13 +57,13 @@ class PpidTanggapanMail extends Mailable
      */
     public function content(): Content
     {
-        $settingFooter = \App\Models\SettingFooter::first();
+        $settingFooter = SettingFooter::first();
 
         return new Content(
             view: 'emails.ppid-tanggapan',
             with: [
                 'settingFooter' => $settingFooter,
-                'senderEmail'   => $this->fromEmail,
+                'senderEmail' => $this->fromEmail,
             ],
         );
     }

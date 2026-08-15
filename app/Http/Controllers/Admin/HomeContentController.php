@@ -66,7 +66,7 @@ class HomeContentController extends Controller
             );
 
             // Sync ke SettingFooter (footer) — kolom social_twitter tidak ada di SOCIAL_PLATFORMS, skip
-            $footerKey = 'social_' . $platform;
+            $footerKey = 'social_'.$platform;
             if (in_array($footerKey, $footerSetting->getFillable())) {
                 $footerSetting->$footerKey = $url ?: null;
             }

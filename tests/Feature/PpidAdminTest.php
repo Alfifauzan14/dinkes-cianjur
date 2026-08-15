@@ -144,7 +144,7 @@ class PpidAdminTest extends TestCase
 
         $perm->refresh();
         $this->assertNotNull($perm->file_tanggapan);
-        Storage::disk('public')->assertExists($perm->file_tanggapan);
+        $this->assertTrue(Storage::disk('public')->exists($perm->file_tanggapan));
 
         $this->assertDatabaseHas('ppid_permohonans', [
             'id' => $perm->id,
@@ -171,6 +171,7 @@ class PpidAdminTest extends TestCase
             'nama_pemohon' => 'Budi Santoso',
             'nik' => '1234567890123456',
             'no_hp' => '08123456789',
+            'email' => 'budi@example.com',
             'pekerjaan' => 'Swasta',
             'cara_memperoleh' => 'email',
             'alamat' => 'Cianjur',
@@ -191,7 +192,7 @@ class PpidAdminTest extends TestCase
         ]);
 
         $perm = PpidPermohonan::first();
-        Storage::disk('public')->assertExists($perm->foto_ktp);
+        $this->assertTrue(Storage::disk('public')->exists($perm->foto_ktp));
     }
 
     /**
