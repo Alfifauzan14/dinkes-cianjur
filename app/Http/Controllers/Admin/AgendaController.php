@@ -37,7 +37,7 @@ class AgendaController extends Controller
         $timeFilter = $request->input('time_filter', 'all');
         $today = Carbon::today()->toDateString();
         // Hanya terapkan time_filter jika tidak ada filter tanggal manual
-        if (!$request->filled('date_filter')) {
+        if (! $request->filled('date_filter')) {
             if ($timeFilter === 'upcoming') {
                 $query->where('date', '>', $today);
             } elseif ($timeFilter === 'today') {
