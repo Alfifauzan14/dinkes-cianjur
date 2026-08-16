@@ -90,27 +90,27 @@
                 <div class="lt-logos-grid">
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-24.png') }}" alt="Kemenkes RI">
+                            <img src="{{ asset('Assets/layanan-terpadu/Image-24.png') }}" alt="Kemenkes RI">
                         </div>
                     </div>
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-25.png') }}" alt="BPJS">
+                            <img src="{{ asset('Assets/layanan-terpadu/Image-25.png') }}" alt="BPJS">
                         </div>
                     </div>
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-26.png') }}" alt="Pemkab Cianjur">
+                            <img src="{{ asset('Assets/layanan-terpadu/Image-26.png') }}" alt="Pemkab Cianjur">
                         </div>
                     </div>
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-27.png') }}" alt="Dinkes">
+                            <img src="{{ asset('Assets/layanan-terpadu/Image-27.png') }}" alt="Dinkes">
                         </div>
                     </div>
                     <div class="lt-logo-item">
                         <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-28.png') }}" alt="Logo">
+                            <img src="{{ asset('Assets/layanan-terpadu/Image-28.png') }}" alt="Logo">
                         </div>
                     </div>
                 </div>
