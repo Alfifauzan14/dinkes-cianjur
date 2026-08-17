@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PagodaSehatCard;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class PagodaSehatController extends Controller
 {
@@ -26,15 +28,17 @@ class PagodaSehatController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'required|image|mimes:png,jpg,jpeg,svg|max:2048',
+            'image' => 'required|image|mimes:png,jpg,jpeg,webp,svg|max:5120',
             'url' => 'nullable|string|max:255',
         ]);
 
         $data = $request->only(['title', 'description', 'url']);
-        $data['order_index'] = PagodaSehatCard::max('order_index') + 1;
+        $data['order_index'] = (PagodaSehatCard::max('order_index') ?? 0) + 1;
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('pagoda-cards', 'public');
+            $destinationPath = public_path('uploads/pagoda-cards');
+            $filename = ImageService::compressAndUpload($request->file('image'), $destinationPath, 800, 85);
+            $data['image'] = 'uploads/pagoda-cards/'.$filename;
         }
 
         PagodaSehatCard::create($data);
@@ -53,14 +57,25 @@ class PagodaSehatController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg,webp,svg|max:5120',
             'url' => 'nullable|string|max:255',
         ]);
 
         $data = $request->only(['title', 'description', 'url']);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('pagoda-cards', 'public');
+            $destinationPath = public_path('uploads/pagoda-cards');
+
+            // Delete old uploaded image if exists
+            if ($pagodasehat->image && str_starts_with($pagodasehat->image, 'uploads/')) {
+                $oldPath = public_path($pagodasehat->image);
+                if (File::exists($oldPath)) {
+                    File::delete($oldPath);
+                }
+            }
+
+            $filename = ImageService::compressAndUpload($request->file('image'), $destinationPath, 800, 85);
+            $data['image'] = 'uploads/pagoda-cards/'.$filename;
         }
 
         $pagodasehat->update($data);
@@ -71,6 +86,13 @@ class PagodaSehatController extends Controller
 
     public function destroy(PagodaSehatCard $pagodasehat)
     {
+        if ($pagodasehat->image && str_starts_with($pagodasehat->image, 'uploads/')) {
+            $oldPath = public_path($pagodasehat->image);
+            if (File::exists($oldPath)) {
+                File::delete($oldPath);
+            }
+        }
+
         $pagodasehat->delete();
 
         return redirect()->route('admin.pagodasehat.index')

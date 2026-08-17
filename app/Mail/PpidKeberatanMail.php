@@ -3,12 +3,15 @@
 namespace App\Mail;
 
 use App\Models\PpidKeberatan;
+use App\Models\SettingFooter;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class PpidKeberatanMail extends Mailable
 {
@@ -54,7 +57,7 @@ class PpidKeberatanMail extends Mailable
      */
     public function content(): Content
     {
-        $settingFooter = \App\Models\SettingFooter::first();
+        $settingFooter = SettingFooter::first();
 
         return new Content(
             view: 'emails.ppid-keberatan-tanggapan',
@@ -69,6 +72,14 @@ class PpidKeberatanMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        $attachments = [];
+
+        if ($this->keberatan->file_tanggapan && Storage::disk('public')->exists($this->keberatan->file_tanggapan)) {
+            $path = Storage::disk('public')->path($this->keberatan->file_tanggapan);
+            $attachments[] = Attachment::fromPath($path)
+                ->as(basename($this->keberatan->file_tanggapan));
+        }
+
+        return $attachments;
     }
 }

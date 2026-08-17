@@ -39,23 +39,33 @@ class AgendaController extends Controller
         $monthName = $indonesianMonths[$month];
 
         // Format tanggal hari ini
-        $todayDateString = Carbon::now()->format('Y-m-d');
+        $today = Carbon::now();
+        $todayDateString = $today->format('Y-m-d');
 
-        // Parameter tanggal terpilih untuk linimasa
-        $selectedDateString = $request->input('date');
-
-        // Jika tidak ada tanggal terpilih, default ke hari ini (jika berada di bulan/tahun terpilih) atau tampilkan semua agenda bulan ini
-        $timelineTitle = "Agenda Bulan {$monthName} {$year}";
-        $timelineAgendas = $agendas;
-
-        if ($selectedDateString) {
-            $selectedDate = Carbon::parse($selectedDateString);
-            $timelineTitle = 'Agenda untuk tanggal '.$selectedDate->format('d').' '.$indonesianMonths[(int) $selectedDate->format('m')].' '.$selectedDate->format('Y');
-            $timelineAgendas = Agenda::published()
-                ->whereDate('date', $selectedDateString)
-                ->orderBy('time_start', 'asc')
-                ->get();
+        // Parameter tanggal terpilih untuk linimasa (default ke hari ini jika dalam bulan berjalan, atau tanggal 1 di bulan yang dipilih)
+        if ($request->filled('date')) {
+            $selectedDateString = $request->input('date');
+        } else {
+            if ($month == $today->month && $year == $today->year) {
+                $selectedDateString = $todayDateString;
+            } else {
+                $selectedDateString = sprintf('%04d-%02d-01', $year, $month);
+            }
         }
+
+        $selectedDate = Carbon::parse($selectedDateString);
+        $formattedDate = $selectedDate->format('d').' '.$indonesianMonths[(int) $selectedDate->format('m')].' '.$selectedDate->format('Y');
+
+        if ($selectedDateString === $todayDateString) {
+            $timelineTitle = 'Agenda Hari Ini ('.$formattedDate.')';
+        } else {
+            $timelineTitle = 'Agenda Tanggal '.$formattedDate;
+        }
+
+        $timelineAgendas = Agenda::published()
+            ->whereDate('date', $selectedDateString)
+            ->orderBy('time_start', 'asc')
+            ->get();
 
         // --- Perhitungan Kalender Grid (42 Sel) ---
         $firstDayOfMonth = Carbon::create($year, $month, 1);
@@ -109,7 +119,7 @@ class AgendaController extends Controller
             ];
         }
 
-        return view('agenda', compact(
+        return view('agenda.index', compact(
             'days',
             'month',
             'year',

@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         $profile = Profile::first();
 
-        return view('profil', compact('profile'));
+        return view('profil.index', compact('profile'));
     }
 
     /**
@@ -28,7 +28,7 @@ class ProfileController extends Controller
         $puskesmasCount = Faskes::where('type', 'Puskesmas')->count();
         $kecamatanCount = Kecamatan::count();
 
-        return view('visi-misi', compact('profile', 'puskesmasCount', 'kecamatanCount'));
+        return view('profil.visi-misi', compact('profile', 'puskesmasCount', 'kecamatanCount'));
     }
 
     /**
@@ -38,6 +38,6 @@ class ProfileController extends Controller
     {
         $profile = Profile::first();
 
-        return view('struktur-organisasi', compact('profile'));
+        return view('profil.struktur-organisasi', compact('profile'));
     }
 }

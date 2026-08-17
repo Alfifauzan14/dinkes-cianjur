@@ -16,7 +16,7 @@ class PPIDController extends Controller
      */
     public function index(): View
     {
-        return view('ppid');
+        return view('ppid.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class PPIDController extends Controller
      */
     public function permohonan(): View
     {
-        return view('permohonan');
+        return view('ppid.permohonan');
     }
 
     /**
@@ -105,7 +105,7 @@ class PPIDController extends Controller
      */
     public function keberatan(): View
     {
-        return view('keberatan');
+        return view('ppid.keberatan');
     }
 
     /**
@@ -149,7 +149,7 @@ class PPIDController extends Controller
      */
     public function cekStatus(): View
     {
-        return view('cek-status');
+        return view('ppid.cek-status');
     }
 
     /**

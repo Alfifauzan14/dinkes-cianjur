@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Kategori;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -67,17 +68,8 @@ class BeritaController extends Controller
 
         // Upload Gambar jika ada
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-
-            // Buat folder public/uploads/berita jika belum ada
             $destinationPath = public_path('uploads/berita');
-            if (! File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
-
-            $image->move($destinationPath, $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = ImageService::compressAndUpload($request->file('image'), $destinationPath, 1920, 82);
         }
 
         Berita::create($data);
@@ -113,13 +105,7 @@ class BeritaController extends Controller
 
         // Upload Gambar Baru jika ada
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-
             $destinationPath = public_path('uploads/berita');
-            if (! File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
 
             // Hapus gambar lama jika ada
             if ($berita->image) {
@@ -129,8 +115,7 @@ class BeritaController extends Controller
                 }
             }
 
-            $image->move($destinationPath, $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = ImageService::compressAndUpload($request->file('image'), $destinationPath, 1920, 82);
         }
 
         $berita->update($data);

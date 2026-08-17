@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\HomeInfoCard;
 use App\Models\HomeSocialLink;
+use App\Models\Setting;
+use App\Models\SettingFooter;
 use Illuminate\Http\Request;
 
 class HomeContentController extends Controller
@@ -52,14 +54,28 @@ class HomeContentController extends Controller
             'social_links.*.url' => 'nullable|string|max:255',
         ]);
 
+        $footerSetting = SettingFooter::firstOrCreate(['id' => 1]);
+
         foreach (self::SOCIAL_PLATFORMS as $platform) {
             $url = $validated['social_links'][$platform]['url'] ?? null;
 
+            // Update HomeSocialLink (beranda/hero)
             HomeSocialLink::updateOrCreate(
                 ['platform' => $platform],
                 ['url' => $url ?: null, 'order_index' => array_search($platform, self::SOCIAL_PLATFORMS) + 1]
             );
+
+            // Sync ke SettingFooter (footer) — kolom social_twitter tidak ada di SOCIAL_PLATFORMS, skip
+            $footerKey = 'social_'.$platform;
+            if (in_array($footerKey, $footerSetting->getFillable())) {
+                $footerSetting->$footerKey = $url ?: null;
+            }
+
+            // Sync ke Setting key-value store
+            Setting::set($footerKey, $url ?? '');
         }
+
+        $footerSetting->save();
 
         return redirect()->route('admin.home-content.index')
             ->with('success', 'Link media sosial berhasil diperbarui.');

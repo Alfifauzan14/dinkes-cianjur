@@ -14,7 +14,7 @@
                 <a href="{{ $card->url ?: '#' }}" class="layanan-card">
                     <div class="card-icon-wrap">
                         @if($card->image)
-                            @if(str_starts_with($card->image, 'Assets/'))
+                            @if(str_starts_with($card->image, 'Assets/') || str_starts_with($card->image, 'uploads/'))
                                 <img src="{{ asset($card->image) }}" alt="{{ $card->title }}">
                             @else
                                 <img src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}">

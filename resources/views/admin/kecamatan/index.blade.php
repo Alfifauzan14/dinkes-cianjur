@@ -15,12 +15,23 @@
         @endif
 
         <div class="card card-outline card-success">
-            <div class="card-header d-flex align-items-center justify-content-between">
+            <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
                 <span class="d-flex align-items-center" style="gap: 8px;">
-                    <span class="material-icons text-success">place</span>
-                    <span class="font-weight-bold card-title-label">Kelola Kecamatan</span>
+                    <span class="material-icons text-success" style="font-size:20px;">place</span>
+                    <span class="font-weight-bold card-title-label">Kelola Data Kecamatan</span>
                 </span>
-                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahKecamatan">
+
+                <form action="{{ route('admin.kecamatan.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari kecamatan..." style="width: 220px;">
+                    <button type="submit" class="btn btn-sm btn-success d-flex align-items-center">
+                        <span class="material-icons" style="font-size: 16px;">search</span>
+                    </button>
+                    @if(request('search'))
+                        <a href="{{ route('admin.kecamatan.index') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
+                    @endif
+                </form>
+
+                <button class="btn btn-sm btn-success ml-auto" data-toggle="modal" data-target="#modalTambahKecamatan">
                     <span class="material-icons" style="font-size:16px;">add</span> Tambah Kecamatan
                 </button>
             </div>

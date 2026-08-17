@@ -10,11 +10,15 @@ use Illuminate\View\View;
 
 class KecamatanController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $kecamatans = Kecamatan::orderBy('name')->get();
+        $search = $request->query('search');
+        $kecamatans = Kecamatan::query()
+            ->when($search, fn ($q) => $q->where('name', 'like', '%'.$search.'%'))
+            ->orderBy('name')
+            ->get();
 
-        return view('admin.kecamatan.index', compact('kecamatans'));
+        return view('admin.kecamatan.index', compact('kecamatans', 'search'));
     }
 
     public function store(Request $request): RedirectResponse

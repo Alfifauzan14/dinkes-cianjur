@@ -50,8 +50,8 @@
                     <!-- Row 1: Nama & WhatsApp -->
                     <div class="form-row-2">
                         <div class="form-group">
-                            <label class="form-label" for="ikm-name">Nama Lengkap (Opsional)</label>
-                            <input type="text" name="name" id="ikm-name" class="form-input" placeholder="Nama Lengkap Anda" value="{{ old('name') }}">
+                            <label class="form-label" for="ikm-name">Nama Lengkap <span style="color: red;">*</span></label>
+                            <input type="text" name="name" id="ikm-name" class="form-input" placeholder="Nama Lengkap Anda" value="{{ old('name') }}" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="ikm-wa">Nomor WhatsApp</label>
@@ -75,6 +75,12 @@
                     <div class="form-group">
                         <label class="form-label" for="ikm-message">Masukan dan Keluhan</label>
                         <textarea name="description" id="ikm-message" class="form-textarea" placeholder="Tulis masukan atau keluhan Anda di sini.....">{{ old('description') }}</textarea>
+                    </div>
+
+                    <!-- Row 4: Google reCAPTCHA v2 -->
+                    <div class="form-group" style="margin-bottom: 20px; display: flex; justify-content: center;">
+                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                        <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
                     </div>
  
                     <!-- Submit Button -->
@@ -107,6 +113,19 @@ document.getElementById('homeIkmForm').addEventListener('submit', function(e) {
         return false;
     }
     
+    if (typeof grecaptcha === 'undefined' || typeof grecaptcha.getResponse !== 'function') {
+        e.preventDefault();
+        alert('Sistem Verifikasi reCAPTCHA gagal dimuat. Pastikan browser mendukung JavaScript atau matikan pemblokir iklan (AdBlocker) lalu muat ulang halaman.');
+        return false;
+    }
+
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+        e.preventDefault();
+        alert('Harap centang verifikasi "Saya bukan robot" terlebih dahulu.');
+        return false;
+    }
+
     const btn = document.getElementById('homeIkmSubmitBtn');
     btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Mengirim...';
     btn.disabled = true;

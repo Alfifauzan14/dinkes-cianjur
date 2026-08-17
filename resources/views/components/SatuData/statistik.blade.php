@@ -1,297 +1,359 @@
 <link rel="stylesheet" href="{{ asset('css/SatuData/statistik.css') }}?v={{ time() }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-<div class="satudata-wrapper">
-    <!-- Banner Header Top Section -->
+@php
+    // ── Walagri: Kunjungan Pasien ─────────────────────────────────
+    $visits       = $walagri['visits']['data'] ?? [];
+    $totalVisits  = $visits['total_visits']['count'] ?? null;
+    $visitTrend   = $visits['total_visits']['difference'] ?? null;
+    $visitDir     = $visits['total_visits']['trend'] ?? 'same';
+    $served       = $visits['patient_served_status']['served'] ?? null;
+    $unserved     = $visits['patient_served_status']['unserved'] ?? null;
+
+    // ── Walagri: 10 Penyakit Terbanyak ───────────────────────────
+    $diseasesData  = $walagri['diseases']['data'] ?? [];
+    $diseaseLabels = $diseasesData['categories'] ?? [];
+    $diseaseCols   = $diseasesData['columns'] ?? [];
+    // Gabung male+female per penyakit
+    $diseaseMale   = collect($diseaseCols)->firstWhere(0, 'male') ?? [];
+    $diseaseFemale = collect($diseaseCols)->firstWhere(0, 'female') ?? [];
+    $diseaseMaleVals   = array_slice($diseaseMale, 1);
+    $diseaseFemaleVals = array_slice($diseaseFemale, 1);
+    // Penyakit #1
+    $topDiseaseName = $diseaseLabels[0] ?? null;
+    $topDiseaseCountMale   = $diseaseMaleVals[0] ?? 0;
+    $topDiseaseCountFemale = $diseaseFemaleVals[0] ?? 0;
+    $topDiseaseTotal = $topDiseaseCountMale + $topDiseaseCountFemale;
+
+    $topDiseaseIcd  = null;
+    $topDiseaseDesc = $topDiseaseName;
+    if ($topDiseaseName && str_contains($topDiseaseName, ' - ')) {
+        $parts = explode(' - ', $topDiseaseName, 2);
+        $topDiseaseIcd  = trim($parts[0]);
+        $topDiseaseDesc = trim($parts[1]);
+    }
+
+    // ── Walagri: Status Pasien ────────────────────────────────────
+    $maleStatusRaw   = $walagri['statusMale']['data']['male'] ?? [];
+    $femaleStatusRaw = $walagri['statusFemale']['data']['female'] ?? [];
+
+    $pieColors    = ['#004F3B', '#009966', '#34D399', '#A7F3D0', '#94A3B8', '#CBD5E1'];
+
+    $maleStatus = collect($maleStatusRaw)->values()->map(function ($item, $index) use ($pieColors) {
+        $item['color'] = $pieColors[$index] ?? '#64748B';
+        return $item;
+    })->toArray();
+
+    $femaleStatus = collect($femaleStatusRaw)->values()->map(function ($item, $index) use ($pieColors) {
+        $item['color'] = $pieColors[$index] ?? '#64748B';
+        return $item;
+    })->toArray();
+
+    // ── Walagri: Pekerjaan ────────────────────────────────────────
+    $profData   = $walagri['professions']['data'] ?? [];
+    $profLabels = $profData['labels'] ?? [];
+    $profValues = $profData['values'] ?? [];
+
+    // ── Pie chart data (PHP arrays, dipakai di @json()) ───────────
+    $maleLabels   = collect($maleStatus)->pluck('label')->toArray();
+    $maleVals     = collect($maleStatus)->map(fn($i) => collect($i['data'])->sum(fn($d) => $d[1] ?? 0))->toArray();
+    $femaleLabels = collect($femaleStatus)->pluck('label')->toArray();
+    $femaleVals   = collect($femaleStatus)->map(fn($i) => collect($i['data'])->sum(fn($d) => $d[1] ?? 0))->toArray();
+    $maleColors   = collect($maleStatus)->pluck('color')->filter()->values()->toArray();
+    $femaleColors = collect($femaleStatus)->pluck('color')->filter()->values()->toArray();
+@endphp
+
+<div class="satudata-wrapper" id="statistik-data"
+     data-disease-labels="{{ json_encode($diseaseLabels) }}"
+     data-disease-male-vals="{{ json_encode($diseaseMaleVals) }}"
+     data-disease-female-vals="{{ json_encode($diseaseFemaleVals) }}"
+     data-prof-labels="{{ json_encode($profLabels) }}"
+     data-prof-values="{{ json_encode($profValues) }}"
+     data-male-labels="{{ json_encode($maleLabels) }}"
+     data-male-vals="{{ json_encode($maleVals) }}"
+     data-male-colors="{{ json_encode($maleColors ?: $pieColors) }}"
+     data-female-labels="{{ json_encode($femaleLabels) }}"
+     data-female-vals="{{ json_encode($femaleVals) }}"
+     data-female-colors="{{ json_encode($femaleColors ?: $pieColors) }}">
+    {{-- Banner --}}
     <header class="satudata-banner">
         <div class="satudata-banner-container">
             <h1 class="satudata-banner-title">Satu Data Kesehatan</h1>
-            <p class="satudata-banner-subtitle">
-                Portal visualisasi statistik stunting, ketersediaan tenaga medis, dan sebaran faskes.
-            </p>
+            <p class="satudata-banner-subtitle">Portal visualisasi statistik kesehatan Kabupaten Cianjur.</p>
         </div>
     </header>
 
-    <!-- Main Content Section -->
     <main class="satudata-main">
         <div class="satudata-main-container">
-            
-            <!-- Dashboard Subheader -->
-            <div class="satudata-header">
-                <div class="satudata-header-left">
-                    <span class="satudata-category-tag">Satu Data Kesehatan</span>
-                    <h2 class="satudata-section-title">Dashboard Indikator Utama</h2>
+
+            {{-- Page Header --}}
+            <div class="db-page-header">
+                <div>
+                    <h2 class="db-page-title">Dashboard Kesehatan Kab. Cianjur</h2>
+                    <p class="db-page-period">Periode: {{ \Carbon\Carbon::parse($startDate)->translatedFormat('F Y') }}</p>
                 </div>
-                @if(!empty($setting->status_badge))
-                    <div class="satudata-status-badge" style="border-radius: 3px !important; background: #E6F7F0; color: #009966; border: 1.5px solid #009966; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;">
-                        <span class="status-dot" style="width: 8px; height: 8px; border-radius: 50%; background-color: #009966; display: inline-block;"></span>
-                        <span class="status-text" style="font-size: 12px; font-weight: 700; color: #009966;">{{ $setting->status_badge }}</span>
-                    </div>
-                @endif
+                {{-- Filter Bulan --}}
+                <form method="GET" action="{{ route('satudata.statistik') }}" class="db-month-filter">
+                    <label for="bulan" class="db-filter-label">Filter Bulan</label>
+                    <input type="month" id="bulan" name="bulan"
+                           value="{{ $selectedMonth->format('Y-m') }}"
+                           max="{{ now()->format('Y-m') }}"
+                           min="2024-01"
+                           class="db-month-input">
+                    <button type="submit" class="db-filter-btn">Tampilkan</button>
+                </form>
             </div>
 
-            <!-- 4 Stat Cards Row -->
-            <div class="stat-cards-grid">
-                <!-- Card 1: Puskesmas -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">PUSKESMAS</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $puskesmasCount ?? 0 }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                <line x1="12" y1="8" x2="12" y2="16"/>
-                                <line x1="8" y1="12" x2="16" y2="12"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Tersebar di seluruh wilayah Cianjur</span>
-                    </div>
-                </div>
+            {{-- 2-Column Layout --}}
+            <div class="db-layout">
 
-                <!-- Card 2: Rumah Sakit -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">RUMAH SAKIT</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $rsCount ?? 0 }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M19 21V9a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v12"/>
-                                <path d="M2 21h20"/>
-                                <path d="M10 12h4"/>
-                                <path d="M12 10v4"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Fasilitas rujukan kesehatan utama</span>
-                    </div>
-                </div>
+                {{-- LEFT: Main Content --}}
+                <div class="db-main">
 
-                <!-- Card 3: Wilayah Binaan -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">WILAYAH BINAAN</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $kecamatanCount ?? 0 }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Kecamatan di Kabupaten Cianjur</span>
-                    </div>
-                </div>
-
-                <!-- Card 4: Layanan Publik -->
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-label">LAYANAN PUBLIK</span>
-                    </div>
-                    <div class="stat-card-body-wrap">
-                        <div class="stat-card-number">{{ $layananCount ?? 0 }}</div>
-                        <div class="stat-card-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                <polyline points="14 2 14 8 20 8"/>
-                                <line x1="16" y1="13" x2="8" y2="13"/>
-                                <line x1="16" y1="17" x2="8" y2="17"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-caption caption-accent">
-                        <svg class="caption-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Jenis layanan terpadu Dinas Kesehatan</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Chart Card: Sebaran Fasilitas Pelayanan Kesehatan -->
-            <div class="chart-card" style="border-radius: 1px !important;">
-                <div class="chart-header">
-                    <div class="chart-header-left">
-                        <h3 class="chart-title" style="color: #004F3B;">{{ $setting->stunting_title }}</h3>
-                        <p class="chart-subtitle" style="color: #64748B;">{{ $setting->stunting_subtitle }}</p>
-                    </div>
-                    <div class="chart-header-right">
-                        <span class="trend-badge" style="border-radius: 3px !important; background: #E6F7F0; color: #009966; border: 1.5px solid #009966;">Update Otomatis</span>
-                    </div>
-                </div>
-
-                <!-- Split Dashboard Grid Layout -->
-                <div class="stunting-dashboard-grid">
-                    <!-- Left Column: Visual Chart -->
-                    <div class="stunting-chart-column">
-                        <div class="chart-flex-container">
-                             <!-- Y-Axis Static Labels (Left) -->
-                             @php
-                                 $yMax = $maxFaskesCount;
-                             @endphp
-                             <div class="chart-y-axis-labels">
-                                 <div class="chart-y-axis-labels-item"><span>{{ $yMax }} Unit</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.8) }}</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.6) }}</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.4) }}</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>{{ ceil($yMax * 0.2) }}</span></div>
-                                 <div class="chart-y-axis-labels-item"><span>0</span></div>
-                             </div>
-                             
-                             <!-- Scrollable Chart Area (Right) -->
-                             <div class="stunting-chart-container">
-                                 <!-- Y-Axis Grid Lines -->
-                                 <div class="chart-y-axis-grid">
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line"></div>
-                                     <div class="grid-line grid-line-solid"></div>
-                                 </div>
-
-                                 <div class="chart-bars-wrapper" id="chart-bars-wrapper">
-                                     @foreach($faskesDistribution as $index => $record)
-                                         @php
-                                             $heightPercent = $maxFaskesCount > 0 ? ($record->total / $maxFaskesCount) * 100 : 0;
-                                         @endphp
-                                         <div class="chart-bar-item {{ $index === 0 ? 'bar-highlighted' : '' }}"
-                                              role="button"
-                                              tabindex="0"
-                                              aria-label="Detail faskes kecamatan {{ $record->kecamatan }}"
-                                              data-kecamatan="{{ $record->kecamatan }}"
-                                              data-total="{{ $record->total }}"
-                                              data-puskesmas="{{ $record->puskesmas }}"
-                                              data-rs="{{ $record->rs }}"
-                                              data-list="{{ $record->list ?: 'Belum ada faskes ditambahkan.' }}"
-                                              onclick="updateFaskesDetail(this)"
-                                              onkeydown="if(event.key==='Enter')updateFaskesDetail(this)">
-                                             <span class="bar-val {{ $index === 0 ? 'font-bold' : '' }}" style="border-radius: 3px !important;">{{ $record->total }}</span>
-                                             <div class="bar-track" style="border-radius: 3px 3px 0 0 !important;">
-                                                 <div class="bar-fill {{ $index === 0 ? 'bar-fill-active' : '' }}" @style(['height: ' . $heightPercent . '%']) style="border-radius: 3px 3px 0 0 !important;"></div>
-                                             </div>
-                                             <span class="bar-year {{ $index === 0 ? 'bar-year-active' : '' }}" style="font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px;" title="{{ $record->kecamatan }}">
-                                                 {{ $record->kecamatan }}
-                                             </span>
-                                         </div>
-                                     @endforeach
-                                 </div>
-                             </div>
-                        </div>
-                        
-                        <!-- Click-to-Detail Hint -->
-                        <div class="chart-click-hint">
-                            <span class="material-icons">touch_app</span>
-                            <span>Arahkan kursor atau klik batang kecamatan untuk melihat daftar faskes di panel samping.</span>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Interactive Details Panel -->
-                    <div class="stunting-detail-column">
-                        <div id="stunting-detail-card" class="stunting-detail-card" style="border-radius: 1px !important;">
-                            <div class="detail-card-header">
-                                <h4 class="detail-card-title" id="detail-kecamatan">Kecamatan</h4>
-                                <span id="detail-total" class="detail-year-badge" style="border-radius: 3px !important;">—</span>
+                    {{-- 4 Stat Cards --}}
+                    <div class="db-stats-grid">
+                        <div class="db-stat-card db-stat-blue">
+                            <div class="db-stat-header">
+                                <div class="db-stat-label">Total Kunjungan Pasien</div>
+                                <span class="material-icons db-stat-icon" style="color: rgba(255, 255, 255, 0.7);">groups</span>
                             </div>
+                            <div class="db-stat-number">{{ $totalVisits !== null ? number_format($totalVisits, 0, ',', '.') : '-' }}</div>
+                            @if($visitTrend !== null)
+                            <div class="db-stat-change {{ $visitDir === 'up' ? 'up' : 'down' }}">
+                                {{ $visitDir === 'up' ? '▲' : '▼' }} {{ abs($visitTrend) }}% dari periode sebelumnya
+                            </div>
+                            @endif
+                        </div>
 
-                            <div class="detail-stats-grid">
-                                <div class="detail-stat-item" style="border-radius: 3px !important;">
-                                    <span class="detail-stat-label">Puskesmas</span>
-                                    <span id="detail-puskesmas" class="detail-stat-val" style="color: #004F3B;">—</span>
+                        <div class="db-stat-card">
+                            <div class="db-stat-header">
+                                <div class="db-stat-label">No. 1 Penyakit Terbanyak</div>
+                                <span class="material-icons db-stat-icon">medical_services</span>
+                            </div>
+                            <div class="db-disease-container">
+                                @if($topDiseaseIcd)
+                                    <span class="db-icd-badge">{{ $topDiseaseIcd }}</span>
+                                @endif
+                                <span class="db-disease-desc" title="{{ $topDiseaseDesc ?? '-' }}">{{ $topDiseaseDesc ?? '-' }}</span>
+                            </div>
+                            <div class="db-stat-cases-badge">
+                                <span class="db-stat-cases-count">{{ $topDiseaseTotal > 0 ? number_format($topDiseaseTotal, 0, ',', '.') : '-' }}</span>
+                                <span class="db-stat-cases-label">Kasus</span>
+                            </div>
+                        </div>
+
+                        <div class="db-stat-card">
+                            <div class="db-stat-header">
+                                <div class="db-stat-label">Status Kunjungan</div>
+                                <span class="material-icons db-stat-icon">analytics</span>
+                            </div>
+                            <div class="db-kunjungan-grid">
+                                <div class="db-kunj-col">
+                                    <div class="db-kunj-val green">{{ $served !== null ? number_format($served, 0, ',', '.') : '-' }}</div>
+                                    <div class="db-kunj-info">
+                                        <span class="db-kunj-indicator green"></span>
+                                        <span class="db-kunj-txt">Selesai</span>
+                                    </div>
                                 </div>
-                                <div class="detail-stat-item" style="border-radius: 3px !important;">
-                                    <span class="detail-stat-label">Rumah Sakit</span>
-                                    <span id="detail-rs" class="detail-stat-val" style="color: #009966;">—</span>
+                                <div class="db-kunj-divider"></div>
+                                <div class="db-kunj-col">
+                                    <div class="db-kunj-val red">{{ $unserved !== null ? number_format($unserved, 0, ',', '.') : '-' }}</div>
+                                    <div class="db-kunj-info">
+                                        <span class="db-kunj-indicator red"></span>
+                                        <span class="db-kunj-txt">Dalam berobat</span>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <div class="detail-list" style="margin-top: 4px; border: 1px solid #E2E8F0; border-radius: 3px !important; padding: 12px; max-height: 200px; overflow-y: auto; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px;">
-                                <span class="detail-stat-label" style="margin-bottom: 0;">Daftar Fasilitas Kesehatan:</span>
-                                <div id="detail-faskes-list" style="font-size: 13px; color: #475569; line-height: 1.5;">
-                                    —
-                                </div>
-                            </div>
-
                         </div>
                     </div>
+
+                    {{-- 10 Penyakit Terbanyak --}}
+                    <div class="db-chart-card penyakit-card">
+                        <div class="penyakit-header">
+                            <h3 class="db-chart-title">10 Penyakit Terbanyak</h3>
+                            <div class="penyakit-legend">
+                                <div class="penyakit-legend-item">
+                                    <span class="penyakit-legend-dot" style="background:#009966;"></span>
+                                    <span>Laki-laki</span>
+                                </div>
+                                <div class="penyakit-legend-item">
+                                    <span class="penyakit-legend-dot" style="background:#6EE7B7;"></span>
+                                    <span>Perempuan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="penyakit-chart-wrap">
+                            <canvas id="penyakitChart"></canvas>
+                        </div>
+                    </div>
+
+                    {{-- 10 Pekerjaan --}}
+                    <div class="db-chart-card">
+                        <h3 class="db-chart-title">10 Pekerjaan Pasien Terbanyak</h3>
+                        <canvas id="pekerjaanChart" height="180"></canvas>
+                    </div>
+
+                </div>
+
+                {{-- RIGHT: Sidebar --}}
+                <div class="db-sidebar">
+
+                    {{-- Status Pasien Laki-laki --}}
+                    <div class="dbs-card">
+                        <div class="dbs-card-title-sm">Status Pasien Laki-laki</div>
+                        <canvas id="pieLaki" height="180"></canvas>
+                        <div class="dbs-legend">
+                            @foreach($maleStatus as $item)
+                            <div>
+                                <span class="dbs-dot" {!! 'style="background:' . ($item['color'] ?? '#009966') . '"' !!}></span>
+                                {{ $item['label'] }}: {{ number_format(collect($item['data'])->sum(fn($d) => $d[1] ?? 0), 0, ',', '.') }} pasien
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- Status Pasien Perempuan --}}
+                    <div class="dbs-card">
+                        <div class="dbs-card-title-sm">Status Pasien Perempuan</div>
+                        <canvas id="piePerempuan" height="180"></canvas>
+                        <div class="dbs-legend">
+                            @foreach($femaleStatus as $item)
+                            <div>
+                                <span class="dbs-dot" {!! 'style="background:' . ($item['color'] ?? '#009966') . '"' !!}></span>
+                                {{ $item['label'] }}: {{ number_format(collect($item['data'])->sum(fn($d) => $d[1] ?? 0), 0, ',', '.') }} pasien
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <script>
-            function updateFaskesDetail(el) {
-                document.querySelectorAll('.chart-bar-item').forEach(b => {
-                    b.classList.remove('bar-active-selected');
-                });
-                
-                el.classList.add('bar-active-selected');
-
-                const kecamatan = el.dataset.kecamatan;
-                const total     = el.dataset.total;
-                const puskesmas = el.dataset.puskesmas;
-                const rs        = el.dataset.rs;
-                const list      = el.dataset.list;
-
-                const detailCard = document.getElementById('stunting-detail-card');
-                detailCard.style.opacity = '0.5';
-
-                setTimeout(() => {
-                    document.getElementById('detail-kecamatan').textContent = kecamatan;
-                    document.getElementById('detail-total').textContent = total + ' Faskes';
-                    document.getElementById('detail-puskesmas').textContent = puskesmas + ' Unit';
-                    document.getElementById('detail-rs').textContent = rs + ' Unit';
-                    
-                    const listContainer = document.getElementById('detail-faskes-list');
-                    listContainer.innerHTML = '';
-                    
-                    if (list && list !== 'Belum ada faskes ditambahkan.') {
-                        const items = list.split(', ');
-                        const ul = document.createElement('ul');
-                        ul.style.margin = '0';
-                        ul.style.paddingLeft = '16px';
-                        ul.style.fontSize = '13px';
-                        ul.style.color = '#475569';
-                        ul.style.lineHeight = '1.6';
-                        items.forEach(item => {
-                            const li = document.createElement('li');
-                            li.textContent = item;
-                            ul.appendChild(li);
-                        });
-                        listContainer.appendChild(ul);
-                    } else {
-                        listContainer.textContent = 'Tidak ada faskes di kecamatan ini.';
-                    }
-                    
-                    detailCard.style.opacity = '1';
-                }, 120);
-            }
-
-            document.addEventListener('DOMContentLoaded', () => {
-                const firstBar = document.querySelector('.chart-bar-item');
-                if (firstBar) {
-                    updateFaskesDetail(firstBar);
-                }
-            });
-            </script>
-
-            <!-- Progress cards deleted -->
+            <div class="db-footnote">
+                <span class="material-icons" style="font-size:14px;vertical-align:middle;">info</span>
+                Data bersumber dari sistem Walagri terintegrasi. Diperbarui otomatis setiap jam. Periode: {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} – {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}
+            </div>
 
         </div>
     </main>
 </div>
+
+<script>
+Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+Chart.defaults.font.size   = 11;
+
+// Retrieve data from data attributes
+const datasetEl = document.getElementById('statistik-data');
+const penyakitRaw    = JSON.parse(datasetEl.dataset.diseaseLabels);
+const penyakitMale   = JSON.parse(datasetEl.dataset.diseaseMaleVals);
+const penyakitFemale = JSON.parse(datasetEl.dataset.diseaseFemaleVals);
+const penyakitLabels = penyakitRaw.map(l => l.split(' - ')[0].trim());
+const penyakitFull   = penyakitRaw;
+
+// ── 1. Penyakit Terbanyak (vertical, label = kode ICD, tooltip = nama lengkap) ──
+(function() {
+    const ctx = document.getElementById('penyakitChart').getContext('2d');
+    const gradGreen = ctx.createLinearGradient(0, 0, 0, 260);
+    gradGreen.addColorStop(0, '#009966');
+    gradGreen.addColorStop(1, '#004F3B');
+    const gradMint = ctx.createLinearGradient(0, 0, 0, 260);
+    gradMint.addColorStop(0, '#6EE7B7');
+    gradMint.addColorStop(1, '#A7F3D0');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: penyakitLabels,
+            datasets: [
+                { label: 'Laki-laki',  data: penyakitMale,   backgroundColor: gradGreen, borderRadius: 3, borderSkipped: false, barPercentage: 0.65 },
+                { label: 'Perempuan',  data: penyakitFemale, backgroundColor: gradMint,  borderRadius: 3, borderSkipped: false, barPercentage: 0.65 },
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#0F172A',
+                    titleColor: '#A7F3D0',
+                    bodyColor: '#E2E8F0',
+                    padding: 10,
+                    cornerRadius: 3,
+                    callbacks: {
+                        title: items => penyakitFull[items[0].dataIndex] ?? items[0].label,
+                        label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toLocaleString('id-ID') + ' kasus'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: '#F1F5F9' },
+                    ticks: { color: '#64748B', font: { size: 10 } }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: {
+                        color: '#334155',
+                        font: { size: 11, weight: '600' },
+                        maxRotation: 0
+                    }
+                }
+            }
+        }
+    });
+})();
+
+// ── 2. Pekerjaan Terbanyak (Horizontal) ──────────────────────────
+(function() {
+    const ctx = document.getElementById('pekerjaanChart').getContext('2d');
+    const gradGreenHoriz = ctx.createLinearGradient(0, 0, 400, 0); // Horizontal gradient direction
+    gradGreenHoriz.addColorStop(0, '#004F3B');
+    gradGreenHoriz.addColorStop(1, '#009966');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: JSON.parse(datasetEl.dataset.profLabels),
+            datasets: [{ data: JSON.parse(datasetEl.dataset.profValues), backgroundColor: gradGreenHoriz, borderRadius: 3, borderSkipped: false, barPercentage: 0.5 }]
+        },
+        options: {
+            indexAxis: 'y', responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { beginAtZero: true, grid: { color: '#F1F5F9' }, ticks: { color: '#64748B' } },
+                y: { grid: { display: false }, ticks: { color: '#475569', font: { size: 10 } } }
+            }
+        }
+    });
+})();
+
+// ── 3 & 4. Pie Charts ─────────────────────────────────────────────
+const pieOpts = {
+    responsive: true,
+    plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ' ' + ctx.label + ': ' + ctx.parsed.toLocaleString('id-ID') + ' pasien' } }
+    }
+};
+
+new Chart(document.getElementById('pieLaki'), {
+    type: 'doughnut',
+    data: {
+        labels: JSON.parse(datasetEl.dataset.maleLabels),
+        datasets: [{ data: JSON.parse(datasetEl.dataset.maleVals), backgroundColor: JSON.parse(datasetEl.dataset.maleColors), borderWidth: 0 }]
+    },
+    options: pieOpts
+});
+
+new Chart(document.getElementById('piePerempuan'), {
+    type: 'doughnut',
+    data: {
+        labels: JSON.parse(datasetEl.dataset.femaleLabels),
+        datasets: [{ data: JSON.parse(datasetEl.dataset.femaleVals), backgroundColor: JSON.parse(datasetEl.dataset.femaleColors), borderWidth: 0 }]
+    },
+    options: pieOpts
+});
+</script>
+

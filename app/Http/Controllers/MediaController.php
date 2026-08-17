@@ -21,7 +21,7 @@ class MediaController extends Controller
             ->limit(4)
             ->get();
 
-        return view('media-index', compact('recentGaleri', 'recentInfografis'));
+        return view('media.index', compact('recentGaleri', 'recentInfografis'));
     }
 
     public function galeriKegiatan(Request $request): View
@@ -39,7 +39,7 @@ class MediaController extends Controller
 
         $galeris = $query->paginate(12)->withQueryString();
 
-        return view('media-galeri', compact('galeris'));
+        return view('media.galeri', compact('galeris'));
     }
 
     public function show(string $slug): View
@@ -50,13 +50,13 @@ class MediaController extends Controller
             }])
             ->firstOrFail();
 
-        return view('media-show', compact('galeri'));
+        return view('media.show', compact('galeri'));
     }
 
     public function infografis(): View
     {
         $infografis = Infografis::orderBy('created_at', 'desc')->paginate(12);
 
-        return view('media-infografis', compact('infografis'));
+        return view('media.infografis', compact('infografis'));
     }
 }

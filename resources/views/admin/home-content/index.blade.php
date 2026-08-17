@@ -83,11 +83,12 @@
 <div class="card card-outline card-success">
     <div class="card-header d-flex align-items-center" style="gap: 8px;">
         <span class="material-icons text-success">share</span>
-        <span class="font-weight-bold card-title-label">Kelola Sosial Media Hero</span>
+        <span class="font-weight-bold card-title-label">Kelola Link Media Sosial</span>
+        <span class="badge badge-success ml-2" style="font-size: 11px; font-weight: 600;">Beranda &amp; Footer</span>
     </div>
 
     <div class="card-body">
-        <p class="text-muted mb-3" style="font-size: 13px;">Edit link media sosial di halaman beranda. Kosongkan jika belum ada.</p>
+        <p class="text-muted mb-3" style="font-size: 13px;">Edit link media sosial. Perubahan akan langsung berlaku di <strong>halaman beranda</strong> dan <strong>footer</strong> website. Kosongkan jika belum ada.</p>
 
         <form action="{{ route('admin.home-content.social.update') }}" method="POST">
             @csrf

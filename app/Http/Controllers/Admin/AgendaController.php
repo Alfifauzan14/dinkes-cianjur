@@ -14,36 +14,48 @@ class AgendaController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Agenda::query();
+        $today = Carbon::today()->toDateString();
+
+        // Base query with search & status filters
+        $baseQuery = Agenda::query();
 
         if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('location', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%");
-            });
+            $this->applySearchFilter($baseQuery, $request->input('search'));
         }
 
         if ($request->filled('status')) {
-            $query->where('status', $request->input('status'));
+            $baseQuery->where('status', $request->input('status'));
         }
 
+        // Calculate accurate counts for each time tab
+        $countAll = (clone $baseQuery)->count();
+        $countToday = (clone $baseQuery)->whereDate('date', $today)->count();
+        $countUpcoming = (clone $baseQuery)->where('date', '>', $today)->count();
+        $countPast = (clone $baseQuery)->where('date', '<', $today)->count();
+
+        // Apply time tab filter and segment-specific ordering
         $timeFilter = $request->input('time_filter', 'all');
-        $today = Carbon::today()->toDateString();
-        if ($timeFilter === 'upcoming') {
-            $query->where('date', '>', $today);
-        } elseif ($timeFilter === 'today') {
-            $query->whereDate('date', $today);
+        $query = clone $baseQuery;
+
+        if ($timeFilter === 'today') {
+            $query->whereDate('date', $today)
+                ->orderBy('time_start', 'asc');
+        } elseif ($timeFilter === 'upcoming') {
+            $query->where('date', '>', $today)
+                ->orderBy('date', 'asc')
+                ->orderBy('time_start', 'asc');
         } elseif ($timeFilter === 'past') {
-            $query->where('date', '<', $today);
+            $query->where('date', '<', $today)
+                ->orderBy('date', 'desc')
+                ->orderBy('time_start', 'desc');
+        } else {
+            $query->orderBy('date', 'desc')
+                ->orderBy('time_start', 'asc');
         }
 
-        $agendas = $query->orderBy('date', 'desc')
-            ->orderBy('time_start', 'asc')
-            ->paginate(10);
+        $agendas = $query->paginate(10)->withQueryString();
 
-        return view('admin.agenda.index', compact('agendas'));
+        return view('admin.agenda.index', compact('agendas', 'countAll', 'countToday', 'countUpcoming', 'countPast', 'timeFilter'));
     }
 
     /**
@@ -302,5 +314,68 @@ class AgendaController extends Controller
         }
 
         return redirect()->route('admin.agenda.index')->with('success', "Berhasil mengimpor {$importedCount} agenda kegiatan!");
+    }
+
+    /**
+     * Apply intelligent keyword, location, and date search filter.
+     */
+    protected function applySearchFilter($query, string $search): void
+    {
+        $search = trim($search);
+        $searchLower = strtolower($search);
+
+        $indonesianMonths = [
+            'januari' => 1, 'jan' => 1,
+            'februari' => 2, 'feb' => 2,
+            'maret' => 3, 'mar' => 3,
+            'april' => 4, 'apr' => 4,
+            'mei' => 5,
+            'juni' => 6, 'jun' => 6,
+            'juli' => 7, 'jul' => 7,
+            'agustus' => 8, 'agt' => 8, 'ags' => 8,
+            'september' => 9, 'sep' => 9,
+            'oktober' => 10, 'okt' => 10,
+            'november' => 11, 'nov' => 11,
+            'desember' => 12, 'des' => 12,
+        ];
+
+        $query->where(function ($q) use ($search, $searchLower, $indonesianMonths) {
+            // 1. Text & generic string matching
+            $q->where('title', 'like', "%{$search}%")
+                ->orWhere('location', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%")
+                ->orWhere('date', 'like', "%{$search}%");
+
+            // 2. Numerical date matching (e.g. 17-08-2026, 17/08/2026, 17-08)
+            if (preg_match('/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/', $search, $matches)) {
+                $d = sprintf('%04d-%02d-%02d', $matches[3], $matches[2], $matches[1]);
+                $q->orWhereDate('date', $d);
+            } elseif (preg_match('/^(\d{1,2})[\/\-](\d{1,2})$/', $search, $matches)) {
+                $q->orWhere(function ($sub) use ($matches) {
+                    $sub->whereDay('date', (int) $matches[1])
+                        ->whereMonth('date', (int) $matches[2]);
+                });
+            }
+
+            // 3. Indonesian verbal date matching (e.g. "17 Agustus 2026", "17 Agustus", "Agustus")
+            foreach ($indonesianMonths as $monthName => $monthNum) {
+                if (str_contains($searchLower, $monthName)) {
+                    if (preg_match('/(\d{1,2})\s+'.preg_quote($monthName, '/').'(?:\s+(\d{4}))?/', $searchLower, $matches)) {
+                        $day = (int) $matches[1];
+                        $year = isset($matches[2]) ? (int) $matches[2] : null;
+
+                        $q->orWhere(function ($sub) use ($day, $monthNum, $year) {
+                            $sub->whereDay('date', $day)->whereMonth('date', $monthNum);
+                            if ($year) {
+                                $sub->whereYear('date', $year);
+                            }
+                        });
+                    } else {
+                        $q->orWhereMonth('date', $monthNum);
+                    }
+                    break;
+                }
+            }
+        });
     }
 }

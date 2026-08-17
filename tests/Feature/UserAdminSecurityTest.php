@@ -134,4 +134,51 @@ class UserAdminSecurityTest extends TestCase
         $verifyResponseNew->assertStatus(200);
         $verifyResponseNew->assertJson(['success' => true]);
     }
+
+    public function test_admin_can_delete_inactive_admin_when_active_admin_exists(): void
+    {
+        $currentAdmin = User::factory()->create([
+            'is_active' => true,
+            'is_admin' => true,
+        ]);
+
+        $inactiveAdmin = User::factory()->create([
+            'name' => 'Inactive Admin',
+            'is_active' => false,
+            'is_admin' => true,
+        ]);
+
+        $response = $this->actingAs($currentAdmin)
+            ->delete("/admin/users/{$inactiveAdmin->id}");
+
+        $response->assertRedirect('/admin/users');
+        $this->assertDatabaseMissing('users', ['id' => $inactiveAdmin->id]);
+    }
+
+    public function test_admin_cannot_delete_last_active_admin(): void
+    {
+        $lastActiveAdmin = User::factory()->create([
+            'is_active' => true,
+            'is_admin' => true,
+        ]);
+
+        $otherAdmin = User::factory()->create([
+            'is_active' => true,
+            'is_admin' => true,
+        ]);
+
+        // Attempting to delete $lastActiveAdmin while another active admin exists should succeed
+        $response = $this->actingAs($otherAdmin)
+            ->delete("/admin/users/{$lastActiveAdmin->id}");
+
+        $response->assertRedirect('/admin/users');
+        $this->assertDatabaseMissing('users', ['id' => $lastActiveAdmin->id]);
+
+        // Now $otherAdmin is the last active admin. Attempting to delete $otherAdmin by himself or if sole active admin is blocked
+        $response2 = $this->actingAs($otherAdmin)
+            ->delete("/admin/users/{$otherAdmin->id}");
+
+        $response2->assertSessionHas('error');
+        $this->assertDatabaseHas('users', ['id' => $otherAdmin->id]);
+    }
 }

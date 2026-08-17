@@ -88,31 +88,25 @@
             <!-- Logos Section -->
             <div class="lt-logos-section">
                 <div class="lt-logos-grid">
-                    <div class="lt-logo-item">
-                        <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-24.png') }}" alt="Kemenkes RI">
+                    @php
+                        $defaultLogos = [
+                            1 => ['path' => 'Assets/layanan-terpadu/Image-24.png', 'alt' => 'Kemenkes RI'],
+                            2 => ['path' => 'Assets/layanan-terpadu/Image-25.png', 'alt' => 'SatuSehat / BPJS'],
+                            3 => ['path' => 'Assets/layanan-terpadu/Image-26.png', 'alt' => 'Pemkab Cianjur'],
+                            4 => ['path' => 'Assets/layanan-terpadu/Image-27.png', 'alt' => 'Dinas Kesehatan Cianjur'],
+                            5 => ['path' => 'Assets/layanan-terpadu/Image-28.png', 'alt' => 'Germas'],
+                        ];
+                    @endphp
+                    @for($i = 1; $i <= 5; $i++)
+                        @php
+                            $logoVal = \App\Models\Setting::get("layanan_logo_{$i}", $defaultLogos[$i]['path']);
+                        @endphp
+                        <div class="lt-logo-item">
+                            <div class="lt-logo-placeholder">
+                                <img src="{{ asset($logoVal) }}" alt="{{ $defaultLogos[$i]['alt'] }}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="lt-logo-item">
-                        <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-25.png') }}" alt="BPJS">
-                        </div>
-                    </div>
-                    <div class="lt-logo-item">
-                        <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-26.png') }}" alt="Pemkab Cianjur">
-                        </div>
-                    </div>
-                    <div class="lt-logo-item">
-                        <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-27.png') }}" alt="Dinkes">
-                        </div>
-                    </div>
-                    <div class="lt-logo-item">
-                        <div class="lt-logo-placeholder">
-                            <img src="{{ asset('Assets/layanan terpadu/Image-28.png') }}" alt="Logo">
-                        </div>
-                    </div>
+                    @endfor
                 </div>
             </div>
 

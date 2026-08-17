@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faskes;
-use App\Models\Kecamatan;
 use App\Models\Kategori;
+use App\Models\Kecamatan;
 use App\Models\Laporan;
 use App\Models\LayananTerpadu;
 use App\Models\Regulasi;
 use App\Models\StatistikSetting;
+use App\Services\WalagriApiClient;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class SatuDataController extends Controller
@@ -17,7 +23,7 @@ class SatuDataController extends Controller
     /**
      * Display the Satu Data Statistik page.
      */
-    public function statistik(): View
+    public function statistik(Request $request): View
     {
         $setting = StatistikSetting::first() ?? new StatistikSetting;
 
@@ -40,14 +46,49 @@ class SatuDataController extends Controller
 
         $maxFaskesCount = $faskesDistribution->max('total') ?: 1;
 
-        return view('statistik', compact(
+        // Walagri API — filter bulan dari query param ?bulan=YYYY-MM, default bulan ini
+        $bulan = $request->query('bulan');
+        $selectedMonth = ($bulan && preg_match('/^\d{4}-\d{2}$/', $bulan))
+            ? CarbonImmutable::createFromFormat('Y-m', $bulan)->startOfMonth()
+            : CarbonImmutable::now()->startOfMonth();
+        $startDate = $selectedMonth->format('Y-m-d');
+        $endDate = $selectedMonth->isSameMonth(CarbonImmutable::now())
+            ? CarbonImmutable::now()->format('Y-m-d')
+            : $selectedMonth->endOfMonth()->format('Y-m-d');
+        $cacheKey = "walagri.{$startDate}.{$endDate}";
+
+        $walagri = Cache::get($cacheKey);
+        if (! $walagri) {
+            $client = WalagriApiClient::createFromEnv();
+            $walagri = [
+                'visits' => $client->getPatientVisits($startDate, $endDate),
+                'diseases' => $client->getTopDiseases(10, $startDate, $endDate),
+                'statusMale' => $client->getPatientStatus('male', $startDate, $endDate),
+                'statusFemale' => $client->getPatientStatus('female', $startDate, $endDate),
+                'professions' => $client->getTopProfessions(10, $startDate, $endDate),
+            ];
+            $allOk = collect($walagri)->every(fn ($r) => ! empty($r['success']));
+            if ($allOk) {
+                Cache::put($cacheKey, $walagri, 3600);
+            } else {
+                Log::warning('Walagri API partial failure', [
+                    'failures' => collect($walagri)->filter(fn ($r) => empty($r['success']))->keys()->all(),
+                ]);
+            }
+        }
+
+        return view('satu-data.statistik', compact(
             'setting',
             'puskesmasCount',
             'rsCount',
             'kecamatanCount',
             'layananCount',
             'faskesDistribution',
-            'maxFaskesCount'
+            'maxFaskesCount',
+            'walagri',
+            'startDate',
+            'endDate',
+            'selectedMonth'
         ));
     }
 
@@ -58,7 +99,7 @@ class SatuDataController extends Controller
     {
         $laporans = Laporan::orderBy('release_date', 'desc')->get();
 
-        return view('laporan', compact('laporans'));
+        return view('satu-data.laporan', compact('laporans'));
     }
 
     /**
@@ -72,7 +113,7 @@ class SatuDataController extends Controller
 
         $kategoris = Kategori::ofType('regulasi')->orderBy('nama')->get();
 
-        return view('regulasi', compact('regulasis', 'kategoris'));
+        return view('satu-data.regulasi', compact('regulasis', 'kategoris'));
     }
 
     /**
@@ -86,11 +127,18 @@ class SatuDataController extends Controller
     }
 
     /**
-     * Increment downloads and redirect to the laporan file.
+     * Increment downloads and directly download the laporan file.
      */
-    public function downloadLaporan(Laporan $laporan): RedirectResponse
+    public function downloadLaporan(Laporan $laporan)
     {
         $laporan->increment('downloads');
+        $fullPath = storage_path('app/public/'.$laporan->file_path);
+
+        if (file_exists($fullPath)) {
+            $filename = Str::slug($laporan->title).'.pdf';
+
+            return response()->download($fullPath, $filename);
+        }
 
         return redirect()->to(asset('storage/'.$laporan->file_path));
     }
@@ -106,11 +154,18 @@ class SatuDataController extends Controller
     }
 
     /**
-     * Increment downloads and redirect to the regulasi file.
+     * Increment downloads and directly download the regulasi file.
      */
-    public function downloadRegulasi(Regulasi $regulasi): RedirectResponse
+    public function downloadRegulasi(Regulasi $regulasi)
     {
         $regulasi->increment('downloads');
+        $fullPath = storage_path('app/public/'.$regulasi->file_path);
+
+        if (file_exists($fullPath)) {
+            $filename = Str::slug($regulasi->title).'.pdf';
+
+            return response()->download($fullPath, $filename);
+        }
 
         return redirect()->to(asset('storage/'.$regulasi->file_path));
     }

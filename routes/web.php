@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaskesController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\HomeContentController;
@@ -37,17 +38,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+Route::get('/profil', function () {
+    return redirect()->route('profil.tentang');
+})->name('profil');
 Route::get('/profil/tentang-dinkes', [ProfileController::class, 'index'])->name('profil.tentang');
 Route::get('/profil/visi-misi', [ProfileController::class, 'visiMisi'])->name('profil.visi-misi');
 Route::get('/profil/struktur-organisasi', [ProfileController::class, 'strukturOrganisasi'])->name('profil.struktur-organisasi');
 Route::get('/ppid', [PPIDController::class, 'index'])->name('ppid');
 Route::get('/permohonan', [PPIDController::class, 'permohonan'])->name('permohonan');
-Route::post('/permohonan', [PPIDController::class, 'storePermohonan'])->name('permohonan.store');
+Route::post('/permohonan', [PPIDController::class, 'storePermohonan'])->middleware('throttle:30,1')->name('permohonan.store');
 Route::get('/keberatan', [PPIDController::class, 'keberatan'])->name('keberatan');
-Route::post('/keberatan/cek', [PPIDController::class, 'cekPermohonan'])->name('keberatan.cek');
-Route::post('/keberatan', [PPIDController::class, 'storeKeberatan'])->name('keberatan.store');
+Route::post('/keberatan/cek', [PPIDController::class, 'cekPermohonan'])->middleware('throttle:60,1')->name('keberatan.cek');
+Route::post('/keberatan', [PPIDController::class, 'storeKeberatan'])->middleware('throttle:30,1')->name('keberatan.store');
 Route::get('/cek-status', [PPIDController::class, 'cekStatus'])->name('cek-status');
-Route::post('/cek-status', [PPIDController::class, 'cekStatusApi'])->name('cek-status.api');
+Route::post('/cek-status', [PPIDController::class, 'cekStatusApi'])->middleware('throttle:60,1')->name('cek-status.api');
 Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
 Route::get('/api/agenda-by-date', [HomeController::class, 'agendaByDate'])->name('agenda.by_date');
 
@@ -80,10 +84,16 @@ Route::get('/program/{slug}', [ProgramKesehatanController::class, 'show'])->name
 Route::get('/cianjur-bebas-stunting', function () {
     return redirect()->route('program.show', 'cianjur-bebas-stunting');
 })->name('stunting');
+Route::get('/program/stunting', function () {
+    return redirect()->route('program.show', 'cianjur-bebas-stunting');
+});
 
 Route::get('/kesehatan-ibu-anak', function () {
     return redirect()->route('program.show', 'kesehatan-ibu-anak');
 })->name('kia');
+Route::get('/program/kia', function () {
+    return redirect()->route('program.show', 'kesehatan-ibu-anak');
+});
 
 /* --- Admin Labkesda Routes --- */
 Route::get('/admin/labkesda/settings', [AdminLabkesdaController::class, 'editSettings'])->middleware('auth')->name('admin.labkesda.settings.edit');
@@ -130,9 +140,7 @@ Route::post('/dinkes-login', [AuthController::class, 'login'])->name('login.post
 Route::post('/dinkes-logout', [AuthController::class, 'logout'])->name('logout');
 
 /* --- Admin Dashboard & Management Routes --- */
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware('auth')->name('admin.dashboard');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('admin.dashboard');
 
 Route::get('/admin/setting-footer', [SettingFooterController::class, 'edit'])->middleware('auth')->name('admin.settingfooter.edit');
 Route::put('/admin/setting-footer', [SettingFooterController::class, 'update'])->middleware('auth')->name('admin.settingfooter.update');
@@ -263,6 +271,8 @@ Route::resource('/admin/satu-data/regulasi', RegulasiController::class, [
         'destroy' => 'admin.regulasi.destroy',
     ],
 ])->middleware('auth');
+
+Route::post('/admin/layanan-terpadu/logos', [AdminLayananTerpaduController::class, 'updateLogos'])->name('admin.layanan.logos.update')->middleware('auth');
 
 Route::resource('/admin/layanan-terpadu', AdminLayananTerpaduController::class, [
     'names' => [
