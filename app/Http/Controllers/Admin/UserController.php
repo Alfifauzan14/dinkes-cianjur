@@ -120,7 +120,7 @@ class UserController extends Controller
 
         $activeAdmins = User::where('is_admin', true)->where('is_active', true)->count();
 
-        if ($user->is_admin && $activeAdmins <= 1) {
+        if ($user->is_admin && $user->is_active && $activeAdmins <= 1) {
             return back()->with('error', 'Tidak dapat menghapus admin aktif terakhir.');
         }
 

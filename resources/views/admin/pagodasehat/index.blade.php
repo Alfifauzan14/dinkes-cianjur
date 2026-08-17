@@ -14,12 +14,12 @@
 @endif
 
 <div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px;">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
-            <span class="material-icons text-success">dashboard</span>
+            <span class="material-icons text-success" style="font-size:20px;">medical_services</span>
             <span class="font-weight-bold card-title-label">Kelola Pagoda Sehat</span>
         </span>
-        <div class="d-flex align-items-center" style="gap: 8px;">
+        <div class="d-flex align-items-center ml-auto" style="gap: 8px;">
             <button type="button" id="btn-save-order" class="btn btn-sm btn-success" style="display: none;" onclick="saveNewOrder('pagodasehat')">
                 <span class="material-icons" style="font-size:16px;">save</span> Simpan Urutan
             </button>
@@ -48,7 +48,7 @@
                             <td class="text-center align-middle">
                                 <div style="width: 48px; height: 48px; background-color: #F3F4F6; border-radius: 3px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden;">
                                     @if($card->image)
-                                        @if(str_starts_with($card->image, 'Assets/'))
+                                        @if(str_starts_with($card->image, 'Assets/') || str_starts_with($card->image, 'uploads/'))
                                             <img src="{{ asset($card->image) }}" alt="{{ $card->title }}" style="width: 100%; height: 100%; object-fit: contain;">
                                         @else
                                             <img src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}" style="width: 100%; height: 100%; object-fit: contain;">

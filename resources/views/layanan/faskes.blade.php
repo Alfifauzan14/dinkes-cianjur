@@ -37,53 +37,59 @@
             <form action="{{ url('/faskes') }}" method="GET" class="faskes-filter-card" id="faskesFilterForm">
                 <div class="faskes-filter-section">
                     <div class="faskes-search-wrap">
-                        <input type="text" name="search" class="faskes-search-input" placeholder="Cari nama Puskesmas..." value="{{ request('search') }}" autocomplete="off">
-                        <button type="submit" class="faskes-search-btn">Cari</button>
-                    </div>
-
-                    {{-- Kecamatan custom dropdown --}}
-                    <div class="faskes-filter-wrap">
-                        <input type="hidden" name="kecamatan" id="kecamatanValue" value="{{ request('kecamatan', 'Semua') }}">
-                        <div class="faskes-custom-select" id="kecamatanDropdown">
-                            <button type="button" class="faskes-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
-                                <span class="faskes-custom-select-label">
-                                    @if(request('kecamatan') && request('kecamatan') !== 'Semua')
-                                        {{ request('kecamatan') }}
-                                    @else
-                                        Semua Wilayah
-                                    @endif
-                                </span>
-                                <svg class="faskes-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
-                            <ul class="faskes-custom-select-list" role="listbox">
-                                <li class="faskes-custom-option {{ request('kecamatan', 'Semua') === 'Semua' ? 'selected' : '' }}" data-value="Semua" role="option">Semua Wilayah</li>
-                                @foreach($kecamatans as $kec)
-                                    <li class="faskes-custom-option {{ request('kecamatan') === $kec->name ? 'selected' : '' }}" data-value="{{ $kec->name }}" role="option">{{ $kec->name }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-
-                    {{-- Type custom dropdown --}}
-                    <div class="faskes-filter-wrap">
-                        <input type="hidden" name="type" id="typeValue" value="{{ request('type', 'Semua') }}">
-                        <div class="faskes-custom-select" id="typeDropdown">
-                            <button type="button" class="faskes-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
-                                <span class="faskes-custom-select-label">
-                                    @if(request('type') && request('type') !== 'Semua')
-                                        {{ request('type') }}
-                                    @else
-                                        Semua Layanan
-                                    @endif
-                                </span>
-                                <svg class="faskes-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <input type="text" name="search" class="faskes-search-input" placeholder="Cari nama Puskesmas, Rumah Sakit, atau Klinik..." value="{{ request('search') }}" autocomplete="off">
+                        <button type="submit" class="faskes-search-btn">
+                            <span class="material-icons" style="font-size: 18px; vertical-align: middle;">search</span>
+                            <span>Cari</span>
                         </button>
-                            <ul class="faskes-custom-select-list" role="listbox">
-                                <li class="faskes-custom-option {{ request('type', 'Semua') === 'Semua' ? 'selected' : '' }}" data-value="Semua" role="option">Semua Layanan</li>
-                                @foreach($types as $t)
-                                    <li class="faskes-custom-option {{ request('type') === $t->name ? 'selected' : '' }}" data-value="{{ $t->name }}" role="option">{{ $t->name }}</li>
-                                @endforeach
-                            </ul>
+                    </div>
+
+                    {{-- Dropdowns Group (Right-aligned) --}}
+                    <div class="faskes-dropdowns-group">
+                        {{-- Kecamatan custom dropdown --}}
+                        <div class="faskes-filter-wrap">
+                            <input type="hidden" name="kecamatan" id="kecamatanValue" value="{{ request('kecamatan', 'Semua') }}">
+                            <div class="faskes-custom-select" id="kecamatanDropdown">
+                                <button type="button" class="faskes-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
+                                    <span class="faskes-custom-select-label">
+                                        @if(request('kecamatan') && request('kecamatan') !== 'Semua')
+                                            {{ request('kecamatan') }}
+                                        @else
+                                            Semua Wilayah
+                                        @endif
+                                    </span>
+                                    <svg class="faskes-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                                <ul class="faskes-custom-select-list" role="listbox">
+                                    <li class="faskes-custom-option {{ request('kecamatan', 'Semua') === 'Semua' ? 'selected' : '' }}" data-value="Semua" role="option">Semua Wilayah</li>
+                                    @foreach($kecamatans as $kec)
+                                        <li class="faskes-custom-option {{ request('kecamatan') === $kec->name ? 'selected' : '' }}" data-value="{{ $kec->name }}" role="option">{{ $kec->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+
+                        {{-- Type custom dropdown --}}
+                        <div class="faskes-filter-wrap">
+                            <input type="hidden" name="type" id="typeValue" value="{{ request('type', 'Semua') }}">
+                            <div class="faskes-custom-select" id="typeDropdown">
+                                <button type="button" class="faskes-custom-select-btn" aria-haspopup="listbox" aria-expanded="false">
+                                    <span class="faskes-custom-select-label">
+                                        @if(request('type') && request('type') !== 'Semua')
+                                            {{ request('type') }}
+                                        @else
+                                            Semua Layanan
+                                        @endif
+                                    </span>
+                                    <svg class="faskes-custom-select-icon" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                                <ul class="faskes-custom-select-list" role="listbox">
+                                    <li class="faskes-custom-option {{ request('type', 'Semua') === 'Semua' ? 'selected' : '' }}" data-value="Semua" role="option">Semua Layanan</li>
+                                    @foreach($types as $t)
+                                        <li class="faskes-custom-option {{ request('type') === $t->name ? 'selected' : '' }}" data-value="{{ $t->name }}" role="option">{{ $t->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

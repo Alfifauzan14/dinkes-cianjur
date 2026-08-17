@@ -108,23 +108,23 @@
 
 
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
-            <span class="material-icons text-success">science</span>
+            <span class="material-icons text-success" style="font-size:20px;">edit_note</span>
             <span class="font-weight-bold card-title-label">Edit Layanan Labkesda</span>
         </span>
-        <a href="{{ route('admin.labkesda.index') }}" class="btn btn-sm btn-outline-secondary">
-            <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
+        <a href="{{ route('admin.labkesda.index') }}" class="btn btn-sm btn-outline-secondary ml-auto">
+            <span class="material-icons" style="font-size:16px;">arrow_back</span> Kembali
         </a>
     </div>
 
-    <div class="card-body">
+    <div class="card-body" style="padding: 24px;">
         <form action="{{ route('admin.labkesda.update', $labkesda->id) }}" method="POST">
             @csrf
             @method('PUT')
 
             <div class="form-group">
-                <label for="title">Judul Layanan <span class="text-danger">*</span></label>
+                <label for="title" class="font-weight-bold" style="font-size: 13.5px; color: #1E293B;">Judul Layanan <span class="text-danger">*</span></label>
                 <input type="text" name="title" id="title" value="{{ old('title', $labkesda->title) }}"
                     class="form-control @error('title') is-invalid @enderror"
                     placeholder="Contoh: Laboratorium Klinik Medik" required>
@@ -132,7 +132,7 @@
             </div>
 
             <div class="form-group">
-                <label for="description">Deskripsi Layanan</label>
+                <label for="description" class="font-weight-bold" style="font-size: 13.5px; color: #1E293B;">Deskripsi Layanan</label>
                 <textarea name="description" id="description" rows="3"
                     class="form-control @error('description') is-invalid @enderror"
                     placeholder="Contoh: Pemeriksaan sampel klinis darah, urin, dan mikrobiologi (DAHU/Indikator).">{{ old('description', $labkesda->description) }}</textarea>
@@ -195,19 +195,11 @@
             </div>
 
 
-            <div class="form-group">
-                <label for="button_url">Link Tombol <small class="text-muted font-weight-normal">(Opsional)</small></label>
-                <input type="url" name="button_url" id="button_url" value="{{ old('button_url', $labkesda->button_url) }}"
-                    class="form-control @error('button_url') is-invalid @enderror"
-                    placeholder="Contoh: https://labkesda.cianjurkab.go.id">
-                @error('button_url') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-
             <div class="d-flex align-items-center justify-content-end" style="gap:10px;">
                 <a href="{{ route('admin.labkesda.index') }}" class="btn btn-outline-secondary">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">close</span> Batal
                 </a>
-                <button type="submit" class="btn btn-success-dark">
+                <button type="submit" class="btn btn-success font-weight-bold">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
                 </button>
             </div>

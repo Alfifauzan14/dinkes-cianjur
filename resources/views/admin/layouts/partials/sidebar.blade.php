@@ -34,14 +34,14 @@
                     </a>
                 </li>
 
-                {{-- ── KONTEN WEBSITE ──────────────────────────────── --}}
-                <li class="nav-header">KONTEN WEBSITE</li>
+                {{-- ── PUBLIKASI ───────────────────────────────────── --}}
+                <li class="nav-header">PUBLIKASI</li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.berita.index') }}"
                        class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">newspaper</span>
-                        <p>Berita &amp; Info</p>
+                        <p>Berita</p>
                     </a>
                 </li>
 
@@ -49,7 +49,7 @@
                     <a href="{{ route('admin.agenda.index') }}"
                        class="nav-link {{ request()->routeIs('admin.agenda.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">event</span>
-                        <p>Agenda Kegiatan</p>
+                        <p>Agenda</p>
                     </a>
                 </li>
 
@@ -57,7 +57,7 @@
                     <a href="{{ route('admin.galeri.index') }}"
                        class="nav-link {{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">collections</span>
-                        <p>Galeri Media</p>
+                        <p>Galeri</p>
                     </a>
                 </li>
 
@@ -65,20 +65,20 @@
                     <a href="{{ route('admin.infografis.index') }}"
                        class="nav-link {{ request()->routeIs('admin.infografis.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">bar_chart</span>
-                        <p>Infografis Kesehatan</p>
+                        <p>Infografis</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.home-content.index') }}"
                        class="nav-link {{ request()->routeIs('admin.home-content.*') ? 'active' : '' }}">
-                        <span class="material-icons nav-icon">info</span>
-                        <p>Konten Halaman Utama</p>
+                        <span class="material-icons nav-icon">home</span>
+                        <p>Beranda</p>
                     </a>
                 </li>
 
-                {{-- ── LAYANAN KESEHATAN ───────────────────────────── --}}
-                <li class="nav-header">LAYANAN KESEHATAN</li>
+                {{-- ── LAYANAN ─────────────────────────────────────── --}}
+                <li class="nav-header">LAYANAN</li>
 
                 @php
                     $stuntingProg = \App\Models\ProgramKesehatan::where('slug', 'cianjur-bebas-stunting')->first();
@@ -88,17 +88,17 @@
                     <a href="#" class="nav-link {{ request()->routeIs('admin.program-kesehatan.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">health_and_safety</span>
                         <p>
-                            Program Kesehatan
+                            Program
                             <i class="right fas fa-angle-right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview" @style(['display: block' => request()->routeIs('admin.program-kesehatan.*'), 'display: none' => !request()->routeIs('admin.program-kesehatan.*')])>
+                    <ul class="nav nav-treeview pl-3" @style(['display: block' => request()->routeIs('admin.program-kesehatan.*'), 'display: none' => !request()->routeIs('admin.program-kesehatan.*')])>
                         @if($stuntingProg)
                         <li class="nav-item">
                             <a href="{{ route('admin.program-kesehatan.edit', $stuntingProg->id) }}"
                                class="nav-link {{ request()->is('admin/program-kesehatan/' . $stuntingProg->id . '/edit') ? 'active' : '' }}">
                                  <span class="material-icons nav-icon">child_care</span>
-                                 <p>Cianjur Bebas Stunting</p>
+                                 <p>Stunting</p>
                             </a>
                         </li>
                         @endif
@@ -107,7 +107,7 @@
                             <a href="{{ route('admin.program-kesehatan.edit', $kiaProg->id) }}"
                                class="nav-link {{ request()->is('admin/program-kesehatan/' . $kiaProg->id . '/edit') ? 'active' : '' }}">
                                  <span class="material-icons nav-icon">pregnant_woman</span>
-                                 <p>Kesehatan Ibu &amp; Anak (KIA)</p>
+                                 <p>KIA</p>
                             </a>
                         </li>
                         @endif
@@ -118,7 +118,7 @@
                     <a href="{{ route('admin.layanan.index') }}"
                        class="nav-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">widgets</span>
-                        <p>Layanan Terpadu</p>
+                        <p>Layanan</p>
                     </a>
                 </li>
 
@@ -126,7 +126,7 @@
                     <a href="{{ route('admin.labkesda.index') }}"
                        class="nav-link {{ request()->routeIs('admin.labkesda.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">science</span>
-                        <p>UPTD Labkesda</p>
+                        <p>Labkesda</p>
                     </a>
                 </li>
 
@@ -134,7 +134,7 @@
                     <a href="{{ route('admin.ikm.index') }}"
                        class="nav-link {{ request()->routeIs('admin.ikm.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">reviews</span>
-                        <p>Indeks Kepuasan (IKM)</p>
+                        <p>IKM</p>
                     </a>
                 </li>
 
@@ -142,16 +142,16 @@
                     <a href="{{ route('admin.pagodasehat.index') }}"
                        class="nav-link {{ request()->routeIs('admin.pagodasehat.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">medical_services</span>
-                        <p>Zonasi Pagoda Sehat</p>
+                        <p>Pagoda Sehat</p>
                     </a>
                 </li>
 
-                {{-- Kelola Faskes dropdown --}}
+                {{-- Faskes dropdown --}}
                 @php $faskesActive = request()->routeIs('admin.faskes.*') || request()->routeIs('admin.jenis-faskes.*') || request()->routeIs('admin.kecamatan.*'); @endphp
                 <li class="nav-item has-treeview {{ $faskesActive ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ $faskesActive ? 'active' : '' }}">
                         <span class="material-icons nav-icon">location_city</span>
-                        <p>Informasi Faskes <i class="right fas fa-angle-right"></i></p>
+                        <p>Faskes <i class="right fas fa-angle-right"></i></p>
                     </a>
                     <ul class="nav nav-treeview pl-3">
                         <li class="nav-item">
@@ -178,23 +178,14 @@
                     </ul>
                 </li>
 
-                {{-- ── DATA & REGULASI SATU DATA ───────────────────── --}}
-                <li class="nav-header">DATA &amp; REGULASI SATU DATA</li>
-
-                {{-- Data & Statistik --}}
-                <li class="nav-item">
-                    <a href="{{ route('admin.satudata.statistik.edit') }}"
-                       class="nav-link {{ request()->routeIs('admin.satudata.statistik.*') ? 'active' : '' }}">
-                        <span class="material-icons nav-icon">bar_chart</span>
-                        <p>Statistik Satu Data</p>
-                    </a>
-                </li>
+                {{-- ── SATU DATA ───────────────────────────────────── --}}
+                <li class="nav-header">SATU DATA</li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.laporan.index') }}"
                        class="nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">description</span>
-                        <p>Laporan Kinerja (LAKIP)</p>
+                        <p>Laporan</p>
                     </a>
                 </li>
 
@@ -202,46 +193,44 @@
                     <a href="{{ route('admin.regulasi.index') }}"
                        class="nav-link {{ request()->routeIs('admin.regulasi.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">gavel</span>
-                        <p>Regulasi &amp; Kebijakan</p>
+                        <p>Regulasi</p>
                     </a>
                 </li>
 
-                {{-- ── MANAJEMEN PENGGUNA ────────────────────────── --}}
-                @if(Auth::user()->is_admin)
-                <li class="nav-header">PENGATURAN AKUN</li>
+                {{-- ── PPID ────────────────────────────────────────── --}}
+                <li class="nav-header">PPID</li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
-                        <span class="material-icons nav-icon">people</span>
-                        <p>Kelola Akun Pengguna</p>
+                    <a href="{{ route('admin.ppid.permohonan.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.ppid.permohonan.*') ? 'active' : '' }}">
+                        <span class="material-icons nav-icon">assignment</span>
+                        <p>Permohonan</p>
                     </a>
                 </li>
-                @endif
-
-                {{-- ── PENGATURAN INSTANSI ─────────────────────────── --}}
-                <li class="nav-header">PENGATURAN INSTANSI</li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.kategori.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.kategori.*') ? 'active' : '' }}">
-                        <span class="material-icons nav-icon">category</span>
-                        <p>Kelola Kategori</p>
+                    <a href="{{ route('admin.ppid.keberatan.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.ppid.keberatan.*') ? 'active' : '' }}">
+                        <span class="material-icons nav-icon">report_problem</span>
+                        <p>Keberatan</p>
                     </a>
                 </li>
+
+                {{-- ── PENGATURAN ──────────────────────────────────── --}}
+                <li class="nav-header">PENGATURAN</li>
 
                 {{-- Profil Instansi dropdown --}}
                 <li class="nav-item has-treeview {{ request()->routeIs('admin.profil.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
                         <span class="material-icons nav-icon">business</span>
-                        <p>Profil Instansi <i class="right fas fa-angle-right"></i></p>
+                        <p>Profil <i class="right fas fa-angle-right"></i></p>
                     </a>
                     <ul class="nav nav-treeview pl-3">
                         <li class="nav-item">
                             <a href="{{ route('admin.profil.edit', ['section' => 'sambutan']) }}"
                                class="nav-link {{ request()->routeIs('admin.profil.*') && request('section', 'sambutan') === 'sambutan' ? 'active' : '' }}">
                                 <span class="material-icons nav-icon">campaign</span>
-                                <p>Sambutan Pimpinan</p>
+                                <p>Sambutan</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -255,7 +244,7 @@
                             <a href="{{ route('admin.profil.edit', ['section' => 'sejarah']) }}"
                                class="nav-link {{ request()->routeIs('admin.profil.*') && request('section') === 'sejarah' ? 'active' : '' }}">
                                 <span class="material-icons nav-icon">history_edu</span>
-                                <p>Sejarah Instansi</p>
+                                <p>Sejarah</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -268,37 +257,29 @@
                     </ul>
                 </li>
 
-                {{-- Layanan PPID --}}
-                @php $ppidActive = request()->routeIs('admin.ppid.permohonan.*') || request()->routeIs('admin.ppid.keberatan.*'); @endphp
-                <li class="nav-item has-treeview {{ $ppidActive ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ $ppidActive ? 'active' : '' }}">
-                        <span class="material-icons nav-icon">help_outline</span>
-                        <p>Layanan PPID <i class="right fas fa-angle-right"></i></p>
+                <li class="nav-item">
+                    <a href="{{ route('admin.kategori.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.kategori.*') ? 'active' : '' }}">
+                        <span class="material-icons nav-icon">category</span>
+                        <p>Kategori</p>
                     </a>
-                    <ul class="nav nav-treeview pl-3" @style(['display: block' => $ppidActive, 'display: none' => !$ppidActive])>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.ppid.permohonan.index') }}"
-                               class="nav-link {{ request()->routeIs('admin.ppid.permohonan.*') ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">assignment</span>
-                                <p>Permohonan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.ppid.keberatan.index') }}"
-                               class="nav-link {{ request()->routeIs('admin.ppid.keberatan.*') ? 'active' : '' }}">
-                                <span class="material-icons nav-icon">report_problem</span>
-                                <p>Keberatan</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
-                {{-- Pengaturan Footer --}}
+                @if(Auth::user()->is_admin)
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+                        <span class="material-icons nav-icon">people</span>
+                        <p>Pengguna</p>
+                    </a>
+                </li>
+                @endif
+
                 <li class="nav-item">
                     <a href="{{ route('admin.settingfooter.edit') }}"
                        class="nav-link {{ request()->routeIs('admin.settingfooter.*') ? 'active' : '' }}">
-                        <span class="material-icons nav-icon">settings</span>
-                        <p>Pengaturan Footer</p>
+                        <span class="material-icons nav-icon">tune</span>
+                        <p>Footer</p>
                     </a>
                 </li>
 

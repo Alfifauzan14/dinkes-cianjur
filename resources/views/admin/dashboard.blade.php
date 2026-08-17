@@ -8,116 +8,104 @@
 @endsection
 
 @section('content')
-@php
-    use App\Models\Berita;
-    use App\Models\Agenda;
-    use App\Models\Laporan;
-    use App\Models\Regulasi;
-    use App\Models\Faskes;
-    use App\Models\ProgramKesehatan;
-    use App\Models\Galeri;
-    use App\Models\LayananTerpadu;
 
-    $recentBerita   = Berita::latest()->take(5)->get();
-    $upcomingAgenda = Agenda::where('date', '>=', now()->toDateString())->orderBy('date')->take(5)->get();
-    $totalBerita    = Berita::count();
-    $totalAgenda    = Agenda::count();
-    $totalLaporan   = Laporan::count();
-    $totalRegulasi  = Regulasi::count();
-    $totalFaskes    = Faskes::count();
-    $totalProgram   = ProgramKesehatan::count();
-    $totalGaleri    = Galeri::count();
-    $totalLayanan   = LayananTerpadu::count();
-@endphp
-
-{{-- -- Greeting Banner -------------------------------------------- --}}
+{{-- ── Greeting Banner ──────────────────────────────────────────── --}}
 <div class="card card-success card-outline mb-4">
-    <div class="card-body" style="background: linear-gradient(135deg, #004F3B 0%, #007A52 60%, #009966 100%); border-radius: 6px; color:#fff; padding: 28px 32px; position:relative; overflow:hidden;">
+    <div class="card-body" style="background: linear-gradient(135deg, #004F3B 0%, #007A52 60%, #009966 100%); border-radius: 6px; color:#fff; padding: 26px 30px; position:relative; overflow:hidden;">
         <div style="position:absolute;right:-30px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
         <div style="position:absolute;right:80px;bottom:-60px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
         <div class="d-flex align-items-center" style="gap:20px;position:relative;z-index:1;">
-            <span class="material-icons" style="font-size:52px;opacity:.9;flex-shrink:0;">health_and_safety</span>
+            <span class="material-icons" style="font-size:48px;opacity:.9;flex-shrink:0;">health_and_safety</span>
             <div>
                 <p class="mb-1" style="font-size:22px;font-weight:700;letter-spacing:-.2px;">Selamat Datang, {{ Auth::user()->name }}!</p>
-                <p class="mb-0" style="font-size:14px;opacity:.8;line-height:1.5;">Portal pengelolaan data dan informasi resmi Dinas Kesehatan Kabupaten Cianjur.<br>Kelola konten, statistik, laporan, dan regulasi dengan cepat dan efisien.</p>
+                <p class="mb-0" style="font-size:13.5px;opacity:.85;line-height:1.5;">Portal pengelolaan data dan informasi resmi Dinas Kesehatan Kabupaten Cianjur.</p>
             </div>
             <div class="ml-auto text-right d-none d-md-block" style="flex-shrink:0;">
                 <span style="font-size:13px;opacity:.7;display:block;">{{ now()->locale('id')->translatedFormat('l, d F Y') }}</span>
-                <span id="live-clock" style="font-size:28px;font-weight:700;letter-spacing:-1px;display:block;font-variant-numeric:tabular-nums;">{{ now()->format('H:i:s') }}</span>
+                <span id="live-clock" style="font-size:26px;font-weight:700;letter-spacing:-1px;display:block;font-variant-numeric:tabular-nums;">{{ now()->format('H:i:s') }}</span>
             </div>
         </div>
     </div>
 </div>
 
-{{-- -- Stats Grid � Row 1 ------------------------------------------ --}}
-<div class="row">
+{{-- ── PPID Action Alert (If there are pending requests) ─────────── --}}
+@if($ppidPendingCount > 0)
+<div class="dashboard-alert-pending">
+    <div class="dashboard-alert-content">
+        <span class="material-icons">notifications_active</span>
+        <div class="dashboard-alert-text">
+            Perhatian: Terdapat <strong>{{ $ppidPendingCount }} Permohonan Informasi Publik (PPID)</strong> yang menunggu respon admin.
+        </div>
+    </div>
+    <a href="{{ route('admin.ppid.permohonan.index') }}" class="btn btn-sm btn-warning font-weight-bold" style="font-size:12px;padding:5px 12px;">
+        Tinjau Sekarang <i class="fas fa-arrow-right ml-1"></i>
+    </a>
+</div>
+@endif
 
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+{{-- ── Primary KPI Stats Cards ───────────────────────────────────── --}}
+<div class="row">
+    {{-- Berita --}}
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
         <div class="small-box bg-success">
             <div class="inner">
                 <h3>{{ $totalBerita }}</h3>
-                <p>Total Berita</p>
+                <p>Total Berita & Info</p>
             </div>
             <div class="icon">
                 <span class="material-icons">newspaper</span>
             </div>
             <a href="{{ route('admin.berita.index') }}" class="small-box-footer">
-                Kelola <i class="fas fa-arrow-circle-right"></i>
+                Kelola Berita <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="small-box bg-info">
+    {{-- PPID Permohonan --}}
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+        <div class="small-box" style="background-color:#D97706;color:#fff;">
             <div class="inner">
-                <h3>{{ $totalAgenda }}</h3>
-                <p>Agenda Kegiatan</p>
+                <div class="d-flex align-items-baseline justify-content-start" style="gap:10px;">
+                    <h3>{{ $totalPpid }}</h3>
+                    @if($ppidPendingCount > 0)
+                        <span class="badge" style="background: rgba(255,255,255,0.25); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: 600;">
+                            ● {{ $ppidPendingCount }} Pending
+                        </span>
+                    @else
+                        <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: 500;">
+                            ✓ Selesai
+                        </span>
+                    @endif
+                </div>
+                <p>Permohonan PPID</p>
             </div>
             <div class="icon">
-                <span class="material-icons">event</span>
+                <span class="material-icons">assignment</span>
             </div>
-            <a href="{{ route('admin.agenda.index') }}" class="small-box-footer">
-                Kelola <i class="fas fa-arrow-circle-right"></i>
+            <a href="{{ route('admin.ppid.permohonan.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
+                Kelola PPID <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="small-box bg-warning">
+    {{-- Indeks Kepuasan (IKM) --}}
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+        <div class="small-box" style="background-color:#0284C7;color:#fff;">
             <div class="inner">
-                <h3>{{ $totalLaporan }}</h3>
-                <p>Laporan Kinerja</p>
+                <h3>{{ $ikmTotal }}</h3>
+                <p>Ulasan Kepuasan (IKM)</p>
             </div>
             <div class="icon">
-                <span class="material-icons">description</span>
+                <span class="material-icons">reviews</span>
             </div>
-            <a href="{{ route('admin.laporan.index') }}" class="small-box-footer">
-                Kelola <i class="fas fa-arrow-circle-right"></i>
+            <a href="{{ route('admin.ikm.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
+                Lihat Respon <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="small-box bg-danger">
-            <div class="inner">
-                <h3>{{ $totalRegulasi }}</h3>
-                <p>Produk Regulasi</p>
-            </div>
-            <div class="icon">
-                <span class="material-icons">gavel</span>
-            </div>
-            <a href="{{ route('admin.regulasi.index') }}" class="small-box-footer">
-                Kelola <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-
-</div>
-
-{{-- -- Stats Grid � Row 2 ------------------------------------------ --}}
-<div class="row">
-
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    {{-- Fasilitas Kesehatan --}}
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
         <div class="small-box" style="background-color:#0D9488;color:#fff;">
             <div class="inner">
                 <h3>{{ $totalFaskes }}</h3>
@@ -127,138 +115,250 @@
                 <span class="material-icons">local_hospital</span>
             </div>
             <a href="{{ route('admin.faskes.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
-                Kelola <i class="fas fa-arrow-circle-right"></i>
+                Kelola Faskes <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
-
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="small-box" style="background-color:#7C3AED;color:#fff;">
-            <div class="inner">
-                <h3>{{ $totalProgram }}</h3>
-                <p>Program Kesehatan</p>
-            </div>
-            <div class="icon">
-                <span class="material-icons">health_and_safety</span>
-            </div>
-            <a href="{{ route('admin.program-kesehatan.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
-                Kelola <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="small-box" style="background-color:#E11D48;color:#fff;">
-            <div class="inner">
-                <h3>{{ $totalGaleri }}</h3>
-                <p>Media Galeri</p>
-            </div>
-            <div class="icon">
-                <span class="material-icons">collections</span>
-            </div>
-            <a href="{{ route('admin.galeri.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
-                Kelola <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="small-box" style="background-color:#4338CA;color:#fff;">
-            <div class="inner">
-                <h3>{{ $totalLayanan }}</h3>
-                <p>Layanan Terpadu</p>
-            </div>
-            <div class="icon">
-                <span class="material-icons">widgets</span>
-            </div>
-            <a href="{{ route('admin.layanan.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
-                Kelola <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-
 </div>
 
-{{-- -- Quick Actions ----------------------------------------------- --}}
+{{-- ── Analytics & Permohonan PPID Section ──────────────────────── --}}
+<div class="row mb-4">
+    {{-- Status PPID Chart & IKM --}}
+    <div class="col-lg-5 col-12 mb-3">
+        <div class="card card-outline card-success h-100">
+            <div class="card-header d-flex align-items-center" style="padding:14px 18px;">
+                <h3 class="card-title mb-0 d-flex align-items-center" style="gap:8px;font-size:14px;font-weight:700;">
+                    <span class="material-icons" style="font-size:18px;color:#009966;">donut_large</span>
+                    Status Permohonan PPID
+                </h3>
+            </div>
+            <div class="card-body">
+                <div style="position:relative; height:180px;" class="d-flex justify-content-center align-items-center">
+                    <canvas id="ppidStatusChart" 
+                        data-pending="{{ $ppidPendingCount }}"
+                        data-approved="{{ $ppidApprovedCount }}"
+                        data-rejected="{{ $ppidRejectedCount }}"
+                        data-total="{{ $totalPpid }}"></canvas>
+                </div>
+
+                <hr style="margin: 16px 0; border-top: 1px solid #F1F5F9;">
+
+                {{-- IKM Rating Breakdown --}}
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span style="font-size:12px;font-weight:700;text-transform:uppercase;color:#64748B;letter-spacing:.5px;">Kepuasan Masyarakat (IKM)</span>
+                    <span class="badge badge-info" style="font-size:11px;">Total: {{ $ikmTotal }}</span>
+                </div>
+
+                @php
+                    $ikmRatings = [
+                        ['label' => 'Sangat Puas', 'count' => $ikmSangatPuas, 'class' => 'sangat-puas'],
+                        ['label' => 'Puas', 'count' => $ikmPuas, 'class' => 'puas'],
+                        ['label' => 'Cukup', 'count' => $ikmCukup, 'class' => 'cukup'],
+                        ['label' => 'Kurang', 'count' => $ikmKurang, 'class' => 'kurang', 'mb' => 'mb-0'],
+                    ];
+                @endphp
+
+                @foreach($ikmRatings as $item)
+                    @php
+                        $pct = $ikmTotal > 0 ? round(($item['count'] / $ikmTotal) * 100) : 0;
+                    @endphp
+                    <div class="ikm-rating-item {{ $item['mb'] ?? '' }}">
+                        <div class="ikm-rating-header">
+                            <span>{{ $item['label'] }}</span>
+                            <span>{{ $item['count'] }} ({{ $pct }}%)</span>
+                        </div>
+                        <div class="ikm-rating-progress">
+                            <div class="ikm-rating-fill {{ $item['class'] }}" data-pct="{{ $pct }}"></div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- Permohonan PPID Terbaru --}}
+    <div class="col-lg-7 col-12 mb-3">
+        <div class="card card-outline card-warning h-100">
+            <div class="card-header d-flex align-items-center" style="padding:14px 18px;">
+                <h3 class="card-title mb-0 d-flex align-items-center" style="gap:8px;font-size:14px;font-weight:700;">
+                    <span class="material-icons" style="font-size:18px;color:#D97706;">assignment_late</span>
+                    Permohonan Informasi Terbaru
+                </h3>
+                <div class="card-tools ml-auto">
+                    <a href="{{ route('admin.ppid.permohonan.index') }}" class="btn btn-sm btn-outline-warning" style="font-size:12px;padding:4px 10px;">
+                        Semua PPID <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body p-0 table-responsive">
+                <table class="table dashboard-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Pemohon</th>
+                            <th>Rincian Informasi</th>
+                            <th>Status</th>
+                            <th class="text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($latestPermohonans as $p)
+                        <tr>
+                            <td>
+                                <div class="font-weight-bold text-dark">{{ $p->nama_pemohon ?? $p->nama }}</div>
+                                <div class="text-muted" style="font-size:11.5px;">{{ $p->created_at->format('d M Y') }}</div>
+                            </td>
+                            <td>
+                                <div class="text-truncate" style="max-width: 220px;" title="{{ $p->rincian_informasi }}">
+                                    {{ $p->rincian_informasi }}
+                                </div>
+                                <div class="text-muted" style="font-size:11px;">Tujuan: {{ $p->tujuan_penggunaan ?? '-' }}</div>
+                            </td>
+                            <td>
+                                @if($p->status === 'pending')
+                                    <span class="badge badge-warning" style="font-size:11px;padding:4px 8px;">Pending</span>
+                                @elseif($p->status === 'disetujui')
+                                    <span class="badge badge-success" style="font-size:11px;padding:4px 8px;">Disetujui</span>
+                                @else
+                                    <span class="badge badge-danger" style="font-size:11px;padding:4px 8px;">Ditolak</span>
+                                @endif
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ route('admin.ppid.permohonan.show', $p->id) }}" class="btn btn-xs btn-outline-secondary" title="Detail">
+                                    <span class="material-icons" style="font-size:14px;vertical-align:middle;">visibility</span>
+                                </a>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">
+                                <span class="material-icons" style="font-size:32px;color:#CBD5E1;display:block;margin-bottom:6px;">check_circle</span>
+                                Belum ada permohonan informasi.
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- ── Quick Actions Grid (9 Diverse Actions) ─────────────────────── --}}
 <h5 class="mb-3" style="font-weight:700;color:#1E293B;font-size:13px;text-transform:uppercase;letter-spacing:.8px;">
     <span class="material-icons" style="font-size:16px;color:#009966;vertical-align:middle;">bolt</span>
     Aksi Cepat
 </h5>
-<div class="row">
-
+<div class="row mb-4">
+    {{-- 1. Tambah Berita --}}
     <div class="col-lg-4 col-md-6 col-12 mb-3">
         <a href="{{ route('admin.berita.create') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#009966;"><span class="material-icons">add_circle</span></div>
             <div class="quick-action-body">
                 <div class="quick-action-title">Tambah Berita</div>
                 <div class="quick-action-desc">Publikasikan berita &amp; pengumuman baru</div>
             </div>
-            <div class="quick-action-icon bg-success"><span class="material-icons">add_circle</span></div>
         </a>
     </div>
 
+    {{-- 2. Tambah Agenda --}}
     <div class="col-lg-4 col-md-6 col-12 mb-3">
         <a href="{{ route('admin.agenda.create') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#0284C7;"><span class="material-icons">event_available</span></div>
             <div class="quick-action-body">
                 <div class="quick-action-title">Tambah Agenda</div>
-                <div class="quick-action-desc">Buat agenda kegiatan dinas baru</div>
+                <div class="quick-action-desc">Jadwalkan kegiatan dinas baru</div>
             </div>
-            <div class="quick-action-icon bg-info"><span class="material-icons">event_available</span></div>
         </a>
     </div>
 
+    {{-- 3. Upload Laporan --}}
     <div class="col-lg-4 col-md-6 col-12 mb-3">
         <a href="{{ route('admin.laporan.create') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#D97706;"><span class="material-icons">upload_file</span></div>
             <div class="quick-action-body">
                 <div class="quick-action-title">Upload Laporan</div>
-                <div class="quick-action-desc">Tambah laporan kinerja atau keuangan</div>
+                <div class="quick-action-desc">Tambah dokumen LAKIP &amp; kinerja</div>
             </div>
-            <div class="quick-action-icon bg-warning"><span class="material-icons">upload_file</span></div>
         </a>
     </div>
 
+    {{-- 4. Tambah Regulasi --}}
     <div class="col-lg-4 col-md-6 col-12 mb-3">
-        <a href="{{ route('admin.satudata.statistik.edit') }}" class="quick-action-card">
+        <a href="{{ route('admin.regulasi.create') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#E11D48;"><span class="material-icons">gavel</span></div>
             <div class="quick-action-body">
-                <div class="quick-action-title">Edit Statistik</div>
-                <div class="quick-action-desc">Perbarui data &amp; indikator kesehatan</div>
+                <div class="quick-action-title">Tambah Regulasi</div>
+                <div class="quick-action-desc">Unggah SK, Perbup, &amp; regulasi</div>
             </div>
-            <div class="quick-action-icon" style="background-color:#0D9488;"><span class="material-icons">bar_chart</span></div>
         </a>
     </div>
 
+    {{-- 5. Upload Galeri --}}
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <a href="{{ route('admin.galeri.create') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#7C3AED;"><span class="material-icons">add_photo_alternate</span></div>
+            <div class="quick-action-body">
+                <div class="quick-action-title">Upload Galeri</div>
+                <div class="quick-action-desc">Tambah dokumentasi foto kegiatan</div>
+            </div>
+        </a>
+    </div>
+
+    {{-- 6. Tambah Faskes --}}
     <div class="col-lg-4 col-md-6 col-12 mb-3">
         <a href="{{ route('admin.faskes.create') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#0D9488;"><span class="material-icons">add_location_alt</span></div>
             <div class="quick-action-body">
                 <div class="quick-action-title">Tambah Faskes</div>
-                <div class="quick-action-desc">Daftarkan fasilitas kesehatan baru</div>
+                <div class="quick-action-desc">Daftarkan faskes / puskesmas baru</div>
             </div>
-            <div class="quick-action-icon" style="background-color:#0D9488;"><span class="material-icons">add_location</span></div>
         </a>
     </div>
 
+    {{-- 7. Kelola Layanan --}}
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <a href="{{ route('admin.layanan.index') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#4F46E5;"><span class="material-icons">medical_information</span></div>
+            <div class="quick-action-body">
+                <div class="quick-action-title">Kelola Layanan</div>
+                <div class="quick-action-desc">Atur informasi layanan terpadu</div>
+            </div>
+        </a>
+    </div>
+
+    {{-- 8. Profil Instansi --}}
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <a href="{{ route('admin.profil.edit') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#059669;"><span class="material-icons">business</span></div>
+            <div class="quick-action-body">
+                <div class="quick-action-title">Profil Instansi</div>
+                <div class="quick-action-desc">Ubah sambutan, visi &amp; misi dinas</div>
+            </div>
+        </a>
+    </div>
+
+    {{-- 9. Footer & Kontak --}}
     <div class="col-lg-4 col-md-6 col-12 mb-3">
         <a href="{{ route('admin.settingfooter.edit') }}" class="quick-action-card">
+            <div class="quick-action-icon" style="background-color:#475569;"><span class="material-icons">tune</span></div>
             <div class="quick-action-body">
-                <div class="quick-action-title">Settings</div>
-                <div class="quick-action-desc">Pengaturan identitas &amp; kontak situs</div>
+                <div class="quick-action-title">Footer &amp; Kontak</div>
+                <div class="quick-action-desc">Pengaturan kontak &amp; medsos dinas</div>
             </div>
-            <div class="quick-action-icon" style="background-color:#4338CA;"><span class="material-icons">settings</span></div>
         </a>
     </div>
-
 </div>
 
-{{-- -- Recent Content & Upcoming Agenda -------------------------- --}}
+{{-- ── Recent Content & Upcoming Agenda ────────────────────────── --}}
 <h5 class="mb-3" style="font-weight:700;color:#1E293B;font-size:13px;text-transform:uppercase;letter-spacing:.8px;">
     <span class="material-icons" style="font-size:16px;color:#009966;vertical-align:middle;">update</span>
     Aktivitas Terkini
 </h5>
 <div class="row">
-
     {{-- Recent Berita --}}
-    <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12 mb-3">
         <div class="card card-success card-outline h-100">
-            <div class="card-header d-flex align-items-center" style="padding:16px 20px;">
+            <div class="card-header d-flex align-items-center" style="padding:14px 18px;">
                 <h3 class="card-title mb-0 d-flex align-items-center" style="gap:8px;font-size:14px;font-weight:700;">
                     <span class="material-icons" style="font-size:18px;color:#009966;">newspaper</span>
                     Berita Terbaru
@@ -292,9 +392,9 @@
     </div>
 
     {{-- Upcoming Agenda --}}
-    <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12 mb-3">
         <div class="card card-info card-outline h-100">
-            <div class="card-header d-flex align-items-center" style="padding:16px 20px;">
+            <div class="card-header d-flex align-items-center" style="padding:14px 18px;">
                 <h3 class="card-title mb-0 d-flex align-items-center" style="gap:8px;font-size:14px;font-weight:700;">
                     <span class="material-icons" style="font-size:18px;color:#17a2b8;">event</span>
                     Agenda Mendatang
@@ -327,14 +427,12 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
 
 @endsection
 
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 // Live clock
 function updateClock() {
@@ -348,5 +446,56 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 updateClock();
+
+// PPID Status Donut Chart & IKM Progress
+document.addEventListener('DOMContentLoaded', function () {
+    // IKM Progress Bar Widths
+    document.querySelectorAll('.ikm-rating-fill[data-pct]').forEach(function (el) {
+        el.style.width = el.getAttribute('data-pct') + '%';
+    });
+
+    const ctx = document.getElementById('ppidStatusChart');
+    if (!ctx) return;
+
+    const pending = parseInt(ctx.dataset.pending, 10) || 0;
+    const approved = parseInt(ctx.dataset.approved, 10) || 0;
+    const rejected = parseInt(ctx.dataset.rejected, 10) || 0;
+    const total = parseInt(ctx.dataset.total, 10) || 0;
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Pending', 'Disetujui', 'Ditolak'],
+            datasets: [{
+                data: total === 0 ? [1, 0, 0] : [pending, approved, rejected],
+                backgroundColor: total === 0 ? ['#E2E8F0', '#E2E8F0', '#E2E8F0'] : ['#F59E0B', '#009966', '#EF4444'],
+                borderWidth: 2,
+                borderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12,
+                        font: { size: 12, family: "'Plus Jakarta Sans', sans-serif" }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            if (total === 0) return 'Belum ada data';
+                            return context.label + ': ' + context.raw + ' permohonan';
+                        }
+                    }
+                }
+            },
+            cutout: '70%'
+        }
+    });
+});
 </script>
 @endsection

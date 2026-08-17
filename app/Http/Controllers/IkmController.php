@@ -11,7 +11,7 @@ class IkmController extends Controller
 {
     public function index()
     {
-        return view('ikm');
+        return view('ikm.index');
     }
 
     public function store(Request $request)

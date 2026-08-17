@@ -151,3 +151,82 @@
 .activity-empty p {
     margin: 6px 0 0;
 }
+
+/* ── Dashboard Alert Banner ───────────────────────────────────── */
+.dashboard-alert-pending {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-left: 4px solid #F59E0B;
+    border-radius: 6px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.dashboard-alert-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.dashboard-alert-content .material-icons {
+    color: #D97706;
+    font-size: 24px;
+}
+.dashboard-alert-text {
+    font-size: 13.5px;
+    color: #92400E;
+    font-weight: 500;
+}
+.dashboard-alert-text strong {
+    font-weight: 700;
+}
+
+/* ── IKM Progress Meters ──────────────────────────────────────── */
+.ikm-rating-item {
+    margin-bottom: 12px;
+}
+.ikm-rating-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #334155;
+}
+.ikm-rating-progress {
+    height: 7px;
+    border-radius: 4px;
+    background-color: #F1F5F9;
+    overflow: hidden;
+}
+.ikm-rating-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+.ikm-rating-fill.sangat-puas { background-color: #009966; }
+.ikm-rating-fill.puas { background-color: #3B82F6; }
+.ikm-rating-fill.cukup { background-color: #F59E0B; }
+.ikm-rating-fill.kurang { background-color: #EF4444; }
+
+/* ── Dashboard Table Mini ─────────────────────────────────────── */
+.dashboard-table th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748B;
+    background: #F8FAFC;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 10px 14px;
+}
+.dashboard-table td {
+    font-size: 13px;
+    padding: 11px 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid #F1F5F9;
+}
+.dashboard-table tr:hover td {
+    background: #F8FAFC;
+}
+

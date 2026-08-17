@@ -15,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class SatuDataController extends Controller
@@ -76,7 +77,7 @@ class SatuDataController extends Controller
             }
         }
 
-        return view('statistik', compact(
+        return view('satu-data.statistik', compact(
             'setting',
             'puskesmasCount',
             'rsCount',
@@ -98,7 +99,7 @@ class SatuDataController extends Controller
     {
         $laporans = Laporan::orderBy('release_date', 'desc')->get();
 
-        return view('laporan', compact('laporans'));
+        return view('satu-data.laporan', compact('laporans'));
     }
 
     /**
@@ -112,7 +113,7 @@ class SatuDataController extends Controller
 
         $kategoris = Kategori::ofType('regulasi')->orderBy('nama')->get();
 
-        return view('regulasi', compact('regulasis', 'kategoris'));
+        return view('satu-data.regulasi', compact('regulasis', 'kategoris'));
     }
 
     /**
@@ -126,11 +127,18 @@ class SatuDataController extends Controller
     }
 
     /**
-     * Increment downloads and redirect to the laporan file.
+     * Increment downloads and directly download the laporan file.
      */
-    public function downloadLaporan(Laporan $laporan): RedirectResponse
+    public function downloadLaporan(Laporan $laporan)
     {
         $laporan->increment('downloads');
+        $fullPath = storage_path('app/public/'.$laporan->file_path);
+
+        if (file_exists($fullPath)) {
+            $filename = Str::slug($laporan->title).'.pdf';
+
+            return response()->download($fullPath, $filename);
+        }
 
         return redirect()->to(asset('storage/'.$laporan->file_path));
     }
@@ -146,11 +154,18 @@ class SatuDataController extends Controller
     }
 
     /**
-     * Increment downloads and redirect to the regulasi file.
+     * Increment downloads and directly download the regulasi file.
      */
-    public function downloadRegulasi(Regulasi $regulasi): RedirectResponse
+    public function downloadRegulasi(Regulasi $regulasi)
     {
         $regulasi->increment('downloads');
+        $fullPath = storage_path('app/public/'.$regulasi->file_path);
+
+        if (file_exists($fullPath)) {
+            $filename = Str::slug($regulasi->title).'.pdf';
+
+            return response()->download($fullPath, $filename);
+        }
 
         return redirect()->to(asset('storage/'.$regulasi->file_path));
     }

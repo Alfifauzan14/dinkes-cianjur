@@ -246,8 +246,9 @@
     }
 
     function escHtml(text) {
+        if (text === null || text === undefined) return '';
         var div = document.createElement('div');
-        div.appendChild(document.createTextNode(text));
+        div.appendChild(document.createTextNode(String(text)));
         return div.innerHTML;
     }
 

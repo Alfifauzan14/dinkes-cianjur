@@ -88,6 +88,8 @@
 
 
     <script>
+    var storageBaseUrl = '{{ asset("storage") }}';
+
     function cekStatus() {
         var token = document.getElementById('token').value.trim().toUpperCase();
         var cekBtn = document.getElementById('cekBtn');
@@ -169,7 +171,7 @@
                             '<div class="cs-tanggapan-file-name">' + escHtml(basename(d.file_tanggapan)) + '</div>' +
                             '<div class="cs-tanggapan-file-hint">Dokumen pendukung dari admin</div>' +
                         '</div>' +
-                        '<a href="{{ asset("storage/") }}/' + escHtml(d.file_tanggapan) + '" target="_blank" class="cs-tanggapan-file-link">' +
+                        '<a href="' + storageBaseUrl + '/' + escHtml(d.file_tanggapan) + '" target="_blank" class="cs-tanggapan-file-link">' +
                             '<span class="material-icons">visibility</span> Lihat' +
                         '</a>' +
                     '</div>' : '') +
@@ -185,14 +187,14 @@
                     '<div style="flex:1;">' +
                         '<div style="font-weight:600;color:#1E293B;font-size:14px;">Dokumen KTP (PDF)</div>' +
                     '</div>' +
-                    '<a href="{{ asset("storage/") }}/' + escHtml(d.foto_ktp) + '" target="_blank" class="cs-tanggapan-file-link">' +
+                    '<a href="' + storageBaseUrl + '/' + escHtml(d.foto_ktp) + '" target="_blank" class="cs-tanggapan-file-link">' +
                         '<span class="material-icons">visibility</span> Lihat' +
                     '</a>' +
                 '</div>';
             } else {
                 ktpHtml = '<div class="cs-ktp-wrap">' +
-                    '<img src="{{ asset("storage/") }}/' + escHtml(d.foto_ktp) + '" alt="KTP Pemohon" class="cs-ktp-img">' +
-                    '<a href="{{ asset("storage/") }}/' + escHtml(d.foto_ktp) + '" target="_blank" class="cs-ktp-link">' +
+                    '<img src="' + storageBaseUrl + '/' + escHtml(d.foto_ktp) + '" alt="KTP Pemohon" class="cs-ktp-img">' +
+                    '<a href="' + storageBaseUrl + '/' + escHtml(d.foto_ktp) + '" target="_blank" class="cs-ktp-link">' +
                         '<span class="material-icons">open_in_new</span> Lihat Ukuran Penuh' +
                     '</a>' +
                 '</div>';
@@ -200,7 +202,7 @@
         }
 
         var html =
-            {{-- Status Hero --}}
+            // Status Hero
             '<div class="cs-status-hero ' + statusClass + '">' +
                 '<div class="cs-status-hero-icon"><span class="material-icons">' + statusIcon + '</span></div>' +
                 '<p class="cs-status-hero-label">Status Permohonan</p>' +
@@ -208,10 +210,10 @@
                 '<p class="cs-status-hero-date">Diperbarui: ' + escHtml(d.updated_at) + '</p>' +
             '</div>' +
 
-            {{-- Tanggapan --}}
+            // Tanggapan
             tanggapanHtml +
 
-            {{-- Identitas Pemohon --}}
+            // Identitas Pemohon
             '<div class="cs-detail-section">' +
                 '<div class="cs-detail-section-header">' +
                     '<span class="material-icons">badge</span>' +
@@ -232,7 +234,7 @@
                     '</div>' : '') +
             '</div>' +
 
-            {{-- Detail Permohonan --}}
+            // Detail Permohonan
             '<div class="cs-detail-section">' +
                 '<div class="cs-detail-section-header">' +
                     '<span class="material-icons">help</span>' +
@@ -243,7 +245,7 @@
                     '<div class="cs-detail-item"><span class="cs-detail-label">Tanggal Pengajuan</span><span class="cs-detail-value">' + escHtml(d.created_at) + '</span></div>' +
                     '<div class="cs-detail-item"><span class="cs-detail-label">Jenis Informasi</span><span class="cs-detail-value"><span class="cs-badge">' + escHtml(formatLabel(d.jenis_informasi)) + '</span></span></div>' +
                     '<div class="cs-detail-item"><span class="cs-detail-label">Tujuan Penggunaan</span><span class="cs-detail-value"><span class="cs-badge">' + escHtml(formatLabel(d.tujuan_penggunaan)) + '</span></span></div>' +
-                    '<div class="cs-detail-item"><span class="cs-detail-label">Cara Memperoleh</span><span class="cs-detail-value">' + escHtml(capitalize(d.cara_memperoleh.replace('_', ' '))) + '</span></div>' +
+                    '<div class="cs-detail-item"><span class="cs-detail-label">Cara Memperoleh</span><span class="cs-detail-value">' + escHtml(capitalize(d.cara_memperoleh ? d.cara_memperoleh.replace('_', ' ') : '-')) + '</span></div>' +
                     '<div class="cs-detail-item"><span class="cs-detail-label">Format Informasi</span><span class="cs-detail-value" style="display:flex;flex-wrap:wrap;gap:6px;">' + formatBadges + '</span></div>' +
                     '<div class="cs-detail-item cs-detail-full"><span class="cs-detail-label">Rincian Informasi yang Diminta</span><div class="cs-detail-value-block">' + escHtml(d.rincian_informasi) + '</div></div>' +
                     (d.alasan_permohonan ?
@@ -256,11 +258,13 @@
     }
 
     function formatLabel(str) {
-        return str.replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+        if (!str) return '-';
+        return String(str).replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
     }
 
     function capitalize(str) {
-        return str.replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+        if (!str) return '-';
+        return String(str).replace(/\b\w/g, function(c) { return c.toUpperCase(); });
     }
 
     function basename(path) {

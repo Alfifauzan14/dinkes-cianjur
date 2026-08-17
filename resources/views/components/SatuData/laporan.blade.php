@@ -47,14 +47,14 @@
                             </div>
                         </div>
                         <div class="laporan-action-row">
-                            <a href="{{ asset('storage/' . $laporan->file_path) }}" class="laporan-preview-btn" target="_blank" title="Buka di Tab Baru">
+                            <a href="{{ route('satudata.laporan.view', $laporan->id) }}" class="laporan-preview-btn" target="_blank" title="Buka di Tab Baru">
                                 <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                     <circle cx="12" cy="12" r="3"></circle>
                                 </svg>
                                 <span>Pratinjau</span>
                             </a>
-                            <a href="{{ asset('storage/' . $laporan->file_path) }}" class="laporan-download-btn" download title="Unduh Dokumen">
+                            <a href="{{ route('satudata.laporan.download', $laporan->id) }}" class="laporan-download-btn" title="Unduh Dokumen">
                                 <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                     <polyline points="7 10 12 15 17 10"></polyline>

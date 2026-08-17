@@ -80,7 +80,7 @@
                             
                             <div class="form-group">
                                 <label for="content" class="font-weight-bold" style="font-size: 14px;">Detail Artikel Edukasi / Konten Lengkap Program</label>
-                                <p class="text-muted mb-2" style="font-size: 13px;">Tuliskan deskripsi atau artikel lengkap mengenai program kesehatan ini (cukup tuliskan teks/paragraf biasa, tidak perlu kode HTML).</p>
+                                <p class="text-muted mb-2" style="font-size: 13px;">Tuliskan deskripsi atau artikel lengkap mengenai program kesehatan ini.</p>
                                 <textarea name="content" id="content" rows="14"
                                      class="form-control @error('content') is-invalid @enderror"
                                      placeholder="Tuliskan artikel atau deskripsi program di sini..."

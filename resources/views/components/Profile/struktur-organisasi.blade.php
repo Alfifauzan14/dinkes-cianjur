@@ -36,9 +36,6 @@
                     <span class="material-icons struktur-btn-icon">file_download</span> Simpan Struktur Organisasi
                 </a>
             @endif
-            <button onclick="window.print()" class="struktur-btn-outline">
-                <span class="material-icons struktur-btn-icon">print</span> Cetak Halaman
-            </button>
         </div>
     </div>
 </div>

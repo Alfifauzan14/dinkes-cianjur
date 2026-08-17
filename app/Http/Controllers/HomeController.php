@@ -62,7 +62,7 @@ class HomeController extends Controller
         $infoCards = HomeInfoCard::orderBy('order_index')->get();
         $socialLinks = HomeSocialLink::orderBy('order_index')->get();
 
-        return view('welcome', compact(
+        return view('landing-page', compact(
             'homeBeritas',
             'homeAgendas',
             'currentDateLabel',

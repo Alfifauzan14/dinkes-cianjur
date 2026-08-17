@@ -135,13 +135,6 @@
                             </div>
                         </div>
 
-                        <div class="form-options">
-                            <label class="remember-me">
-                                <input type="checkbox" name="remember" id="remember">
-                                <span>Ingat saya di perangkat ini</span>
-                            </label>
-                        </div>
-
                         <button type="submit" id="db-submit-btn" class="submit-btn">
                             <span class="btn-spinner" id="db-spinner"></span>
                             <span class="btn-text">Masuk Sekarang</span>

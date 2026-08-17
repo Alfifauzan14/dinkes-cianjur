@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Infografis;
+use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class InfografisController extends Controller
@@ -24,7 +24,7 @@ class InfografisController extends Controller
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $infografis = $query->orderBy('created_at', 'desc')->paginate(10);
+        $infografis = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.infografis.index', compact('infografis'));
     }
@@ -51,16 +51,8 @@ class InfografisController extends Controller
         $data = $request->only(['title', 'description']);
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-
             $destinationPath = public_path('uploads/infografis');
-            if (! File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
-
-            $image->move($destinationPath, $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = ImageService::compressAndUpload($request->file('image'), $destinationPath, 1920, 85);
         }
 
         Infografis::create($data);
@@ -90,13 +82,7 @@ class InfografisController extends Controller
         $data = $request->only(['title', 'description']);
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-
             $destinationPath = public_path('uploads/infografis');
-            if (! File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
 
             if ($infografi->image) {
                 $oldImagePath = public_path('uploads/infografis/'.$infografi->image);
@@ -105,8 +91,7 @@ class InfografisController extends Controller
                 }
             }
 
-            $image->move($destinationPath, $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = ImageService::compressAndUpload($request->file('image'), $destinationPath, 1920, 85);
         }
 
         $infografi->update($data);

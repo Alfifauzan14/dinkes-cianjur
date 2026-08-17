@@ -21,23 +21,28 @@
     <main class="infografis-content">
         <div class="infografis-container">
 
-            <!-- Gallery Grid -->
+            <!-- Gallery Grid (Pinterest Masonry Style) -->
             <div class="infografis-gallery-grid">
                 @forelse ($infografis as $item)
-                    <div class="infografis-card" id="infografis-card-{{ $item->id }}">
+                    <div class="infografis-card lightbox-trigger"
+                         id="infografis-card-{{ $item->id }}"
+                         data-lightbox-src="{{ asset('uploads/infografis/' . $item->image) }}"
+                         data-lightbox-alt="{{ $item->title }}"
+                    >
                         <img
                             src="{{ asset('uploads/infografis/' . $item->image) }}"
                             alt="{{ $item->title }}"
-                            class="infografis-card-image lightbox-trigger"
-                            data-lightbox-alt="{{ $item->title }}"
+                            class="infografis-card-image"
                             loading="lazy"
                         >
-                        <div class="infografis-card-overlay"></div>
-                        <div class="infografis-card-zoom">
-                            <span class="material-icons">zoom_in</span>
-                        </div>
-                        <div class="infografis-card-content">
-                            <p class="infografis-card-title">{{ $item->title }}</p>
+                        <div class="infografis-card-overlay">
+                            <div class="infografis-card-zoom-btn">
+                                <span class="material-icons" style="font-size: 20px;">zoom_in</span>
+                            </div>
+                            <div class="infografis-card-overlay-inner">
+                                <p class="infografis-card-title">{{ $item->title }}</p>
+                                <span class="infografis-card-date">{{ $item->created_at->format('d M Y') }}</span>
+                            </div>
                         </div>
                     </div>
                 @empty

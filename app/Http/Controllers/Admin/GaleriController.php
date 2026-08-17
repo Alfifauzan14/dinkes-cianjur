@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Galeri;
 use App\Models\GaleriPhoto;
 use App\Models\Kategori;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class GaleriController extends Controller
 {
@@ -62,13 +62,8 @@ class GaleriController extends Controller
             $thumbnailIndex = (int) $request->input('thumbnail_index', 0);
             $destinationPath = public_path('uploads/galeri');
 
-            if (! File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
-
             foreach ($images as $index => $image) {
-                $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-                $image->move($destinationPath, $imageName);
+                $imageName = ImageService::compressAndUpload($image, $destinationPath, 1920, 82);
 
                 GaleriPhoto::create([
                     'galeri_id' => $galeri->id,
@@ -92,6 +87,15 @@ class GaleriController extends Controller
 
     public function update(Request $request, Galeri $galeri)
     {
+        if ($request->has('remove_photos')) {
+            $removePhotos = $request->input('remove_photos');
+            if (is_string($removePhotos)) {
+                $trimmed = trim($removePhotos);
+                $ids = $trimmed !== '' ? array_filter(array_map('trim', explode(',', $trimmed)), 'strlen') : [];
+                $request->merge(['remove_photos' => ! empty($ids) ? array_map('intval', $ids) : null]);
+            }
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:100',
@@ -126,14 +130,9 @@ class GaleriController extends Controller
                 $images = $request->file('images');
                 $destinationPath = public_path('uploads/galeri');
 
-                if (! File::isDirectory($destinationPath)) {
-                    File::makeDirectory($destinationPath, 0755, true, true);
-                }
-
                 $existingCount = $galeri->photos()->count();
                 foreach ($images as $index => $image) {
-                    $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-                    $image->move($destinationPath, $imageName);
+                    $imageName = ImageService::compressAndUpload($image, $destinationPath, 1920, 82);
 
                     GaleriPhoto::create([
                         'galeri_id' => $galeri->id,
