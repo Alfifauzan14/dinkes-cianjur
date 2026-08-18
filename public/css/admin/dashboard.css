@@ -1,6 +1,6 @@
 /* ================================================================
    ADMIN DASHBOARD — Dinas Kesehatan Kabupaten Cianjur
-   Overrides di atas AdminLTE. Layout utama: adminlte.min.css
+   Design System Standard: Plus Jakarta Sans, #004F3B, #009966
    ================================================================ */
 
 /* ── Live clock ───────────────────────────────────────────────── */
@@ -9,28 +9,77 @@
     letter-spacing: -1px;
 }
 
-/* ── small-box: Material Icons sizing & positioning ────────────── */
-.small-box .icon .material-icons {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    font-size: 70px !important;
-    transition: transform 0.3s linear;
-}
-.small-box:hover .icon .material-icons {
-    transform: scale(1.1);
-}
-.small-box {
-    transition: transform 0.18s ease;
-    height: calc(100% - 1rem); /* agar sama tinggi jika di dlm row */
+/* ── Dashboard Stat Cards (Left-Icon Style) ────────────────────── */
+.dash-stat-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+    padding: 18px 20px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
 }
-.small-box .inner {
-    flex-grow: 1;
+
+.dash-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
-.small-box:hover {
-    transform: translateY(-3px);
+
+.dash-stat-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dash-stat-icon-box .material-icons {
+    font-size: 24px !important;
+}
+
+.dash-stat-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.dash-stat-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748B;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dash-stat-number {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1E293B;
+    line-height: 1.2;
+}
+
+.dash-stat-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none !important;
+    margin-top: 4px;
+}
+
+.dash-stat-link:hover {
+    text-decoration: underline !important;
 }
 
 /* ── Quick Action Cards ───────────────────────────────────────── */
@@ -40,53 +89,55 @@
     gap: 0;
     text-decoration: none !important;
     color: #1E293B !important;
-    background: #fff;
-    border: 1px solid #e3e6ea;
-    border-radius: 6px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
     overflow: hidden;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     transition: transform 0.18s ease, box-shadow 0.18s ease;
-    height: 68px; /* tinggi seragam */
-}
-.quick-action-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
-    text-decoration: none !important;
-    color: #1E293B !important;
+    height: 64px;
 }
 
-/* Ikon: persegi panjang di kiri, full-height */
+.quick-action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    text-decoration: none !important;
+    color: #004F3B !important;
+}
+
 .quick-action-icon {
-    width: 68px;
-    min-width: 68px;
-    height: 68px;
+    width: 58px;
+    min-width: 58px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: #fff;
-}
-.quick-action-icon .material-icons {
-    font-size: 26px !important;
+    color: #FFFFFF;
 }
 
-/* Teks: rata kiri, mengisi ruang */
+.quick-action-icon .material-icons {
+    font-size: 24px !important;
+}
+
 .quick-action-body {
     flex: 1;
-    padding: 0 16px;
+    padding: 0 14px;
     display: flex;
     flex-direction: column;
     gap: 2px;
     overflow: hidden;
 }
+
 .quick-action-title {
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 700;
     color: #1E293B;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .quick-action-desc {
     font-size: 11.5px;
     color: #64748B;
@@ -101,15 +152,17 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 11px 16px;
-    border-bottom: 1px solid #f0f4f8;
+    padding: 12px 16px;
+    border-bottom: 1px solid #F1F5F9;
     transition: background 0.12s ease;
 }
+
 .activity-row:last-child {
     border-bottom: none;
 }
+
 .activity-row:hover {
-    background: #f8fafc;
+    background: #F8FAFC;
 }
 
 .activity-icon {
@@ -121,6 +174,7 @@
     flex: 1;
     min-width: 0;
 }
+
 .activity-title {
     font-size: 13px;
     font-weight: 600;
@@ -129,6 +183,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .activity-sub {
     font-size: 11.5px;
     color: #94A3B8;
@@ -138,7 +193,6 @@
     text-overflow: ellipsis;
 }
 
-/* Empty state */
 .activity-empty {
     display: flex;
     flex-direction: column;
@@ -148,6 +202,7 @@
     color: #94A3B8;
     font-size: 13px;
 }
+
 .activity-empty p {
     margin: 6px 0 0;
 }
@@ -157,27 +212,31 @@
     background: #FFFBEB;
     border: 1px solid #FDE68A;
     border-left: 4px solid #F59E0B;
-    border-radius: 6px;
+    border-radius: 3px;
     padding: 14px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
 }
+
 .dashboard-alert-content {
     display: flex;
     align-items: center;
     gap: 12px;
 }
+
 .dashboard-alert-content .material-icons {
     color: #D97706;
     font-size: 24px;
 }
+
 .dashboard-alert-text {
     font-size: 13.5px;
     color: #92400E;
     font-weight: 500;
 }
+
 .dashboard-alert-text strong {
     font-weight: 700;
 }
@@ -186,6 +245,7 @@
 .ikm-rating-item {
     margin-bottom: 12px;
 }
+
 .ikm-rating-header {
     display: flex;
     justify-content: space-between;
@@ -194,19 +254,22 @@
     margin-bottom: 4px;
     color: #334155;
 }
+
 .ikm-rating-progress {
     height: 7px;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: #F1F5F9;
     overflow: hidden;
 }
+
 .ikm-rating-fill {
     height: 100%;
-    border-radius: 4px;
+    border-radius: 3px;
     transition: width 0.4s ease;
 }
+
 .ikm-rating-fill.sangat-puas { background-color: #009966; }
-.ikm-rating-fill.puas { background-color: #3B82F6; }
+.ikm-rating-fill.puas { background-color: #0284C7; }
 .ikm-rating-fill.cukup { background-color: #F59E0B; }
 .ikm-rating-fill.kurang { background-color: #EF4444; }
 
@@ -220,13 +283,16 @@
     border-bottom: 1px solid #E2E8F0;
     padding: 10px 14px;
 }
+
 .dashboard-table td {
     font-size: 13px;
     padding: 11px 14px;
     vertical-align: middle;
     border-bottom: 1px solid #F1F5F9;
 }
+
 .dashboard-table tr:hover td {
     background: #F8FAFC;
 }
+
 

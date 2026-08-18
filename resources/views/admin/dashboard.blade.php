@@ -44,79 +44,75 @@
 @endif
 
 {{-- ── Primary KPI Stats Cards ───────────────────────────────────── --}}
-<div class="row">
+<div class="row mb-4">
     {{-- Berita --}}
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-        <div class="small-box bg-success">
-            <div class="inner">
-                <h3>{{ $totalBerita }}</h3>
-                <p>Total Berita & Info</p>
-            </div>
-            <div class="icon">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3 mb-lg-0">
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon-box" style="background-color: #F0FDF4; color: #009966;">
                 <span class="material-icons">newspaper</span>
             </div>
-            <a href="{{ route('admin.berita.index') }}" class="small-box-footer">
-                Kelola Berita <i class="fas fa-arrow-circle-right"></i>
-            </a>
+            <div class="dash-stat-body">
+                <div class="dash-stat-label">Total Berita & Info</div>
+                <div class="dash-stat-number">{{ $totalBerita }}</div>
+                <a href="{{ route('admin.berita.index') }}" class="dash-stat-link" style="color: #009966;">
+                    Kelola Berita <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     {{-- PPID Permohonan --}}
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-        <div class="small-box" style="background-color:#D97706;color:#fff;">
-            <div class="inner">
-                <div class="d-flex align-items-baseline justify-content-start" style="gap:10px;">
-                    <h3>{{ $totalPpid }}</h3>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3 mb-lg-0">
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon-box" style="background-color: #FEF3C7; color: #D97706;">
+                <span class="material-icons">assignment</span>
+            </div>
+            <div class="dash-stat-body">
+                <div class="dash-stat-label d-flex align-items-center justify-content-between">
+                    <span>Permohonan PPID</span>
                     @if($ppidPendingCount > 0)
-                        <span class="badge" style="background: rgba(255,255,255,0.25); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: 600;">
+                        <span class="badge" style="background: #FEF3C7; color: #D97706; font-size: 10.5px; padding: 2px 6px; border: 1px solid #FDE68A;">
                             ● {{ $ppidPendingCount }} Pending
-                        </span>
-                    @else
-                        <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: 500;">
-                            ✓ Selesai
                         </span>
                     @endif
                 </div>
-                <p>Permohonan PPID</p>
+                <div class="dash-stat-number">{{ $totalPpid }}</div>
+                <a href="{{ route('admin.ppid.permohonan.index') }}" class="dash-stat-link" style="color: #D97706;">
+                    Kelola PPID <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
-            <div class="icon">
-                <span class="material-icons">assignment</span>
-            </div>
-            <a href="{{ route('admin.ppid.permohonan.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
-                Kelola PPID <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
     </div>
 
     {{-- Indeks Kepuasan (IKM) --}}
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-        <div class="small-box" style="background-color:#0284C7;color:#fff;">
-            <div class="inner">
-                <h3>{{ $ikmTotal }}</h3>
-                <p>Ulasan Kepuasan (IKM)</p>
-            </div>
-            <div class="icon">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3 mb-lg-0">
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon-box" style="background-color: #E0F2FE; color: #0284C7;">
                 <span class="material-icons">reviews</span>
             </div>
-            <a href="{{ route('admin.ikm.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
-                Lihat Respon <i class="fas fa-arrow-circle-right"></i>
-            </a>
+            <div class="dash-stat-body">
+                <div class="dash-stat-label">Ulasan Kepuasan (IKM)</div>
+                <div class="dash-stat-number">{{ $ikmTotal }}</div>
+                <a href="{{ route('admin.ikm.index') }}" class="dash-stat-link" style="color: #0284C7;">
+                    Lihat Respon <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     {{-- Fasilitas Kesehatan --}}
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-        <div class="small-box" style="background-color:#0D9488;color:#fff;">
-            <div class="inner">
-                <h3>{{ $totalFaskes }}</h3>
-                <p>Fasilitas Kesehatan</p>
-            </div>
-            <div class="icon">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon-box" style="background-color: #F0FDFA; color: #0D9488;">
                 <span class="material-icons">local_hospital</span>
             </div>
-            <a href="{{ route('admin.faskes.index') }}" class="small-box-footer" style="background:rgba(0,0,0,.1);color:#fff;">
-                Kelola Faskes <i class="fas fa-arrow-circle-right"></i>
-            </a>
+            <div class="dash-stat-body">
+                <div class="dash-stat-label">Fasilitas Kesehatan</div>
+                <div class="dash-stat-number">{{ $totalFaskes }}</div>
+                <a href="{{ route('admin.faskes.index') }}" class="dash-stat-link" style="color: #0D9488;">
+                    Kelola Faskes <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
         </div>
     </div>
 </div>
