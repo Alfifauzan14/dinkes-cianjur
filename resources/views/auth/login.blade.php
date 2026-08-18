@@ -135,6 +135,11 @@
                             </div>
                         </div>
 
+                        <div class="remember-row" style="display: flex; align-items: center; gap: 8px; margin-top: -4px;">
+                            <input type="checkbox" name="remember" id="remember" style="width: 16px; height: 16px; accent-color: #009966; cursor: pointer;">
+                            <label for="remember" style="font-size: 13px; font-weight: 500; color: #64748B; cursor: pointer; user-select: none; margin: 0;">Ingat saya di perangkat ini</label>
+                        </div>
+
                         <button type="submit" id="db-submit-btn" class="submit-btn">
                             <span class="btn-spinner" id="db-spinner"></span>
                             <span class="btn-text">Masuk Sekarang</span>
@@ -282,10 +287,14 @@
                 dbLoginForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
-                    const email = document.getElementById('email').value;
-                    const password = document.getElementById('password').value;
-                    const remember = document.getElementById('remember').checked;
-                    const token = dbLoginForm.querySelector('input[name="_token"]').value;
+                    const emailInput = document.getElementById('email');
+                    const passwordInput = document.getElementById('password');
+                    const rememberEl = document.getElementById('remember');
+
+                    const email = emailInput ? emailInput.value : '';
+                    const password = passwordInput ? passwordInput.value : '';
+                    const remember = rememberEl ? rememberEl.checked : false;
+                    const token = dbLoginForm.querySelector('input[name="_token"]')?.value || '';
 
                     dbSubmitBtn.disabled = true;
                     dbSpinner.style.display = 'inline-block';
