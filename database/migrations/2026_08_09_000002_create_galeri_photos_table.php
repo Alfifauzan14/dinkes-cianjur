@@ -8,9 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('galeri_photos', function (Blueprint $table) {
+        Schema::create('galeri_foto', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('galeri_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('galeri_id')->constrained('galeri')->cascadeOnDelete();
             $table->string('image');
             $table->boolean('is_thumbnail')->default(false);
             $table->unsignedInteger('order')->default(0);
@@ -20,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('galeri_photos');
+        Schema::dropIfExists('galeri_foto');
     }
 };

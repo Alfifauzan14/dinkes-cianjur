@@ -79,7 +79,7 @@ class BeritaTest extends TestCase
             ]);
 
         $responseCreate->assertRedirect(route('admin.berita.index'));
-        $this->assertDatabaseHas('beritas', [
+        $this->assertDatabaseHas('berita', [
             'title' => 'Acara Imunisasi Balita',
         ]);
 
@@ -101,7 +101,7 @@ class BeritaTest extends TestCase
             ]);
 
         $responseUpdate->assertRedirect(route('admin.berita.index'));
-        $this->assertDatabaseHas('beritas', [
+        $this->assertDatabaseHas('berita', [
             'id' => $berita->id,
             'title' => 'Acara Imunisasi Balita Cianjur',
         ]);
@@ -111,7 +111,7 @@ class BeritaTest extends TestCase
             ->delete("/admin/berita/{$berita->id}");
 
         $responseDelete->assertRedirect(route('admin.berita.index'));
-        $this->assertDatabaseMissing('beritas', [
+        $this->assertDatabaseMissing('berita', [
             'id' => $berita->id,
         ]);
     }

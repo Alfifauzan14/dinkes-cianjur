@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('kategoris', function (Blueprint $table) {
+        Schema::create('kategori', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('type'); // berita, program, regulasi, laporan
@@ -17,7 +17,7 @@ return new class extends Migration
         });
 
         // Seed default categories
-        DB::table('kategoris')->insert([
+        DB::table('kategori')->insert([
             // Berita
             ['nama' => 'Kesehatan',   'type' => 'berita',   'warna' => '#009966', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => 'Kegiatan',    'type' => 'berita',   'warna' => '#0284C7', 'created_at' => now(), 'updated_at' => now()],
@@ -44,6 +44,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('kategoris');
+        Schema::dropIfExists('kategori');
     }
 };

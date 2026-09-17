@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class LabkesdaCategory extends Model
 {
+    protected $table = 'labkesda_kategori';
+
     protected $fillable = [
         'title',
         'description',

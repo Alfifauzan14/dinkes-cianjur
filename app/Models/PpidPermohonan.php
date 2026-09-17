@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PpidPermohonan extends Model
 {
+    protected $table = 'ppid_permohonan';
+
     protected $fillable = [
         'token',
         'nama_pemohon',

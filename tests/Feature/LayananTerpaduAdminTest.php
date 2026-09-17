@@ -77,7 +77,7 @@ class LayananTerpaduAdminTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.layanan.index'));
-        $this->assertDatabaseHas('layanan_terpadus', [
+        $this->assertDatabaseHas('layanan_terpadu', [
             'name' => 'Layanan BPJS Terpadu',
             'type' => 'Warga',
             'icon' => 'users',
@@ -103,7 +103,7 @@ class LayananTerpaduAdminTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.layanan.index'));
-        $this->assertDatabaseHas('layanan_terpadus', [
+        $this->assertDatabaseHas('layanan_terpadu', [
             'id' => $layanan->id,
             'name' => 'Layanan Baru',
             'icon' => 'users',
@@ -123,6 +123,6 @@ class LayananTerpaduAdminTest extends TestCase
         $response = $this->actingAs($admin)->delete("/admin/layanan-terpadu/{$layanan->id}");
 
         $response->assertRedirect(route('admin.layanan.index'));
-        $this->assertDatabaseMissing('layanan_terpadus', ['id' => $layanan->id]);
+        $this->assertDatabaseMissing('layanan_terpadu', ['id' => $layanan->id]);
     }
 }

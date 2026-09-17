@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('labkesda_settings', function (Blueprint $table) {
+        Schema::create('labkesda_setting', function (Blueprint $table) {
             $table->id();
             $table->string('alamat')->nullable();
             $table->string('jam_operasional')->nullable();
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('labkesda_categories', function (Blueprint $table) {
+        Schema::create('labkesda_kategori', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
@@ -31,9 +31,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('labkesda_items', function (Blueprint $table) {
+        Schema::create('labkesda_item', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('labkesda_category_id')->constrained('labkesda_categories')->onDelete('cascade');
+            $table->foreignId('labkesda_category_id')->constrained('labkesda_kategori')->onDelete('cascade');
             $table->string('item_name');
             $table->integer('order_index')->default(0);
             $table->timestamps();
@@ -45,8 +45,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('labkesda_items');
-        Schema::dropIfExists('labkesda_categories');
-        Schema::dropIfExists('labkesda_settings');
+        Schema::dropIfExists('labkesda_item');
+        Schema::dropIfExists('labkesda_kategori');
+        Schema::dropIfExists('labkesda_setting');
     }
 };

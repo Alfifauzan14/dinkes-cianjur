@@ -14,7 +14,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('kecamatans', function (Blueprint $table) {
+        Schema::create('kecamatan', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();
@@ -28,7 +28,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('jenis_faskes');
-        Schema::dropIfExists('kecamatans');
+        Schema::dropIfExists('kecamatan');
 
         Schema::table('faskes', function (Blueprint $table) {
             $table->enum('type', ['Rumah Sakit', 'Puskesmas'])->change();

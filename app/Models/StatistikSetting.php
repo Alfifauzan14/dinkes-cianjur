@@ -9,6 +9,8 @@ class StatistikSetting extends Model
 {
     use HasFactory;
 
+    protected $table = 'statistik_setting';
+
     protected $fillable = [
         'status_badge',
         'indikator_data',

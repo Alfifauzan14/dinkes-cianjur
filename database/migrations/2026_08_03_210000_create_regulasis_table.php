@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('regulasis', function (Blueprint $table) {
+        Schema::create('regulasi', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('category'); // e.g. PERATURAN BUPATI, KEPUTUSAN BUPATI
@@ -25,6 +25,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('regulasis');
+        Schema::dropIfExists('regulasi');
     }
 };

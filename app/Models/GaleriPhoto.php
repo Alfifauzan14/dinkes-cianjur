@@ -10,6 +10,8 @@ class GaleriPhoto extends Model
 {
     use HasFactory;
 
+    protected $table = 'galeri_foto';
+
     protected $fillable = [
         'galeri_id',
         'image',

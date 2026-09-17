@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('laporans', function (Blueprint $table) {
+        Schema::create('laporan', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('category'); // e.g. Laporan Kinerja, Laporan Keuangan, Informasi Publik
@@ -21,6 +21,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('laporans');
+        Schema::dropIfExists('laporan');
     }
 };

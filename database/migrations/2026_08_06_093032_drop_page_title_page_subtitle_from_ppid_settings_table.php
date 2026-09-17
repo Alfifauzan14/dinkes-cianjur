@@ -8,11 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('ppid_settings', function (Blueprint $table) {
-            if (Schema::hasColumn('ppid_settings', 'page_title')) {
+        Schema::table('ppid_setting', function (Blueprint $table) {
+            if (Schema::hasColumn('ppid_setting', 'page_title')) {
                 $table->dropColumn('page_title');
             }
-            if (Schema::hasColumn('ppid_settings', 'page_subtitle')) {
+            if (Schema::hasColumn('ppid_setting', 'page_subtitle')) {
                 $table->dropColumn('page_subtitle');
             }
         });
@@ -20,11 +20,11 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('ppid_settings', function (Blueprint $table) {
-            if (! Schema::hasColumn('ppid_settings', 'page_title')) {
+        Schema::table('ppid_setting', function (Blueprint $table) {
+            if (! Schema::hasColumn('ppid_setting', 'page_title')) {
                 $table->string('page_title')->nullable();
             }
-            if (! Schema::hasColumn('ppid_settings', 'page_subtitle')) {
+            if (! Schema::hasColumn('ppid_setting', 'page_subtitle')) {
                 $table->text('page_subtitle')->nullable();
             }
         });

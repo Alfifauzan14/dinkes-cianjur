@@ -59,7 +59,7 @@ class RegulasiAdminTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.regulasi.index'));
-        $this->assertDatabaseHas('regulasis', [
+        $this->assertDatabaseHas('regulasi', [
             'title' => 'Perbup No. 38 Tahun 2024',
             'topic' => 'KIA',
             'status' => 'Berlaku',
@@ -101,7 +101,7 @@ class RegulasiAdminTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.regulasi.index'));
-        $this->assertDatabaseHas('regulasis', [
+        $this->assertDatabaseHas('regulasi', [
             'id' => $regulasi->id,
             'title' => 'Perbup Diperbarui',
         ]);
@@ -134,7 +134,7 @@ class RegulasiAdminTest extends TestCase
         $response = $this->actingAs($admin)->delete("/admin/satu-data/regulasi/{$regulasi->id}");
 
         $response->assertRedirect(route('admin.regulasi.index'));
-        $this->assertDatabaseMissing('regulasis', ['id' => $regulasi->id]);
+        $this->assertDatabaseMissing('regulasi', ['id' => $regulasi->id]);
         Storage::disk('public')->assertMissing('regulasi/covers/delete.jpg');
         Storage::disk('public')->assertMissing('regulasi/documents/delete.pdf');
     }

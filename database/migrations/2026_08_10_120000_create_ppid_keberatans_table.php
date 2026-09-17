@@ -8,10 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('ppid_keberatans', function (Blueprint $table) {
+        Schema::create('ppid_keberatan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('permohonan_id')
-                ->constrained('ppid_permohonans')
+                ->constrained('ppid_permohonan')
                 ->cascadeOnDelete();
             $table->string('token', 7);          // token permohonan (denormalized for lookup)
             $table->string('email', 255);         // email pemohon (verifikasi)
@@ -24,6 +24,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('ppid_keberatans');
+        Schema::dropIfExists('ppid_keberatan');
     }
 };

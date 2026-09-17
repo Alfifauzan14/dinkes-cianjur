@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('header_settings', function (Blueprint $table) {
+        Schema::create('header_setting', function (Blueprint $table) {
             $table->id();
             $table->string('page_key')->unique();
             $table->string('page_name');
@@ -20,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('header_settings');
+        Schema::dropIfExists('header_setting');
     }
 };

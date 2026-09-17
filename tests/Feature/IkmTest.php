@@ -49,7 +49,7 @@ class IkmTest extends TestCase
         $response->assertRedirect();
         $response->assertSessionHas('success');
 
-        $this->assertDatabaseHas('ikm_ratings', [
+        $this->assertDatabaseHas('ikm_rating', [
             'name' => 'Asep',
             'rating' => 'sangat_puas',
         ]);

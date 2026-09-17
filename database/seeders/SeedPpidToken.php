@@ -10,14 +10,14 @@ class SeedPpidToken extends Seeder
 {
     public function run(): void
     {
-        $permohonans = DB::table('ppid_permohonans')->whereNull('token')->get();
+        $permohonans = DB::table('ppid_permohonan')->whereNull('token')->get();
 
         foreach ($permohonans as $permohonan) {
             do {
                 $token = strtoupper(Str::random(7));
-            } while (DB::table('ppid_permohonans')->where('token', $token)->exists());
+            } while (DB::table('ppid_permohonan')->where('token', $token)->exists());
 
-            DB::table('ppid_permohonans')
+            DB::table('ppid_permohonan')
                 ->where('id', $permohonan->id)
                 ->update(['token' => $token]);
         }

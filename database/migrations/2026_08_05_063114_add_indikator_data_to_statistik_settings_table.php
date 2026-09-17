@@ -9,12 +9,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('statistik_settings', function (Blueprint $table) {
+        Schema::table('statistik_setting', function (Blueprint $table) {
             $table->json('indikator_data')->nullable()->after('status_badge');
         });
 
         // Migrate existing stat_1..stat_4 data into indikator_data JSON
-        $row = DB::table('statistik_settings')->first();
+        $row = DB::table('statistik_setting')->first();
         if ($row) {
             $indikatorData = [];
             for ($i = 1; $i <= 4; $i++) {
@@ -24,7 +24,7 @@ return new class extends Migration
                     'caption' => $row->{"stat_{$i}_caption"} ?? '',
                 ];
             }
-            DB::table('statistik_settings')
+            DB::table('statistik_setting')
                 ->where('id', $row->id)
                 ->update(['indikator_data' => json_encode($indikatorData)]);
         }
@@ -32,7 +32,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('statistik_settings', function (Blueprint $table) {
+        Schema::table('statistik_setting', function (Blueprint $table) {
             $table->dropColumn('indikator_data');
         });
     }

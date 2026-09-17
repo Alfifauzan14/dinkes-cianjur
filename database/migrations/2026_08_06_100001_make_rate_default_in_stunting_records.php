@@ -8,14 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('stunting_records', function (Blueprint $table) {
+        Schema::table('stunting_record', function (Blueprint $table) {
             $table->float('rate')->default(0)->change();
         });
     }
 
     public function down(): void
     {
-        Schema::table('stunting_records', function (Blueprint $table) {
+        Schema::table('stunting_record', function (Blueprint $table) {
             $table->float('rate')->change();
         });
     }

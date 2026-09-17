@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('social_links', function (Blueprint $table) {
+        Schema::create('social_link', function (Blueprint $table) {
             $table->id();
             $table->string('platform', 50)->unique();
             $table->string('url', 255)->nullable();
@@ -19,6 +19,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('social_links');
+        Schema::dropIfExists('social_link');
     }
 };

@@ -54,7 +54,7 @@ class SettingFooterAdminTest extends TestCase
         $response->assertRedirect('/admin/setting-footer');
         $response->assertSessionHas('success', 'Pengaturan footer berhasil diperbarui!');
 
-        $this->assertDatabaseHas('settings', [
+        $this->assertDatabaseHas('setting_footer', [
             'id' => 1,
             'site_tagline' => 'Tagline Dinas Baru',
             'address' => 'Jl. Baru No. 12',

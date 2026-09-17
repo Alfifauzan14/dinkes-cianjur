@@ -181,7 +181,7 @@ class LabkesdaController extends Controller
     {
         $request->validate([
             'ids' => 'required|array',
-            'ids.*' => 'required|integer|exists:labkesda_categories,id',
+            'ids.*' => 'required|integer|exists:labkesda_kategori,id',
         ]);
 
         $ids = $request->input('ids');

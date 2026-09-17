@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         // Share site-wide settings with all views
         View::composer('*', function (\Illuminate\View\View $view): void {
             try {
-                if (Schema::hasTable('settings')) {
+                if (Schema::hasTable('setting')) {
                     $siteSettings = Setting::all()->pluck('value', 'key')->toArray();
                     $site_settings = SettingFooter::first();
                 } else {

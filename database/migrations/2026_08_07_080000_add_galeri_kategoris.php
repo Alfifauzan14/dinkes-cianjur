@@ -14,13 +14,13 @@ return new class extends Migration
         ];
 
         foreach ($galeriCategories as $cat) {
-            $exists = DB::table('kategoris')
+            $exists = DB::table('kategori')
                 ->where('type', 'galeri')
                 ->where('nama', $cat['nama'])
                 ->exists();
 
             if (! $exists) {
-                DB::table('kategoris')->insert([
+                DB::table('kategori')->insert([
                     'nama' => $cat['nama'],
                     'type' => 'galeri',
                     'warna' => $cat['warna'],
@@ -33,7 +33,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        DB::table('kategoris')
+        DB::table('kategori')
             ->where('type', 'galeri')
             ->whereIn('nama', ['PROGRAM', 'KEGIATAN', 'NASIONAL'])
             ->delete();

@@ -90,19 +90,65 @@
             <div class="db-page-header">
                 <div>
                     <h2 class="db-page-title">Dashboard Kesehatan Kab. Cianjur</h2>
-                    <p class="db-page-period">Periode: {{ \Carbon\Carbon::parse($startDate)->translatedFormat('F Y') }}</p>
+                    <p class="db-page-period">Periode: {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d M Y') }} – {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d M Y') }}</p>
                 </div>
-                {{-- Filter Bulan --}}
-                <form method="GET" action="{{ route('satudata.statistik') }}" class="db-month-filter">
-                    <label for="bulan" class="db-filter-label">Filter Bulan</label>
-                    <input type="month" id="bulan" name="bulan"
-                           value="{{ $selectedMonth->format('Y-m') }}"
-                           max="{{ now()->format('Y-m') }}"
-                           min="2024-01"
-                           class="db-month-input">
-                    <button type="submit" class="db-filter-btn">Tampilkan</button>
-                </form>
+
+                {{-- Date Range Picker --}}
+                <div class="drp-wrapper" id="dateRangeWrapper">
+                    <label class="drp-label">Periode</label>
+                    <button type="button" class="drp-trigger" id="drpTrigger" aria-haspopup="true" aria-expanded="false">
+                        <svg class="drp-cal-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M2 8h16" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 2v4M14 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span class="drp-range-text" id="drpRangeText">
+                            {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d M Y') }} – {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d M Y') }}
+                        </span>
+                        <svg class="drp-chevron" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+
+                    {{-- Dropdown Calendar --}}
+                    <div class="drp-dropdown" id="drpDropdown" role="dialog" aria-label="Pilih rentang tanggal">
+                        <div class="drp-calendar-area">
+                            {{-- Calendar --}}
+                            <div class="drp-calendar" id="drpCalendar">
+                                <div class="drp-cal-nav">
+                                    <button type="button" class="drp-nav-btn" id="drpPrev" aria-label="Bulan sebelumnya">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                    </button>
+                                    <div class="drp-cal-month-year">
+                                        <span class="drp-cal-title" id="drpCalTitle">September 2026</span>
+                                    </div>
+                                    <button type="button" class="drp-nav-btn" id="drpNext" aria-label="Bulan berikutnya">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+                                    </button>
+                                </div>
+                                <div class="drp-day-names" id="drpDayNames"></div>
+                                <div class="drp-days-grid" id="drpDaysGrid"></div>
+                            </div>
+                        </div>
+
+                        {{-- Footer --}}
+                        <div class="drp-footer">
+                            <span class="drp-selected-label" id="drpSelectedLabel">Pilih tanggal mulai</span>
+                            <div class="drp-actions">
+                                <button type="button" class="drp-btn-reset" id="drpReset">Reset</button>
+                                <button type="button" class="drp-btn-apply" id="drpApply" disabled>Terapkan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Hidden form --}}
+                    <form method="GET" action="{{ route('satudata.statistik') }}" id="drpForm" style="display:none">
+                        <input type="hidden" name="start_date" id="drpStartInput" value="{{ $startDate }}">
+                        <input type="hidden" name="end_date"   id="drpEndInput"   value="{{ $endDate }}">
+                    </form>
+                </div>
             </div>
+
 
             {{-- 2-Column Layout --}}
             <div class="db-layout">
@@ -357,3 +403,293 @@ new Chart(document.getElementById('piePerempuan'), {
 });
 </script>
 
+<script>
+// ══════════════════════════════════════════════════════════════════
+//  DATE RANGE PICKER — Dinkes Cianjur Statistik
+// ══════════════════════════════════════════════════════════════════
+(function () {
+    'use strict';
+
+    // ── Locale ID ────────────────────────────────────────────────
+    const MONTHS_ID = ['Januari','Februari','Maret','April','Mei','Juni',
+                       'Juli','Agustus','September','Oktober','November','Desember'];
+    const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','Mei','Jun',
+                          'Jul','Ags','Sep','Okt','Nov','Des'];
+    const DAYS_SHORT   = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+
+    // ── DOM refs ──────────────────────────────────────────────────
+    const wrapper       = document.getElementById('dateRangeWrapper');
+    const trigger       = document.getElementById('drpTrigger');
+    const dropdown      = document.getElementById('drpDropdown');
+    const rangeText     = document.getElementById('drpRangeText');
+    const selectedLabel = document.getElementById('drpSelectedLabel');
+    const applyBtn      = document.getElementById('drpApply');
+    const resetBtn      = document.getElementById('drpReset');
+    const form          = document.getElementById('drpForm');
+    const startInput    = document.getElementById('drpStartInput');
+    const endInput      = document.getElementById('drpEndInput');
+    const prevBtn       = document.getElementById('drpPrev');
+    const nextBtn       = document.getElementById('drpNext');
+    const calTitle      = document.getElementById('drpCalTitle');
+    const dayNamesEl    = document.getElementById('drpDayNames');
+    const daysGrid      = document.getElementById('drpDaysGrid');
+
+    // ── State ─────────────────────────────────────────────────────
+    const today       = new Date(); today.setHours(0,0,0,0);
+    const minDate     = new Date(2024, 0, 1);
+
+    // Initial values from server
+    let selStart = startInput.value ? parseYMD(startInput.value) : null;
+    let selEnd   = endInput.value   ? parseYMD(endInput.value)   : null;
+    let hoverDate = null;
+
+    // Calendar view
+    let viewYear  = selStart ? selStart.getFullYear()  : today.getFullYear();
+    let viewMonth = selStart ? selStart.getMonth()     : today.getMonth();
+
+    // Prevent clicks inside dropdown from propagating to document (prevents auto-closing)
+    dropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // ── Helpers ───────────────────────────────────────────────────
+    function parseYMD(str) {
+        const [y, m, d] = str.split('-').map(Number);
+        const dt = new Date(y, m - 1, d);
+        dt.setHours(0,0,0,0);
+        return dt;
+    }
+    function fmtYMD(dt) {
+        return dt.getFullYear() + '-' +
+               String(dt.getMonth() + 1).padStart(2, '0') + '-' +
+               String(dt.getDate()).padStart(2, '0');
+    }
+    function fmtDisplay(dt) {
+        return String(dt.getDate()).padStart(2, '0') + ' ' +
+               MONTHS_SHORT[dt.getMonth()] + ' ' + dt.getFullYear();
+    }
+    function sameDay(a, b) {
+        return a && b &&
+               a.getFullYear() === b.getFullYear() &&
+               a.getMonth()    === b.getMonth()    &&
+               a.getDate()     === b.getDate();
+    }
+
+    // ── Update Header Title ───────────────────────────────────────
+    function updateHeaderTitle() {
+        if (calTitle) {
+            calTitle.textContent = MONTHS_ID[viewMonth] + ' ' + viewYear;
+        }
+    }
+
+    // ── Render day names ──────────────────────────────────────────
+    function buildDayNames() {
+        dayNamesEl.innerHTML = '';
+        DAYS_SHORT.forEach(name => {
+            const d = document.createElement('div');
+            d.className = 'drp-day-name';
+            d.textContent = name;
+            dayNamesEl.appendChild(d);
+        });
+    }
+
+    // ── Update Cell Range Visuals without re-building grid ────────
+    function updateRangeVisuals() {
+        const rangeEnd = hoverDate && selStart && !selEnd
+            ? (hoverDate >= selStart ? hoverDate : selStart)
+            : selEnd;
+        const rangeStart = hoverDate && selStart && !selEnd
+            ? (hoverDate < selStart ? hoverDate : selStart)
+            : selStart;
+
+        const hasFullRange = !!(rangeStart && rangeEnd && rangeStart.getTime() !== rangeEnd.getTime());
+
+        const cells = daysGrid.querySelectorAll('.drp-cell:not(.drp-empty)');
+        cells.forEach(cell => {
+            if (cell.disabled) return;
+            const dt = parseYMD(cell.dataset.date);
+
+            const isStart = sameDay(dt, selStart);
+            const isEnd   = sameDay(dt, selEnd || (hoverDate && selStart && !selEnd && hoverDate >= selStart ? hoverDate : null));
+            const inRange = rangeStart && rangeEnd && dt > rangeStart && dt < rangeEnd;
+            const isToday = sameDay(dt, today);
+
+            cell.className = 'drp-cell';
+            if (isToday) cell.classList.add('drp-cell--today');
+
+            if (isStart) cell.classList.add('drp-cell--start');
+            if (isEnd)   cell.classList.add('drp-cell--end');
+            if (inRange) cell.classList.add('drp-cell--in-range');
+            if (hasFullRange && (isStart || isEnd)) cell.classList.add('drp-has-range');
+        });
+    }
+
+    // ── Render calendar grid ──────────────────────────────────────
+    function renderCalendar() {
+        daysGrid.innerHTML = '';
+        updateHeaderTitle();
+
+        const firstDay = new Date(viewYear, viewMonth, 1);
+        const lastDay  = new Date(viewYear, viewMonth + 1, 0);
+
+        // Pad before (Sunday=0)
+        const startPad = firstDay.getDay();
+        for (let i = 0; i < startPad; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'drp-cell drp-empty';
+            daysGrid.appendChild(cell);
+        }
+
+        for (let d = 1; d <= lastDay.getDate(); d++) {
+            const dt = new Date(viewYear, viewMonth, d);
+            dt.setHours(0,0,0,0);
+
+            const cell = document.createElement('button');
+            cell.type = 'button';
+            cell.className = 'drp-cell';
+            cell.textContent = d;
+            cell.dataset.date = fmtYMD(dt);
+
+            const isPast      = dt > today;
+            const isBeforeMin = dt < minDate;
+
+            if (isPast || isBeforeMin) {
+                cell.disabled = true;
+                cell.classList.add('drp-cell--disabled');
+            } else {
+                cell.addEventListener('click', onDayClick);
+                cell.addEventListener('mouseenter', () => {
+                    if (selStart && !selEnd) {
+                        hoverDate = dt;
+                        updateRangeVisuals();
+                    }
+                });
+            }
+
+            daysGrid.appendChild(cell);
+        }
+
+        updateRangeVisuals();
+
+        // Update nav buttons
+        const prevMonth = new Date(viewYear, viewMonth - 1, 1);
+        prevBtn.disabled = prevMonth < minDate;
+        nextBtn.disabled = new Date(viewYear, viewMonth + 1, 1) > today;
+    }
+
+    // ── Click handler ─────────────────────────────────────────────
+    function onDayClick(e) {
+        e.stopPropagation();
+        const dt = parseYMD(e.currentTarget.dataset.date);
+
+        if (!selStart || (selStart && selEnd)) {
+            // First click — pick start date
+            selStart = dt;
+            selEnd   = null;
+            hoverDate = null;
+            updateLabel();
+            applyBtn.disabled = true;
+        } else {
+            // Second click — pick end date
+            if (dt < selStart) {
+                selEnd   = selStart;
+                selStart = dt;
+            } else {
+                selEnd = dt;
+            }
+            hoverDate = null;
+            updateLabel();
+            applyBtn.disabled = false;
+        }
+        updateRangeVisuals();
+    }
+
+    // ── Label update ──────────────────────────────────────────────
+    function updateLabel() {
+        if (!selStart && !selEnd) {
+            selectedLabel.textContent = 'Pilih tanggal mulai';
+        } else if (selStart && !selEnd) {
+            selectedLabel.textContent = 'Mulai: ' + fmtDisplay(selStart) + '  →  Pilih tanggal akhir';
+        } else {
+            selectedLabel.textContent = fmtDisplay(selStart) + ' – ' + fmtDisplay(selEnd);
+        }
+    }
+
+    // ── Toggle dropdown ───────────────────────────────────────────
+    function openDropdown() {
+        dropdown.classList.add('drp-dropdown--open');
+        trigger.setAttribute('aria-expanded', 'true');
+        hoverDate = null;
+        updateHeaderTitle();
+        renderCalendar();
+    }
+
+    function closeDropdown() {
+        dropdown.classList.remove('drp-dropdown--open');
+        trigger.setAttribute('aria-expanded', 'false');
+        hoverDate = null;
+    }
+
+    trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (dropdown.classList.contains('drp-dropdown--open')) {
+            closeDropdown();
+        } else {
+            openDropdown();
+        }
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+        if (!wrapper.contains(e.target)) closeDropdown();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDropdown();
+    });
+
+    // ── Navigation ────────────────────────────────────────────────
+    function navigate(delta) {
+        viewMonth += delta;
+        if (viewMonth > 11) { viewMonth = 0;  viewYear++; }
+        if (viewMonth < 0)  { viewMonth = 11; viewYear--; }
+        updateHeaderTitle();
+        renderCalendar();
+    }
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
+
+    // ── Apply ─────────────────────────────────────────────────────
+    applyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!selStart || !selEnd) return;
+        startInput.value = fmtYMD(selStart);
+        endInput.value   = fmtYMD(selEnd);
+
+        const label = fmtDisplay(selStart) + ' – ' + fmtDisplay(selEnd);
+        rangeText.textContent = label;
+
+        closeDropdown();
+        form.submit();
+    });
+
+    // ── Reset ─────────────────────────────────────────────────────
+    resetBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selStart = null;
+        selEnd   = null;
+        hoverDate = null;
+        applyBtn.disabled = true;
+        updateLabel();
+        updateRangeVisuals();
+    });
+
+    // ── Init ──────────────────────────────────────────────────────
+    buildDayNames();
+    updateLabel();
+    if (selStart && selEnd) {
+        applyBtn.disabled = false;
+    }
+})();
+</script>

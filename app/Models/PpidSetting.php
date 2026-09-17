@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PpidSetting extends Model
 {
-    protected $table = 'ppid_settings';
+    protected $table = 'ppid_setting';
 
     protected $fillable = [
         'stat_1_number', 'stat_1_desc',

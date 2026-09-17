@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PpidKeberatan extends Model
 {
+    protected $table = 'ppid_keberatan';
+
     protected $fillable = [
         'permohonan_id',
         'token',

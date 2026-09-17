@@ -42,7 +42,7 @@ class LaporanController extends Controller
             'category' => [
                 'required',
                 'string',
-                Rule::exists('kategoris', 'nama')->where('type', 'laporan'),
+                Rule::exists('kategori', 'nama')->where('type', 'laporan'),
             ],
             'file_document' => 'required|file|mimes:pdf|max:10240', // max 10MB
             'release_date' => 'required|date',
@@ -86,7 +86,7 @@ class LaporanController extends Controller
             'category' => [
                 'required',
                 'string',
-                Rule::exists('kategoris', 'nama')->where('type', 'laporan'),
+                Rule::exists('kategori', 'nama')->where('type', 'laporan'),
             ],
             'file_document' => 'nullable|file|mimes:pdf|max:10240',
             'release_date' => 'required|date',

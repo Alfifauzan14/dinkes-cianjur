@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SettingFooter extends Model
 {
-    protected $table = 'settings';
+    protected $table = 'setting_footer';
 
     protected $fillable = [
         'site_name',

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Regulasi extends Model
 {
+    protected $table = 'regulasi';
+
     protected $fillable = [
         'title',
         'category',

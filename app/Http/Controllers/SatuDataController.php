@@ -46,15 +46,34 @@ class SatuDataController extends Controller
 
         $maxFaskesCount = $faskesDistribution->max('total') ?: 1;
 
-        // Walagri API — filter bulan dari query param ?bulan=YYYY-MM, default bulan ini
+        // Walagri API — filter periode:
+        // Priority 1: ?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD  (date range picker baru)
+        // Priority 2: ?bulan=YYYY-MM                               (bulan picker lama)
+        // Default   : bulan berjalan
+        $startDateParam = $request->query('start_date');
+        $endDateParam = $request->query('end_date');
         $bulan = $request->query('bulan');
-        $selectedMonth = ($bulan && preg_match('/^\d{4}-\d{2}$/', $bulan))
-            ? CarbonImmutable::createFromFormat('Y-m', $bulan)->startOfMonth()
-            : CarbonImmutable::now()->startOfMonth();
-        $startDate = $selectedMonth->format('Y-m-d');
-        $endDate = $selectedMonth->isSameMonth(CarbonImmutable::now())
-            ? CarbonImmutable::now()->format('Y-m-d')
-            : $selectedMonth->endOfMonth()->format('Y-m-d');
+
+        if ($startDateParam && preg_match('/^\d{4}-\d{2}-\d{2}$/', $startDateParam)
+            && $endDateParam && preg_match('/^\d{4}-\d{2}-\d{2}$/', $endDateParam)) {
+            // Date-range mode
+            $startDate = $startDateParam;
+            $endDate = min($endDateParam, CarbonImmutable::now()->format('Y-m-d'));
+            $selectedMonth = CarbonImmutable::parse($startDate)->startOfMonth();
+        } elseif ($bulan && preg_match('/^\d{4}-\d{2}$/', $bulan)) {
+            // Legacy bulan mode
+            $selectedMonth = CarbonImmutable::createFromFormat('Y-m', $bulan)->startOfMonth();
+            $startDate = $selectedMonth->format('Y-m-d');
+            $endDate = $selectedMonth->isSameMonth(CarbonImmutable::now())
+                ? CarbonImmutable::now()->format('Y-m-d')
+                : $selectedMonth->endOfMonth()->format('Y-m-d');
+        } else {
+            // Default: bulan berjalan
+            $selectedMonth = CarbonImmutable::now()->startOfMonth();
+            $startDate = $selectedMonth->format('Y-m-d');
+            $endDate = CarbonImmutable::now()->format('Y-m-d');
+        }
+
         $cacheKey = "walagri.{$startDate}.{$endDate}";
 
         $walagri = Cache::get($cacheKey);

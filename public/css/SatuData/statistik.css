@@ -43,28 +43,301 @@
 }
 .db-page-title  { font-size: 26px; font-weight: 800; color: #0F172A; }
 .db-page-period { font-size: 13px; color: #64748B; margin-top: 2px; }
-/* ── Month Filter Form ───────────────────────────────────────────*/
-.db-month-filter {
-    display: flex; align-items: center; gap: 8px;
+/* ── Date Range Picker ───────────────────────────────────────────*/
+.drp-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    z-index: 200;
 }
-.db-filter-label {
-    font-size: 12px; font-weight: 600; color: #475569; white-space: nowrap;
+.drp-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #009966;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
 }
-.db-month-input {
-    height: 36px; padding: 0 10px; border: 1.5px solid #CBD5E1;
-    border-radius: 3px; font-size: 13px; color: #0F172A;
+
+/* Trigger Button */
+.drp-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+    padding: 0 14px;
+    background: #fff;
+    border: 1px solid #CBD5E1;
+    border-radius: 1px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    outline: none; cursor: pointer;
-    transition: border-color .15s;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1E293B;
+    cursor: pointer;
+    transition: border-color .18s, box-shadow .18s;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }
-.db-month-input:focus { border-color: #009966; box-shadow: 0 0 0 3px rgba(0,153,102,.12); }
-.db-filter-btn {
-    height: 36px; padding: 0 16px; background: #009966; color: #fff;
-    border: none; border-radius: 3px; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: background .15s; white-space: nowrap;
+.drp-trigger:hover {
+    border-color: #009966;
+    box-shadow: 0 0 0 2px rgba(0,153,102,.12);
+}
+.drp-trigger[aria-expanded="true"] {
+    border-color: #009966;
+    box-shadow: 0 0 0 2px rgba(0,153,102,.15);
+}
+.drp-cal-icon {
+    width: 16px; height: 16px;
+    color: #009966;
+    flex-shrink: 0;
+}
+.drp-range-text {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.drp-chevron {
+    width: 16px; height: 16px;
+    color: #94A3B8;
+    flex-shrink: 0;
+    transition: transform .18s;
+}
+.drp-trigger[aria-expanded="true"] .drp-chevron {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Card */
+.drp-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 1px;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.04);
+    width: 300px;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    overflow: hidden;
+}
+.drp-dropdown--open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Calendar area */
+.drp-calendar-area {
+    padding: 14px 14px 6px;
+}
+
+/* Nav row */
+.drp-cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.drp-nav-btn {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 1px;
+    cursor: pointer;
+    color: #475569;
+    transition: background .15s, color .15s, border-color .15s;
+    padding: 0;
+    flex-shrink: 0;
+}
+.drp-nav-btn:hover:not(:disabled) {
+    background: #E6F7F0;
+    color: #009966;
+    border-color: #009966;
+}
+.drp-nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+.drp-cal-month-year {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.drp-cal-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0F172A;
+    user-select: none;
+    letter-spacing: -0.2px;
 }
-.db-filter-btn:hover { background: #007a52; }
+
+/* Day names row */
+.drp-day-names {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 4px;
+}
+.drp-day-name {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748B;
+    padding: 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* Days grid */
+.drp-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 3px;
+    column-gap: 0;
+}
+.drp-cell {
+    position: relative;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
+    color: #1E293B;
+    background: transparent;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    transition: background .12s, color .12s, border-radius .12s;
+    padding: 0;
+    line-height: 1;
+}
+
+/* Hover single date */
+.drp-cell:hover:not(:disabled):not(.drp-cell--start):not(.drp-cell--end):not(.drp-cell--in-range) {
+    background: #E6F7F0;
+    color: #004F3B;
+    border-radius: 1px;
+}
+
+.drp-cell--disabled {
+    color: #CBD5E1;
+    cursor: not-allowed;
+}
+
+/* Today indicator (outline) */
+.drp-cell--today:not(.drp-cell--start):not(.drp-cell--end) {
+    border: 1px solid #009966;
+    border-radius: 50%;
+    color: #009966;
+    font-weight: 700;
+}
+
+/* Range Band Visuals */
+.drp-cell--in-range {
+    background: #E6F7F0 !important;
+    color: #004F3B !important;
+    font-weight: 600;
+    border-radius: 0 !important;
+}
+
+/* Start date: kapsul bulat di kiri */
+.drp-cell--start {
+    background: #009966 !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    border-radius: 1px !important;
+    z-index: 2;
+}
+
+/* End date: kapsul bulat di kanan */
+.drp-cell--end {
+    background: #009966 !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    border-radius: 1px !important;
+    z-index: 2;
+}
+
+/* When range exists: kapsul kiri/kanan halus */
+.drp-cell--start.drp-has-range {
+    border-radius: 17px 0 0 17px !important;
+}
+.drp-cell--end.drp-has-range {
+    border-radius: 0 17px 17px 0 !important;
+}
+.drp-cell--start.drp-cell--end {
+    border-radius: 17px !important;
+}
+
+/* Empty cells */
+.drp-empty {
+    pointer-events: none;
+}
+
+/* Footer */
+.drp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px 12px;
+    border-top: 1px solid #F1F5F9;
+    gap: 8px;
+    background: #FAFAFA;
+}
+.drp-selected-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.drp-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.drp-btn-reset {
+    height: 30px;
+    padding: 0 10px;
+    background: #fff;
+    border: 1px solid #CBD5E1;
+    border-radius: 1px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748B;
+    cursor: pointer;
+    transition: border-color .15s, color .15s;
+}
+.drp-btn-reset:hover {
+    border-color: #94A3B8;
+    color: #334155;
+}
+.drp-btn-apply {
+    height: 30px;
+    padding: 0 12px;
+    background: #009966;
+    border: none;
+    border-radius: 1px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: background .15s;
+}
+.drp-btn-apply:hover:not(:disabled) { background: #007a52; }
+.drp-btn-apply:disabled {
+    background: #CBD5E1;
+    cursor: not-allowed;
+}
 
 /* ── 2-Column Layout ─────────────────────────────────────────────*/
 .db-layout {
@@ -334,8 +607,75 @@
     .satudata-banner-container { padding: 0 16px; }
     .db-stats-grid { grid-template-columns: repeat(2, 1fr); }
     .db-sidebar { grid-template-columns: 1fr; }
+
+    /* Page Header Stack on Mobile */
+    .db-page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+    .db-page-title {
+        font-size: 22px;
+    }
+
+    /* Date Range Picker Full Width on Mobile */
+    .drp-wrapper {
+        width: 100%;
+        align-items: stretch;
+    }
+    .drp-label {
+        align-self: flex-start;
+    }
+    .drp-trigger {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 12px;
+        height: 42px;
+    }
+    .drp-range-text {
+        max-width: none;
+        flex: 1;
+        text-align: center;
+        font-size: 13px;
+    }
+    .drp-dropdown {
+        width: 100%;
+        right: 0;
+        left: 0;
+        box-sizing: border-box;
+    }
+    .drp-calendar-area {
+        padding: 12px 10px 6px;
+    }
+    .drp-cell {
+        height: 34px;
+        font-size: 12px;
+    }
 }
 @media (max-width: 480px) {
     .db-stats-grid { grid-template-columns: 1fr; }
     .satudata-banner-title { font-size: 24px; }
+
+    .db-page-title {
+        font-size: 20px;
+    }
+    .drp-range-text {
+        font-size: 12px;
+    }
+    .drp-calendar-area {
+        padding: 10px 6px 4px;
+    }
+    .drp-cell {
+        height: 32px;
+        font-size: 11px;
+    }
+    .drp-day-name {
+        font-size: 10px;
+    }
+    .drp-footer {
+        padding: 8px 10px 10px;
+    }
+    .drp-selected-label {
+        font-size: 10px;
+    }
 }

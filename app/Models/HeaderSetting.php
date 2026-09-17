@@ -9,6 +9,8 @@ class HeaderSetting extends Model
 {
     use HasFactory;
 
+    protected $table = 'header_setting';
+
     protected $fillable = ['page_key', 'page_name', 'title', 'subtitle'];
 
     public static function getByKey(string $key, string $defaultTitle = '', string $defaultSubtitle = ''): self

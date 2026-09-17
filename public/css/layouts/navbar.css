@@ -212,6 +212,43 @@
     .dinkes-navbar {
         height: 80px;
     }
+    .dinkes-navbar-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+    }
+    .navbar-brand {
+        order: 1;
+        gap: 10px;
+        min-width: 0;
+        max-width: none;
+    }
+    .logo-pemkab {
+        height: 36px;
+        width: auto;
+        flex-shrink: 0;
+    }
+    .logo-dinkes {
+        height: 36px;
+        width: auto;
+        max-width: 140px;
+        object-fit: contain;
+        flex-shrink: 1;
+    }
+    .mobile-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        order: 0;
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        color: #332C2B;
+        cursor: pointer;
+        padding: 4px;
+    }
     .navbar-menu {
         position: fixed;
         top: 0;
@@ -287,10 +324,6 @@
     .dropdown-item {
         padding: 12px 24px 12px 40px;
         border-bottom: 1px solid #F1F5F9;
-    }
-    .mobile-toggle {
-        display: block;
-        order: -1;
     }
     .emergency-floating-btn {
         bottom: 20px;
@@ -453,4 +486,20 @@
 .mobile-submenu a:hover {
     background: rgba(0, 153, 102, 0.06);
     color: #009966;
+}
+
+@media (max-width: 480px) {
+    .dinkes-navbar-container {
+        padding: 0 12px;
+    }
+    .navbar-brand {
+        gap: 6px;
+    }
+    .logo-pemkab {
+        height: 28px;
+    }
+    .logo-dinkes {
+        height: 28px;
+        max-width: 110px;
+    }
 }

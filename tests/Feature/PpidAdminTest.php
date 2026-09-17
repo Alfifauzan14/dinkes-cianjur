@@ -101,7 +101,7 @@ class PpidAdminTest extends TestCase
         $response->assertRedirect("/admin/ppid-permohonan/{$perm->id}");
         $response->assertSessionHas('success', 'Status permohonan berhasil diperbarui. (Email tidak dikirim karena pemohon tidak mencantumkan email)');
 
-        $this->assertDatabaseHas('ppid_permohonans', [
+        $this->assertDatabaseHas('ppid_permohonan', [
             'id' => $perm->id,
             'status' => 'disetujui',
             'tanggapan' => 'Permohonan lengkap dan disetujui.',
@@ -146,7 +146,7 @@ class PpidAdminTest extends TestCase
         $this->assertNotNull($perm->file_tanggapan);
         $this->assertTrue(Storage::disk('public')->exists($perm->file_tanggapan));
 
-        $this->assertDatabaseHas('ppid_permohonans', [
+        $this->assertDatabaseHas('ppid_permohonan', [
             'id' => $perm->id,
             'status' => 'disetujui',
             'tanggapan' => 'Berikut adalah dokumen yang diminta.',
@@ -186,7 +186,7 @@ class PpidAdminTest extends TestCase
         $response->assertRedirect('/permohonan');
         $response->assertSessionHas('success');
 
-        $this->assertDatabaseHas('ppid_permohonans', [
+        $this->assertDatabaseHas('ppid_permohonan', [
             'nama_pemohon' => 'Budi Santoso',
             'nik' => '1234567890123456',
         ]);

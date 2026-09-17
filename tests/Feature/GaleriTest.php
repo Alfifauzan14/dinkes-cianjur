@@ -74,7 +74,7 @@ class GaleriTest extends TestCase
             ]);
 
         $response->assertRedirect(route('admin.galeri.index'));
-        $this->assertDatabaseHas('galeris', [
+        $this->assertDatabaseHas('galeri', [
             'id' => $galeri->id,
             'title' => 'Foto Diperbarui',
             'category' => 'KEGIATAN',
@@ -100,7 +100,7 @@ class GaleriTest extends TestCase
             ->delete("/admin/galeri/{$galeri->id}");
 
         $response->assertRedirect(route('admin.galeri.index'));
-        $this->assertDatabaseMissing('galeris', [
+        $this->assertDatabaseMissing('galeri', [
             'id' => $galeri->id,
         ]);
     }
@@ -142,10 +142,10 @@ class GaleriTest extends TestCase
             ]);
 
         $response->assertRedirect(route('admin.galeri.index'));
-        $this->assertDatabaseMissing('galeri_photos', [
+        $this->assertDatabaseMissing('galeri_foto', [
             'id' => $photo1->id,
         ]);
-        $this->assertDatabaseHas('galeri_photos', [
+        $this->assertDatabaseHas('galeri_foto', [
             'id' => $photo2->id,
         ]);
     }

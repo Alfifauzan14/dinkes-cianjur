@@ -9,6 +9,8 @@ class StuntingRecord extends Model
 {
     use HasFactory;
 
+    protected $table = 'stunting_record';
+
     protected $fillable = [
         'year',
         'rate',

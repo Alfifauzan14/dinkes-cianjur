@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ikm_ratings', function (Blueprint $table) {
+        Schema::create('ikm_rating', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
             $table->string('whatsapp')->nullable();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ikm_ratings');
+        Schema::dropIfExists('ikm_rating');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('statistik_settings', function (Blueprint $table) {
+        Schema::table('statistik_setting', function (Blueprint $table) {
             $table->string('status_badge')->nullable()->default(null)->change();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('statistik_settings', function (Blueprint $table) {
+        Schema::table('statistik_setting', function (Blueprint $table) {
             $table->string('status_badge')->default('Data Riil Semester I 2026')->change();
         });
     }

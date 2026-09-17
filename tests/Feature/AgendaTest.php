@@ -130,7 +130,7 @@ class AgendaTest extends TestCase
             ]);
 
         $response->assertRedirect(route('admin.agenda.index'));
-        $this->assertDatabaseHas('agendas', [
+        $this->assertDatabaseHas('agenda', [
             'title' => 'Sosialisasi Gizi Sehat',
             'location' => 'Aula Puskesmas',
         ]);
@@ -167,7 +167,7 @@ class AgendaTest extends TestCase
             ]);
 
         $response->assertRedirect(route('admin.agenda.index'));
-        $this->assertDatabaseHas('agendas', [
+        $this->assertDatabaseHas('agenda', [
             'id' => $agenda->id,
             'title' => 'Agenda Diperbarui',
             'location' => 'Ruang Kepala Dinas',
@@ -197,7 +197,7 @@ class AgendaTest extends TestCase
             ->delete("/admin/agenda/{$agenda->id}");
 
         $response->assertRedirect(route('admin.agenda.index'));
-        $this->assertDatabaseMissing('agendas', [
+        $this->assertDatabaseMissing('agenda', [
             'id' => $agenda->id,
         ]);
     }
@@ -275,12 +275,12 @@ class AgendaTest extends TestCase
             ]);
 
         $response->assertRedirect(route('admin.agenda.index'));
-        $this->assertDatabaseHas('agendas', [
+        $this->assertDatabaseHas('agenda', [
             'title' => 'Agenda Impor 1',
             'location' => 'Aula Utama',
             'status' => 'published',
         ]);
-        $this->assertDatabaseHas('agendas', [
+        $this->assertDatabaseHas('agenda', [
             'title' => 'Agenda Impor 2',
             'location' => 'Aula Kecil',
             'status' => 'draft',

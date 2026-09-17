@@ -190,7 +190,7 @@ class PpidPublicTest extends TestCase
         $response->assertRedirect('/keberatan');
         $response->assertSessionHas('success');
 
-        $this->assertDatabaseHas('ppid_keberatans', [
+        $this->assertDatabaseHas('ppid_keberatan', [
             'permohonan_id' => $perm->id,
             'token' => $perm->token,
             'email' => 'ahmad@example.com',

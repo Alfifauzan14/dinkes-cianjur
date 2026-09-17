@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('layanan_terpadus', function (Blueprint $table) {
+        Schema::create('layanan_terpadu', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('type'); // Warga, Faskes, Nakes
@@ -20,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('layanan_terpadus');
+        Schema::dropIfExists('layanan_terpadu');
     }
 };

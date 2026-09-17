@@ -8,12 +8,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('laporans', function (Blueprint $table) {
+        Schema::table('laporan', function (Blueprint $table) {
             $table->bigInteger('views')->default(0);
             $table->bigInteger('downloads')->default(0);
         });
 
-        Schema::table('regulasis', function (Blueprint $table) {
+        Schema::table('regulasi', function (Blueprint $table) {
             $table->bigInteger('views')->default(0);
             $table->bigInteger('downloads')->default(0);
         });
@@ -21,11 +21,11 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('regulasis', function (Blueprint $table) {
+        Schema::table('regulasi', function (Blueprint $table) {
             $table->dropColumn(['views', 'downloads']);
         });
 
-        Schema::table('laporans', function (Blueprint $table) {
+        Schema::table('laporan', function (Blueprint $table) {
             $table->dropColumn(['views', 'downloads']);
         });
     }

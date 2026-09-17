@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LabkesdaItem extends Model
 {
+    protected $table = 'labkesda_item';
+
     protected $fillable = ['labkesda_category_id', 'item_name', 'order_index'];
 
     public function category(): BelongsTo

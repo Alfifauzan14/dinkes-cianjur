@@ -50,7 +50,7 @@ class LaporanAdminTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.laporan.index'));
-        $this->assertDatabaseHas('laporans', [
+        $this->assertDatabaseHas('laporan', [
             'title' => 'Laporan Keuangan Q1 2026',
             'category' => 'Laporan Keuangan',
         ]);
@@ -82,7 +82,7 @@ class LaporanAdminTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.laporan.index'));
-        $this->assertDatabaseHas('laporans', [
+        $this->assertDatabaseHas('laporan', [
             'id' => $laporan->id,
             'title' => 'Laporan Kinerja Diperbarui',
         ]);
@@ -108,7 +108,7 @@ class LaporanAdminTest extends TestCase
         $response = $this->actingAs($admin)->delete("/admin/satu-data/laporan/{$laporan->id}");
 
         $response->assertRedirect(route('admin.laporan.index'));
-        $this->assertDatabaseMissing('laporans', ['id' => $laporan->id]);
+        $this->assertDatabaseMissing('laporan', ['id' => $laporan->id]);
         Storage::disk('public')->assertMissing('laporan/delete_me.pdf');
     }
 }

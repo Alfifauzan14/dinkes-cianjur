@@ -8,14 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('ppid_settings', function (Blueprint $table) {
+        Schema::table('ppid_setting', function (Blueprint $table) {
             $table->string('email_ppid')->nullable()->after('tata_cara_image');
         });
     }
 
     public function down(): void
     {
-        Schema::table('ppid_settings', function (Blueprint $table) {
+        Schema::table('ppid_setting', function (Blueprint $table) {
             $table->dropColumn('email_ppid');
         });
     }

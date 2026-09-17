@@ -120,7 +120,7 @@ class FaskesAdminTest extends TestCase
             'kecamatan' => 'Cibeber',
         ]);
         $this->assertDatabaseHas('jenis_faskes', ['name' => 'Klinik Swasta']);
-        $this->assertDatabaseHas('kecamatans', ['name' => 'Cibeber']);
+        $this->assertDatabaseHas('kecamatan', ['name' => 'Cibeber']);
 
         @unlink($tempFile);
     }

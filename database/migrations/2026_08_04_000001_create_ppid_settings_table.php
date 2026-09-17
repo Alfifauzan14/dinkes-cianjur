@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('ppid_settings', function (Blueprint $table) {
+        Schema::create('ppid_setting', function (Blueprint $table) {
             $table->id();
 
             // Header
@@ -78,6 +78,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('ppid_settings');
+        Schema::dropIfExists('ppid_setting');
     }
 };

@@ -8,9 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('setting_footer');
 
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('setting_footer', function (Blueprint $table) {
             $table->id();
             $table->string('site_name')->nullable();
             $table->string('site_tagline')->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('setting_footer');
     }
 };

@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('stunting_records', function (Blueprint $table) {
+        Schema::table('stunting_record', function (Blueprint $table) {
             $table->integer('total_balita')->nullable()->after('rate');
             $table->integer('balita_stunting')->nullable()->after('total_balita');
             $table->string('wilayah_terendah')->nullable()->after('balita_stunting');
@@ -19,7 +19,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('stunting_records', function (Blueprint $table) {
+        Schema::table('stunting_record', function (Blueprint $table) {
             $table->dropColumn(['total_balita', 'balita_stunting', 'wilayah_terendah', 'wilayah_tertinggi', 'catatan']);
         });
     }

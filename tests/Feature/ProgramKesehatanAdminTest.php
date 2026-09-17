@@ -123,7 +123,7 @@ class ProgramKesehatanAdminTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.program-kesehatan.index'));
-        $this->assertDatabaseHas('program_kesehatans', [
+        $this->assertDatabaseHas('program_kesehatan', [
             'id' => $program->id,
             'title' => 'Program Baru',
             'slug' => 'program-baru',

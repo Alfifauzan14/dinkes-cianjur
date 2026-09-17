@@ -89,7 +89,7 @@ class StatistikAdminTest extends TestCase
             ]);
         $response->assertRedirect('/admin/satu-data/statistik?section=sebaran');
 
-        $this->assertDatabaseHas('statistik_settings', [
+        $this->assertDatabaseHas('statistik_setting', [
             'id' => 1,
             'indikator_data' => json_encode([
                 ['name' => 'PUSKESMAS', 'num' => '50', 'caption' => 'Akreditasi Paripurna Terjamin'],
@@ -99,7 +99,7 @@ class StatistikAdminTest extends TestCase
             ]),
         ]);
 
-        $this->assertDatabaseHas('stunting_records', [
+        $this->assertDatabaseHas('stunting_record', [
             'year' => 2026,
             'balita_stunting' => 3200,
             'is_highlighted' => true,

@@ -145,7 +145,7 @@ class ProfileAdminTest extends TestCase
         $response->assertRedirect('/admin/profil?section=visimisi');
         $response->assertSessionHas('success', 'Profil instansi berhasil diperbarui!');
 
-        $this->assertDatabaseHas('profiles', [
+        $this->assertDatabaseHas('profil', [
             'id' => 1,
             'kepala_dinas_name' => 'Nama Baru',
             'kepala_dinas_role' => 'Jabatan Baru',

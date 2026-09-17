@@ -9,27 +9,27 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (! Schema::hasColumn('galeris', 'slug')) {
+        if (! Schema::hasColumn('galeri', 'slug')) {
             // Add slug column without unique first
-            Schema::table('galeris', function (Blueprint $table) {
+            Schema::table('galeri', function (Blueprint $table) {
                 $table->string('slug')->after('title')->default('');
             });
 
             // Backfill slugs from existing titles
-            $galeris = DB::table('galeris')->select('id', 'title')->get();
+            $galeris = DB::table('galeri')->select('id', 'title')->get();
             foreach ($galeris as $galeri) {
                 $slug = Str::slug($galeri->title);
                 $original = $slug;
                 $count = 1;
-                while (DB::table('galeris')->where('slug', $slug)->where('id', '!=', $galeri->id)->exists()) {
+                while (DB::table('galeri')->where('slug', $slug)->where('id', '!=', $galeri->id)->exists()) {
                     $slug = $original.'-'.$count;
                     $count++;
                 }
-                DB::table('galeris')->where('id', $galeri->id)->update(['slug' => $slug]);
+                DB::table('galeri')->where('id', $galeri->id)->update(['slug' => $slug]);
             }
 
             // Now create unique index
-            Schema::table('galeris', function (Blueprint $table) {
+            Schema::table('galeri', function (Blueprint $table) {
                 $table->unique('slug');
             });
         }
@@ -37,7 +37,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('galeris', function (Blueprint $table) {
+        Schema::table('galeri', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
     }

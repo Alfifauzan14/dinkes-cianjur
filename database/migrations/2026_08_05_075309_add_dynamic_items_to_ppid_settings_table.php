@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ppid_settings', function (Blueprint $table) {
+        Schema::table('ppid_setting', function (Blueprint $table) {
             $table->json('tautan_items')->nullable();
             $table->json('tata_cara_items')->nullable();
             $table->string('tata_cara_image')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ppid_settings', function (Blueprint $table) {
+        Schema::table('ppid_setting', function (Blueprint $table) {
             $table->dropColumn(['tautan_items', 'tata_cara_items', 'tata_cara_image']);
         });
     }

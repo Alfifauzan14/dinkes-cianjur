@@ -9,6 +9,8 @@ class IkmRating extends Model
 {
     use HasFactory;
 
+    protected $table = 'ikm_rating';
+
     protected $fillable = [
         'name',
         'whatsapp',

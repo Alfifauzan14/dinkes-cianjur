@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('pagoda_sehat_cards', function (Blueprint $table) {
+        Schema::create('pagoda_sehat_card', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
             $table->text('description')->nullable();
@@ -21,6 +21,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('pagoda_sehat_cards');
+        Schema::dropIfExists('pagoda_sehat_card');
     }
 };

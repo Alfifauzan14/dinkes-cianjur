@@ -136,7 +136,7 @@ class PagodaSehatController extends Controller
     {
         $request->validate([
             'ids' => 'required|array',
-            'ids.*' => 'required|integer|exists:pagoda_sehat_cards,id',
+            'ids.*' => 'required|integer|exists:pagoda_sehat_card,id',
         ]);
 
         $ids = $request->input('ids');

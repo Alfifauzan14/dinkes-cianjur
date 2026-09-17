@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stunting_records', function (Blueprint $table) {
+        Schema::create('stunting_record', function (Blueprint $table) {
             $table->id();
             $table->integer('year')->unique();
             $table->float('rate');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('statistik_settings', function (Blueprint $table) {
+        Schema::create('statistik_setting', function (Blueprint $table) {
             $table->id();
 
             // Subheader
@@ -64,7 +64,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stunting_records');
-        Schema::dropIfExists('statistik_settings');
+        Schema::dropIfExists('stunting_record');
+        Schema::dropIfExists('statistik_setting');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ppid_permohonans', function (Blueprint $table) {
+        Schema::table('ppid_permohonan', function (Blueprint $table) {
             $table->string('token', 7)->nullable()->unique()->after('id');
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ppid_permohonans', function (Blueprint $table) {
+        Schema::table('ppid_permohonan', function (Blueprint $table) {
             $table->dropColumn('token');
         });
     }
