@@ -597,16 +597,180 @@
     display: flex; align-items: center; gap: 5px;
 }
 
+/* ── Info Cards Grid ─────────────────────────────────────────────*/
+.db-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.db-info-card {
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 3px;
+    padding: 20px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* shared header */
+.db-ic-head {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #004F3B;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+}
+.db-ic-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #004F3B;
+    letter-spacing: -0.2px;
+}
+.db-ic-meta {
+    font-size: 10px;
+    color: #94A3B8;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* shared footer */
+.db-ic-foot {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid #F1F5F9;
+    font-size: 11px;
+    color: #94A3B8;
+}
+.db-ic-total {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+/* ── Tenaga Medis ────────────────────────────────────────────────*/
+.db-tm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    flex: 1;
+    margin-bottom: 14px;
+}
+.db-tm-row { display: flex; flex-direction: column; gap: 5px; }
+.db-tm-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.db-tm-name {
+    font-size: 12px;
+    color: #334155;
+    font-weight: 500;
+}
+.db-tm-n {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0F172A;
+    letter-spacing: -0.3px;
+}
+.db-tm-track {
+    height: 5px;
+    background: #F1F5F9;
+    border-radius: 99px;
+    overflow: hidden;
+}
+.db-tm-fill {
+    height: 100%;
+    background: #009966;
+    border-radius: 99px;
+}
+
+/* ── Fasilitas Kesehatan ─────────────────────────────────────────*/
+.db-fk-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-bottom: 14px;
+}
+.db-fk-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #F8FAFC;
+}
+.db-fk-row:last-child { border-bottom: none; }
+.db-fk-name {
+    font-size: 12px;
+    color: #475569;
+    font-weight: 500;
+}
+.db-fk-n {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0F172A;
+    letter-spacing: -0.3px;
+}
+
+/* ── SPM ─────────────────────────────────────────────────────────*/
+.db-spm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    margin-bottom: 14px;
+}
+.db-spm-row { display: flex; flex-direction: column; gap: 4px; }
+.db-spm-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.db-spm-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #475569;
+}
+.db-spm-pct {
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.db-spm-pct.spm-green  { color: #009966; }
+.db-spm-pct.spm-yellow { color: #B45309; }
+.db-spm-pct.spm-red    { color: #DC2626; }
+
+.db-spm-track {
+    height: 5px;
+    background: #F1F5F9;
+    border-radius: 99px;
+    overflow: hidden;
+}
+.db-spm-fill {
+    height: 100%;
+    border-radius: 99px;
+}
+.db-spm-fill.spm-green  { background: #009966; }
+.db-spm-fill.spm-yellow { background: #F59E0B; }
+.db-spm-fill.spm-red    { background: #EF4444; }
+
 /* ── Responsive ──────────────────────────────────────────────────*/
 @media (max-width: 1100px) {
     .db-layout { grid-template-columns: 1fr; }
     .db-sidebar { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .db-info-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 768px) {
     .satudata-main-container { padding: 0 16px; }
     .satudata-banner-container { padding: 0 16px; }
     .db-stats-grid { grid-template-columns: repeat(2, 1fr); }
     .db-sidebar { grid-template-columns: 1fr; }
+    .db-info-grid { grid-template-columns: 1fr; }
+    .db-tenaga-row { grid-template-columns: 90px 1fr 38px; }
 
     /* Page Header Stack on Mobile */
     .db-page-header {
@@ -655,6 +819,7 @@
 @media (max-width: 480px) {
     .db-stats-grid { grid-template-columns: 1fr; }
     .satudata-banner-title { font-size: 24px; }
+    .db-faskes-grid { grid-template-columns: repeat(3, 1fr); }
 
     .db-page-title {
         font-size: 20px;

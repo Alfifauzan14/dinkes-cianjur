@@ -213,6 +213,99 @@
                         </div>
                     </div>
 
+                    {{-- 3 Info Cards --}}
+                    <div class="db-info-grid">
+
+                        {{-- Card 1: Tenaga Medis --}}
+                        <div class="db-info-card">
+                            <div class="db-ic-head">
+                                <h3 class="db-ic-title">Tenaga Medis</h3>
+                                <span class="db-ic-meta">Kab. Cianjur · 2025</span>
+                            </div>
+                            <div class="db-tm-list">
+                                @foreach([
+                                    ['Perawat',          834],
+                                    ['Bidan',            612],
+                                    ['Dokter Umum',      247],
+                                    ['Apoteker',         138],
+                                    ['Dokter Spesialis',  89],
+                                ] as [$nama, $n])
+                                @php $pct = round($n / 834 * 100); @endphp
+                                <div class="db-tm-row">
+                                    <div class="db-tm-meta">
+                                        <span class="db-tm-name">{{ $nama }}</span>
+                                        <span class="db-tm-n">{{ number_format($n, 0, ',', '.') }}</span>
+                                    </div>
+                                    <div class="db-tm-track">
+                                        <div class="db-tm-fill" style="width:{{ $pct }}%"></div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <div class="db-ic-foot">
+                                <span class="db-ic-total">1.920</span> total tenaga kesehatan aktif
+                            </div>
+                        </div>
+
+                        {{-- Card 2: Faskes --}}
+                        <div class="db-info-card">
+                            <div class="db-ic-head">
+                                <h3 class="db-ic-title">Fasilitas Kesehatan</h3>
+                                <span class="db-ic-meta">Terintegrasi Satusehat</span>
+                            </div>
+                            <div class="db-fk-list">
+                                @foreach([
+                                    ['Posyandu',      839],
+                                    ['Apotek',        284],
+                                    ['Klinik',        132],
+                                    ['Puskesmas',      47],
+                                    ['Lab. Klinik',    23],
+                                    ['Rumah Sakit',    18],
+                                ] as [$nama, $n])
+                                <div class="db-fk-row">
+                                    <span class="db-fk-name">{{ $nama }}</span>
+                                    <span class="db-fk-n">{{ number_format($n, 0, ',', '.') }}</span>
+                                </div>
+                                @endforeach
+                            </div>
+                            <div class="db-ic-foot">
+                                <span class="db-ic-total">1.343</span> faskes aktif melaporkan data
+                            </div>
+                        </div>
+
+                        {{-- Card 3: SPM --}}
+                        <div class="db-info-card">
+                            <div class="db-ic-head">
+                                <h3 class="db-ic-title">Pencapaian SPM</h3>
+                                <span class="db-ic-meta">Standar Pelayanan Minimal 2025</span>
+                            </div>
+                            <div class="db-spm-list">
+                                @foreach([
+                                    ['Ibu Hamil',        92],
+                                    ['Ibu Bersalin',     88],
+                                    ['Bayi Baru Lahir',  95],
+                                    ['Balita',           79],
+                                    ['TB Paru',          83],
+                                    ['Hipertensi',       71],
+                                ] as [$label, $pct])
+                                <div class="db-spm-row">
+                                    <div class="db-spm-top">
+                                        <span class="db-spm-label">{{ $label }}</span>
+                                        <span class="db-spm-pct {{ $pct >= 90 ? 'spm-green' : ($pct >= 75 ? 'spm-yellow' : 'spm-red') }}">{{ $pct }}%</span>
+                                    </div>
+                                    <div class="db-spm-track">
+                                        <div class="db-spm-fill {{ $pct >= 90 ? 'spm-green' : ($pct >= 75 ? 'spm-yellow' : 'spm-red') }}" style="width:{{ $pct }}%"></div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <div class="db-ic-foot">
+                                Rata-rata <span class="db-ic-total">84,7%</span> dari target nasional
+                            </div>
+                        </div>
+
+                    </div>
+
                     {{-- 10 Penyakit Terbanyak --}}
                     <div class="db-chart-card penyakit-card">
                         <div class="penyakit-header">
