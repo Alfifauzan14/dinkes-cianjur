@@ -13,18 +13,13 @@
         {{-- Search & Filter --}}
         <form action="{{ route('admin.agenda.index') }}" method="GET" class="d-flex align-items-center" style="gap: 8px; flex-wrap: wrap;">
             <input type="hidden" name="time_filter" value="{{ request('time_filter', 'all') }}">
-            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari agenda atau lokasi..." style="width: 200px;">
+            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari judul, lokasi, tgl (17 Ags, 17-08)..." style="width: 270px;">
             <select name="status" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 140px;">
                 <option value="">Semua Status</option>
                 <option value="published" {{ request('status') == 'published' ? 'selected' : '' }}>Diterbitkan</option>
                 <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draf</option>
             </select>
-            {{-- Filter Tanggal (1 input) --}}
-            <div class="d-flex align-items-center" style="gap: 6px;">
-                <span class="material-icons text-muted" style="font-size:16px;">calendar_today</span>
-                <input type="date" name="date_filter" value="{{ request('date_filter') }}" class="form-control form-control-sm" title="Filter berdasarkan tanggal" style="width: 155px;" onchange="this.form.submit()">
-            </div>
-            @if(request('search') || request('status') || request('date_filter'))
+            @if(request('search') || request('status'))
                 <a href="{{ route('admin.agenda.index', ['time_filter' => request('time_filter', 'all')]) }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
                     <span class="material-icons" style="font-size:14px;vertical-align:middle;">clear</span> Reset
                 </a>
@@ -42,7 +37,7 @@
         </div>
     </div>
 
-    {{-- Tabs --}}
+    {{-- Tabs with Counter Badges --}}
     <div class="px-4 pt-3 pb-0 bg-white" style="border-bottom: 1px solid #E2E8F0;">
         <ul class="nav nav-tabs border-0" id="agenda-time-tabs" role="tablist">
             <li class="nav-item">
@@ -50,21 +45,14 @@
                    @style([
                        'border-bottom: 3px solid ' . (request('time_filter', 'all') === 'all' ? '#009966' : 'transparent'),
                        'border-radius: 0',
-                       'padding-bottom: 12px'
+                       'padding-bottom: 12px',
+                       'display: inline-flex',
+                       'align-items: center',
+                       'gap: 8px'
                    ])
                    href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'all'])) }}">
-                    Semua Agenda
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request('time_filter') === 'upcoming' ? 'active font-weight-bold text-success' : 'text-secondary' }}"
-                   @style([
-                       'border-bottom: 3px solid ' . (request('time_filter') === 'upcoming' ? '#009966' : 'transparent'),
-                       'border-radius: 0',
-                       'padding-bottom: 12px'
-                   ])
-                   href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'upcoming'])) }}">
-                    Akan Datang
+                    <span>Semua Agenda</span>
+                    <span class="badge" style="background:#F1F5F9;color:#475569;font-weight:700;font-size:11px;">{{ $countAll }}</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -72,10 +60,33 @@
                    @style([
                        'border-bottom: 3px solid ' . (request('time_filter') === 'today' ? '#009966' : 'transparent'),
                        'border-radius: 0',
-                       'padding-bottom: 12px'
+                       'padding-bottom: 12px',
+                       'display: inline-flex',
+                       'align-items: center',
+                       'gap: 8px'
                    ])
                    href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'today'])) }}">
-                    Hari Ini
+                    <span>Hari Ini</span>
+                    @if($countToday > 0)
+                        <span class="badge" style="background:#009966;color:#ffffff;font-weight:700;font-size:11px;">{{ $countToday }}</span>
+                    @else
+                        <span class="badge" style="background:#F1F5F9;color:#475569;font-weight:700;font-size:11px;">{{ $countToday }}</span>
+                    @endif
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request('time_filter') === 'upcoming' ? 'active font-weight-bold text-success' : 'text-secondary' }}"
+                   @style([
+                       'border-bottom: 3px solid ' . (request('time_filter') === 'upcoming' ? '#009966' : 'transparent'),
+                       'border-radius: 0',
+                       'padding-bottom: 12px',
+                       'display: inline-flex',
+                       'align-items: center',
+                       'gap: 8px'
+                   ])
+                   href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'upcoming'])) }}">
+                    <span>Akan Datang</span>
+                    <span class="badge" style="background:#F1F5F9;color:#475569;font-weight:700;font-size:11px;">{{ $countUpcoming }}</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -83,10 +94,14 @@
                    @style([
                        'border-bottom: 3px solid ' . (request('time_filter') === 'past' ? '#009966' : 'transparent'),
                        'border-radius: 0',
-                       'padding-bottom: 12px'
+                       'padding-bottom: 12px',
+                       'display: inline-flex',
+                       'align-items: center',
+                       'gap: 8px'
                    ])
                    href="{{ route('admin.agenda.index', array_merge(request()->except('page'), ['time_filter' => 'past'])) }}">
-                    Lampau / Selesai
+                    <span>Selesai / Lampau</span>
+                    <span class="badge" style="background:#F1F5F9;color:#475569;font-weight:700;font-size:11px;">{{ $countPast }}</span>
                 </a>
             </li>
         </ul>
@@ -98,7 +113,7 @@
                 <thead>
                     <tr>
                         <th>Nama Agenda / Kegiatan</th>
-                        <th style="width:130px;">Tanggal</th>
+                        <th style="width:160px;">Tanggal</th>
                         <th style="width:130px;">Waktu</th>
                         <th style="width:170px;">Lokasi</th>
                         <th style="width:120px;">Status</th>
@@ -112,7 +127,20 @@
                             <div class="font-weight-bold text-dark">{{ $agenda->title }}</div>
                             <small class="text-muted">{{ Str::limit($agenda->description, 90) }}</small>
                         </td>
-                        <td class="font-weight-bold text-secondary">{{ $agenda->date->format('d M Y') }}</td>
+                        <td style="white-space:nowrap;">
+                            <div class="font-weight-bold text-dark">{{ $agenda->date->format('d M Y') }}</div>
+                            @php
+                                $agendaDateStr = $agenda->date->format('Y-m-d');
+                                $todayDateStr = \Carbon\Carbon::today()->toDateString();
+                            @endphp
+                            @if($agendaDateStr === $todayDateStr)
+                                <span class="badge" style="background:#DEF7EC;color:#03543F;font-size:10px;padding:2px 6px;border-radius:3px;">Hari Ini</span>
+                            @elseif($agendaDateStr > $todayDateStr)
+                                <span class="badge" style="background:#E0F2FE;color:#0369A1;font-size:10px;padding:2px 6px;border-radius:3px;">Akan Datang</span>
+                            @else
+                                <span class="badge" style="background:#F1F5F9;color:#64748B;font-size:10px;padding:2px 6px;border-radius:3px;">Selesai</span>
+                            @endif
+                        </td>
                         <td class="text-secondary">{{ $agenda->time_start }} – {{ $agenda->time_end }}</td>
                         <td>
                             <span class="material-icons text-success" style="font-size:14px;vertical-align:middle;">place</span>

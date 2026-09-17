@@ -9,13 +9,13 @@
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
-            <span class="material-icons text-success">contact_support</span>
+            <span class="material-icons text-success" style="font-size:20px;">contact_support</span>
             <span class="font-weight-bold card-title-label">Kelola Informasi Labkesda</span>
         </span>
-        <a href="{{ route('admin.labkesda.index') }}" class="btn btn-sm btn-outline-secondary">
-            <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
+        <a href="{{ route('admin.labkesda.index') }}" class="btn btn-sm btn-outline-secondary ml-auto">
+            <span class="material-icons" style="font-size:16px;">arrow_back</span> Kembali
         </a>
     </div>
 

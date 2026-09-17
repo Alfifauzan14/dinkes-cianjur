@@ -12,8 +12,8 @@
     }
     .accordion-card-field {
         background: #F8FAFC;
-        border: 1px solid var(--border-subtle);
-        border-radius: 8px;
+        border: 1px solid #E2E8F0;
+        border-radius: 3px;
         padding: 20px;
         position: relative;
         transition: all 0.18s;
@@ -21,7 +21,7 @@
     .accordion-card-field:focus-within {
         border-color: #009966;
         background: #ffffff;
-        box-shadow: var(--card-shadow);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
     .remove-btn-absolute {
         position: absolute;
@@ -32,7 +32,7 @@
         color: #DC2626;
         width: 28px;
         height: 28px;
-        border-radius: 6px;
+        border-radius: 3px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -46,67 +46,66 @@
 @endsection
 
 @section('content')
-
-
 <div class="row">
     <div class="col-12">
         <div class="card card-outline card-success">
-            <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+            <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
                 <span class="d-flex align-items-center" style="gap: 8px;">
-                    <span class="material-icons text-success">toc</span>
+                    <span class="material-icons text-success" style="font-size: 20px;">toc</span>
                     <span class="font-weight-bold card-title-label">Daftar Informasi Publik (Accordion)</span>
                 </span>
-                <button type="button" id="btn-add-accordion" class="btn btn-sm btn-success ml-auto">
-                    <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Baris Baru
+                <button type="button" id="btn-add-accordion" class="btn btn-sm btn-success font-weight-bold d-flex align-items-center" style="gap: 4px;">
+                    <span class="material-icons" style="font-size:16px;">add</span> Tambah Baris Baru
                 </button>
             </div>
 
-            <div class="card-body">
+            <div class="card-body p-4">
                 <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form">
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="section" value="informasi">
 
-                <div id="accordion-container" class="accordion-grid-layout">
-                    @forelse (old('accordion_items', $ppid->accordion_items ?? []) as $index => $item)
-                        <div class="accordion-card-field" data-index="{{ $index }}">
-                            <button type="button" class="remove-btn-absolute" onclick="removeAccordionField(this)" title="Hapus Item">
-                                <span class="material-icons" style="font-size:16px;">delete</span>
-                            </button>
-                            <span class="badge badge-success mb-3">Item {{ $loop->iteration }}</span>
-                            
-                            <div class="form-group">
-                                <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Klasifikasi Informasi <span class="text-danger">*</span></label>
-                                <select name="accordion_items[{{ $index }}][category]" class="form-control" required>
-                                    <option value="berkala" {{ ($item['category'] ?? '') === 'berkala' ? 'selected' : '' }}>Informasi Berkala</option>
-                                    <option value="serta-merta" {{ ($item['category'] ?? '') === 'serta-merta' ? 'selected' : '' }}>Informasi Serta Merta</option>
-                                    <option value="setiap-saat" {{ ($item['category'] ?? '') === 'setiap-saat' ? 'selected' : '' }}>Informasi Setiap Saat</option>
-                                </select>
+                    <div id="accordion-container" class="accordion-grid-layout">
+                        @forelse (old('accordion_items', $ppid->accordion_items ?? []) as $index => $item)
+                            <div class="accordion-card-field" data-index="{{ $index }}">
+                                <button type="button" class="remove-btn-absolute" onclick="removeAccordionField(this)" title="Hapus Item">
+                                    <span class="material-icons" style="font-size:16px;">delete</span>
+                                </button>
+                                <span class="badge badge-success mb-3" style="border-radius: 3px; font-weight: 700;">Item {{ $loop->iteration }}</span>
+                                
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B; display: block; margin-bottom: 6px;">Klasifikasi Informasi <span class="text-danger">*</span></label>
+                                    <select name="accordion_items[{{ $index }}][category]" class="form-control custom-select" required>
+                                        <option value="berkala" {{ ($item['category'] ?? '') === 'berkala' ? 'selected' : '' }}>Informasi Berkala</option>
+                                        <option value="serta-merta" {{ ($item['category'] ?? '') === 'serta-merta' ? 'selected' : '' }}>Informasi Serta Merta</option>
+                                        <option value="setiap-saat" {{ ($item['category'] ?? '') === 'setiap-saat' ? 'selected' : '' }}>Informasi Setiap Saat</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B; display: block; margin-bottom: 6px;">Judul Informasi <span class="text-danger">*</span></label>
+                                    <input type="text" name="accordion_items[{{ $index }}][title]" 
+                                        value="{{ $item['title'] ?? '' }}" class="form-control" placeholder="Contoh: Rencana Strategis Dinkes" required>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B; display: block; margin-bottom: 6px;">Detail Isi / Deskripsi <span class="text-danger">*</span></label>
+                                    <textarea name="accordion_items[{{ $index }}][content]" rows="3" class="form-control" placeholder="Isi deskripsi lengkap..." required>{{ $item['content'] ?? '' }}</textarea>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Judul Informasi <span class="text-danger">*</span></label>
-                                <input type="text" name="accordion_items[{{ $index }}][title]" 
-                                    value="{{ $item['title'] ?? '' }}" class="form-control" placeholder="Contoh: Rencana Strategis Dinkes" required>
+                        @empty
+                            <div class="col-12 text-center py-5" id="empty-state-info">
+                                <span class="material-icons" style="font-size:48px; color:#CBD5E1; display:block; margin-bottom:8px;">toc</span>
+                                <p class="font-weight-bold mb-1">Belum Ada Item Informasi</p>
+                                <small class="text-muted">Belum ada item informasi publik ditambahkan. Silakan klik tombol "Tambah Baris Baru".</small>
                             </div>
-                            <div class="form-group mb-0">
-                                <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Detail Isi / Deskripsi <span class="text-danger">*</span></label>
-                                <textarea name="accordion_items[{{ $index }}][content]" rows="3" class="form-control" placeholder="Isi deskripsi lengkap..." required>{{ $item['content'] ?? '' }}</textarea>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="col-12 text-center py-5" id="empty-state-info">
-                            <span class="material-icons" style="font-size:48px; color:#D1D5DB; display:block; margin-bottom:12px;">toc</span>
-                            <p class="text-muted">Belum ada item informasi publik ditambahkan. Silakan klik tombol "Tambah Baris Baru".</p>
-                        </div>
-                    @endforelse
-                </div>
+                        @endforelse
+                    </div>
 
-                <div class="border-top pt-4 mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success-dark px-4" id="ppid-save-btn">
-                        <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Informasi Publik
-                    </button>
-                </div>
-            </form>
+                    <div class="border-top pt-4 mt-4 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success font-weight-bold px-4" id="ppid-save-btn">
+                            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Informasi Publik
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -132,21 +131,21 @@
                 <button type="button" class="remove-btn-absolute" onclick="removeAccordionField(this)" title="Hapus Item">
                     <span class="material-icons" style="font-size:16px;">delete</span>
                 </button>
-                <span class="badge badge-success mb-3">Item Baru</span>
-                <div class="form-group">
-                    <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Klasifikasi Informasi <span class="text-danger">*</span></label>
-                    <select name="accordion_items[${index}][category]" class="form-control" required>
+                <span class="badge badge-success mb-3" style="border-radius: 3px; font-weight: 700;">Item Baru</span>
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B; display: block; margin-bottom: 6px;">Klasifikasi Informasi <span class="text-danger">*</span></label>
+                    <select name="accordion_items[${index}][category]" class="form-control custom-select" required>
                         <option value="berkala">Informasi Berkala</option>
                         <option value="serta-merta">Informasi Serta Merta</option>
                         <option value="setiap-saat">Informasi Setiap Saat</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Judul Informasi <span class="text-danger">*</span></label>
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B; display: block; margin-bottom: 6px;">Judul Informasi <span class="text-danger">*</span></label>
                     <input type="text" name="accordion_items[${index}][title]" class="form-control" placeholder="Judul..." required>
                 </div>
                 <div class="form-group mb-0">
-                    <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Detail Isi / Deskripsi <span class="text-danger">*</span></label>
+                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B; display: block; margin-bottom: 6px;">Detail Isi / Deskripsi <span class="text-danger">*</span></label>
                     <textarea name="accordion_items[${index}][content]" rows="3" class="form-control" placeholder="Isi deskripsi..." required></textarea>
                 </div>
             `;
@@ -191,7 +190,7 @@
     document.getElementById('ppid-form').addEventListener('submit', function() {
         const btn = document.getElementById('ppid-save-btn');
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-sync-alt fa-spin mr-1"></i> Menyimpan...';
+        btn.innerHTML = '<span class="material-icons" style="font-size: 16px; vertical-align: middle;">sync</span> Menyimpan...';
     });
 </script>
 @endsection

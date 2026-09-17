@@ -11,12 +11,21 @@ use Illuminate\Validation\Rule;
 
 class LaporanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $laporans = Laporan::orderBy('release_date', 'desc')->get();
+        $search = $request->query('search');
+        $category = $request->query('category');
+
+        $laporans = Laporan::query()
+            ->when($search, fn ($q) => $q->where('title', 'like', '%'.$search.'%'))
+            ->when($category, fn ($q) => $q->where('category', $category))
+            ->orderBy('release_date', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
         $kategoris = Kategori::ofType('laporan')->orderBy('nama')->get();
 
-        return view('admin.laporan.index', compact('laporans', 'kategoris'));
+        return view('admin.laporan.index', compact('laporans', 'kategoris', 'search', 'category'));
     }
 
     public function create()

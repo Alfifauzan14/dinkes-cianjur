@@ -16,11 +16,11 @@ class ProgramKesehatanController extends Controller
             ->firstOrFail();
 
         if ($slug === 'cianjur-bebas-stunting') {
-            return view('stunting', compact('program'));
+            return view('program.stunting', compact('program'));
         }
 
         if ($slug === 'kesehatan-ibu-anak') {
-            return view('kia', compact('program'));
+            return view('program.kia', compact('program'));
         }
 
         return view('program.show', compact('program'));

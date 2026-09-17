@@ -12,7 +12,7 @@
     <div class="stats-cards-grid">
         <div class="stat-btn-card">
             <span class="material-icons stat-icon stat-icon-color">favorite</span>
-            <span class="stat-btn-text">{{ $profile ? $profile->stat_1_text : '47 Puskesmas Rujukan' }}</span>
+            <span class="stat-btn-text">{{ $profile ? str_replace(' Rujukan', '', $profile->stat_1_text) : '47 Puskesmas' }}</span>
         </div>
 
         <div class="stat-btn-card">

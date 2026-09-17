@@ -250,7 +250,7 @@
                         <div class="tab-pane fade" id="pane-edukasi" role="tabpanel">
                             <div class="mb-4">
                                 <h6 class="font-weight-bold mb-1" style="font-size: 15px;">Detail Artikel Edukasi / Konten Program</h6>
-                                <p class="text-muted mb-0" style="font-size: 13px;">Tuliskan deskripsi atau artikel lengkap mengenai program kesehatan ini (cukup tuliskan teks/paragraf biasa, tidak perlu kode HTML).</p>
+                                <p class="text-muted mb-0" style="font-size: 13px;">Tuliskan deskripsi atau artikel lengkap mengenai program kesehatan ini.</p>
                             </div>
                             
                             <div class="form-group">

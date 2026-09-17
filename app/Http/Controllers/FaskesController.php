@@ -33,6 +33,6 @@ class FaskesController extends Controller
         $kecamatans = Kecamatan::orderBy('name')->get();
         $types = JenisFaskes::orderBy('name')->get();
 
-        return view('faskes', compact('faskes', 'kecamatans', 'types'));
+        return view('layanan.faskes', compact('faskes', 'kecamatans', 'types'));
     }
 }

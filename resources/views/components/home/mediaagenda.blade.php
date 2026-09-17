@@ -68,14 +68,14 @@
                 @if($homeInfografis->count() > 0)
                     <div class="media-subgrid">
                         @foreach($homeInfografis as $item)
-                            <div class="media-card small-card infografis-card">
+                            <a href="{{ route('media.infografis') }}" class="media-card small-card infografis-card">
                                 <img src="{{ asset('uploads/infografis/' . $item->image) }}" alt="{{ $item->title }}" class="card-image" loading="lazy">
                                 <div class="card-overlay"></div>
                                 <div class="card-content">
                                     <span class="card-category">Infografis</span>
                                     <h4 class="card-title">{{ $item->title }}</h4>
                                 </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 @endif

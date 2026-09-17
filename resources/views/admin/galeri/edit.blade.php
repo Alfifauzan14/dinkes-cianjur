@@ -6,13 +6,13 @@
 @section('content')
 
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between">
-        <span class="font-weight-bold text-muted" style="font-size:13px;">
-            <span class="material-icons text-warning" style="font-size:16px;vertical-align:middle;">edit</span>
-            Formulir Edit Album Galeri
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px;">
+        <span class="d-flex align-items-center" style="gap: 8px;">
+            <span class="material-icons text-success" style="font-size:20px;">collections</span>
+            <span class="font-weight-bold card-title-label">Edit Album Galeri</span>
         </span>
-        <a href="{{ route('admin.galeri.index') }}" class="btn btn-sm btn-outline-secondary">
-            <span class="material-icons" style="font-size:15px;vertical-align:middle;">arrow_back</span> Kembali
+        <a href="{{ route('admin.galeri.index') }}" class="btn btn-sm btn-outline-secondary ml-auto">
+            <span class="material-icons" style="font-size:16px;">arrow_back</span> Kembali
         </a>
     </div>
 
@@ -82,7 +82,7 @@
                 <a href="{{ route('admin.galeri.index') }}" class="btn btn-outline-secondary">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">close</span> Batal
                 </a>
-                <button type="submit" class="btn btn-success-dark">
+                <button type="submit" class="btn btn-success">
                     <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Perbarui Album
                 </button>
             </div>

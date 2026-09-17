@@ -79,6 +79,37 @@ class AgendaTest extends TestCase
     }
 
     /**
+     * Test admin can search agenda by keywords and natural dates.
+     */
+    public function test_admin_can_search_agenda_by_date_and_keywords(): void
+    {
+        $admin = User::factory()->create([
+            'email' => 'admin@dinkes.go.id',
+        ]);
+
+        Agenda::create([
+            'title' => 'Rapat Sosialisasi Stunting',
+            'date' => '2026-08-20',
+            'time_start' => '08:00',
+            'time_end' => '10:00',
+            'location' => 'Puskesmas Cikalong',
+            'status' => 'published',
+        ]);
+
+        // Search by location
+        $res1 = $this->actingAs($admin)->get('/admin/agenda?search=Cikalong');
+        $res1->assertSee('Rapat Sosialisasi Stunting');
+
+        // Search by numeric date
+        $res2 = $this->actingAs($admin)->get('/admin/agenda?search=20-08-2026');
+        $res2->assertSee('Rapat Sosialisasi Stunting');
+
+        // Search by Indonesian date
+        $res3 = $this->actingAs($admin)->get('/admin/agenda?search=20+Agustus');
+        $res3->assertSee('Rapat Sosialisasi Stunting');
+    }
+
+    /**
      * Test admin can create agenda.
      */
     public function test_admin_can_create_agenda(): void
@@ -202,7 +233,7 @@ class AgendaTest extends TestCase
         $response->assertDontSee('Agenda Draf Rahasia');
 
         // 2. Check public calendar page
-        $response2 = $this->get('/agenda?month='.now()->month.'&year='.now()->year);
+        $response2 = $this->get('/agenda?month='.now()->month.'&year='.now()->year.'&date='.now()->addDay()->format('Y-m-d'));
         $response2->assertSee('Agenda Publik Masa Depan');
         $response2->assertDontSee('Agenda Draf Rahasia');
     }

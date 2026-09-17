@@ -8,11 +8,11 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 8px 16px;
-        border-radius: 6px 6px 0 0;
+        padding: 10px 18px;
+        border-radius: 3px 3px 0 0;
         font-size: 13px;
         font-weight: 600;
-        color: var(--text-secondary);
+        color: #64748B;
         border: 1px solid transparent;
         background: transparent;
         cursor: pointer;
@@ -20,15 +20,16 @@
         text-decoration: none;
     }
     .type-tab.active {
-        color: var(--brand-green);
-        border-color: var(--border-subtle);
-        border-bottom-color: #ffffff;
-        background: #ffffff;
+        color: #004F3B;
+        border-color: #E2E8F0;
+        border-bottom-color: #FFFFFF;
+        background: #FFFFFF;
         margin-bottom: -1px;
+        font-weight: 700;
     }
     .type-tab:hover:not(.active) {
-        color: var(--text-primary);
-        background: rgba(0,0,0,0.03);
+        color: #009966;
+        background: #F8FAFC;
     }
     .color-dot {
         width: 12px;
@@ -40,43 +41,43 @@
     .badge-preview {
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        padding: 3px 10px;
-        border-radius: 20px;
-        font-size: 11.5px;
-        font-weight: 600;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: 700;
     }
 </style>
 @endsection
 
 @section('content')
 <div class="card card-outline card-success">
-    <div class="card-header d-flex align-items-center justify-content-between" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
-            <span class="material-icons text-success">category</span>
-            <span class="font-weight-bold card-title-label">Kelola Kategori</span>
+            <span class="material-icons text-success" style="font-size: 20px;">category</span>
+            <span class="font-weight-bold card-title-label">Kelola Kategori Konten</span>
         </span>
-        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahKategori">
-            <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Kategori
+        <button class="btn btn-sm btn-success font-weight-bold d-flex align-items-center" style="gap: 4px;" data-toggle="modal" data-target="#modalTambahKategori">
+            <span class="material-icons" style="font-size: 16px;">add</span> Tambah Kategori
         </button>
     </div>
 
     <div class="card-body p-0">
         {{-- Type tabs --}}
         @php $activeType = request('type', 'berita'); @endphp
-        <div style="border-bottom: 1px solid var(--border-subtle); padding: 12px 20px 0; margin-bottom: 0;">
+        <div style="border-bottom: 1px solid #E2E8F0; padding: 12px 20px 0; background: #F8FAFC; margin-bottom: 0;">
             <div class="d-flex align-items-end" style="gap: 4px;">
                 @foreach($types as $key => $label)
                 <a href="{{ route('admin.kategori.index', ['type' => $key]) }}"
                    class="type-tab {{ $activeType === $key ? 'active' : '' }}">
-                    @if($key === 'berita') <span class="material-icons" style="font-size:15px;">newspaper</span>
-                    @elseif($key === 'program') <span class="material-icons" style="font-size:15px;">health_and_safety</span>
-                    @elseif($key === 'regulasi') <span class="material-icons" style="font-size:15px;">gavel</span>
-                    @elseif($key === 'galeri') <span class="material-icons" style="font-size:15px;">photo_library</span>
-                    @else <span class="material-icons" style="font-size:15px;">description</span>
+                    @if($key === 'berita') <span class="material-icons" style="font-size:16px;">newspaper</span>
+                    @elseif($key === 'program') <span class="material-icons" style="font-size:16px;">health_and_safety</span>
+                    @elseif($key === 'regulasi') <span class="material-icons" style="font-size:16px;">gavel</span>
+                    @elseif($key === 'galeri') <span class="material-icons" style="font-size:16px;">photo_library</span>
+                    @else <span class="material-icons" style="font-size:16px;">description</span>
                     @endif
-                    {{ $label }}
-                    <span style="background:var(--border-subtle);color:var(--text-secondary);padding:2px 7px;border-radius:12px;font-size:11px;">
+                    <span>{{ $label }}</span>
+                    <span style="background: #E2E8F0; color: #475569; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 700;">
                         {{ ($kategoris[$key] ?? collect())->count() }}
                     </span>
                 </a>
@@ -85,30 +86,28 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table mb-0">
+            <table class="table table-hover mb-0 align-middle">
                 <thead>
                     <tr>
-                        <th style="width: 40px;">#</th>
+                        <th class="text-center" style="width: 60px; padding-left: 20px;">No</th>
                         <th>Nama Kategori</th>
-                        <th>Warna Badge</th>
-                        <th>Preview Badge</th>
-                        <th class="text-center" style="width: 100px;">Aksi</th>
+                        <th style="width: 180px;">Warna Badge</th>
+                        <th style="width: 220px;">Preview Badge</th>
+                        <th class="text-center" style="width: 100px; padding-right: 20px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse(($kategoris[$activeType] ?? collect()) as $i => $kat)
                     <tr>
-                        <td class="text-muted" style="font-size:13px;">{{ $i + 1 }}</td>
-                        <td>
-                            <span style="font-weight:600;color:var(--text-primary);">{{ $kat->nama }}</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center gap-2" style="gap: 8px;">
+                        <td class="text-center text-muted align-middle" style="padding-left: 20px;">{{ $i + 1 }}</td>
+                        <td class="align-middle font-weight-bold text-dark">{{ $kat->nama }}</td>
+                        <td class="align-middle">
+                            <div class="d-flex align-items-center" style="gap: 8px;">
                                 <span class="color-dot" @style(['background-color: ' . $kat->warna])></span>
-                                <code style="font-size:12px;color:var(--text-secondary);">{{ $kat->warna }}</code>
+                                <code style="font-size: 12px; color: #475569; font-weight: 600;">{{ $kat->warna }}</code>
                             </div>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <span class="badge-preview" @style([
                                 'background-color: ' . $kat->warna . '20',
                                 'color: ' . $kat->warna
@@ -117,23 +116,23 @@
                                 {{ $kat->nama }}
                             </span>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle" style="padding-right: 20px;">
                             <div class="btn-action-group">
                                 <button class="btn-action btn-action-edit"
-                                    title="Edit"
+                                    title="Edit Kategori"
                                     data-id="{{ $kat->id }}"
                                     data-nama="{{ $kat->nama }}"
                                     data-type="{{ $kat->type }}"
                                     data-warna="{{ $kat->warna }}"
                                     onclick="openEditModal(this.dataset.id, this.dataset.nama, this.dataset.type, this.dataset.warna)"
                                 >
-                                    <span class="material-icons" style="font-size:15px;">edit</span>
+                                    <span class="material-icons" style="font-size: 15px;">edit</span>
                                 </button>
                                 <form action="{{ route('admin.kategori.destroy', $kat->id) }}" method="POST" id="del-kat-{{ $kat->id }}" class="d-inline">
                                     @csrf @method('DELETE')
-                                    <button type="button" class="btn-action btn-action-delete" title="Hapus"
+                                    <button type="button" class="btn-action btn-action-delete" title="Hapus Kategori"
                                         onclick="confirmDelete('del-kat-{{ $kat->id }}')">
-                                        <span class="material-icons" style="font-size:15px;">delete</span>
+                                        <span class="material-icons" style="font-size: 15px;">delete</span>
                                     </button>
                                 </form>
                             </div>
@@ -141,12 +140,13 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center py-5">
-                            <span class="material-icons" style="font-size:40px;color:#D1D5DB;display:block;margin-bottom:8px;">folder_open</span>
-                            <span style="color:var(--text-secondary);font-size:13.5px;">Belum ada kategori untuk tipe ini.</span>
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            <span class="material-icons" style="font-size: 48px; color: #CBD5E1; display: block; margin-bottom: 8px;">folder_open</span>
+                            <p class="font-weight-bold mb-1">Belum Ada Kategori</p>
+                            <small class="text-muted">Belum ada kategori yang dibuat untuk tipe konten ini.</small>
                             <div class="mt-3">
-                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalTambahKategori">
-                                    <span class="material-icons" style="font-size:14px;">add</span> Tambah Sekarang
+                                <button class="btn btn-success btn-sm font-weight-bold" data-toggle="modal" data-target="#modalTambahKategori">
+                                    <span class="material-icons" style="font-size: 14px; vertical-align: middle;">add</span> Tambah Kategori
                                 </button>
                             </div>
                         </td>
@@ -161,47 +161,45 @@
 {{-- Modal Tambah --}}
 <div class="modal fade" id="modalTambahKategori" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 3px; border: 1px solid #E2E8F0;">
             <form action="{{ route('admin.kategori.store') }}" method="POST">
                 @csrf
-                <div class="modal-header" style="background: var(--sidebar-bg); color: #fff; padding: 16px 24px; border-radius: 8px 8px 0 0;">
-                    <h5 class="modal-title" style="font-size:15px;font-weight:700;color:#fff;margin:0;">
-                        <span class="material-icons" style="font-size:18px;vertical-align:middle;margin-right:6px;">add_circle</span>
-                        Tambah Kategori Baru
+                <div class="modal-header" style="background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0; padding: 16px 20px;">
+                    <h5 class="modal-title font-weight-bold d-flex align-items-center" style="font-size: 15px; color: #004F3B; gap: 6px; margin: 0;">
+                        <span class="material-icons text-success" style="font-size: 20px;">add_circle</span>
+                        <span>Tambah Kategori Baru</span>
                     </h5>
-                    <button type="button" class="close" data-dismiss="modal" style="color:#fff;opacity:0.7;">
-                        <span class="material-icons">close</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
-                <div class="modal-body" style="padding: 24px;">
-                    <div class="form-group">
-                        <label for="add_nama">Nama Kategori <span class="text-danger">*</span></label>
-                        <input type="text" name="nama" id="add_nama" class="form-control" placeholder="Contoh: Gizi & Stunting" required>
+                <div class="modal-body p-4">
+                    <div class="form-group mb-3">
+                        <label for="add_nama" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Nama Kategori <span class="text-danger">*</span></label>
+                        <input type="text" name="nama" id="add_nama" class="form-control" placeholder="Contoh: Gizi & Stunting" required style="border-radius: 3px;">
                     </div>
-                    <div class="form-group">
-                        <label for="add_type">Jenis Konten <span class="text-danger">*</span></label>
-                        <select name="type" id="add_type" class="form-control" required>
+                    <div class="form-group mb-3">
+                        <label for="add_type" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Jenis Konten <span class="text-danger">*</span></label>
+                        <select name="type" id="add_type" class="form-control" required style="border-radius: 3px;">
                             @foreach($types as $key => $label)
                             <option value="{{ $key }}" {{ $activeType === $key ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group mb-0">
-                        <label for="add_warna">Warna Badge <span class="text-danger">*</span></label>
+                        <label for="add_warna" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Warna Badge <span class="text-danger">*</span></label>
                         <div class="d-flex align-items-center" style="gap: 12px;">
                             <input type="color" name="warna" id="add_warna" value="#009966"
-                                class="form-control" style="width:56px;height:42px;padding:2px;cursor:pointer;"
+                                class="form-control" style="width: 56px; height: 40px; padding: 2px; cursor: pointer; border-radius: 3px;"
                                 onchange="updateAddPreview(this.value)">
-                            <div id="add-preview" class="badge-preview" style="background: #009966; color: #fff;">
-                                <span>Pratinjau</span>
+                            <div id="add-preview" class="badge-preview" style="background: #00996620; color: #009966;">
+                                <span>Pratinjau Badge</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="padding: 16px 24px;">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">
-                        <span class="material-icons" style="font-size:16px;">save</span> Simpan
+                <div class="modal-footer bg-light" style="padding: 12px 20px; border-top: 1px solid #E2E8F0;">
+                    <button type="button" class="btn btn-outline-secondary font-weight-bold" data-dismiss="modal" style="border-radius: 3px;">Batal</button>
+                    <button type="submit" class="btn btn-success font-weight-bold" style="border-radius: 3px;">
+                        <span class="material-icons" style="font-size: 16px; vertical-align: middle;">save</span> Simpan Kategori
                     </button>
                 </div>
             </form>
@@ -212,47 +210,45 @@
 {{-- Modal Edit --}}
 <div class="modal fade" id="modalEditKategori" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 3px; border: 1px solid #E2E8F0;">
             <form id="formEditKategori" method="POST">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background: var(--sidebar-bg); color: #fff; padding: 16px 24px; border-radius: 8px 8px 0 0;">
-                    <h5 class="modal-title" style="font-size:15px;font-weight:700;color:#fff;margin:0;">
-                        <span class="material-icons" style="font-size:18px;vertical-align:middle;margin-right:6px;">edit</span>
-                        Edit Kategori
+                <div class="modal-header" style="background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0; padding: 16px 20px;">
+                    <h5 class="modal-title font-weight-bold d-flex align-items-center" style="font-size: 15px; color: #004F3B; gap: 6px; margin: 0;">
+                        <span class="material-icons text-success" style="font-size: 20px;">edit</span>
+                        <span>Edit Kategori</span>
                     </h5>
-                    <button type="button" class="close" data-dismiss="modal" style="color:#fff;opacity:0.7;">
-                        <span class="material-icons">close</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
-                <div class="modal-body" style="padding: 24px;">
-                    <div class="form-group">
-                        <label for="edit_nama">Nama Kategori <span class="text-danger">*</span></label>
-                        <input type="text" name="nama" id="edit_nama" class="form-control" required>
+                <div class="modal-body p-4">
+                    <div class="form-group mb-3">
+                        <label for="edit_nama" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Nama Kategori <span class="text-danger">*</span></label>
+                        <input type="text" name="nama" id="edit_nama" class="form-control" required style="border-radius: 3px;">
                     </div>
-                    <div class="form-group">
-                        <label for="edit_type">Jenis Konten <span class="text-danger">*</span></label>
-                        <select name="type" id="edit_type" class="form-control" required>
+                    <div class="form-group mb-3">
+                        <label for="edit_type" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Jenis Konten <span class="text-danger">*</span></label>
+                        <select name="type" id="edit_type" class="form-control" required style="border-radius: 3px;">
                             @foreach($types as $key => $label)
                             <option value="{{ $key }}">{{ $label }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group mb-0">
-                        <label for="edit_warna">Warna Badge <span class="text-danger">*</span></label>
+                        <label for="edit_warna" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Warna Badge <span class="text-danger">*</span></label>
                         <div class="d-flex align-items-center" style="gap: 12px;">
                             <input type="color" name="warna" id="edit_warna" value="#009966"
-                                class="form-control" style="width:56px;height:42px;padding:2px;cursor:pointer;"
+                                class="form-control" style="width: 56px; height: 40px; padding: 2px; cursor: pointer; border-radius: 3px;"
                                 onchange="updateEditPreview(this.value)">
-                            <div id="edit-preview" class="badge-preview" style="background: #009966; color: #fff;">
-                                <span>Pratinjau</span>
+                            <div id="edit-preview" class="badge-preview" style="background: #00996620; color: #009966;">
+                                <span>Pratinjau Badge</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="padding: 16px 24px;">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                      <button type="submit" class="btn btn-success-dark">
-                          <span class="material-icons" style="font-size:16px;">save</span> Simpan Perubahan
+                <div class="modal-footer bg-light" style="padding: 12px 20px; border-top: 1px solid #E2E8F0;">
+                    <button type="button" class="btn btn-outline-secondary font-weight-bold" data-dismiss="modal" style="border-radius: 3px;">Batal</button>
+                    <button type="submit" class="btn btn-success font-weight-bold" style="border-radius: 3px;">
+                        <span class="material-icons" style="font-size: 16px; vertical-align: middle;">save</span> Simpan Perubahan
                     </button>
                 </div>
             </form>
@@ -285,6 +281,9 @@ function updateEditPreview(hex) {
 }
 
 // Init add preview
-document.getElementById('add_warna').dispatchEvent(new Event('change'));
+const addWarna = document.getElementById('add_warna');
+if (addWarna) {
+    addWarna.dispatchEvent(new Event('change'));
+}
 </script>
 @endsection

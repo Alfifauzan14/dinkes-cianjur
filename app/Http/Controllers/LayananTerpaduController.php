@@ -16,7 +16,7 @@ class LayananTerpaduController extends Controller
         $faskesServices = LayananTerpadu::where('type', 'Faskes')->get();
         $nakesServices = LayananTerpadu::where('type', 'Nakes')->get();
 
-        return view('layanan-terpadu', compact('wargaServices', 'faskesServices', 'nakesServices'));
+        return view('layanan.index', compact('wargaServices', 'faskesServices', 'nakesServices'));
     }
 
     /**
@@ -26,6 +26,6 @@ class LayananTerpaduController extends Controller
     {
         $service = LayananTerpadu::findOrFail($id);
 
-        return view('layanan-terpadu-detail', compact('service'));
+        return view('layanan.detail', compact('service'));
     }
 }

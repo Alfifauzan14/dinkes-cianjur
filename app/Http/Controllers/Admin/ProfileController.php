@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Faskes;
 use App\Models\Kecamatan;
 use App\Models\Profile;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -33,7 +33,7 @@ class ProfileController extends Controller
             'sejarah_image' => null,
             'visi_title' => 'Mewujudkan Masyarakat Kabupaten Cianjur yang Sehat, Mandiri, Berkeadilan, dan Berdaya Saing.',
             'visi_desc' => 'Dinas Kesehatan Kabupaten Cianjur berkomitmen penuh mendorong transformasi pelayanan kesehatan agar seluruh warga memiliki akses yang setara, cepat, dan terjangkau terhadap layanan medis berkualitas.',
-            'stat_1_text' => '47 Puskesmas Rujukan',
+            'stat_1_text' => '47 Puskesmas',
             'stat_2_text' => '32 Kecamatan Terjangkau',
             'misi' => [
                 [
@@ -128,8 +128,8 @@ class ProfileController extends Controller
             $rules = [
                 'visi_title' => 'required|string',
                 'visi_desc' => 'required|string',
-                'stat_1_text' => 'required|string|max:255',
-                'stat_2_text' => 'required|string|max:255',
+                'stat_1_text' => 'nullable|string|max:255',
+                'stat_2_text' => 'nullable|string|max:255',
                 'misi' => 'required|array|min:1',
                 'misi.*.title' => 'required|string|max:255',
                 'misi.*.desc' => 'required|string',
@@ -155,15 +155,14 @@ class ProfileController extends Controller
             return ! str_contains($key, '*');
         }));
 
+        if ($section === 'visimisi') {
+            $data['stat_1_text'] = $request->input('stat_1_text', Faskes::where('type', 'Puskesmas')->count().' Puskesmas');
+            $data['stat_2_text'] = $request->input('stat_2_text', Kecamatan::count().' Kecamatan Terjangkau');
+        }
+
         // Handle Kepala Dinas Image
         if ($section === 'sambutan' && $request->hasFile('kepala_dinas_image')) {
-            $image = $request->file('kepala_dinas_image');
-            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-
             $destinationPath = public_path('uploads/profile');
-            if (! File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
 
             // Hapus gambar lama jika ada dan bukan bawaan seeder
             if ($profile->kepala_dinas_image && $profile->kepala_dinas_image !== 'Group 83.png') {
@@ -173,19 +172,12 @@ class ProfileController extends Controller
                 }
             }
 
-            $image->move($destinationPath, $imageName);
-            $data['kepala_dinas_image'] = $imageName;
+            $data['kepala_dinas_image'] = ImageService::compressAndUpload($request->file('kepala_dinas_image'), $destinationPath, 1200, 85);
         }
 
         // Handle Sejarah Image
         if ($section === 'sejarah' && $request->hasFile('sejarah_image')) {
-            $image = $request->file('sejarah_image');
-            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-
             $destinationPath = public_path('uploads/profile');
-            if (! File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
 
             if ($profile->sejarah_image) {
                 $oldImagePath = public_path('uploads/profile/'.$profile->sejarah_image);
@@ -194,19 +186,12 @@ class ProfileController extends Controller
                 }
             }
 
-            $image->move($destinationPath, $imageName);
-            $data['sejarah_image'] = $imageName;
+            $data['sejarah_image'] = ImageService::compressAndUpload($request->file('sejarah_image'), $destinationPath, 1920, 85);
         }
 
         // Handle Struktur Organisasi Image
         if ($section === 'struktur' && $request->hasFile('struktur_organisasi_image')) {
-            $image = $request->file('struktur_organisasi_image');
-            $imageName = time().'_'.Str::random(10).'.'.$image->getClientOriginalExtension();
-
             $destinationPath = public_path('uploads/profile');
-            if (! File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
 
             if ($profile->struktur_organisasi_image) {
                 $oldImagePath = public_path('uploads/profile/'.$profile->struktur_organisasi_image);
@@ -215,8 +200,7 @@ class ProfileController extends Controller
                 }
             }
 
-            $image->move($destinationPath, $imageName);
-            $data['struktur_organisasi_image'] = $imageName;
+            $data['struktur_organisasi_image'] = ImageService::compressAndUpload($request->file('struktur_organisasi_image'), $destinationPath, 2400, 88);
         }
 
         $profile->update($data);

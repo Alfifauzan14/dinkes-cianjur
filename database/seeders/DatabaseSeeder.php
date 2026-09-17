@@ -233,7 +233,7 @@ class DatabaseSeeder extends Seeder
                 'sejarah_image' => null,
                 'visi_title' => 'Mewujudkan Masyarakat Kabupaten Cianjur yang Sehat, Mandiri, Berkeadilan, dan Berdaya Saing.',
                 'visi_desc' => 'Dinas Kesehatan Kabupaten Cianjur berkomitmen penuh mendorong transformasi pelayanan kesehatan agar seluruh warga memiliki akses yang setara, cepat, dan terjangkau terhadap layanan medis berkualitas.',
-                'stat_1_text' => '47 Puskesmas Rujukan',
+                'stat_1_text' => '47 Puskesmas',
                 'stat_2_text' => '32 Kecamatan Terjangkau',
 
                 'misi' => [

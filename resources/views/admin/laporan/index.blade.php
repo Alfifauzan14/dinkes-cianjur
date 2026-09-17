@@ -3,15 +3,39 @@
 @section('header_title', 'Kelola Laporan Kinerja')
 
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-3" style="gap:8px; border-radius: 3px;">
+        <span class="material-icons">check_circle</span>
+        <span>{{ session('success') }}</span>
+        <button type="button" class="close ml-auto" data-dismiss="alert"><span>&times;</span></button>
+    </div>
+@endif
+
 <div class="card card-outline card-success">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="card-header d-flex flex-wrap align-items-center" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
         <span class="d-flex align-items-center" style="gap: 8px;">
-            <span class="material-icons text-success">description</span>
-            <span class="font-weight-bold card-title-label">Kelola Laporan</span>
+            <span class="material-icons text-success" style="font-size:20px;">description</span>
+            <span class="font-weight-bold card-title-label">Kelola Laporan Kinerja</span>
         </span>
-        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahLaporan">
-            <span class="material-icons" style="font-size:16px;">add</span> Tambah Laporan
-        </button>
+
+        <form action="{{ route('admin.laporan.index') }}" method="GET" class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari laporan..." style="width: 220px;">
+            <select name="category" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: 180px;">
+                <option value="">Semua Kategori</option>
+                @foreach($kategoris as $kat)
+                    <option value="{{ $kat->nama }}" {{ request('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                @endforeach
+            </select>
+            @if(request('search') || request('category'))
+                <a href="{{ route('admin.laporan.index') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
+            @endif
+        </form>
+
+        <div class="d-flex ml-auto" style="gap: 8px;">
+            <button type="button" class="btn btn-sm btn-success d-flex align-items-center" style="gap: 4px;" data-toggle="modal" data-target="#modalTambahLaporan">
+                <span class="material-icons" style="font-size:16px;">add</span> Tambah Laporan
+            </button>
+        </div>
     </div>
 
     <div class="card-body p-0">
@@ -19,21 +43,21 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Judul Laporan</th>
+                        <th style="padding-left: 20px;">Judul Laporan</th>
                         <th style="width:180px;">Kategori</th>
-                        <th style="width:140px;">Tanggal Rilis</th>
-                        <th style="width:110px;">Ukuran File</th>
-                        <th class="text-center" style="width:100px;">Aksi</th>
+                        <th style="width:150px;">Tanggal Rilis</th>
+                        <th style="width:120px;">Ukuran File</th>
+                        <th class="text-center" style="width:100px; padding-right: 20px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($laporans as $laporan)
                     <tr>
-                        <td>
+                        <td class="align-middle" style="padding-left: 20px;">
                             <div class="font-weight-bold text-dark">{{ $laporan->title }}</div>
-                            <small>
-                                <span class="material-icons text-success" style="font-size:13px;vertical-align:middle;">attachment</span>
-                                <a href="{{ asset('storage/' . $laporan->file_path) }}" target="_blank" class="text-success" style="text-decoration:none;">Unduh File</a>
+                            <small class="d-inline-flex align-items-center" style="gap: 4px; margin-top: 2px;">
+                                <span class="material-icons text-success" style="font-size:14px;">picture_as_pdf</span>
+                                <a href="{{ asset('storage/' . $laporan->file_path) }}" target="_blank" class="text-success font-weight-bold" style="text-decoration:none;">Lihat Dokumen</a>
                             </small>
                         </td>
                         <td class="align-middle">
@@ -41,9 +65,9 @@
                                 {{ $laporan->category }}
                             </span>
                         </td>
-                        <td class="text-secondary align-middle">{{ $laporan->release_date->format('d M Y') }}</td>
-                        <td class="text-secondary font-weight-bold align-middle">{{ $laporan->file_size }}</td>
-                        <td class="text-center align-middle">
+                        <td class="text-secondary align-middle" style="font-size: 13.5px;">{{ $laporan->release_date->format('d M Y') }}</td>
+                        <td class="text-secondary font-weight-bold align-middle" style="font-size: 13.5px;">{{ $laporan->file_size }}</td>
+                        <td class="text-center align-middle" style="padding-right: 20px;">
                             <div class="btn-action-group">
                                 <button type="button"
                                     class="btn-action btn-action-edit btn-edit-laporan"
@@ -53,6 +77,7 @@
                                     data-category="{{ $laporan->category }}"
                                     data-release_date="{{ $laporan->release_date->format('Y-m-d') }}"
                                     data-file_size="{{ $laporan->file_size }}"
+                                    data-file_url="{{ asset('storage/' . $laporan->file_path) }}"
                                     data-toggle="modal" data-target="#modalEditLaporan">
                                     <span class="material-icons" style="font-size:16px;">edit</span>
                                 </button>
@@ -69,8 +94,13 @@
                     @empty
                     <tr>
                         <td colspan="5" class="text-center py-5 text-muted">
-                            <span class="material-icons" style="font-size:48px;display:block;margin-bottom:8px;color:#D1D5DB;">description</span>
-                            Belum ada data laporan kinerja.
+                            <span class="material-icons" style="font-size:48px;display:block;margin-bottom:8px;color:#CBD5E1;">description</span>
+                            <p class="font-weight-bold mb-1">Belum ada data laporan kinerja.</p>
+                            @if(request('search') || request('category'))
+                                <small class="text-muted">Tidak ada hasil pencarian yang sesuai.</small>
+                            @else
+                                <small class="text-muted">Klik <strong>"Tambah Laporan"</strong> untuk mengunggah dokumen baru.</small>
+                            @endif
                         </td>
                     </tr>
                     @endforelse
@@ -78,73 +108,69 @@
             </table>
         </div>
     </div>
+
+    @if($laporans->hasPages())
+        <div class="card-footer bg-white p-3 border-top">
+            {{ $laporans->links() }}
+        </div>
+    @endif
 </div>
 
-{{-- ======================================== --}}
-{{-- MODAL: TAMBAH LAPORAN                    --}}
-{{-- ======================================== --}}
-<div class="modal fade" id="modalTambahLaporan" tabindex="-1" role="dialog" aria-labelledby="modalTambahLaporanLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+{{-- MODAL: TAMBAH LAPORAN --}}
+<div class="modal fade" id="modalTambahLaporan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" style="border-radius: 3px; border: 1px solid #CBD5E1;">
             <form action="{{ route('admin.laporan.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="modal-header" style="background:#009966;color:#fff;border-radius:0;">
-                    <h5 class="modal-title" id="modalTambahLaporanLabel">
-                        <span class="material-icons" style="vertical-align:middle;margin-right:6px;">note_add</span>
-                        Tambah Laporan Baru
+                <div class="modal-header" style="background:#F8FAFC; border-bottom: 1px solid #E2E8F0; padding: 14px 20px;">
+                    <h5 class="modal-title font-weight-bold d-flex align-items-center" style="font-size:15px; color:#1E293B; gap:8px;">
+                        <span class="material-icons text-success" style="font-size:20px;">note_add</span>
+                        Tambah Laporan Kinerja Baru
                     </h5>
-                    <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <div class="form-group">
-                        <label for="tambah_lap_title">Judul Laporan <span class="text-danger">*</span></label>
-                        <input type="text" name="title" id="tambah_lap_title" class="form-control" placeholder="Masukkan judul laporan..." required>
+                        <label for="tambah_lap_title" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">
+                            Judul Laporan <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" name="title" id="tambah_lap_title" class="form-control" placeholder="Contoh: Laporan Kinerja Instansi Pemerintah (LKjIP) Tahun 2025" required>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-12">
                             <div class="form-group">
-                                <label for="tambah_lap_category">Kategori Laporan <span class="text-danger">*</span></label>
-                                <select name="category" id="tambah_lap_category" class="form-control" required>
+                                <label for="tambah_lap_category" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">
+                                    Kategori Laporan <span class="text-danger">*</span>
+                                </label>
+                                <select name="category" id="tambah_lap_category" class="form-control custom-select" required>
                                     <option value="" disabled selected>Pilih Kategori</option>
                                     @foreach($kategoris as $kat)
-                                    <option value="{{ $kat->nama }}" {{ old('category') == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                                        <option value="{{ $kat->nama }}">{{ $kat->nama }}</option>
                                     @endforeach
                                 </select>
-                                <div class="mt-1">
-                                    <a href="{{ route('admin.kategori.index') }}" class="btn btn-sm btn-outline-success">
-                                        <span class="material-icons" style="font-size:14px;vertical-align:middle;">tune</span> Kelola Kategori
-                                    </a>
-                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-12">
                             <div class="form-group">
-                                <label for="tambah_lap_release_date">Tanggal Rilis <span class="text-danger">*</span></label>
+                                <label for="tambah_lap_release_date" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">
+                                    Tanggal Rilis <span class="text-danger">*</span>
+                                </label>
                                 <input type="date" name="release_date" id="tambah_lap_release_date" class="form-control" value="{{ date('Y-m-d') }}" required>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="tambah_lap_file">File Laporan (PDF) <span class="text-danger">*</span></label>
-                                <input type="file" name="file_document" id="tambah_lap_file" class="form-control" accept=".pdf" required>
-                                <small class="text-muted">Format file: .pdf | Ukuran maksimum: 10 MB</small>
-                                @error('file_document') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="tambah_lap_file_size">Ukuran File <span class="text-muted" style="font-weight:400;">(info)</span></label>
-                                <input type="text" name="file_size" id="tambah_lap_file_size" class="form-control" placeholder="Contoh: 2.5 MB">
-                            </div>
-                        </div>
+                    <div class="form-group mb-0">
+                        <label for="tambah_lap_file" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">
+                            File Dokumen Laporan (PDF) <span class="text-danger">*</span>
+                        </label>
+                        <input type="file" name="file_document" id="tambah_lap_file" class="form-control-file" accept=".pdf" required>
+                        <small class="text-muted d-block mt-1">Format berkas: .pdf | Ukuran maksimum: 10 MB. Ukuran file akan dihitung otomatis oleh sistem.</small>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="background:#F8FAFC; border-top: 1px solid #E2E8F0; padding: 12px 20px;">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">
-                        <span class="material-icons" style="font-size:16px;vertical-align:middle;">upload</span> Simpan Laporan
+                    <button type="submit" class="btn btn-success font-weight-bold">
+                        <span class="material-icons" style="font-size:16px; vertical-align:middle;">save</span> Simpan Laporan
                     </button>
                 </div>
             </form>
@@ -152,64 +178,61 @@
     </div>
 </div>
 
-{{-- ======================================== --}}
-{{-- MODAL: EDIT LAPORAN                      --}}
-{{-- ======================================== --}}
-<div class="modal fade" id="modalEditLaporan" tabindex="-1" role="dialog" aria-labelledby="modalEditLaporanLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+{{-- MODAL: EDIT LAPORAN --}}
+<div class="modal fade" id="modalEditLaporan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" style="border-radius: 3px; border: 1px solid #CBD5E1;">
             <form action="" method="POST" id="form-edit-laporan" enctype="multipart/form-data">
                 @csrf @method('PUT')
-                <div class="modal-header" style="background:#007A52;color:#fff;border-radius:0;">
-                    <h5 class="modal-title" id="modalEditLaporanLabel">
-                        <span class="material-icons" style="vertical-align:middle;margin-right:6px;">edit_note</span>
-                        Edit Laporan
+                <div class="modal-header" style="background:#F8FAFC; border-bottom: 1px solid #E2E8F0; padding: 14px 20px;">
+                    <h5 class="modal-title font-weight-bold d-flex align-items-center" style="font-size:15px; color:#1E293B; gap:8px;">
+                        <span class="material-icons text-success" style="font-size:20px;">edit_note</span>
+                        Edit Laporan Kinerja
                     </h5>
-                    <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <div class="form-group">
-                        <label for="edit_lap_title">Judul Laporan <span class="text-danger">*</span></label>
+                        <label for="edit_lap_title" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">
+                            Judul Laporan <span class="text-danger">*</span>
+                        </label>
                         <input type="text" name="title" id="edit_lap_title" class="form-control" required>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-12">
                             <div class="form-group">
-                                <label for="edit_lap_category">Kategori Laporan <span class="text-danger">*</span></label>
-                                <select name="category" id="edit_lap_category" class="form-control" required>
-                                    <option value="Laporan Kinerja">Laporan Kinerja</option>
-                                    <option value="Laporan Keuangan">Laporan Keuangan</option>
-                                    <option value="Informasi Publik">Informasi Publik</option>
+                                <label for="edit_lap_category" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">
+                                    Kategori Laporan <span class="text-danger">*</span>
+                                </label>
+                                <select name="category" id="edit_lap_category" class="form-control custom-select" required>
+                                    @foreach($kategoris as $kat)
+                                        <option value="{{ $kat->nama }}">{{ $kat->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-12">
                             <div class="form-group">
-                                <label for="edit_lap_release_date">Tanggal Rilis <span class="text-danger">*</span></label>
+                                <label for="edit_lap_release_date" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">
+                                    Tanggal Rilis <span class="text-danger">*</span>
+                                </label>
                                 <input type="date" name="release_date" id="edit_lap_release_date" class="form-control" required>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="edit_lap_file">Ganti File <span class="text-muted" style="font-weight:400;">(opsional, kosongkan jika tidak diganti)</span></label>
-                                <input type="file" name="file_document" id="edit_lap_file" class="form-control" accept=".pdf">
-                                <small class="text-muted">Format: .pdf. Kosongkan jika tidak diganti.</small>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="edit_lap_file_size">Ukuran File</label>
-                                <input type="text" name="file_size" id="edit_lap_file_size" class="form-control" placeholder="Contoh: 2.5 MB">
-                            </div>
-                        </div>
+                    <div class="form-group mb-0">
+                        <label for="edit_lap_file" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">
+                            File Dokumen Laporan (PDF)
+                        </label>
+                        <input type="file" name="file_document" id="edit_lap_file" class="form-control-file" accept=".pdf">
+                        <div id="edit_lap_file_current" class="mt-2 text-secondary" style="font-size: 13px;"></div>
+                        <small class="text-muted d-block mt-1">Format: .pdf | Maks: 10 MB. Biarkan kosong jika tidak ingin mengganti file.</small>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="background:#F8FAFC; border-top: 1px solid #E2E8F0; padding: 12px 20px;">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                      <button type="submit" class="btn btn-success-dark">
-                          <span class="material-icons" style="font-size:16px;vertical-align:middle;">save</span> Simpan Perubahan
+                    <button type="submit" class="btn btn-success font-weight-bold">
+                        <span class="material-icons" style="font-size:16px; vertical-align:middle;">save</span> Simpan Perubahan
                     </button>
                 </div>
             </form>
@@ -226,7 +249,16 @@ document.querySelectorAll('.btn-edit-laporan').forEach(function(btn) {
         document.getElementById('edit_lap_title').value        = this.dataset.title;
         document.getElementById('edit_lap_category').value     = this.dataset.category;
         document.getElementById('edit_lap_release_date').value = this.dataset.release_date;
-        document.getElementById('edit_lap_file_size').value    = this.dataset.file_size;
+        
+        var fileUrl = this.dataset.file_url;
+        var fileSize = this.dataset.file_size;
+        var currentBox = document.getElementById('edit_lap_file_current');
+        if (fileUrl) {
+            currentBox.innerHTML = '<span class="material-icons text-success" style="font-size:16px;vertical-align:middle;">attach_file</span> File saat ini: <a href="' + fileUrl + '" target="_blank" class="text-success font-weight-bold" style="text-decoration:none;">Lihat Dokumen (' + fileSize + ')</a>';
+        } else {
+            currentBox.innerHTML = '';
+        }
+
         document.getElementById('form-edit-laporan').action = '{{ route('admin.laporan.update', ['laporan' => '__ID__']) }}'.replace('__ID__', id);
     });
 });

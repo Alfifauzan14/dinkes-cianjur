@@ -16,8 +16,8 @@
     {{-- FontAwesome for Brands/Social Icons --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
-    {{-- Stylesheet --}}
-    <link rel="stylesheet" href="{{ asset('css/detail-berita.css') }}?v={{ time() }}">
+    {{-- Custom Stylesheet --}}
+    <link rel="stylesheet" href="{{ asset('css/Lihat_semua/detail-berita.css') }}?v={{ time() }}">
     <style>
         *, *::before, *::after {
             margin: 0;

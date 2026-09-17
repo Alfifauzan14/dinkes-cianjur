@@ -15,12 +15,12 @@
         @endif
 
         <div class="card card-outline card-success">
-            <div class="card-header d-flex align-items-center justify-content-between">
+            <div class="card-header d-flex flex-wrap align-items-center justify-content-between" style="gap: 12px; padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
                 <span class="d-flex align-items-center" style="gap: 8px;">
-                    <span class="material-icons text-success">local_hospital</span>
-                    <span class="font-weight-bold card-title-label">Kelola Jenis Faskes</span>
+                    <span class="material-icons text-success" style="font-size:20px;">local_hospital</span>
+                    <span class="font-weight-bold card-title-label">Kelola Jenis Fasilitas Kesehatan</span>
                 </span>
-                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTambahType">
+                <button class="btn btn-sm btn-success ml-auto" data-toggle="modal" data-target="#modalTambahType">
                     <span class="material-icons" style="font-size:16px;">add</span> Tambah Jenis Faskes
                 </button>
             </div>

@@ -10,12 +10,28 @@ use Illuminate\Support\Facades\Storage;
 
 class RegulasiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $regulasis = Regulasi::orderBy('year', 'desc')->orderBy('created_at', 'desc')->get();
+        $search = $request->query('search');
+        $category = $request->query('category');
+
+        $regulasis = Regulasi::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($sub) use ($search) {
+                    $sub->where('title', 'like', '%'.$search.'%')
+                        ->orWhere('description', 'like', '%'.$search.'%')
+                        ->orWhere('topic', 'like', '%'.$search.'%');
+                });
+            })
+            ->when($category, fn ($q) => $q->where('category', $category))
+            ->orderBy('year', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
         $kategoris = Kategori::ofType('regulasi')->orderBy('nama')->get();
 
-        return view('admin.regulasi.index', compact('regulasis', 'kategoris'));
+        return view('admin.regulasi.index', compact('regulasis', 'kategoris', 'search', 'category'));
     }
 
     public function create()

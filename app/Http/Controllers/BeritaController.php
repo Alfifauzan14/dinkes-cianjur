@@ -80,7 +80,7 @@ class BeritaController extends Controller
 
         $kategoris = Kategori::ofType('berita')->get();
 
-        return view('berita', compact('featuredBerita', 'beritas', 'recentBeritas', 'kategoris'));
+        return view('berita.index', compact('featuredBerita', 'beritas', 'recentBeritas', 'kategoris'));
     }
 
     /**

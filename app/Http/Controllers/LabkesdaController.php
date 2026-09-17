@@ -16,6 +16,6 @@ class LabkesdaController extends Controller
         $settings = LabkesdaSetting::firstOrCreate(['id' => 1]);
         $categories = LabkesdaCategory::with('items')->orderBy('order_index')->get();
 
-        return view('labkesda', compact('settings', 'categories'));
+        return view('layanan.labkesda', compact('settings', 'categories'));
     }
 }

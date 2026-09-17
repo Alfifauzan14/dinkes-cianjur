@@ -22,16 +22,15 @@ class IkmTest extends TestCase
     }
 
     /**
-     * Test ikm form validation fails when recaptcha or rating is missing.
+     * Test ikm form validation fails when required fields are missing.
      */
-    public function test_ikm_store_validation_fails_without_rating_or_recaptcha(): void
+    public function test_ikm_store_validation_fails_without_required_fields(): void
     {
         $response = $this->post('/ikm', [
-            'name' => 'John Doe',
             'whatsapp' => '08123456789',
         ]);
 
-        $response->assertSessionHasErrors(['rating', 'g-recaptcha-response']);
+        $response->assertSessionHasErrors(['name', 'rating', 'g-recaptcha-response']);
     }
 
     /**

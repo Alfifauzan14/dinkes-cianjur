@@ -4,23 +4,15 @@
 
 @section('styles')
 <style>
-    .custom-form-card {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 30px;
-        margin-bottom: 24px;
-    }
     .form-section-title {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 700;
         color: #004F3B;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         display: flex;
         align-items: center;
         gap: 8px;
-        border-bottom: 1px solid var(--border-subtle);
+        border-bottom: 1px solid #E2E8F0;
         padding-bottom: 10px;
     }
     .accordion-grid-layout {
@@ -31,8 +23,8 @@
     }
     .accordion-card-field {
         background: #F8FAFC;
-        border: 1px solid var(--border-subtle);
-        border-radius: 8px;
+        border: 1px solid #E2E8F0;
+        border-radius: 3px;
         padding: 20px;
         position: relative;
         transition: all 0.18s;
@@ -40,7 +32,7 @@
     .accordion-card-field:focus-within {
         border-color: #009966;
         background: #ffffff;
-        box-shadow: var(--card-shadow);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
     .remove-btn-absolute {
         position: absolute;
@@ -51,7 +43,7 @@
         color: #DC2626;
         width: 28px;
         height: 28px;
-        border-radius: 6px;
+        border-radius: 3px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -64,9 +56,9 @@
     .preview-image {
         max-width: 100%;
         height: auto;
-        border-radius: 4px;
+        border-radius: 3px;
         margin-bottom: 8px;
-        border: 1px solid var(--border-subtle);
+        border: 1px solid #CBD5E1;
     }
 </style>
 @endsection
@@ -77,94 +69,93 @@
         <div class="card card-outline card-success">
             <div class="card-header" style="padding: 16px 20px; background-color: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
                 <span class="d-flex align-items-center" style="gap: 8px;">
-                    <span class="material-icons text-success">link</span>
+                    <span class="material-icons text-success" style="font-size: 20px;">link</span>
                     <span class="font-weight-bold card-title-label">Pengaturan Seksi Tautan PPID</span>
                 </span>
             </div>
-            <div class="card-body">
+            <div class="card-body p-4">
                 <form action="{{ route('admin.ppid.update') }}" method="POST" id="ppid-form" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="section" value="tautan">
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="tautan_badge">Badge Tautan</label>
-                            <input type="text" name="tautan_badge" id="tautan_badge" value="{{ old('tautan_badge', $ppid->tautan_badge) }}" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="tautan_title">Judul Seksi Tautan</label>
-                            <input type="text" name="tautan_title" id="tautan_title" value="{{ old('tautan_title', $ppid->tautan_title) }}" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="tautan_subtitle">Subjudul Seksi Tautan</label>
-                            <input type="text" name="tautan_subtitle" id="tautan_subtitle" value="{{ old('tautan_subtitle', $ppid->tautan_subtitle) }}" class="form-control">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-center justify-content-between mb-4 pb-2 mt-4" style="border-bottom: 1px solid var(--border-subtle);">
-                    <div class="form-section-title mb-0" style="border-bottom: none; padding-bottom: 0;">
-                        <span class="material-icons text-success">list</span>
-                        <span>Daftar Tautan Publik</span>
-                    </div>
-                    <button type="button" id="btn-add-tautan" class="btn btn-outline-success btn-sm">
-                        <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">add</span> Tambah Baris Baru
-                    </button>
-                </div>
-
-                <div id="tautan-container" class="accordion-grid-layout">
-                    @forelse (old('tautan_items', $ppid->tautan_items ?? []) as $index => $item)
-                        <div class="accordion-card-field" data-index="{{ $index }}">
-                            <button type="button" class="remove-btn-absolute" onclick="removeTautanField(this)" title="Hapus Item">
-                                <span class="material-icons" style="font-size:16px;">delete</span>
-                            </button>
-                            <span class="badge badge-success mb-3">Tautan {{ $loop->iteration }}</span>
-                            
-                            <div class="form-group mb-2">
-                                <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Label Tombol <span class="text-danger">*</span></label>
-                                <input type="text" name="tautan_items[{{ $index }}][label]" value="{{ $item['label'] ?? '' }}" class="form-control form-control-sm" required>
+                    <div class="row">
+                        <div class="col-md-4 col-12">
+                            <div class="form-group mb-3">
+                                <label for="tautan_badge" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Badge Tautan</label>
+                                <input type="text" name="tautan_badge" id="tautan_badge" value="{{ old('tautan_badge', $ppid->tautan_badge) }}" class="form-control">
                             </div>
-                            <div class="form-group mb-2">
-                                <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Alamat URL Link</label>
-                                <input type="text" name="tautan_items[{{ $index }}][url]" value="{{ $item['url'] ?? '' }}" class="form-control form-control-sm">
+                        </div>
+                        <div class="col-md-8 col-12">
+                            <div class="form-group mb-3">
+                                <label for="tautan_title" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Judul Seksi Tautan</label>
+                                <input type="text" name="tautan_title" id="tautan_title" value="{{ old('tautan_title', $ppid->tautan_title) }}" class="form-control">
                             </div>
-                            <div class="form-group mb-0">
-                                <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Upload Ikon/Gambar (Opsional)</label>
-                                @if(!empty($item['image']))
-                                    <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $item['image']) }}" class="preview-image" style="max-height: 50px; border-radius: 4px; border: 1px solid #E2E8F0;">
-                                    </div>
-                                    <input type="hidden" name="tautan_items[{{ $index }}][existing_image]" value="{{ $item['image'] }}">
-                                @endif
-                                <div class="custom-file" style="font-size: 11.5px;">
-                                    <input type="file" name="tautan_items[{{ $index }}][image_upload]" class="custom-file-input" accept="image/*" onchange="previewFile(this)">
-                                    <label class="custom-file-label" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">Pilih gambar...</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group mb-3">
+                                <label for="tautan_subtitle" class="font-weight-bold" style="font-size: 13px; color: #1E293B;">Subjudul Seksi Tautan</label>
+                                <input type="text" name="tautan_subtitle" id="tautan_subtitle" value="{{ old('tautan_subtitle', $ppid->tautan_subtitle) }}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between mb-3 pb-2 mt-4" style="border-bottom: 1px solid #E2E8F0;">
+                        <div class="form-section-title mb-0" style="border-bottom: none; padding-bottom: 0;">
+                            <span class="material-icons text-success" style="font-size: 20px;">list</span>
+                            <span>Daftar Tautan Publik</span>
+                        </div>
+                        <button type="button" id="btn-add-tautan" class="btn btn-sm btn-outline-success font-weight-bold d-flex align-items-center" style="gap: 4px;">
+                            <span class="material-icons" style="font-size:16px;">add</span> Tambah Baris Baru
+                        </button>
+                    </div>
+
+                    <div id="tautan-container" class="accordion-grid-layout border-bottom pb-4 mb-4">
+                        @forelse (old('tautan_items', $ppid->tautan_items ?? []) as $index => $item)
+                            <div class="accordion-card-field" data-index="{{ $index }}">
+                                <button type="button" class="remove-btn-absolute" onclick="removeTautanField(this)" title="Hapus Item">
+                                    <span class="material-icons" style="font-size:16px;">delete</span>
+                                </button>
+                                <span class="badge badge-success mb-3" style="border-radius: 3px; font-weight: 700;">Tautan {{ $loop->iteration }}</span>
+                                
+                                <div class="form-group mb-2">
+                                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B;">Label Tombol <span class="text-danger">*</span></label>
+                                    <input type="text" name="tautan_items[{{ $index }}][label]" value="{{ $item['label'] ?? '' }}" class="form-control" required>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B;">Alamat URL Link</label>
+                                    <input type="text" name="tautan_items[{{ $index }}][url]" value="{{ $item['url'] ?? '' }}" class="form-control">
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B;">Upload Ikon/Gambar</label>
+                                    @if(!empty($item['image']))
+                                        <div class="mb-2">
+                                            <img src="{{ asset('storage/' . $item['image']) }}" class="preview-image" style="max-height: 48px; border-radius: 3px;">
+                                        </div>
+                                        <input type="hidden" name="tautan_items[{{ $index }}][existing_image]" value="{{ $item['image'] }}">
+                                    @endif
+                                    <input type="file" name="tautan_items[{{ $index }}][image_upload]" class="form-control-file" accept="image/*">
+                                    <small class="text-muted d-block mt-1">Biarkan kosong jika tidak ingin mengganti gambar.</small>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <div class="col-12 text-center py-5" id="empty-state-info">
-                            <span class="material-icons" style="font-size:48px; color:#D1D5DB; display:block; margin-bottom:12px;">link</span>
-                            <p class="text-muted">Belum ada item tautan ditambahkan. Silakan klik tombol "Tambah Baris Baru".</p>
-                        </div>
-                    @endforelse
-                </div>
+                        @empty
+                            <div class="col-12 text-center py-5" id="empty-state-info">
+                                <span class="material-icons" style="font-size:48px; color:#CBD5E1; display:block; margin-bottom:8px;">link</span>
+                                <p class="font-weight-bold mb-1">Belum Ada Tautan</p>
+                                <small class="text-muted">Belum ada item tautan ditambahkan. Silakan klik tombol "Tambah Baris Baru".</small>
+                            </div>
+                        @endforelse
+                    </div>
 
-                <div class="border-top pt-4 mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success-dark px-4" id="ppid-save-btn">
-                        <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Tautan
-                    </button>
-                </div>
-            </form>
+                    <div class="border-top pt-4 mt-4 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success font-weight-bold px-4" id="ppid-save-btn">
+                            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">save</span> Simpan Tautan
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </div>
 @endsection
 
@@ -187,22 +178,20 @@
                 <button type="button" class="remove-btn-absolute" onclick="removeTautanField(this)" title="Hapus Item">
                     <span class="material-icons" style="font-size:16px;">delete</span>
                 </button>
-                <span class="badge badge-success mb-3">Tautan Baru</span>
+                <span class="badge badge-success mb-3" style="border-radius: 3px; font-weight: 700;">Tautan Baru</span>
                 
                 <div class="form-group mb-2">
-                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Label Tombol <span class="text-danger">*</span></label>
-                    <input type="text" name="tautan_items[${index}][label]" class="form-control form-control-sm" placeholder="Label..." required>
+                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B;">Label Tombol <span class="text-danger">*</span></label>
+                    <input type="text" name="tautan_items[${index}][label]" class="form-control" placeholder="Label..." required>
                 </div>
                 <div class="form-group mb-2">
-                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Alamat URL Link</label>
-                    <input type="text" name="tautan_items[${index}][url]" class="form-control form-control-sm" placeholder="https://...">
+                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B;">Alamat URL Link</label>
+                    <input type="text" name="tautan_items[${index}][url]" class="form-control" placeholder="https://...">
                 </div>
                 <div class="form-group mb-0">
-                    <label style="font-size: 11.5px; font-weight: 700; color: #475569;">Upload Ikon/Gambar (Opsional)</label>
-                    <div class="custom-file" style="font-size: 11.5px;">
-                        <input type="file" name="tautan_items[${index}][image_upload]" class="custom-file-input" accept="image/*" onchange="previewFile(this)">
-                        <label class="custom-file-label" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">Pilih gambar...</label>
-                    </div>
+                    <label class="font-weight-bold" style="font-size: 12px; color: #1E293B;">Upload Ikon/Gambar</label>
+                    <input type="file" name="tautan_items[${index}][image_upload]" class="form-control-file" accept="image/*">
+                    <small class="text-muted d-block mt-1">Biarkan kosong jika tidak ingin mengunggah gambar.</small>
                 </div>
             `;
             container.appendChild(newField);
@@ -245,17 +234,10 @@
         });
     }
 
-    function previewFile(input) {
-        if (input.files && input.files[0]) {
-            const fileName = input.files[0].name;
-            input.nextElementSibling.innerText = fileName;
-        }
-    }
-
     document.getElementById('ppid-form').addEventListener('submit', function() {
         const btn = document.getElementById('ppid-save-btn');
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-sync-alt fa-spin mr-1"></i> Menyimpan...';
+        btn.innerHTML = '<span class="material-icons" style="font-size: 16px; vertical-align: middle;">sync</span> Menyimpan...';
     });
 </script>
 @endsection
