@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class HomeContentController extends Controller
 {
-    public const ICON_OPTIONS = ['map', 'phone', 'document', 'heart', 'shield', 'users'];
+    public const ICON_OPTIONS = ['map', 'phone', 'document', 'heart', 'shield', 'users', 'pray'];
 
     public const SOCIAL_PLATFORMS = ['instagram', 'tiktok', 'facebook', 'youtube'];
 
@@ -39,6 +39,7 @@ class HomeContentController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'icon_name' => 'required|in:'.implode(',', self::ICON_OPTIONS),
+            'link_url' => 'nullable|string|max:500',
         ]);
 
         $homeInfoCard->update($validated);

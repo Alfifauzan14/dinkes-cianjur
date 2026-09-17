@@ -39,6 +39,15 @@
             </div>
 
             <div class="form-group">
+                <label for="link_url">Link URL</label>
+                <input type="text" name="link_url" id="link_url" value="{{ old('link_url', $card->link_url) }}"
+                    class="form-control @error('link_url') is-invalid @enderror"
+                    placeholder="Contoh: /faskes atau https://example.com">
+                <small class="form-text text-muted">Kosongkan jika card tidak perlu diklik. Gunakan <code>tel:119</code> untuk link telepon.</small>
+                @error('link_url') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="form-group">
                 <label>Pilih Ikon</label>
                 <div class="icon-picker-container">
                     @foreach($icons as $iconName)

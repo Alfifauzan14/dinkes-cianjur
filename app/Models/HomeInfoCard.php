@@ -8,5 +8,5 @@ class HomeInfoCard extends Model
 {
     protected $table = 'info_card';
 
-    protected $fillable = ['title', 'description', 'icon_name', 'order_index'];
+    protected $fillable = ['title', 'description', 'icon_name', 'link_url', 'order_index'];
 }
