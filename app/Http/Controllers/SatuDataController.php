@@ -21,7 +21,7 @@ use Illuminate\View\View;
 class SatuDataController extends Controller
 {
     /**
-     * Display the Satu Data Statistik page.
+     * Display the Data Kesehatan Statistik page.
      */
     public function statistik(Request $request): View
     {
@@ -112,7 +112,7 @@ class SatuDataController extends Controller
     }
 
     /**
-     * Display the Satu Data Laporan page.
+     * Display the Data Kesehatan Laporan page.
      */
     public function laporan(): View
     {
@@ -122,7 +122,7 @@ class SatuDataController extends Controller
     }
 
     /**
-     * Display the Satu Data Regulasi page.
+     * Display the Data Kesehatan Regulasi page.
      */
     public function regulasi(): View
     {

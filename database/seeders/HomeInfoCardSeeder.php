@@ -21,14 +21,14 @@ class HomeInfoCardSeeder extends Seeder
                 'title' => 'Layanan Darurat 119',
                 'description' => 'Respon cepat tanggap darurat PSC 119 terintegrasi 24 jam penuh.',
                 'icon_name' => 'phone',
-                'link_url' => 'tel:119',
+                'link_url' => null,
                 'order_index' => 2,
             ],
             [
                 'title' => 'Sampurasun',
-                'description' => null,
+                'description' => 'Wilujeng sumping. Pusat layanan sareng informasi kasehatan kanggo warga masarakat Kabupaten Cianjur.',
                 'icon_name' => 'pray',
-                'link_url' => '#',
+                'link_url' => null,
                 'order_index' => 3,
             ],
         ];

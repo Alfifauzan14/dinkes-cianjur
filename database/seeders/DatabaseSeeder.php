@@ -101,9 +101,9 @@ class DatabaseSeeder extends Seeder
                 'status' => 'published',
             ],
             [
-                'title' => 'Dinas Kesehatan Cianjur Berhasil Luncurkan Aplikasi Satu Data Kesehatan',
+                'title' => 'Dinas Kesehatan Cianjur Berhasil Luncurkan Aplikasi Data Kesehatan',
                 'category' => 'Pengumuman',
-                'content' => 'Sebagai wujud transparansi dan penyediaan informasi yang akurat bagi masyarakat, Dinas Kesehatan Kabupaten Cianjur resmi meluncurkan portal Satu Data Kesehatan. Portal ini mengintegrasikan seluruh indikator pelayanan puskesmas, sebaran rumah sakit rujukan, rasio tenaga medis, serta profil kesehatan tahunan yang dapat diakses dengan mudah secara daring.',
+                'content' => 'Sebagai wujud transparansi dan penyediaan informasi yang akurat bagi masyarakat, Dinas Kesehatan Kabupaten Cianjur resmi meluncurkan portal Data Kesehatan. Portal ini mengintegrasikan seluruh indikator pelayanan puskesmas, sebaran rumah sakit rujukan, rasio tenaga medis, serta profil kesehatan tahunan yang dapat diakses dengan mudah secara daring.',
                 'image' => null,
                 'views' => 156,
                 'status' => 'published',

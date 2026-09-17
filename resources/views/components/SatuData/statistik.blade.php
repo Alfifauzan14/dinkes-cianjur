@@ -78,7 +78,7 @@
     {{-- Banner --}}
     <header class="satudata-banner">
         <div class="satudata-banner-container">
-            <h1 class="satudata-banner-title">Satu Data Kesehatan</h1>
+            <h1 class="satudata-banner-title">Data Kesehatan</h1>
             <p class="satudata-banner-subtitle">Portal visualisasi statistik kesehatan Kabupaten Cianjur.</p>
         </div>
     </header>

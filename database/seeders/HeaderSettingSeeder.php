@@ -114,8 +114,8 @@ class HeaderSettingSeeder extends Seeder
             ],
             [
                 'page_key' => 'statistik',
-                'page_name' => 'Satu Data / Statistik',
-                'title' => 'Satu Data Kesehatan',
+                'page_name' => 'Data Kesehatan / Statistik',
+                'title' => 'Data Kesehatan',
                 'subtitle' => 'Portal visualisasi statistik interaktif tren stunting balita, sebaran nakes, dan indikator utama.',
             ],
         ];

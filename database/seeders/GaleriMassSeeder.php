@@ -19,7 +19,7 @@ class GaleriMassSeeder extends Seeder
             ['title' => 'Layanan Siaga Darurat PSC 119 Terintegrasi', 'category' => 'PROGRAM'],
             ['title' => 'Pencapaian Universal Health Coverage (UHC) Kabupaten Cianjur', 'category' => 'PROGRAM'],
             ['title' => 'Program Pendampingan Keluarga Stunting di Desa Lokus', 'category' => 'PROGRAM'],
-            ['title' => 'Peluncuran Aplikasi Satu Data Kesehatan Cianjur', 'category' => 'PROGRAM'],
+            ['title' => 'Peluncuran Aplikasi Data Kesehatan Cianjur', 'category' => 'PROGRAM'],
             ['title' => 'Program Orang Tua Asuh Anak Stunting', 'category' => 'PROGRAM'],
             ['title' => 'Bantuan Sosial Pangan Bergizi bagi Balita Stunting', 'category' => 'PROGRAM'],
             ['title' => 'Implementasi Nutri Rice untuk Ibu Hamil', 'category' => 'PROGRAM'],

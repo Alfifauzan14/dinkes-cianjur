@@ -71,14 +71,14 @@
                                 <option value="/cek-status">Cek Status Permohonan (/cek-status)</option>
                                 <option value="/ikm">Indeks Kepuasan Masyarakat (/ikm)</option>
                             </optgroup>
-                            <optgroup label="Berita, Media & Satu Data">
+                            <optgroup label="Berita, Media & Data Kesehatan">
                                 <option value="/berita">Berita & Artikel (/berita)</option>
                                 <option value="/agenda">Agenda Kegiatan (/agenda)</option>
                                 <option value="/media/galeri-kegiatan">Galeri Foto Kegiatan</option>
                                 <option value="/media/infografis">Infografis Kesehatan</option>
-                                <option value="/satu-data/statistik">Satu Data Kesehatan (Statistik)</option>
-                                <option value="/satu-data/laporan">Satu Data Kesehatan (Laporan)</option>
-                                <option value="/satu-data/regulasi">Satu Data Kesehatan (Regulasi)</option>
+                                <option value="/satu-data/statistik">Data Kesehatan (Statistik)</option>
+                                <option value="/satu-data/laporan">Data Kesehatan (Laporan)</option>
+                                <option value="/satu-data/regulasi">Data Kesehatan (Regulasi)</option>
                             </optgroup>
                             <optgroup label="Layanan Eksternal / Nasional">
                                 <option value="https://satusehat.kemkes.go.id">SatuSehat Kemenkes RI</option>

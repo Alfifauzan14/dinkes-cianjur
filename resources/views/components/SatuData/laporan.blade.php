@@ -14,7 +14,7 @@
 
             <!-- Page Subheader -->
             <div class="laporan-page-header">
-                <span class="laporan-category-tag">Satu Data Kesehatan</span>
+                <span class="laporan-category-tag">Data Kesehatan</span>
                 <h2 class="laporan-title">Laporan Publik Resmi</h2>
             </div>
 

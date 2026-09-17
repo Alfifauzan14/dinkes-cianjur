@@ -55,7 +55,7 @@ Route::post('/cek-status', [PPIDController::class, 'cekStatusApi'])->middleware(
 Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
 Route::get('/api/agenda-by-date', [HomeController::class, 'agendaByDate'])->name('agenda.by_date');
 
-/* --- Satu Data Kesehatan Routes --- */
+/* --- Data Kesehatan Routes --- */
 Route::get('/satu-data/statistik', [SatuDataController::class, 'statistik'])->name('satudata.statistik');
 Route::get('/satu-data/laporan', [SatuDataController::class, 'laporan'])->name('satudata.laporan');
 Route::get('/satu-data/laporan/{laporan}/view', [SatuDataController::class, 'viewLaporan'])->name('satudata.laporan.view');

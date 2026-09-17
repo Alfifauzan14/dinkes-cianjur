@@ -43,7 +43,7 @@
     }
 </style>
 
-<nav class="satudata-subnav-wrapper" aria-label="Sub-navigasi Satu Data Kesehatan">
+<nav class="satudata-subnav-wrapper" aria-label="Sub-navigasi Data Kesehatan">
     <a href="{{ route('satudata.statistik') }}" class="satudata-subnav-item {{ ($activeTab ?? '') === 'statistik' ? 'active' : '' }}">
         <span class="material-icons">bar_chart</span>
         <span>Statistik Indikator</span>
