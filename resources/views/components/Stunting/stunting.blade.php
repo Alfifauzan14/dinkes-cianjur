@@ -61,35 +61,6 @@
     <main class="st-content">
         <div class="st-container">
 
-            <!-- Data Stunting Terkini -->
-            @if($program && ($program->stat_1_num || $program->stat_2_num || $program->stat_3_num))
-            <div class="st-category-section">
-                <div class="st-title-section">
-                    <h2 class="st-main-title">Data Stunting Terkini</h2>
-                    <p class="st-main-subtitle">Angka pencapaian dan data indikator program terbaru di Kabupaten Cianjur.</p>
-                </div>
-                <div class="st-info-grid">
-                    @if($program->stat_1_num)
-                        <div class="st-info-card">
-                            <p class="st-info-number">{{ $program->stat_1_num }}</p>
-                            <p class="st-info-label">{{ $program->stat_1_label }}</p>
-                        </div>
-                    @endif
-                    @if($program->stat_2_num)
-                        <div class="st-info-card">
-                            <p class="st-info-number">{{ $program->stat_2_num }}</p>
-                            <p class="st-info-label">{{ $program->stat_2_label }}</p>
-                        </div>
-                    @endif
-                    @if($program->stat_3_num)
-                        <div class="st-info-card">
-                            <p class="st-info-number">{{ $program->stat_3_num }}</p>
-                            <p class="st-info-label">{{ $program->stat_3_label }}</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
-            @endif
 
             <!-- Program Intervensi -->
             @if($program && $program->intervensi && count($program->intervensi) > 0)

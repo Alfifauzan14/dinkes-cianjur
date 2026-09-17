@@ -4,7 +4,10 @@
     <div class="info-cards-container">
 
         @forelse($infoCards ?? [] as $card)
-            <div class="info-card">
+            @if($card->link_url)
+                <a href="{{ $card->link_url }}" class="info-card-link" @if(str_starts_with($card->link_url, 'http')) target="_blank" rel="noopener noreferrer" @endif>
+            @endif
+            <div class="info-card {{ $card->link_url ? 'info-card-clickable' : '' }}">
                 <div class="info-card-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#009966" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         @include('admin.home-content.icon', ['icon' => $card->icon_name])
@@ -13,6 +16,9 @@
                 <h3 class="info-card-title">{{ $card->title }}</h3>
                 <p class="info-card-desc">{{ $card->description }}</p>
             </div>
+            @if($card->link_url)
+                </a>
+            @endif
         @empty
             <div class="info-card">
                 <div class="info-card-icon">
@@ -28,3 +34,4 @@
 
     </div>
 </section>
+
