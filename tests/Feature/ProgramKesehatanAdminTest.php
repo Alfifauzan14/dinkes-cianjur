@@ -31,8 +31,6 @@ class ProgramKesehatanAdminTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Program Tuberkulosis (TB)');
         $response->assertSee('Pencegahan TB di Cianjur');
-        $response->assertSee('150');
-        $response->assertSee('Kasus Selesai');
         $response->assertSee('Intervensi TB 1');
     }
 

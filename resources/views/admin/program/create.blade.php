@@ -50,12 +50,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#pane-indikator" role="tab">
-                                <span class="material-icons" style="font-size: 16px; vertical-align: text-bottom; margin-right: 4px;">bar_chart</span>
-                                Indikator Statistik
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" data-toggle="pill" href="#pane-edukasi" role="tab">
                                 <span class="material-icons" style="font-size: 16px; vertical-align: text-bottom; margin-right: 4px;">article</span>
                                 Artikel Edukasi
@@ -203,46 +197,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        {{-- === SECTION 3: Indikator Statistik === --}}
-                        <div class="tab-pane fade" id="pane-indikator" role="tabpanel">
-                            <div class="mb-4">
-                                <h6 class="font-weight-bold mb-1" style="font-size: 15px;">Indikator Statistik</h6>
-                                <p class="text-muted mb-0" style="font-size: 13px;">Angka statistik ini akan ditampilkan secara menonjol di halaman program (Opsional).</p>
-                            </div>
-                            
-                            <div class="row">
-                                @foreach([1,2,3] as $n)
-                                <div class="col-md-4">
-                                    <div class="card bg-light border mb-3 mb-md-0">
-                                        <div class="card-header text-center font-weight-bold">
-                                            Indikator Utama {{ $n }}
-                                        </div>
-                                        <div class="card-body p-4">
-                                            <div class="text-center mb-4">
-                                                <h3 class="font-weight-bold mb-1" id="stat-num-preview-{{ $n }}" style="color: var(--brand-green); font-size: 28px;">–</h3>
-                                                <span class="text-muted" id="stat-lbl-preview-{{ $n }}" style="font-size: 13px;">Label {{ $n }}</span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label style="font-size:12px; font-weight:600;">Angka / Persentase</label>
-                                                <input type="text" name="stat_{{ $n }}_num" value="{{ old('stat_'.$n.'_num') }}"
-                                                    class="form-control form-control-sm"
-                                                    placeholder="Contoh: 12.5%"
-                                                    oninput="document.getElementById('stat-num-preview-{{ $n }}').textContent = this.value || '–'">
-                                            </div>
-                                            <div class="form-group mb-0">
-                                                <label style="font-size:12px; font-weight:600;">Keterangan Label</label>
-                                                <input type="text" name="stat_{{ $n }}_label" value="{{ old('stat_'.$n.'_label') }}"
-                                                    class="form-control form-control-sm"
-                                                    placeholder="Contoh: Prevalensi Stunting"
-                                                    oninput="document.getElementById('stat-lbl-preview-{{ $n }}').textContent = this.value || 'Label {{ $n }}'">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
                             </div>
                         </div>
 

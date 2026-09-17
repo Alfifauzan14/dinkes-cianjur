@@ -46,48 +46,6 @@
     };
 @endphp
 
-<style>
-.kia-info-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 40px;
-}
-.kia-info-card {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 1px;
-    padding: 32px;
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.05);
-    box-sizing: border-box;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    text-align: center;
-}
-.kia-info-card:hover {
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    transform: translateY(-4px);
-}
-.kia-info-number {
-    font-size: 48px;
-    font-weight: 800;
-    color: #009966;
-    margin: 0 0 8px 0;
-    line-height: 1;
-}
-.kia-info-label {
-    font-size: 16px;
-    font-weight: 600;
-    color: #374151;
-    margin: 0;
-    line-height: 1.4;
-}
-@media (max-width: 768px) {
-    .kia-info-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-
 <div class="kia-page-wrapper">
     <!-- Header Section -->
     <header class="kia-header">
@@ -104,35 +62,6 @@
     <!-- Main Content Section -->
     <main class="kia-content">
         <div class="kia-container">
-
-            <!-- Data & Statistik Terkini -->
-            @if($program && ($program->stat_1_num || $program->stat_2_num || $program->stat_3_num))
-            <div class="kia-category-section">
-                <div class="kia-title-section">
-                    <h2 class="kia-main-title">Data & Statistik Terkini</h2>
-                </div>
-                <div class="kia-info-grid">
-                    @if($program->stat_1_num)
-                        <div class="kia-info-card">
-                            <p class="kia-info-number">{{ $program->stat_1_num }}</p>
-                            <p class="kia-info-label">{{ $program->stat_1_label }}</p>
-                        </div>
-                    @endif
-                    @if($program->stat_2_num)
-                        <div class="kia-info-card">
-                            <p class="kia-info-number">{{ $program->stat_2_num }}</p>
-                            <p class="kia-info-label">{{ $program->stat_2_label }}</p>
-                        </div>
-                    @endif
-                    @if($program->stat_3_num)
-                        <div class="kia-info-card">
-                            <p class="kia-info-number">{{ $program->stat_3_num }}</p>
-                            <p class="kia-info-label">{{ $program->stat_3_label }}</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
-            @endif
 
             <!-- Program KIA -->
             @if($program && $program->intervensi && count($program->intervensi) > 0)

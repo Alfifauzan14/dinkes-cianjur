@@ -77,36 +77,6 @@
         <main class="prog-content">
             <div class="prog-container">
 
-                <!-- Data Statistik Terkini (Optional, only shows if populated) -->
-                @if($program->stat_1_num || $program->stat_2_num || $program->stat_3_num)
-                    <div class="prog-category-section">
-                        <div class="prog-title-section">
-                            <h2 class="prog-main-title">Data Terkini</h2>
-                            <p class="prog-main-subtitle">Angka pencapaian dan data indikator program terbaru di Kabupaten Cianjur.</p>
-                        </div>
-                        <div class="prog-info-grid">
-                            @if($program->stat_1_num)
-                                <div class="prog-info-card">
-                                    <p class="prog-info-number">{{ $program->stat_1_num }}</p>
-                                    <p class="prog-info-label">{{ $program->stat_1_label }}</p>
-                                </div>
-                            @endif
-                            @if($program->stat_2_num)
-                                <div class="prog-info-card">
-                                    <p class="prog-info-number">{{ $program->stat_2_num }}</p>
-                                    <p class="prog-info-label">{{ $program->stat_2_label }}</p>
-                                </div>
-                            @endif
-                            @if($program->stat_3_num)
-                                <div class="prog-info-card">
-                                    <p class="prog-info-number">{{ $program->stat_3_num }}</p>
-                                    <p class="prog-info-label">{{ $program->stat_3_label }}</p>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                @endif
-
                 <!-- Program Intervensi (Optional, only shows if populated) -->
                 @if($program->intervensi && count($program->intervensi) > 0)
                     <div class="prog-category-section">
